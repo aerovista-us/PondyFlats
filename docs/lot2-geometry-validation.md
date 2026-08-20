@@ -131,6 +131,12 @@ E2 was fixed first against the real setback taper:
 - **Garages** — two exact 22×22′ boxes recessed left/rear
 - **Drive** — enters at Pennsylvania/right (x = 148), routes west
 
+## Shortlist Elimination Memo
+
+After Pass 1.5 geometry PASS, the five track concepts (E2 · G1 · V2 · H6 · H3) are scored on seven criteria with ADVANCE / HOLD / DROP dispositions. E3 is appendix only.
+
+See [`shortlist.html`](../shortlist.html) and [`shortlist-elimination-memo.md`](shortlist-elimination-memo.md).
+
 ## What Pass 2 is NOT
 
 Pass 2 is not automatic. No elevation or perspective work until:
