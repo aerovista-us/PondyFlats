@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Pondy Flats Lot 2 — Duplex Concept Study</title>
-<meta name="description" content="Lot 2 duplex study — locked drawing: Pennsylvania on the right, compass pointing left.">
+<title>Pondy Flats Lot 2 — Study Workflow</title>
+<meta name="description" content="Lot 2 study workflow — SOT to Pass 1.5 geometry validation to Pass 2 architecture.">
 <style>
 :root{--navy:#0d1b33;--ink:#18212b;--muted:#64707c;--gold:#d79b36;--line:#ddd7cf;--green:#edf4e7;--warn:#fff5e6;--shadow:0 18px 50px rgba(13,27,51,.10)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e1);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -12,84 +12,49 @@
 .topin{max-width:1400px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px}
 .brand small{display:block;color:#efb34d;font-weight:900;letter-spacing:.14em;text-transform:uppercase;font-size:10px}.brand strong{font-size:16px}
 .nav{display:flex;gap:8px;flex-wrap:wrap}.nav a{font-size:12px;font-weight:800;text-decoration:none;color:#fff;border:1px solid #ffffff26;padding:8px 11px;border-radius:999px;background:#ffffff0b}
-.wrap{max-width:1400px;margin:auto;padding:24px 18px 70px}.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow)}
-.hero-main,.hero-side{padding:clamp(24px,4vw,52px)}.eyebrow{font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#956d29}
-h1{font:500 clamp(42px,6vw,76px)/.95 Georgia,serif;color:var(--navy);letter-spacing:-.04em;margin:14px 0}h2{color:var(--navy);font-size:clamp(28px,4vw,42px);margin:0 0 10px}h3{color:var(--navy);margin:0 0 8px}
-.lede{font-size:clamp(17px,2vw,21px);line-height:1.6;color:var(--muted)}.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
-.pill{border:1px solid #e5d7bd;background:#fff8ea;color:#6c5429;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:850}
-.hero-side{background:linear-gradient(145deg,#0d1b33,#17355f);color:#fff}.hero-side h2{color:#fff}.hero-side p{color:#dce5f2;line-height:1.55}
-.callout{margin-top:16px;border:1px solid #ffffff22;background:#ffffff0d;border-radius:15px;padding:14px;line-height:1.5;color:#e7edf5}
-.cta{display:inline-block;margin-top:14px;background:#efb34d;color:#0d1b33;font-weight:900;text-decoration:none;padding:12px 18px;border-radius:999px}
-.section{margin-top:22px;padding:24px}.section p{color:var(--muted);line-height:1.6}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.card{border:1px solid var(--line);background:#fff;border-radius:16px;padding:16px}.card b{color:var(--gold)}.card p{font-size:13px;margin:6px 0 0}
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:#fff}table{width:100%;border-collapse:collapse;min-width:900px}
-th,td{padding:12px 13px;border-bottom:1px solid #ece7e0;text-align:left;vertical-align:top;font-size:13px}th{background:#f4f1eb;color:var(--navy);font-weight:900}td:first-child{font-weight:900;color:var(--navy)}.role{font-weight:900;color:#8a6825}
-.status{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.status .card strong{display:block;color:var(--navy);font-size:18px;margin-top:4px}.good{background:var(--green)}.warn{background:var(--warn)}
-.timeline{display:grid;gap:10px}.step{display:grid;grid-template-columns:42px 1fr;gap:12px;align-items:start}.num{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font-weight:900}.step p{margin:4px 0 0}
-.code{background:#0c1422;color:#e7edf4;border-radius:16px;padding:18px;overflow:auto;font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}.footer{text-align:center;color:#7b838b;font-size:11px;line-height:1.5;margin-top:24px}
-@media(max-width:980px){.hero,.grid2,.grid3,.status{grid-template-columns:1fr}.nav{display:none}}
+.wrap{max-width:1400px;margin:auto;padding:24px 18px 70px}.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow);padding:24px;margin-top:22px}
+h1{font:500 clamp(42px,6vw,76px)/.95 Georgia,serif;color:var(--navy);margin:0 0 10px}h2{color:var(--navy);font-size:clamp(28px,4vw,42px);margin:0 0 10px}
+.lede{font-size:clamp(17px,2vw,21px);line-height:1.6;color:var(--muted)}p{color:var(--muted);line-height:1.6}
+.timeline{display:grid;gap:14px;margin-top:18px}.step{display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:start}
+.num{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font-weight:900;font-size:14px}
+.step.on .num{background:#d79b36;color:#0d1b33}.step.done .num{background:#416145}
+.step b{color:var(--navy);font-size:16px}.step p{margin:4px 0 0;font-size:14px}
+.code{background:#0c1422;color:#e7edf4;border-radius:16px;padding:18px;overflow:auto;font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;margin-top:14px}
+.disclaimer{margin-top:14px;padding:14px;border:1px solid #ebce99;background:#fff6e7;border-radius:12px;font-size:13px;line-height:1.5;color:#6e562c}
+.cta{display:inline-block;margin-top:14px;background:#efb34d;color:#0d1b33;font-weight:900;text-decoration:none;padding:12px 18px;border-radius:999px;margin-right:8px}
+.footer{text-align:center;color:#7b838b;font-size:11px;line-height:1.5;margin-top:24px}
 </style>
 </head>
 <body>
-<header class="top"><div class="topin"><div class="brand"><small>Pondy Flats · Lot 2</small><strong>Duplex / Two-Home Concept Study</strong></div>
-<nav class="nav"><a href="index.html">Concept site</a><a href="#geometry">Geometry</a><a href="#options">7 Options</a><a href="#status">Status</a></nav></div></header>
+<header class="top"><div class="topin"><div class="brand"><small>Pondy Flats · Lot 2</small><strong>Study Workflow</strong></div>
+<nav class="nav"><a href="index.html">Study hub</a><a href="lab.html">Validation matrix</a><a href="designs.html">Concept diagrams</a></nav></div></header>
 <main class="wrap">
-<section class="hero"><div class="panel hero-main"><div class="eyebrow">Locked drawing convention</div><h1>Lot 2 duplex study</h1>
-<div class="lede">Pennsylvania is the right-hand vertical 50′ frontage (south / front). The compass points left (north / rear). The 148′ axis runs horizontally from rear/left toward Pennsylvania/right. Drives enter from the right and travel left into the lot. The parcel is never rotated north-up.</div>
-<div class="stats"><span class="pill">7,028 SF · 0.161 AC</span><span class="pill">50.00′ Penn · RIGHT</span><span class="pill">148.00′ horizontal</span><span class="pill">57.01′ left/rear</span><span class="pill">2 × ~1,800 SF homes</span></div>
-<a class="cta" href="index.html">Open concept comparison site →</a></div>
-<aside class="panel hero-side"><div class="eyebrow">Current direction</div><h2>Math first. Elevation second.</h2>
-<p>E2 Recessed Garage Pass 1 uses the locked drawing. Review before any Pennsylvania elevation work.</p>
-<div class="callout"><strong>Locked:</strong> compass points left. No road, driveway, or Pennsylvania graphic on the bottom edge.</div></aside></section>
+<section class="panel"><h1>Pass 1.5 workflow</h1>
+<p class="lede">The seven original concepts are <strong>not</strong> fully validated under the old rectangular envelope. Pass 1.5 re-seats every footprint inside the polygon-accurate survey and working setback envelope before any Pass 2 architecture spend.</p>
+<div class="code">SOT survey polygon (frozen)
+→ polygon-accurate setbacks (planning assumptions)
+→ concept geometry (12 strategies)
+→ validation metrics (PASS / REVIEW / FAIL)
+→ approve shortlist (3 finalists)
+→ Pass 2 site / elevation (one finalist at a time)</div>
+<div class="disclaimer"><strong>Pass 1.5 validates geometry only.</strong> Swept-path, fire separation, utilities, ownership structure, final zoning/setbacks, and engineering remain unverified.</div>
+<a class="cta" href="lab.html">Open validation matrix →</a><a class="cta" href="designs.html" style="background:transparent;border:2px solid #0d1b33;color:#0d1b33">Concept diagrams</a></section>
 
-<section class="panel section" id="geometry"><h2>1. Locked site geometry</h2>
-<p>Authoritative source: <code>assets/master.image.png</code>. See <a href="docs/lot2-survey-orientation.md">docs/lot2-survey-orientation.md</a>.</p>
-<div class="grid3">
-<div class="card"><b>Right / Front</b><h3>50.00′ Pennsylvania Avenue</h3><p>Pennsylvania is the <strong>right</strong> side of every drawing, 50′ drawn vertically. It is SOUTH / FRONT.</p></div>
-<div class="card"><b>Horizontal depth</b><h3>148.00′</h3><p>Runs from rear/left toward Pennsylvania/right. Compass points left. Do not rotate north-up.</p></div>
-<div class="card"><b>Left / Rear</b><h3>57.01′</h3><p>North / rear boundary stays at left.</p></div>
-<div class="card"><b>Bottom</b><h3>85.98′ + 40.33′ + 23.90′</h3><p>Irregular boundary along the bottom. No street, drive, or Pennsylvania graphic here.</p></div>
-<div class="card"><b>Access</b><h3>Enter from the right</h3><p>Every drive originates at the Pennsylvania frontage and travels left into Lot 2.</p></div>
-<div class="card"><b>Garage test box</b><h3>22′ × 22′ / unit</h3><p>484 SF per garage in all Pass 1 studies.</p></div>
+<section class="panel"><h2>Stages</h2>
+<div class="timeline">
+<div class="step done"><div class="num">1</div><div><b>SOT survey polygon</b><p>Locked drawing: Pennsylvania RIGHT, north/rear LEFT, 148′ horizontal, irregular bottom boundary. Source: <code>js/lot2-sot.js</code>, <a href="docs/lot2-survey-orientation.md">lot2-survey-orientation.md</a>.</p></div></div>
+<div class="step done"><div class="num">2</div><div><b>Polygon-accurate setbacks</b><p>Inward offset per boundary segment — 20′ Penn/right, 25′ rear/left, 5′ top, 10′ bottom. Planning assumptions only.</p></div></div>
+<div class="step on"><div class="num">3</div><div><b>Concept geometry</b><p>Seven benchmarks/revisions + five challengers (H2–H6). Same lot, garage box, access rules. No concept redraws the parcel.</p></div></div>
+<div class="step on"><div class="num">4</div><div><b>Validation metrics</b><p>Survey fit · setback fit · first-floor area · garage 22×22 · min separation · drive length · paved area · Penn/right connection.</p></div></div>
+<div class="step"><div class="num">5</div><div><b>Approve shortlist</b><p>Benchmark trio E2 · G1 · V2 plus promoted challengers. Three finalists earn Pass 2.</p></div></div>
+<div class="step"><div class="num">6</div><div><b>Pass 2 site / elevation</b><p>Landscape, Pennsylvania elevation, perspective — one finalist at a time, after explicit geometry approval.</p></div></div>
 </div></section>
 
-<section class="panel section" id="options"><h2>2. Seven-option framework</h2>
-<div class="table-wrap"><table><thead><tr><th>Concept</th><th>What it tests</th><th>Current role</th><th>Pass 1</th></tr></thead><tbody>
-<tr><td>V2 Long-Axis V</td><td>Angled long-axis separation · wings open left/rear</td><td class="role">Design ceiling</td><td>Complete (cleanup)</td></tr>
-<tr><td>E2 Recessed Garage</td><td>Conventional Penn-facing duplex · garages left/rear</td><td class="role">Conventional benchmark</td><td>Complete — review first</td></tr>
-<tr><td>E1 Deep-Stagger</td><td>Privacy through depth offset</td><td class="role">Privacy benchmark</td><td>Complete</td></tr>
-<tr><td>E3 Front Courtyard</td><td>Shared Pennsylvania-facing arrival court</td><td class="role">Courtyard benchmark</td><td>Complete</td></tr>
-<tr><td>F1 Rear Motor Court</td><td>Living at Penn · garages left/rear</td><td class="role">Street-presence benchmark</td><td>Complete</td></tr>
-<tr><td>G1 Z-Duplex</td><td>Orthogonal long-axis interlock</td><td class="role">High-potential challenger</td><td>Complete</td></tr>
-<tr><td>G2 Interlocking-L</td><td>Two L-shaped homes around private space</td><td class="role">Architectural wildcard</td><td>Complete</td></tr>
-</tbody></table></div></section>
-
-<section class="panel section"><h2>3. Locked drawing rules</h2>
-<div class="grid2">
-<div class="card"><b>Do not rotate</b><h3>Compass points left</h3><p>North / rear is the left side of every drawing. Pennsylvania stays on the right as SOUTH / FRONT. Never rotate the parcel so north points up.</p></div>
-<div class="card"><b>Access</b><h3>Enter from Pennsylvania / right</h3><p>No road, driveway, or Pennsylvania graphic along the bottom irregular edge. Vehicles originate at the right-hand 50′ frontage and travel left into the lot.</p></div>
-</div></section>
-
-<section class="panel section" id="status"><h2>4. Current status</h2>
-<div class="status">
-<div class="card good"><b>Complete</b><strong>Drawing convention</strong><p>Penn right · compass left · 148′ horizontal.</p></div>
-<div class="card good"><b>Complete</b><strong>Seven Pass 1 math</strong><p>All concepts on the locked drawing coordinates.</p></div>
-<div class="card good"><b>Complete</b><strong>Concept site</strong><p>designs.html updated with metrics comparison.</p></div>
-<div class="card warn"><b>Pending</b><strong>E2 approval</strong><p>Review E2 geometry before any elevation work.</p></div>
-<div class="card warn"><b>Pending</b><strong>Vehicle validation</strong><p>Swept-path testing not yet complete.</p></div>
-<div class="card warn"><b>Pending</b><strong>GitHub deploy</strong><p>Push to aerovista-us/PondyFlats when ready.</p></div>
-<div class="card warn"><b>Pending</b><strong>Code confirmation</strong><p>Setbacks remain planning assumptions.</p></div>
-<div class="card warn"><b>Not selected</b><strong>Final winner</strong><p>Competition should narrow after metric review.</p></div>
-</div></section>
-
-<section class="panel section"><h2>5. Core workflow</h2>
-<div class="code">master.image.png bearings
-→ traverse polygon (7,023 SF)
-→ Pass 1 math diagram per concept
-→ APPROVE (E2 first)
-→ finished site plan + Penn elevation
-→ 3/4 perspective (one concept at a time)</div></section>
-<div class="footer">Concept planning only. Survey geometry per docs/lot2-survey-orientation.md. Professional verification required before design development.</div>
+<section class="panel"><h2>Concept groups</h2>
+<p><strong>Validated / Current Benchmarks:</strong> E2 Recessed Garage · G1 Z-Duplex · V2 Long-Axis V</p>
+<p><strong>Needs Geometry Revision:</strong> E1 · E3 · F1 · G2 Interlocking-L</p>
+<p><strong>New Challengers:</strong> H2 Carriage-Hinge · H3 Mews Courtyard · H4 Garage-Under/LOG · H5 Urban Cottage · H6 Central-Core</p></section>
+<div class="footer">See <a href="docs/lot2-geometry-validation.md">docs/lot2-geometry-validation.md</a></div>
 </main>
 </body>
 </html>

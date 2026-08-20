@@ -58,3 +58,44 @@ Calculated area ≈ 7,023 SF (plat 7,028 SF).
 ## Source image
 
 [`assets/master.image.png`](../assets/master.image.png) supplies lengths. This locked drawing convention overrides any north-up rotation.
+
+## Pass 1 review (Aug 2026)
+
+All seven concepts exist as SVG in [`js/lot2-geometry.js`](../js/lot2-geometry.js) and render on [`designs.html`](../designs.html). Exports: [`review-pass1/`](../review-pass1/).
+
+### Revisions (option 3)
+
+| Concept | Change |
+|---------|--------|
+| **E3** | Court widened from 8×22′ gap to **14×24′** at Pennsylvania (x=134). Units 46×17 @ 782 SF. Drive midline y=22. |
+| **G2** | Rectangle placeholders replaced with **true L polygons** — Unit A 832 SF, Unit B 804 SF; garden between crooks. |
+
+### Legacy board comparison
+
+| Pass 1 | Legacy | Match |
+|--------|--------|-------|
+| E2 | `imgs/e2.png` | Yes — recessed garages, Penn-facing duplex |
+| E3 | `imgs/e3.png` | Intent yes — walled front court (now sized) |
+| E1 | `imgs/2_E1.png` | No — legacy is narrow 64×14; current is deep-stagger |
+| V2 | `imgs/lot2_math_v_750_first_floor.png` | Yes — trapezoid wings, Penn right |
+| G2 | — | Pass 1 only |
+
+### Envelope notes (axis-aligned 20/25/5/10)
+
+- **E2, F1**: minor south clip on lower unit/garage (~1–5′)
+- **E1, E3, G1, G2, V2**: inside axis box after E3/G2 revision
+- Polygon-accurate setback check not yet run — irregular bottom may differ
+
+### Pass 2 gate
+
+No elevations until finalist approval per concept.
+
+## Geometry validation funnel
+
+See [`lot2-geometry-validation.md`](lot2-geometry-validation.md) and [`lab.html`](../lab.html).
+
+```
+SOT (frozen) → Geometry Lab → Viable Concepts → Finalists → Pass 2 Architecture
+```
+
+SOT constants live in [`js/lot2-sot.js`](../js/lot2-sot.js) — parcel geometry must not be edited by concepts.

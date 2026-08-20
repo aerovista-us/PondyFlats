@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pondy Flats · Lot 2 Geometry Lab</title>
+<meta name="description" content="Lot 2 Pass 1.5 — polygon-accurate setbacks, concept validation matrix. Geometry only.">
+<style>
+:root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--ok:#416145;--bad:#9a3b2e;--warn:#7b5721;--shadow:0 18px 54px #0f1a2b1a}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+.top{position:sticky;top:0;z-index:50;background:#0d1b33f4;color:#fff;border-bottom:1px solid #ffffff18}
+.topin{max-width:1480px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand small{display:block;color:#efb34d;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.brand strong{font-size:16px}
+.nav{display:flex;gap:8px;flex-wrap:wrap}.nav a{color:#fff;text-decoration:none;border:1px solid #ffffff28;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800}
+.wrap{max-width:1480px;margin:auto;padding:22px 18px 80px}
+.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow);padding:24px;margin-top:18px}
+h1{font:500 clamp(36px,5vw,58px)/1 Georgia,serif;color:var(--navy);margin:0 0 8px}h2{color:var(--navy);margin:0 0 10px;font-size:28px}
+.lede{color:var(--muted);line-height:1.55;margin:0;max-width:95ch}
+.funnel{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 8px}
+.step{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:12px;font-weight:850;color:var(--navy)}
+.step.on{background:var(--navy);color:#fff}.step.done{background:#edf5e9;border-color:#cbdcc3;color:var(--ok)}.step.future{opacity:.55}
+.matrix{overflow:auto;border:1px solid var(--line);border-radius:16px;margin-top:14px}
+table{width:100%;border-collapse:collapse;min-width:1300px;background:#fff;font-size:12px}
+th,td{padding:10px 12px;border-bottom:1px solid #ece7e0;text-align:left;vertical-align:top}
+th{background:#f6f3ee;color:var(--navy);font-weight:900;position:sticky;top:0}
+td:first-child{font-weight:900;color:var(--navy)}
+.pass{color:var(--ok);font-weight:900}.fail{color:var(--bad);font-weight:900}.warn{color:var(--warn);font-weight:850}
+.tag{display:inline-block;border-radius:999px;padding:3px 8px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
+.tag.benchmark{background:#edf5e9;color:var(--ok)}.tag.revision{background:#fff4e5;color:var(--warn)}.tag.challenger{background:#eef3fa;color:#2a4a7a}
+.tag.pass{background:#edf5e9;color:var(--ok)}.tag.review{background:#fff4e5;color:var(--warn)}.tag.fail{background:#fdecea;color:var(--bad)}
+.callout{margin-top:14px;padding:14px;border-left:4px solid var(--gold);background:#fff8eb;color:#6c5429;font-size:13px;line-height:1.5}
+.disclaimer{margin-top:14px;padding:14px;border:1px solid #ebce99;background:#fff6e7;border-radius:12px;font-size:13px;line-height:1.5;color:#6e562c}
+.grouphead{margin:22px 0 8px;color:var(--navy);font-size:20px;font-weight:900}
+.issue{font-size:11px;color:#6b4a42;line-height:1.4;margin:2px 0 0}
+@media(max-width:900px){.nav{display:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand"><small>Pondy Flats · Lot 2</small><strong>Pass 1.5 Geometry Validation</strong></div>
+<nav class="nav"><a href="index.html">Study hub</a><a href="study.html">Workflow</a><a href="designs.html">Concept diagrams</a><a href="docs/lot2-geometry-validation.md">Docs</a></nav>
+</div></header>
+<main class="wrap">
+<section class="panel"><h1>Geometry Lab — Pass 1.5</h1>
+<p class="lede">Polygon-accurate working setbacks derived from the locked survey polygon — <strong>not</strong> the old axis-aligned envelope proxy. Every concept uses the same lot, garage standard (22×22), and Pennsylvania/right access convention.</p>
+<div class="funnel">
+<span class="step done">SOT survey polygon</span><span class="step done">→ polygon setbacks</span><span class="step on">→ concept geometry</span><span class="step on">→ validation metrics</span><span class="step future">→ approve shortlist</span><span class="step future">Pass 2 site/elevation</span>
+</div>
+<div class="callout"><strong>Working setback assumptions (planning only):</strong> 20′ front (Pennsylvania/right) · 25′ rear/left · 5′ top · 10′ bottom/irregular. Not survey facts — confirm with R-12 interpretation.</div>
+<div class="disclaimer"><strong>Pass 1.5 validates geometry only.</strong> Swept-path turning, fire separation, utilities, ownership structure, final zoning/setbacks, and structural engineering remain unverified. PASS here does not authorize Pass 2 architecture spend.</div></section>
+
+<section class="panel" id="matrix"><h2>Validation comparison matrix</h2>
+<div id="groups"></div></section>
+</main>
+<script src="js/lot2-sot.js"></script>
+<script src="js/lot2-geometry.js"></script>
+<script>
+const groupsEl=document.getElementById('groups');
+const vals=Lot2.getAllValidations();
+const sections=[
+  {key:'benchmark',label:Lot2.GROUP_LABELS.benchmark,ids:Lot2.BENCHMARKS},
+  {key:'revision',label:Lot2.GROUP_LABELS.revision,ids:Lot2.REVISION},
+  {key:'challenger',label:Lot2.GROUP_LABELS.challenger,ids:Lot2.CHALLENGERS},
+];
+function statusTag(s){return `<span class="tag ${s.toLowerCase()}">${s}</span>`;}
+function chk(v,k){return v.checks[k]?'<span class="pass">✓</span>':'<span class="fail">✗</span>';}
+sections.forEach(sec=>{
+  const h=document.createElement('h3');h.className='grouphead';h.textContent=sec.label;groupsEl.appendChild(h);
+  const wrap=document.createElement('div');wrap.className='matrix';
+  const table=document.createElement('table');
+  table.innerHTML=`<thead><tr>
+    <th>Concept</th><th>1st fl / unit</th><th>Living target</th><th>Garage</th><th>Yard</th><th>Paved</th><th>Drive</th><th>Min sep</th><th>Survey</th><th>Setback</th><th>Access</th><th>Status</th><th>Verdict</th>
+  </tr></thead><tbody></tbody>`;
+  const tbody=table.querySelector('tbody');
+  sec.ids.forEach(id=>{
+    const c=Lot2.CONCEPTS[id],m=Lot2.getMetrics(id),v=vals[id];
+    if(!c||!m||!v) return;
+    const tr=document.createElement('tr');
+    const issues=(v.reasons||[]).slice(0,2).map(r=>`<div class="issue">${r}</div>`).join('');
+    tr.innerHTML=`<td>${c.label}<br><span class="tag ${c.group}">${c.group}</span></td>
+      <td>${m.firstFloor} SF<br><small>${m.firstFloorExact.map(a=>a.toFixed(0)).join(' · ')} ea</small></td>
+      <td>${m.totalLiving} SF</td>
+      <td>${m.garageTotal} SF</td>
+      <td>${m.yardSF} SF</td>
+      <td>${m.pavedSF} SF</td>
+      <td>${m.driveLen}′<br><small>${v.minDriveClear??'—'}′ clear</small></td>
+      <td>${m.minSep}′</td>
+      <td>${chk(v,'inSurvey')}</td>
+      <td>${chk(v,'inSetback')}</td>
+      <td>${chk(v,'pennAccess')}</td>
+      <td>${statusTag(v.status)}</td>
+      <td>${v.verdict}${issues}</td>`;
+    tbody.appendChild(tr);
+  });
+  wrap.appendChild(table);groupsEl.appendChild(wrap);
+});
+</script>
+</body>
+</html>
