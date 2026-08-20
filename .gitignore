@@ -1,0 +1,20 @@
+# Dependencies / tooling
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+
+# Editor / agent local
+.cursor/
+.vscode/
+*.swp
+
+# Nested push mirror (legacy)
+_push-temp/
+
+# Temp export helpers
+imgs/_*.html
+imgs/_*.svg
+
+# Optional local caches
+.cache/

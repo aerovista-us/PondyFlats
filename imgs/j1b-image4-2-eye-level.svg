@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 620" role="img" aria-label="J1-B eye-level perspective from Image 4.1">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#c5d4e0"/>
+          <stop offset="100%" stop-color="#e8eef3"/>
+        </linearGradient>
+      </defs>
+      <rect width="1100" height="620" fill="url(#sky)"/>
+      <rect y="359.59999999999997" width="1100" height="260.4" fill="#d9d3c8"/>
+      
+      <text x="40" y="28" font-size="14" font-weight="900" fill="#0d1b33">J1-B · EYE-LEVEL FROM PENNSYLVANIA · from Image 4.1 locked base</text>
+      <text x="40" y="48" font-size="11" fill="#59636d">Camera on Penn sidewalk looking west · east garage doors face Access A / viewer · A near / B deep · 4′ E porches only</text>
+      <polygon points="567.5,391.1 549.7,390.2 590.0,389.9 602.8,390.9" fill="#cfc6b6" fill-opacity="0.9" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="588.7,358.2 573.9,351.9 599.3,337.2 610.8,345.7" fill="#4a5058" fill-opacity="0.94" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="602.9,411.9 590.0,414.3 590.0,389.9 602.8,390.9" fill="#c4baa8" fill-opacity="0.88" stroke="#2a3038" stroke-width="1.1"/>
+<polygon points="588.7,358.2 573.9,351.9 626.3,349.2 634.2,356.2" fill="#e2ddd2" fill-opacity="0.9" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="588.7,391.0 573.9,390.0 626.6,389.6 634.5,390.7" fill="#6e7a88" fill-opacity="0.9" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="634.2,356.2 626.3,349.2 599.3,337.2 610.8,345.7" fill="#3a3f46" fill-opacity="0.96" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="634.5,390.7 626.6,389.6 626.3,349.2 634.2,356.2" fill="#d8d0c0" fill-opacity="0.88" stroke="#2a3038" stroke-width="1.1"/>
+<polygon points="634.7,412.4 626.8,415.0 626.6,389.6 634.5,390.7" fill="#525c68" fill-opacity="0.88" stroke="#2a3038" stroke-width="1.1"/>
+<polygon points="549.6,413.5 590.0,414.3 590.0,389.9 549.7,390.2" fill="#b7ab96" fill-opacity="0.95" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="560.6,392.5 557.0,392.3 575.2,392.2 578.3,392.4" fill="#5c4030" fill-opacity="0.9" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="560.6,413.7 557.0,414.2 575.2,414.6 578.3,414.1" fill="#a88855" fill-opacity="0.9" stroke="#3a2a16" stroke-width="1.1"/>
+<polygon points="557.0,414.2 575.2,414.6 575.2,392.2 557.0,392.3" fill="#c4a574" fill-opacity="0.92" stroke="#3a2a16" stroke-width="1.1"/>
+<polygon points="573.9,390.0 626.6,389.6 626.3,349.2 573.9,351.9" fill="#cdc4b2" fill-opacity="0.95" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="573.9,414.0 626.8,415.0 626.6,389.6 573.9,390.0" fill="#3d4550" fill-opacity="0.95" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="580.7,412.9 619.2,413.6 619.1,393.4 580.7,393.6" fill="#12151a" fill-opacity="0.96" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="549.8,353.2 514.4,341.3 546.7,322.4 576.1,338.8" fill="#4a5058" fill-opacity="0.94" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="549.8,353.2 514.4,341.3 581.6,336.6 604.1,350.4" fill="#e2ddd2" fill-opacity="0.9" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="604.1,350.4 581.6,336.6 546.7,322.4 576.1,338.8" fill="#3a3f46" fill-opacity="0.96" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="604.3,389.7 581.7,387.5 581.6,336.6 604.1,350.4" fill="#d8d0c0" fill-opacity="0.88" stroke="#2a3038" stroke-width="1.1"/>
+<polygon points="596.4,420.7 613.2,421.2 599.2,416.0 586.3,415.7" fill="#4a5058" fill-opacity="0.75" stroke="#3a3a38" stroke-width="1.1"/>
+<polygon points="514.0,388.3 581.7,387.5 581.6,336.6 514.4,341.3" fill="#cdc4b2" fill-opacity="0.95" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="574.4,409.3 183.8,453.8 559.5,498.4 573.2,444.8 622.3,423.0 678.7,410.7" fill="#e8e2d8" fill-opacity="0.95" stroke="#232a31" stroke-width="1.1"/>
+<polygon points="506.1,387.9 465.0,385.7 541.6,384.5 570.2,387.1" fill="#cfc6b6" fill-opacity="0.9" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="570.2,420.8 541.5,426.9 541.6,384.5 570.2,387.1" fill="#c4baa8" fill-opacity="0.88" stroke="#2a3038" stroke-width="1.1"/>
+<polygon points="464.4,424.2 541.5,426.9 541.6,384.5 465.0,385.7" fill="#b7ab96" fill-opacity="0.95" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="501.6,318.1 378.1,263.5 438.5,211.9 542.0,291.1" fill="#4a5058" fill-opacity="0.94" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="484.9,389.3 475.0,388.9 510.0,388.5 518.6,389.0" fill="#5c4030" fill-opacity="0.9" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="484.5,424.9 474.5,426.3 509.7,427.6 518.3,426.1" fill="#a88855" fill-opacity="0.9" stroke="#3a2a16" stroke-width="1.1"/>
+<polygon points="501.6,318.1 378.1,263.5 508.9,237.5 586.4,309.6" fill="#e6e0d4" fill-opacity="0.9" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="474.5,426.3 509.7,427.6 510.0,388.5 475.0,388.9" fill="#c4a574" fill-opacity="0.92" stroke="#3a2a16" stroke-width="1.1"/>
+<polygon points="586.4,309.6 508.9,237.5 438.5,211.9 542.0,291.1" fill="#3a3f46" fill-opacity="0.96" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="586.6,386.6 507.7,377.6 508.9,237.5 586.4,309.6" fill="#ddd5c5" fill-opacity="0.88" stroke="#2a3038" stroke-width="1.1"/>
+<polygon points="465.0,385.7 389.5,381.7 486.2,379.5 541.6,384.5" fill="#6e7a88" fill-opacity="0.9" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="541.5,426.9 485.5,438.9 486.2,379.5 541.6,384.5" fill="#525c68" fill-opacity="0.88" stroke="#2a3038" stroke-width="1.1"/>
+<polygon points="392.3,478.0 438.6,483.4 613.2,421.2 596.4,420.7" fill="#4a5058" fill-opacity="0.75" stroke="#3a3a38" stroke-width="1.1"/>
+<polygon points="388.3,433.7 485.5,438.9 486.2,379.5 389.5,381.7" fill="#3d4550" fill-opacity="0.95" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="400.1,431.6 470.7,435.1 471.3,388.5 401.1,389.3" fill="#12151a" fill-opacity="0.96" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="375.0,380.9 507.7,377.6 508.9,237.5 378.1,263.5" fill="#d4cbb8" fill-opacity="0.95" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="248.3,461.0 276.8,464.4 393.6,444.9 368.8,443.2" fill="#4a5058" fill-opacity="0.75" stroke="#3a3a38" stroke-width="1.1"/>
+      <text x="40" y="600" font-size="11" font-weight="800" fill="#416145">Derived from APPROVED Image 4.1 · east-plane-svg-locked</text>
+    
+    </svg>

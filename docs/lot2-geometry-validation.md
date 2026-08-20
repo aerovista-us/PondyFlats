@@ -134,14 +134,27 @@ E2 was fixed first against the real setback taper:
 
 See [`shortlist.html`](../shortlist.html) and [`shortlist-elimination-memo.md`](shortlist-elimination-memo.md).
 
+## Pass 2 SUV swept path
+
+See [`access.html`](../access.html), [`access-geometry.html`](../access-geometry.html), [`lot2-access.md`](lot2-access.md), and [`lot2-access-geometry.md`](lot2-access-geometry.md).
+
+- Baseline Final Three (E2 · G1 · V2): **FAIL** on locked plates — remains on `access.html` as Locked Pass 1.5.
+- Challengers H6 then H3: **FAIL** on the same FS-SUV gate. Neither is promoted.
+- **G1-A** = circulation proof (`g1a`, locked `g1` untouched): technical PASS, daily Fair, **not a candidate**. See [`lot2-g1a.md`](lot2-g1a.md).
+- **Access Geometry A/B/C** — parking skeletons only. Convergence: east-facing garages + south lane at y≈37. See [`lot2-access-geometry.md`](lot2-access-geometry.md).
+- **J1 Pass 2A massing** — trade accepted; three treatments on locked Access A. See [`j1-massing.html`](../j1-massing.html) and [`lot2-j1-massing.md`](lot2-j1-massing.md).
+
 ## What Pass 2 is NOT
 
 Pass 2 is not a new concept round and not full renders for all five. Sequence:
 
 ```
 Final Three (E2 / G1 / V2)
-→ preliminary SUV swept paths
-→ massing / elevation sketches
+→ preliminary SUV swept paths  (all five FAIL — locked geometry; see access.html)
+→ G1-A circulation proof (technical PASS — not a candidate; see lot2-g1a.md)
+→ Access Geometry A/B/C (see access-geometry.html)
+→ J1 Pass 2A massing (trade accepted — see j1-massing.html)
+→ schematic Penn elevation (Pass 2B)
 → floor-plan sanity check
 → cost / complexity comparison
 → preferred concept

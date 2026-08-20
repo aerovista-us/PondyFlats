@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pondy Flats · J1-B Pass 2C</title>
+<meta name="description" content="J1-B Architectural Proof: Pennsylvania elevation + 3/4 street perspective from frozen Access A + frozen J1-B geometry. No further geometry edits." />
+<style>
+:root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--ok:#416145;--warn:#7b5721;--bad:#9a3b2e;--house:#efe2c7;--upper:#c9dff0;--garage:#b7c2d0;--shadow:0 18px 54px rgba(15,26,43,.15)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+.top{position:sticky;top:0;z-index:50;background:#0d1b33f4;color:#fff}
+.topin{max-width:1480px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand small{display:block;color:#efb34d;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;font-family:ui-sans-serif,system-ui}
+.brand strong{font-size:16px;font-family:ui-sans-serif,system-ui}
+.nav a{color:#fff;text-decoration:none;border:1px solid #ffffff28;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;margin-left:6px;font-family:ui-sans-serif,system-ui}
+.wrap{max-width:1480px;margin:auto;padding:22px 18px 80px}
+.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow);padding:24px;margin-top:18px}
+h1{font:500 clamp(34px,5vw,52px)/1 Georgia,serif;color:var(--navy);margin:0 0 8px}
+h2{color:var(--navy);margin:0 0 10px}
+h3{color:var(--navy);font-size:18px;margin:16px 0 8px}
+.lede{color:var(--muted);line-height:1.6}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.metric{border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff;margin-bottom:8px}
+.metric small{display:block;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#92702e}
+.metric strong{color:var(--navy)}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.08em;font-family:ui-sans-serif,system-ui}
+.badge.ok{background:#edf5e9;color:var(--ok)}
+.badge.review{background:#fff4e5;color:var(--warn)}
+.note{margin-top:12px;padding:14px;border-left:4px solid var(--gold);background:#fff8eb;color:#6c5429;font-size:13px;line-height:1.5}
+.plan{border:1px solid var(--line);border-radius:16px;background:#fbfaf7;padding:6px}
+.plan svg{width:100%;height:auto;display:block}
+.qa{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.qa b{color:var(--navy)}
+.qa .prompt{margin-top:8px;color:var(--muted);line-height:1.55}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:3px;border:1px solid #999}
+svg{shape-rendering:geometricPrecision}
+@media(max-width:980px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+  <div class="brand"><small>Pondy Flats · Lot 2</small><strong>J1-B Pass 2C</strong></div>
+  <nav class="nav">
+    <a href="j1-pass2b-elevations.html">Pass 2B</a>
+    <a href="j1-massing.html">J1 massing</a>
+    <a href="access-geometry.html">Access A/B/C</a>
+    <a href="study.html">Workflow</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <section class="panel">
+    <h1>Architectural Proof: make it read as house + house</h1>
+    <p class="lede">
+      This is a visual/decomposition pass only. It uses <strong>frozen J1-B</strong> footprints and the <strong>Access A</strong> circulation skeleton.
+      No garage locations or massing geometry are changed.
+    </p>
+
+    <div class="grid2">
+      <div class="metric">
+        <small>Concept</small>
+        <strong>J1-B · Staggered Volumes</strong>
+      </div>
+      <div class="metric">
+        <small>FS-SUV status</small>
+        <strong><span class="badge ok" id="fs-label">PASS</span></strong>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Pass 2C verdict:</strong> schematic insufficient for ownership gate.
+      See <a href="j1b-pass2c1-visualization.html">Pass 2C.1 — real architectural visualization</a>.
+    </div>
+
+    <div class="note">
+      Design targets encoded in the drawing intent:
+      (1) garage-forward reality stays real but is made architecturally subordinate,
+      (2) both pedestrian entries are explicit,
+      (3) second story dominates via a deliberate 22' vs 16' upper-height silhouette,
+      (4) window composition is believable above/beside garage openings,
+      (5) roof forms + porch markers communicate "house + house" first.
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>1) Pennsylvania/right elevation (schematic architectural sketch)</h2>
+    <div class="legend">
+      <span><i style="background:#f6efe2;border-color:#6f5a23"></i> Upper cladding / siding (schematic)</span>
+      <span><i style="background:#efd08c;border-color:#6f5a23"></i> Ground pod plane (schematic)</span>
+      <span><i style="background:#2f343a;border-color:#1a1d22"></i> Garage doors</span>
+      <span><i style="background:#ffffff;border-color:#2a6496"></i> Windows / entry markers</span>
+      <span><i style="background:#3a3f46;border-color:#1a1d22"></i> Roof planes</span>
+    </div>
+    <div class="plan"><div id="elev-j1b"></div></div>
+  </section>
+
+  <section class="panel">
+    <h2>2) 3/4 street perspective (mass + roof hierarchy)</h2>
+    <div class="plan"><div id="pers-j1b"></div></div>
+    <div class="qa">
+      <b>Gate prompt (use after you look at both drawings)</b>
+      <div class="prompt">
+        If the site did not force this architecture on us, would we still choose to build it?
+        Specifically: does it initially read as <strong>two substantial urban homes</strong>, and only secondarily as <strong>four enclosed parking spaces</strong>?
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="js/lot2-sot.js"></script>
+<script src="js/lot2-geometry.js"></script>
+<script src="js/lot2-access.js"></script>
+<script src="js/lot2-j1-massing.js"></script>
+<script>
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  const conceptId='j1b';
+  const c=Lot2.CONCEPTS[conceptId];
+
+  function bboxOf(u){
+    if(u.poly){
+      const xs=u.poly.map(p=>p[0]), ys=u.poly.map(p=>p[1]);
+      return {minX:Math.min(...xs), maxX:Math.max(...xs), minY:Math.min(...ys), maxY:Math.max(...ys)};
+    }
+    return {minX:u.x, maxX:u.x+(u.w||0), minY:u.y, maxY:u.y+(u.h||0)};
+  }
+
+  function rectFromBbox(b){
+    return {x:b.minX, y:b.minY, w:b.maxX-b.minX, h:b.maxY-b.minY};
+  }
+
+  function presenceAtY(shapes, y){
+    return shapes.some(s=>{
+      const b=bboxOf(s);
+      return y>=b.minY-1e-6 && y<b.maxY-1e-6;
+    });
+  }
+
+  // FS-SUV label from Pass 2A massing analysis
+  (function(){
+    const rep=Lot2J1Massing.analyzeAll();
+    const row=rep.rows[conceptId];
+    const t=row?.access?.technical||'PASS';
+    const el=document.getElementById('fs-label');
+    if(t==='PASS'){ el.className='badge ok'; el.textContent='PASS'; }
+    else { el.className='badge review'; el.textContent='REVIEW'; }
+  })();
+
+  // -------------------------
+  // 1) Elevation (2D)
+  // -------------------------
+  (function renderElevation(){
+    const yMax=Math.max(...Lot2.SURVEY.map(p=>p[1]));
+    const yMin=0;
+    const ySpan=yMax-yMin;
+    const step=1;
+    const yBins=[];
+    for(let y=yMin; y<yMax; y+=step) yBins.push(y);
+
+    const upperAShapes=(c.upperUnits||[]).filter(u=>u.unit==='A');
+    const upperBShapes=(c.upperUnits||[]).filter(u=>u.unit==='B');
+    const groundShapes=(c.units||[]);
+    const garages=(c.garages||[]);
+
+    const upperAPres=yBins.map(y=>presenceAtY(upperAShapes,y));
+    const upperBPres=yBins.map(y=>presenceAtY(upperBShapes,y));
+    const groundPres=yBins.map(y=>presenceAtY(groundShapes,y) || garages.some(g=>presenceAtY([g],y)));
+
+    const xW=520, h=360;
+    const padL=44, padR=18, padT=18, padB=18;
+    const W=padL+xW+padR;
+    const baseY=padT+320;
+    const pxPerFt=4.2;
+    const groundH=10;
+    const upperAHeight=22;
+    const upperBHeight=16;
+
+    const groundHpx=groundH*pxPerFt;
+    const upperApx=upperAHeight*pxPerFt;
+    const upperBpx=upperBHeight*pxPerFt;
+    const wallTop=baseY-groundHpx;
+    const upperATop=wallTop-upperApx;
+    const upperBTop=wallTop-upperBpx;
+
+    const sx=(y)=>padL + ((y-yMin)/ySpan)*xW;
+
+    function segmentsFromBool(arr){
+      const segs=[];
+      let i=0;
+      while(i<arr.length){
+        if(!arr[i]){ i++; continue; }
+        let j=i;
+        while(j<arr.length && arr[j]) j++;
+        segs.push({y0:yMin+i*step, y1:yMin+j*step});
+        i=j;
+      }
+      return segs;
+    }
+
+    const segUpperA=segmentsFromBool(upperAPres);
+    const segUpperB=segmentsFromBool(upperBPres);
+    const segGround=segmentsFromBool(groundPres);
+
+    function rectSeg(seg, topPx, heightPx, fill, stroke, opacity){
+      const x0=sx(seg.y0), x1=sx(seg.y1);
+      const w=Math.max(1, x1-x0);
+      return `<rect x=\"${x0.toFixed(1)}\" y=\"${topPx.toFixed(1)}\" width=\"${w.toFixed(1)}\" height=\"${heightPx.toFixed(1)}\" fill=\"${fill}\" fill-opacity=\"${opacity}\" stroke=\"${stroke}\" stroke-width=\"1.2\" />`;
+    }
+
+    // Garage segments + detailed door drawings
+    const garageMarks=[];
+    garages.forEach(g=>{
+      const b=bboxOf(g);
+      const x0=sx(b.minY), x1=sx(b.maxY);
+      const frameFill='rgba(255,255,255,0.08)';
+      const garageBody='#2f343a';
+      const inset=12; // visual inset for recess (depth cue)
+      const doorW=Math.max(4,(x1-x0)-6);
+      const doorX=(x0+x1)/2 - doorW/2;
+      const doorTop=wallTop+6;
+      const doorH=groundHpx-10;
+
+      // Outer recess frame
+      garageMarks.push(`<rect x=\"${x0.toFixed(1)}\" y=\"${wallTop.toFixed(1)}\" width=\"${(x1-x0).toFixed(1)}\" height=\"${groundHpx.toFixed(1)}\" fill=\"rgba(0,0,0,0.0)\" stroke=\"#1a1d22\" stroke-width=\"2\" opacity=\"0.25\" />`);
+      // Garage body
+      garageMarks.push(`<rect x=\"${x0.toFixed(1)}\" y=\"${wallTop.toFixed(1)}\" width=\"${(x1-x0).toFixed(1)}\" height=\"${(groundHpx).toFixed(1)}\" fill=\"${garageBody}\" fill-opacity=\"0.55\" stroke=\"#1a1d22\" stroke-width=\"1.2\" />`);
+      // Door opening recessed inside frame
+      garageMarks.push(`<rect x=\"${(doorX+inset).toFixed(1)}\" y=\"${doorTop.toFixed(1)}\" width=\"${doorW.toFixed(1)}\" height=\"${doorH.toFixed(1)}\" rx=\"6\" fill=\"#111317\" stroke=\"#b7c2d0\" stroke-width=\"2\" opacity=\"0.96\" />`);
+      // Panel lines (simple contemporary garage segmentation)
+      garageMarks.push(`<line x1=\"${(doorX+inset+doorW/2).toFixed(1)}\" y1=\"${doorTop+8}\" x2=\"${(doorX+inset+doorW/2).toFixed(1)}\" y2=\"${(doorTop+doorH-8).toFixed(1)}\" stroke=\"#b7c2d0\" stroke-width=\"2\" opacity=\"0.6\" />`);
+      garageMarks.push(`<text x=\"${((x0+x1)/2).toFixed(1)}\" y=\"${(baseY+12).toFixed(1)}\" text-anchor=\"middle\" font-size=\"11\" fill=\"#1a1d22\" opacity=\"0.7\">Garage ${g.id||g.name||''}</text>`);
+    });
+
+    // Pedestrian entries
+    function entryY(unit){
+      const pod=(c.units||[]).find(u=>u.unit===unit);
+      if(!pod) return null;
+      const b=bboxOf(pod);
+      let y=(b.minY+b.maxY)/2;
+      // shift off garage envelope if needed
+      for(let t=0;t<12;t++){
+        const inGarage=garages.some(g=>presenceAtY([g],y));
+        if(!inGarage) break;
+        y += 1; // step forward along frontage
+      }
+      return y;
+    }
+
+    const entryYs={'A':entryY('A'),'B':entryY('B')};
+    const entries=[];
+    ['A','B'].forEach(u=>{
+      const y=entryYs[u];
+      if(y===null) return;
+      const x=sx(y);
+      const doorW=22; // px
+      const doorH=54; // px
+      const top=baseY-doorH;
+      entries.push(`<rect x=\"${(x-doorW/2).toFixed(1)}\" y=\"${top.toFixed(1)}\" width=\"${doorW}\" height=\"${doorH}\" rx=\"6\" fill=\"#ffffff\" fill-opacity=\"0.95\" stroke=\"#2a6496\" stroke-width=\"3\" />`);
+      // porch
+      entries.push(`<rect x=\"${(x-doorW/2-10).toFixed(1)}\" y=\"${(top+doorH-6).toFixed(1)}\" width=\"${(doorW+20).toFixed(1)}\" height=\"${14}\" fill=\"#8b6b3e\" opacity=\"0.95\" />`);
+      entries.push(`<line x1=\"${(x-doorW/2+6).toFixed(1)}\" y1=\"${(top+doorH+14).toFixed(1)}\" x2=\"${(x+doorW/2-6).toFixed(1)}\" y2=\"${(top+doorH+14).toFixed(1)}\" stroke=\"#1a1d22\" stroke-width=\"2\" opacity=\"0.4\" />`);
+      entries.push(`<text x=\"${x.toFixed(1)}\" y=\"${(top-6).toFixed(1)}\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1a1d22\" opacity=\"0.75\">Ped entry ${u}</text>`);
+    });
+
+    // Windows: stacked above garages and a couple on upper faces
+    const windows=[];
+    garages.forEach(g=>{
+      const b=bboxOf(g);
+      const xMid=(sx((b.minY+b.maxY)/2));
+      const yIsUpperA=presenceAtY(upperAShapes,(b.minY+b.maxY)/2);
+      const topY=yIsUpperA ? upperATop : upperBTop;
+      const win1Y=topY+22;
+      const win2Y=topY+74;
+      const w=18, ww=34;
+      windows.push(`<rect x=\"${(xMid-ww/2).toFixed(1)}\" y=\"${win1Y.toFixed(1)}\" width=\"${ww}\" height=\"${w*1.1}\" rx=\"4\" fill=\"#ffffff\" stroke=\"#2a6496\" stroke-width=\"2\" opacity=\"0.95\" />`);
+      windows.push(`<rect x=\"${(xMid-ww/2).toFixed(1)}\" y=\"${win2Y.toFixed(1)}\" width=\"${ww}\" height=\"${w*1.1}\" rx=\"4\" fill=\"#ffffff\" stroke=\"#2a6496\" stroke-width=\"2\" opacity=\"0.95\" />`);
+      windows.push(`<line x1=\"${(xMid).toFixed(1)}\" y1=\"${(win1Y+8).toFixed(1)}\" x2=\"${(xMid).toFixed(1)}\" y2=\"${(win2Y+w*0.55).toFixed(1)}\" stroke=\"#6e7ea0\" stroke-width=\"2\" opacity=\"0.5\" />`);
+    });
+
+    // Side windows: pick two y positions in each unit upper
+    const upperWindowYs=[(5+27)/2,(5+23)/2].map(y=>y); // rough
+    function addUpperWindows(y, which){
+      const x=sx(y);
+      const top=which==='A'?upperATop:upperBTop;
+      const w=18, ww=30;
+      windows.push(`<rect x=\"${(x-ww/2).toFixed(1)}\" y=\"${(top+50).toFixed(1)}\" width=\"${ww}\" height=\"${w*1.1}\" rx=\"4\" fill=\"#ffffff\" stroke=\"#2a6496\" stroke-width=\"2\" opacity=\"0.95\" />`);
+      windows.push(`<rect x=\"${(x-ww/2).toFixed(1)}\" y=\"${(top+92).toFixed(1)}\" width=\"${ww}\" height=\"${w*1.1}\" rx=\"4\" fill=\"#ffffff\" stroke=\"#2a6496\" stroke-width=\"2\" opacity=\"0.95\" opacity=\"0.9\" />`);
+    }
+    addUpperWindows(16,'A');
+    addUpperWindows(14,'B');
+
+    // Roof: two tiers for upper A and B (visual only)
+    const roofPitch=22; // px
+    const roofLines=[];
+    segUpperB.forEach(seg=>{
+      const x0=sx(seg.y0), x1=sx(seg.y1);
+      // roof polygon (lower)
+      roofLines.push(`<polygon points=\"${x0.toFixed(1)},${upperBTop.toFixed(1)} ${x1.toFixed(1)},${upperBTop.toFixed(1)} ${(x1-10).toFixed(1)},${(upperBTop-roofPitch).toFixed(1)} ${(x0+10).toFixed(1)},${(upperBTop-roofPitch).toFixed(1)}\" fill=\"#3a3f46\" opacity=\"0.92\" stroke=\"#1a1d22\" stroke-width=\"1.2\" />`);
+      roofLines.push(`<line x1=\"${x0.toFixed(1)}\" y1=\"${upperBTop.toFixed(1)}\" x2=\"${x1.toFixed(1)}\" y2=\"${upperBTop.toFixed(1)}\" stroke=\"#9aa3ab\" stroke-width=\"2\" opacity=\"0.55\" />`);
+    });
+    segUpperA.forEach(seg=>{
+      const x0=sx(seg.y0), x1=sx(seg.y1);
+      roofLines.push(`<polygon points=\"${x0.toFixed(1)},${upperATop.toFixed(1)} ${x1.toFixed(1)},${upperATop.toFixed(1)} ${(x1-10).toFixed(1)},${(upperATop-roofPitch).toFixed(1)} ${(x0+10).toFixed(1)},${(upperATop-roofPitch).toFixed(1)}\" fill=\"#3a3f46\" opacity=\"0.98\" stroke=\"#1a1d22\" stroke-width=\"1.2\" />`);
+      roofLines.push(`<line x1=\"${x0.toFixed(1)}\" y1=\"${upperATop.toFixed(1)}\" x2=\"${x1.toFixed(1)}\" y2=\"${upperATop.toFixed(1)}\" stroke=\"#9aa3ab\" stroke-width=\"2\" opacity=\"0.65\" />`);
+    });
+
+    // Upper walls (cladding) and ground walls (subordinate plane)
+    const uppers=[];
+    segUpperB.forEach(seg=> uppers.push(rectSeg(seg, upperBTop, upperBpx, '#f6efe2', '#1a1d22', 0.9)));
+    segUpperA.forEach(seg=> uppers.push(rectSeg(seg, upperATop, upperApx, '#f6efe2', '#1a1d22', 0.95)));
+
+    const grounds=[];
+    segGround.forEach(seg=> grounds.push(rectSeg(seg, wallTop, groundHpx, '#efd08c', '#30363b', 0.62)));
+
+    // base line
+    const baseLine=`<line x1=\"${padL}\" y1=\"${baseY}\" x2=\"${(padL+xW).toFixed(1)}\" y2=\"${baseY}\" stroke=\"#232a31\" stroke-width=\"2\" opacity=\"0.35\" />`;
+
+    const svg=`<svg viewBox=\"0 0 ${W} ${h}\" role=\"img\" aria-label=\"Pennsylvania elevation schematic\" xmlns=\"http://www.w3.org/2000/svg\">
+      <rect x=\"0\" y=\"0\" width=\"${W}\" height=\"${h}\" fill=\"#fbfaf7\" />
+      ${baseLine}
+      ${grounds.join('')}
+      ${uppers.join('')}
+      ${garageMarks.join('')}
+      ${windows.join('')}
+      ${entries.join('')}
+      ${roofLines.join('')}
+      <text x=\"${(padL+xW/2).toFixed(1)}\" y=\"${(padT+12).toFixed(1)}\" text-anchor=\"middle\" font-size=\"12\" fill=\"#59636d\">J1-B · Pass 2C · Pennsylvania elevation (architectural proof)</text>
+      <text x=\"${(padL+xW/2).toFixed(1)}\" y=\"${(h-8).toFixed(1)}\" text-anchor=\"middle\" font-size=\"11\" fill=\"#59636d\">Roofs + upper dominance + explicit entries + recessed garage door cues (2D schematic)</text>
+    </svg>`;
+
+    document.getElementById('elev-j1b').innerHTML=svg;
+  })();
+
+  // -------------------------
+  // 2) Perspective (simple 2.5D blocks)
+  // -------------------------
+  (function renderPerspective(){
+    const yMax=Math.max(...Lot2.SURVEY.map(p=>p[1]));
+    const yMin=0;
+    const xMax=Math.max(...(c.units||[]).concat(c.garages||[]).concat(c.upperUnits||[]).map(u=>{
+      const b=bboxOf(u); return b.maxX;
+    }));
+    const xFront=xMax;
+
+    const yScale=7;   // px per foot along frontage
+    const dScale=3.1; // px per foot of depth
+    const zScale=6.4; // px per foot of height
+    const recede=1.4; // extra vertical recede with depth
+    const baseY=308;
+    const xOff=70;
+
+    function proj(x,y,z){
+      const depth=(xFront - x);
+      const sx=xOff + (y-yMin)*yScale - depth*dScale;
+      const sy=baseY - z*zScale - depth*recede;
+      return {sx,sy};
+    }
+
+    function poly(points){
+      return `<polygon points=\"${points.map(p=>p.sx.toFixed(1)+','+p.sy.toFixed(1)).join(' ')}\" />`;
+    }
+
+    function drawBlock(rect, z0, z1, fillTop, fillFront, stroke){
+      const {x,y,w,h}=rect;
+      const x0=x, x1=x+w;
+      const y0=y, y1=y+h;
+      const top= z1;
+      const bot= z0;
+      const A=proj(x1,y0,top);
+      const B=proj(x1,y1,top);
+      const C=proj(x0,y1,top);
+      const D=proj(x0,y0,top);
+      const topPoly=`<polygon points=\"${[A,B,C,D].map(p=>p.sx.toFixed(1)+','+p.sy.toFixed(1)).join(' ')}\" fill=\"${fillTop}\" stroke=\"${stroke}\" stroke-width=\"1.2\" opacity=\"0.96\" />`;
+      const E=proj(x1,y0,bot);
+      const F=proj(x1,y1,bot);
+      const frontFace=`<polygon points=\"${[E,F,B,A].map(p=>p.sx.toFixed(1)+','+p.sy.toFixed(1)).join(' ')}\" fill=\"${fillFront}\" stroke=\"${stroke}\" stroke-width=\"1.1\" opacity=\"0.96\" />`;
+      return {topPoly, frontFace, nearKey:(xFront - (x1))};
+    }
+
+    const groundH=10;
+    const upperAHeight=22;
+    const upperBHeight=16;
+
+    const blocks=[];
+
+    // Garages
+    (c.garages||[]).forEach(g=>{
+      const b=bboxOf(g);
+      const rect=rectFromBbox(b);
+      blocks.push({rect, z0:0, z1:groundH, type:'garage', ...drawBlock(rect,0,groundH,'#b7c2d0','#2f343a','#1a1d22')});
+    });
+
+    // Ground pods (light)
+    (c.units||[]).forEach(u=>{
+      const b=bboxOf(u);
+      const rect=rectFromBbox(b);
+      blocks.push({rect, z0:0, z1:groundH, type:'ground', ...drawBlock(rect,0,groundH,'#efd08c','#efd08c','#6f5a23')});
+    });
+
+    // Upper volumes (A taller)
+    (c.upperUnits||[]).forEach(u=>{
+      const b=bboxOf(u);
+      const rect=rectFromBbox(b);
+      const hFt= (u.unit==='A') ? upperAHeight : upperBHeight;
+      blocks.push({rect, z0:groundH, z1:groundH+hFt, type:'upper', ...drawBlock(rect,groundH,groundH+hFt, (u.unit==='A')?'#f6efe2':'#e8decf', (u.unit==='A')?'#d8cbb1':'#cdbfa7', '#1a1d22')});
+    });
+
+    // Render far -> near
+    blocks.sort((a,b)=>{
+      const da=(xFront - (a.rect.x+a.rect.w));
+      const db=(xFront - (b.rect.x+b.rect.w));
+      return db-da; // bigger depth first
+    });
+
+    const drawn=blocks.map(b=> b.topPoly + b.frontFace).join('');
+
+    const label=`<text x=\"${xOff+250}\" y=\"${24}\" text-anchor=\"middle\" font-size=\"12\" fill=\"#59636d\">J1-B · 3/4 street perspective (architectural proof · frozen geometry)</text>`;
+    const svg=`<svg viewBox=\"0 0 780 360\" role=\"img\" aria-label=\"3/4 street perspective schematic\" xmlns=\"http://www.w3.org/2000/svg\">
+      <rect x=\"0\" y=\"0\" width=\"780\" height=\"360\" fill=\"#fbfaf7\" />
+      ${label}
+      <g>${drawn}</g>
+      <text x=\"${xOff+360}\" y=\"${342}\" text-anchor=\"middle\" font-size=\"11\" fill=\"#59636d\">Upper volumes dominate; garages are subordinate in mass + roof hierarchy (2.5D schematic)</text>
+    </svg>`;
+
+    document.getElementById('pers-j1b').innerHTML=svg;
+  })();
+</script>
+</body>
+</html>
+

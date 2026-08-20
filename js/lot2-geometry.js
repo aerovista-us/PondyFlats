@@ -255,7 +255,15 @@ ${extra}`;
       if (u.poly) s += polySvg(u.poly, 'house', u.name);
       else s += rect(u.x, u.y, u.w, u.h, 'house', u.name);
     });
+    (concept.upperUnits || []).forEach((u) => {
+      if (u.poly) s += polySvg(u.poly, 'upper', u.name);
+      else s += rect(u.x, u.y, u.w, u.h, 'upper', u.name);
+    });
     s += drive(concept.drive);
+    (concept.accessPaths || []).forEach((ap) => {
+      if (concept.drive && JSON.stringify(ap.path) === JSON.stringify(concept.drive)) return;
+      s += drive(ap.path);
+    });
     return s;
   }
 
@@ -302,6 +310,182 @@ ${extra}`;
       ],
       drive: [[148, 41], [128, 41], [15, 41], [15, 12], [64, 12], [25, 12]],
       second: 1054,
+    },
+    /**
+     * G1-A — circulation proof only (not a candidate). Locked g1 untouched.
+     * Proved east-facing tandem + y≈37 south lane. See access_a skeleton.
+     */
+    g1a: {
+      id: 'g1a',
+      label: 'G1-A Circulation Proof',
+      role: 'Proof of circulation rules · not a candidate',
+      group: 'access-proof',
+      circulationProof: true,
+      designConcern: 'Proved east doors + south lane — houses were illustrative only',
+      units: [
+        { name: 'UNIT A · 440 SF', x: 82, y: 5, w: 20, h: 22, sf: 440 },
+        { name: 'UNIT B · 506 SF', x: 25, y: 5, w: 46, h: 11, sf: 506 },
+      ],
+      garages: [
+        { name: 'GARAGE A · 22×22', id: 'A', x: 102, y: 5, w: 22, h: 22, doorFace: 'E' },
+        { name: 'GARAGE B · 22×22', id: 'B', x: 25, y: 16, w: 22, h: 22, doorFace: 'E' },
+      ],
+      drive: [[148, 37], [80, 37], [57.3, 27]],
+      accessPaths: [
+        { garage: 'A', path: [[148, 16], [134.3, 16]] },
+        { garage: 'B', path: [[148, 37], [80, 37], [57.3, 27]] },
+      ],
+      court: [47, 21, 24, 12],
+      second: 1327,
+    },
+    /** Access Geometry — parking/circulation skeletons only (no houses). */
+    access_a: {
+      id: 'access_a',
+      label: 'Access A — East-Facing Tandem',
+      role: 'Known-good parking skeleton (from G1-A proof)',
+      group: 'access-skeleton',
+      skeleton: true,
+      designConcern: 'Both doors east · A straight Penn · B via y≈37 south lane',
+      units: [],
+      garages: [
+        { name: 'GARAGE A · 22×22', id: 'A', x: 102, y: 5, w: 22, h: 22, doorFace: 'E' },
+        { name: 'GARAGE B · 22×22', id: 'B', x: 25, y: 16, w: 22, h: 22, doorFace: 'E' },
+      ],
+      drive: [[148, 37], [80, 37], [57.3, 27]],
+      accessPaths: [
+        { garage: 'A', path: [[148, 16], [134.3, 16]] },
+        { garage: 'B', path: [[148, 37], [80, 37], [57.3, 27]] },
+      ],
+      court: [47, 21, 24, 12],
+    },
+    access_b: {
+      id: 'access_b',
+      label: 'Access B — Central Garage Core',
+      role: 'H6 circulation stripped · no architecture',
+      group: 'access-skeleton',
+      skeleton: true,
+      designConcern: 'Paired 22×22 core (52,8)+(74,8) · both doors east',
+      units: [],
+      garages: [
+        { name: 'GARAGE A · 22×22', id: 'A', x: 52, y: 8, w: 22, h: 22, doorFace: 'E' },
+        { name: 'GARAGE B · 22×22', id: 'B', x: 74, y: 8, w: 22, h: 22, doorFace: 'E' },
+      ],
+      drive: [[148, 37], [106.25, 37], [106.25, 19]],
+      accessPaths: [
+        { garage: 'A', path: [[148, 19], [94.5, 19]] },
+        { garage: 'B', path: [[148, 37], [106.25, 37], [106.25, 19]] },
+      ],
+    },
+    access_c: {
+      id: 'access_c',
+      label: 'Access C — Split-Depth Garages',
+      role: 'Penn garage + deeper rear/left garage',
+      group: 'access-skeleton',
+      skeleton: true,
+      designConcern: 'A at Penn (102,5) · B deeper (25,22) · same south lane',
+      units: [],
+      garages: [
+        { name: 'GARAGE A · 22×22', id: 'A', x: 102, y: 5, w: 22, h: 22, doorFace: 'E' },
+        { name: 'GARAGE B · 22×22', id: 'B', x: 25, y: 22, w: 22, h: 22, doorFace: 'E' },
+      ],
+      drive: [[148, 37], [80, 37], [57.3, 33]],
+      accessPaths: [
+        { garage: 'A', path: [[148, 16], [134.3, 16]] },
+        { garage: 'B', path: [[148, 37], [80, 37], [57.3, 33]] },
+      ],
+      court: [47, 27, 24, 10],
+    },
+    /**
+     * J1 — Pennsylvania Loft Duplex · Pass 2A massing on locked Access A.
+     * Parking owns the ground plane; residential = ground pod + LOG upper.
+     */
+    j1a: {
+      id: 'j1a',
+      label: 'J1-A · LOG Bridge',
+      role: 'Pass 2A · continuous upper bridge over both garages',
+      group: 'j1-massing',
+      family: 'j1',
+      treatment: 'bridge',
+      skeletonRef: 'access_a',
+      designConcern: 'Single upper bridge reads as one loft bar from Penn; ground pods are entry/living anchors only',
+      units: [
+        { name: 'GROUND A · 528 SF', unit: 'A', x: 78, y: 5, w: 24, h: 22, sf: 528 },
+        { name: 'GROUND B · 396 SF', unit: 'B', x: 25, y: 5, w: 22, h: 18, sf: 396 },
+      ],
+      upperUnits: [
+        { name: 'UPPER A · LOG 1,127 SF', unit: 'A', poly: [[78, 5], [127, 5], [127, 28], [78, 28]], sf: 1127 },
+        { name: 'UPPER B · LOG 1,204 SF', unit: 'B', poly: [[25, 5], [71, 5], [71, 22], [47, 22], [47, 38], [25, 38]], sf: 1204 },
+      ],
+      garages: [
+        { name: 'GARAGE A · 22×22', id: 'A', x: 102, y: 5, w: 22, h: 22, doorFace: 'E' },
+        { name: 'GARAGE B · 22×22', id: 'B', x: 25, y: 16, w: 22, h: 22, doorFace: 'E' },
+      ],
+      drive: [[148, 37], [80, 37], [57.3, 27]],
+      accessPaths: [
+        { garage: 'A', path: [[148, 16], [134.3, 16]] },
+        { garage: 'B', path: [[148, 37], [80, 37], [57.3, 27]] },
+      ],
+      court: [47, 21, 24, 12],
+      program: { ground: { A: 528, B: 396 }, upper: { A: 1127, B: 1204 } },
+    },
+    j1b: {
+      id: 'j1b',
+      label: 'J1-B · Staggered Volumes',
+      role: 'Pass 2A · two offset upper blocks · Penn-forward vs rear-deep',
+      group: 'j1-massing',
+      family: 'j1',
+      treatment: 'stagger',
+      skeletonRef: 'access_a',
+      designConcern: 'Penn-near upper volume forward; rear upper stepped deeper — breaks the single bar silhouette',
+      units: [
+        { name: 'GROUND A · 440 SF', unit: 'A', x: 82, y: 5, w: 20, h: 22, sf: 440 },
+        { name: 'GROUND B · 396 SF', unit: 'B', x: 25, y: 5, w: 22, h: 18, sf: 396 },
+      ],
+      upperUnits: [
+        { name: 'UPPER A · 1,176 SF', unit: 'A', x: 85, y: 5, w: 42, h: 28, sf: 1176 },
+        { name: 'UPPER B · LOG 484 SF', unit: 'B', x: 25, y: 16, w: 22, h: 22, sf: 484 },
+        { name: 'UPPER B · wing 720 SF', unit: 'B', x: 47, y: 5, w: 30, h: 24, sf: 720 },
+      ],
+      garages: [
+        { name: 'GARAGE A · 22×22', id: 'A', x: 102, y: 5, w: 22, h: 22, doorFace: 'E' },
+        { name: 'GARAGE B · 22×22', id: 'B', x: 25, y: 16, w: 22, h: 22, doorFace: 'E' },
+      ],
+      drive: [[148, 37], [80, 37], [57.3, 27]],
+      accessPaths: [
+        { garage: 'A', path: [[148, 16], [134.3, 16]] },
+        { garage: 'B', path: [[148, 37], [80, 37], [57.3, 27]] },
+      ],
+      court: [47, 21, 24, 12],
+      program: { ground: { A: 440, B: 396 }, upper: { A: 1176, B: 1204 } },
+    },
+    j1c: {
+      id: 'j1c',
+      label: 'J1-C · Central Spine',
+      role: 'Pass 2A · shared upper spine · separate ground entry pods',
+      group: 'j1-massing',
+      family: 'j1',
+      treatment: 'spine',
+      skeletonRef: 'access_a',
+      designConcern: 'One continuous upper plate over both bays; ground reads as two homes · upper reads as one loft building',
+      units: [
+        { name: 'GROUND A · 528 SF', unit: 'A', x: 78, y: 5, w: 24, h: 22, sf: 528 },
+        { name: 'GROUND B · 396 SF', unit: 'B', x: 25, y: 5, w: 22, h: 18, sf: 396 },
+      ],
+      upperUnits: [
+        { name: 'UPPER · shared spine 1,725 SF', unit: 'shared', poly: [[52, 5], [127, 5], [127, 28], [52, 28]], sf: 1725 },
+        { name: 'UPPER B · rear LOG 484 SF', unit: 'B', x: 25, y: 16, w: 22, h: 22, sf: 484 },
+      ],
+      garages: [
+        { name: 'GARAGE A · 22×22', id: 'A', x: 102, y: 5, w: 22, h: 22, doorFace: 'E' },
+        { name: 'GARAGE B · 22×22', id: 'B', x: 25, y: 16, w: 22, h: 22, doorFace: 'E' },
+      ],
+      drive: [[148, 37], [80, 37], [57.3, 27]],
+      accessPaths: [
+        { garage: 'A', path: [[148, 16], [134.3, 16]] },
+        { garage: 'B', path: [[148, 37], [80, 37], [57.3, 27]] },
+      ],
+      court: [47, 21, 24, 12],
+      program: { ground: { A: 528, B: 396 }, upper: { A: 1000, B: 1209 }, upperNote: 'Spine 1,725 SF → A 1,000 + B 725 from shared plate; B adds rear LOG 484 SF' },
     },
     v2: {
       id: 'v2',
@@ -477,7 +661,15 @@ ${extra}`;
     },
   };
 
-  const CONCEPT_ORDER = ['e2', 'g1', 'v2', 'e1', 'e3', 'f1', 'g2', 'h2', 'h3', 'h4', 'h5', 'h6'];
+  /** Access A — immutable circulation infrastructure for J-series (do not move). */
+  const ACCESS_A_INFRA = {
+    garages: CONCEPTS.access_a.garages,
+    drive: CONCEPTS.access_a.drive,
+    accessPaths: CONCEPTS.access_a.accessPaths,
+    court: CONCEPTS.access_a.court,
+  };
+
+  const CONCEPT_ORDER = ['e2', 'g1', 'v2', 'e1', 'e3', 'f1', 'g2', 'h2', 'h3', 'h4', 'h5', 'h6', 'g1a', 'access_a', 'access_b', 'access_c', 'j1a', 'j1b', 'j1c'];
   const BENCHMARKS = ['e2', 'g1', 'v2'];
   /** Original seven (non-challenger) — role metadata only; geometry status is separate */
   const ESTABLISHED = ['e2', 'g1', 'v2', 'e1', 'e3', 'f1', 'g2'];
@@ -489,6 +681,10 @@ ${extra}`;
   /** Locked Pass 2 gate — H6/H3 displace a finalist; they do not fill an open third slot. */
   const FINAL_THREE = ['e2', 'g1', 'v2'];
   const ALTERNATES = ['h6', 'h3'];
+  const ACCESS_VARIANTS = [];
+  const ACCESS_PROOFS = ['g1a'];
+  const ACCESS_SKELETONS = ['access_a', 'access_b', 'access_c'];
+  const J1_MASSING = ['j1a', 'j1b', 'j1c'];
 
   function metrics(concept) {
     const unitAreas = (concept.units || []).map((u) => unitFirstFloorArea(u));
@@ -622,8 +818,11 @@ ${extra}`;
   function plan(id) {
     if (id === 'reference') return `<svg viewBox="0 0 ${VB_W} ${VB_H}" role="img">${baseLot()}</svg>`;
     const c = CONCEPTS[id];
-    if (!c?.units) return plan('reference');
-    return `<svg viewBox="0 0 ${VB_W} ${VB_H}" role="img">${baseLot(renderConcept(c))}</svg>`;
+    if (!c) return plan('reference');
+    if (c.skeleton || c.circulationProof || c.family === 'j1' || (c.units && c.units.length)) {
+      return `<svg viewBox="0 0 ${VB_W} ${VB_H}" role="img">${baseLot(renderConcept(c))}</svg>`;
+    }
+    return plan('reference');
   }
 
   function getMetrics(id) {
@@ -654,6 +853,10 @@ ${extra}`;
     benchmark: 'Benchmark trio (role)',
     revision: 'Original seven — non-benchmark roles',
     challenger: 'Challengers H2–H6 (role)',
+    variant: 'Access-optimized variants (locked original untouched)',
+    'access-proof': 'Circulation proof (not a candidate)',
+    'access-skeleton': 'Access Geometry A/B/C — parking only',
+    'j1-massing': 'J1 Pennsylvania Loft · Pass 2A massing',
     geometryPass: 'Geometry PASS — shortlist eligible',
     geometryReview: 'Geometry REVIEW — resolve before shortlist',
   };
@@ -803,6 +1006,11 @@ ${extra}`;
     DEPRIORITIZED,
     FINAL_THREE,
     ALTERNATES,
+    ACCESS_VARIANTS,
+    ACCESS_PROOFS,
+    ACCESS_SKELETONS,
+    ACCESS_A_INFRA,
+    J1_MASSING,
     SHORTLIST_MEMO,
     SCORE_CRITERIA,
     GROUP_LABELS,

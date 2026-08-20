@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pondy Flats · J1 Pass 2B Elevations</title>
+<meta name="description" content="Pass 2B schematic Pennsylvania elevations for J1-B then J1-A on frozen Access A + approved massing. No geometry adjustments; ownership/design gate prompt." />
+<style>
+:root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--ok:#416145;--warn:#7b5721;--bad:#9a3b2e;--house:#efd08c;--upper:#c9dff0;--garage:#aec0d2;--shadow:0 18px 54px rgba(15,26,43,.15)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+.top{position:sticky;top:0;z-index:50;background:#0d1b33f4;color:#fff}
+.topin{max-width:1480px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand small{display:block;color:#efb34d;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;font-family:ui-sans-serif,system-ui}
+.brand strong{font-size:16px;font-family:ui-sans-serif,system-ui}
+.nav a{color:#fff;text-decoration:none;border:1px solid #ffffff28;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;margin-left:6px;font-family:ui-sans-serif,system-ui}
+.wrap{max-width:1480px;margin:auto;padding:22px 18px 80px}
+.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow);padding:24px;margin-top:18px}
+h1{font:500 clamp(36px,5vw,56px)/1 Georgia,serif;color:var(--navy);margin:0 0 8px}
+h2{color:var(--navy);margin:0 0 10px}
+h3{color:var(--navy);font-size:18px;margin:16px 0 8px}
+.lede{color:var(--muted);line-height:1.55}
+.callout{margin-top:14px;padding:14px;border-left:4px solid var(--gold);background:#fff8eb;color:#6c5429;font-size:13px;line-height:1.5}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.metric{border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff;margin-bottom:8px}
+.metric small{display:block;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#92702e}
+.metric strong{color:var(--navy)}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.08em;font-family:ui-sans-serif,system-ui}
+.badge.ok{background:#edf5e9;color:var(--ok)}
+.badge.review{background:#fff4e5;color:var(--warn)}
+.plan{border:1px solid var(--line);border-radius:16px;background:#fbfaf7;padding:6px}
+.plan svg{width:100%;height:auto;display:block}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:12px}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:3px;border:1px solid #999}
+.qa{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.qa b{color:var(--navy)}
+.qa .prompt{margin-top:8px;color:var(--muted);line-height:1.55}
+@media(max-width:980px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+  <div class="brand"><small>Pondy Flats · Lot 2</small><strong>J1 Pass 2B Elevations</strong></div>
+  <nav class="nav">
+    <a href="index.html">Hub</a>
+    <a href="j1-massing.html">J1 massing</a>
+    <a href="access-geometry.html">Access A/B/C</a>
+    <a href="study.html">Workflow</a>
+    <a href="lab.html">Lab</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <section class="panel">
+    <h1>J1-B → J1-A · schematic Pennsylvania façade</h1>
+    <p class="lede">
+      Two schematic Pass 2B elevations rendered from frozen <strong>Access A</strong> infrastructure + the approved J1 massing geometry.
+      This is a façade quality test (not circulation). <strong>No geometry adjustment</strong> occurs during the elevation exercise.
+    </p>
+    <div class="callout">
+      <b>Façade test bar</b>: recess the garage doors visually, make both pedestrian entries unmistakable,
+      use the staggered upper volumes to create two-home identity, and let the second story dominate the composition.
+    </div>
+    <div class="legend">
+      <span><i style="background:var(--house);border-color:#6f5a23"></i> Ground residential pod (schematic)</span>
+      <span><i style="background:var(--upper);border-color:#3b4f63"></i> Upper / LOG mass (schematic)</span>
+      <span><i style="background:var(--garage);border-color:#30363b"></i> 22×22 garages (locked)</span>
+      <span><i style="background:#fff;border-style:dashed"></i> Garage door opening (recessed)</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Side-by-side ownership/design gate</h2>
+    <div class="grid2">
+      <div>
+        <div class="metric"><small>Concept</small><strong>J1-B · Staggered Volumes</strong></div>
+        <div class="metric"><small>FS-SUV</small><strong><span id="fs-j1b" class="badge ok">PASS</span></strong></div>
+        <div class="plan" id="elev-j1b"></div>
+      </div>
+      <div>
+        <div class="metric"><small>Concept</small><strong>J1-A · LOG Bridge</strong></div>
+        <div class="metric"><small>FS-SUV</small><strong><span id="fs-j1a" class="badge review">REVIEW</span></strong></div>
+        <div class="plan" id="elev-j1a"></div>
+      </div>
+    </div>
+
+    <div class="qa">
+      <b>Judge this like owners:</b>
+      <div class="prompt">
+        If the site did not force this architecture on us, would we still choose to build it?
+        If neither J1-B nor J1-A earns a clear yes, reconsider the four enclosed parking spaces requirement
+        rather than further “rescuing” residential façades.
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Pass 2B instructions applied</h2>
+    <p class="lede">
+      Only façade/visual treatment changes are applied. Massing footprints and access skeleton remain frozen.
+      J1-C stays on hold. Next: <a href="j1b-pass2c1-visualization.html">Pass 2C.1 real visualization</a>.
+    </p>
+  </section>
+</main>
+
+<script src="js/lot2-sot.js"></script>
+<script src="js/lot2-geometry.js"></script>
+<script src="js/lot2-access.js"></script>
+<script src="js/lot2-j1-massing.js"></script>
+<script>
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+
+  function bboxOf(u){
+    if(u.poly){
+      const xs=u.poly.map(p=>p[0]), ys=u.poly.map(p=>p[1]);
+      return {minX:Math.min(...xs), maxX:Math.max(...xs), minY:Math.min(...ys), maxY:Math.max(...ys)};
+    }
+    // rect-like (units + garages in our J1 concepts)
+    return {minX:u.x, maxX:u.x+u.w, minY:u.y, maxY:u.y+u.h};
+  }
+
+  function buildPresence(shapes, y){
+    // y is a bin start; inclusive at minY, exclusive at maxY
+    return shapes.some(s=>{
+      const b=bboxOf(s);
+      return y>=b.minY-1e-6 && y<b.maxY-1e-6;
+    });
+  }
+
+  function segmentsFromBool(arr, start, step){
+    const segs=[];
+    let i=0;
+    while(i<arr.length){
+      if(!arr[i]){ i++; continue; }
+      let j=i;
+      while(j<arr.length && arr[j]) j++;
+      segs.push({y0:start+i*step, y1:start+j*step});
+      i=j;
+    }
+    return segs;
+  }
+
+  function renderElevation(conceptId, holderId, opts){
+    const c=Lot2.CONCEPTS[conceptId];
+    const yMax=Math.max(...Lot2.SURVEY.map(p=>p[1]));
+    const yMin=0;
+    const ySpan=yMax-yMin;
+    const step=1;
+    const yBins=[];
+    for(let y=yMin; y<yMax; y+=step) yBins.push(y);
+
+    const upperAShapes=(c.upperUnits||[]).filter(u=>u.unit==='A');
+    const upperBShapes=(c.upperUnits||[]).filter(u=>u.unit==='B');
+    const groundShapes=(c.units||[]);
+    const garages=(c.garages||[]);
+
+    const groundPresent=yBins.map(y=>{
+      const hasUnit=buildPresence(groundShapes, y);
+      const hasGarage=garages.some(g=>{
+        const b=bboxOf(g);
+        return y>=b.minY-1e-6 && y<b.maxY-1e-6;
+      });
+      return hasUnit || hasGarage;
+    });
+
+    const upperAPresent=yBins.map(y=>buildPresence(upperAShapes, y));
+    const upperBPresent=yBins.map(y=>buildPresence(upperBShapes, y));
+
+    const segGround=segmentsFromBool(groundPresent, yMin, step);
+    const segUpperB=segmentsFromBool(upperBPresent, yMin, step);
+    const segUpperA=segmentsFromBool(upperAPresent, yMin, step);
+
+    const xs=360, hs=210;
+    const padL=40, padT=18, padR=16, padB=16;
+    const W=padL+xs+padR;
+    const H=padT+hs+padB;
+    const baseY=padT+hs;
+    const pxPerFt=4.2;
+    const groundH=10;
+    const groundHpx=groundH*pxPerFt;
+    const upperBHeight=opts.upperBHeightFt||18;
+    const upperAHeight=opts.upperAHeightFt||22;
+    const upperBHeightPx=upperBHeight*pxPerFt;
+    const upperAHeightPx=upperAHeight*pxPerFt;
+
+    function sx(y){ return padL + ((y-yMin)/ySpan)*xs; }
+
+    function rectSeg(seg, topY, heightPx, fill, stroke, opacity){
+      const x0=sx(seg.y0), x1=sx(seg.y1);
+      const w=Math.max(1, x1-x0);
+      return `<rect x=\"${x0.toFixed(1)}\" y=\"${topY.toFixed(1)}\" width=\"${w.toFixed(1)}\" height=\"${heightPx.toFixed(1)}\" fill=\"${fill}\" fill-opacity=\"${opacity}\" stroke=\"${stroke}\" stroke-width=\"1.2\" />`;
+    }
+
+    const groundTop=baseY-groundHpx;
+    const upperBTop=baseY-(groundHpx+upperBHeightPx);
+    const upperATop=baseY-(groundHpx+upperAHeightPx);
+
+    // Pedestrian entries at mid-Y of ground pods
+    const entryMarks=[];
+    ['A','B'].forEach(unit=>{
+      const pod=(groundShapes||[]).find(u=>u.unit===unit);
+      if(!pod) return;
+      const b=bboxOf(pod);
+      const yMid=(b.minY+b.maxY)/2;
+      const wFt=3.2;
+      const doorWpx=(wFt/ySpan)*xs;
+      const hFt=8.2;
+      const doorHpx=hFt*pxPerFt;
+      const x=sx(yMid)-doorWpx/2;
+      const doorTop=baseY-doorHpx;
+      entryMarks.push(`<rect x=\"${x.toFixed(1)}\" y=\"${doorTop.toFixed(1)}\" width=\"${doorWpx.toFixed(1)}\" height=\"${doorHpx.toFixed(1)}\" rx=\"4\" fill=\"#ffffff\" fill-opacity=\"0.9\" stroke=\"#2a6496\" stroke-width=\"2\" />`);
+      entryMarks.push(`<text x=\"${(x+doorWpx/2).toFixed(1)}\" y=\"${(doorTop+2).toFixed(1)}\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2a6496\" font-weight=\"800\">Entry ${unit}</text>`);
+    });
+
+    // Garage door openings: draw as recessed frames within ground band
+    const garageMarks=[];
+    garages.forEach(g=>{
+      const b=bboxOf(g);
+      const y0=b.minY, y1=b.maxY;
+      const insetFt=1.8;
+      const inner0=clamp(y0+insetFt, y0, y1);
+      const inner1=clamp(y1-insetFt, y0, y1);
+      const doorTop=groundTop+1.6*pxPerFt;
+      const doorHpx=7.8*pxPerFt;
+      const frameX0=sx(y0), frameX1=sx(y1);
+      const innerX0=sx(inner0), innerX1=sx(inner1);
+      const frameW=frameX1-frameX0;
+      const innerW=innerX1-innerX0;
+      garageMarks.push(`<rect x=\"${frameX0.toFixed(1)}\" y=\"${groundTop.toFixed(1)}\" width=\"${frameW.toFixed(1)}\" height=\"${groundHpx.toFixed(1)}\" fill=\"#ffffff\" fill-opacity=\"0.18\" stroke=\"#30363b\" stroke-width=\"1.6\" stroke-dasharray=\"5 3\" />`);
+      garageMarks.push(`<rect x=\"${innerX0.toFixed(1)}\" y=\"${doorTop.toFixed(1)}\" width=\"${innerW.toFixed(1)}\" height=\"${doorHpx.toFixed(1)}\" rx=\"4\" fill=\"#ffffff\" fill-opacity=\"0.95\" stroke=\"#9a3b2e\" stroke-width=\"2\" />`);
+    });
+
+    const svg=`<svg viewBox=\"0 0 ${W} ${H}\" role=\"img\" aria-label=\"Pennsylvania elevation schematic\">
+      <rect x=\"${padL-2}\" y=\"${padT-2}\" width=\"${(xs+4).toFixed(1)}\" height=\"${(hs+4).toFixed(1)}\" fill=\"#fbfaf7\" stroke=\"${'#ddd7cf'}\" stroke-width=\"1\" rx=\"10\" />
+      <line x1=\"${padL}\" y1=\"${baseY}\" x2=\"${padL+xs}\" y2=\"${baseY}\" stroke=\"#7f8588\" stroke-width=\"1.2\" stroke-dasharray=\"6 4\" />
+      ${segGround.map(seg=>rectSeg(seg, groundTop, groundHpx, '#efd08c', '#30363b', 0.28)).join('')}
+      ${segUpperB.map(seg=>rectSeg(seg, upperBTop, upperBHeightPx, '#c9dff0', '#4a6a82', 0.35)).join('')}
+      ${segUpperA.map(seg=>rectSeg(seg, upperATop, upperAHeightPx, '#c9dff0', '#1a2430', 0.55)).join('')}
+      ${garageMarks.join('')}
+      ${entryMarks.join('')}
+      <text x=\"${padL+xs/2}\" y=\"${(padT+14).toFixed(1)}\" text-anchor=\"middle\" font-size=\"12\" fill=\"#59636d\">Pennsylvania façade run · depth cues purely schematic</text>
+      <text x=\"${padL+2}\" y=\"${(padT+hs+28).toFixed(1)}\" font-size=\"12\" fill=\"#59636d\">(Recessed garages + explicit entries + upper-story dominance)</text>
+    </svg>`;
+
+    document.getElementById(holderId).innerHTML=svg;
+  }
+
+  // FS-SUV label for J1-B from massing analysis; J1-A forced to REVIEW per request.
+  const massReport=Lot2J1Massing.analyzeAll();
+  const byId={}; massReport.order.forEach(id=>byId[id]=massReport.rows[id]);
+  const fsJ1b=byId['j1b']?.access?.technical||'PASS';
+  document.getElementById('fs-j1b').textContent = fsJ1b;
+  document.getElementById('fs-j1b').className = 'badge ' + (fsJ1b==='PASS'?'ok':'review');
+
+  renderElevation('j1b','elev-j1b',{upperAHeightFt:22, upperBHeightFt:16});
+  renderElevation('j1a','elev-j1a',{upperAHeightFt:22, upperBHeightFt:22});
+</script>
+</body>
+</html>

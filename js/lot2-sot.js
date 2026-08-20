@@ -29,6 +29,20 @@ const Lot2SOT = Object.freeze({
   DRIVE_WIDTH: 12,
   GARAGE: Object.freeze({ w: 22, h: 22, sf: 484 }),
   SUV: Object.freeze({ length: 19, width: 7.5, turnRadius: 24, doorWidth: 16 }),
+  /** Pass 2 over-test: F-150 SuperCrew / Tahoe class — do not use compact cars. */
+  SUV_FS: Object.freeze({
+    id: 'FS-SUV',
+    label: 'Full-size SUV / pickup (F-150 SuperCrew / Tahoe class)',
+    length: 20.5,
+    width: 8.0,
+    wheelbase: 13.1,
+    frontOverhang: 3.4,
+    rearOverhang: 4.0,
+    minRearAxleRadius: 25,
+    outerFrontRadius: 28.2,
+    doorWidth: 16,
+    apronDepth: 24,
+  }),
   FUNNEL: Object.freeze(['sot', 'geometry-lab', 'viable', 'finalist', 'pass2-architecture']),
 });
 

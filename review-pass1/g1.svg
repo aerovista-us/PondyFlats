@@ -1,0 +1,13 @@
+<svg viewBox="0 0 987 411" role="img"><defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#5b6771"/></marker></defs>
+<polygon class="lot" points="70.0,40.0 876.6,40.0 876.6,312.5 752.0,274.4 532.2,274.4 70.0,350.7"/>
+<polygon class="envelope" points="206.3,67.3 767.6,67.3 767.6,296.2 206.3,296.2"/>
+<text class="dim" x="473.3" y="12.75" text-anchor="middle">148.00′ DEPTH · REAR ← → PENNSYLVANIA</text>
+<text class="dim" x="48.2" y="192.6" transform="rotate(-90 48.2 192.6)" text-anchor="middle">57.01′ NORTH / REAR</text>
+<text class="sm" x="298.9" y="334.3" text-anchor="middle">85.98′</text>
+<text class="sm" x="642.25" y="290.70000000000005" text-anchor="middle">40.33′</text>
+<text class="sm" x="816.65" y="309.77500000000003" text-anchor="middle">23.90′</text>
+<text class="front" x="892.95" y="176.25" transform="rotate(90 892.95 176.25)" text-anchor="middle">50.00′ PENNSYLVANIA · SOUTH / FRONT</text>
+<path class="north-arrow" d="M26.4 192.6 L113.6 192.6 M26.4 192.6 L59.1 186.6 M26.4 192.6 L59.1 198.6"/>
+<text class="sm" x="-6.299999999999997" y="196.6" text-anchor="middle">N</text>
+<text class="sm" x="-6.299999999999997" y="208.6" text-anchor="middle">REAR</text>
+<rect class="garage" x="429.7" y="83.6" width="119.9" height="119.9"/><text class="lab" x="489.65000000000003" y="143.55" text-anchor="middle">GARAGE A · 22×22</text><rect class="garage" x="157.2" y="159.9" width="119.9" height="119.9"/><text class="lab" x="217.15" y="219.85" text-anchor="middle">GARAGE B · 22×22</text><rect class="house" x="560.5" y="83.6" width="207.1" height="130.8"/><text class="lab" x="664.0500000000001" y="149" text-anchor="middle">UNIT A · 38×24 · 912 SF</text><rect class="house" x="288" y="159.9" width="207.1" height="130.8"/><text class="lab" x="391.55" y="225.3" text-anchor="middle">UNIT B · 38×24 · 912 SF</text><polyline class="drive" points="876.6,268.9 767.6,268.9 560.5,258.0 429.7,236.2 277.1,236.2 157.2,236.2"/><polyline class="center" points="876.6,268.9 767.6,268.9 560.5,258.0 429.7,236.2 277.1,236.2 157.2,236.2"/></svg>

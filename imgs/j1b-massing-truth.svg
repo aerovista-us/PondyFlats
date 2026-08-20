@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" role="img" aria-label="J1-B massing truth axonometric">
+      <rect width="980" height="560" fill="#f7f4ef"/>
+      
+      <text x="175" y="438" text-anchor="middle" font-size="12" font-weight="900" fill="#c34232">PENNSYLVANIA · SOUTH / FRONT (NEAR)</text>
+      <text x="238.00750000000002" y="83.94999999999999" text-anchor="middle" font-size="11" font-weight="800" fill="#2a6496">N / REAR (DEEP)</text>
+      <text x="104.48500000000001" y="238.1" text-anchor="middle" font-size="10" fill="#59636d">y≈0 (north edge)</text>
+      <text x="110" y="28" font-size="13" font-weight="900" fill="#0d1b33">J1-B MASSING TRUTH · IMAGE 2 · DETERMINISTIC AXON · NO ARCHITECTURE</text>
+      <text x="110" y="46" font-size="11" fill="#59636d">Extruded from Lot2.CONCEPTS.j1b · ground/garage 10′ · upper A 22′ · upper B 16′ · dashed = footprint projection</text>
+    
+      <polygon points="122.2,72.2 70.0,420.0 280.0,420.0 258.7,366.3 272.9,271.5 361.6,72.2" fill="#f0ebe3" fill-opacity="0.95" stroke="#232a31" stroke-width="2"/>
+      <polyline points="137.2,419.5 142.0,387.3" fill="none" stroke="#8a9096" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><polyline points="137.2,419.5 142.0,387.3" fill="none" stroke="#3d454d" stroke-width="1.5" stroke-dasharray="6 4"/><circle cx="137.2" cy="419.28" r="3" fill="#0d1b33"/><text x="142.2" y="414.28" font-size="9" fill="#445">A0 (148,16)</text><circle cx="142.02925" cy="387.085" r="3" fill="#0d1b33"/><text x="147.02925" y="382.085" font-size="9" fill="#445">A1 (134.3,16)</text><polyline points="225.4,419.5 249.4,259.7 215.4,206.3" fill="none" stroke="#8a9096" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><polyline points="225.4,419.5 249.4,259.7 215.4,206.3" fill="none" stroke="#3d454d" stroke-width="1.5" stroke-dasharray="6 4"/><circle cx="225.4" cy="419.28" r="3" fill="#0d1b33"/><text x="230.4" y="414.28" font-size="9" fill="#445">B0 (148,37)</text><circle cx="249.37" cy="259.47999999999996" r="3" fill="#0d1b33"/><text x="254.37" y="254.47999999999996" font-size="9" fill="#445">B1 (80,37)</text><circle cx="215.37175000000002" cy="206.13499999999996" r="3" fill="#0d1b33"/><text x="220.37175000000002" y="201.13499999999996" font-size="9" fill="#445">B2 (57.3,27)</text>
+      <polygon points="134.4,130.9 126.6,182.6 202.2,182.6 210.0,130.9" fill="none" stroke="#5b6771" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.85"/>
+<polygon points="202.2,182.6 210.0,130.9 210.0,94.9 202.2,146.6" fill="#cbc5ba" fill-opacity="0.88" stroke="#2a3038" stroke-width="1.1"/>
+<polygon points="126.6,182.6 202.2,182.6 202.2,146.6 126.6,146.6" fill="#bdb6aa" fill-opacity="0.95" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="126.6,146.6 202.2,146.6 210.0,94.9 134.4,94.9" fill="#d9d4cb" fill-opacity="0.9" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="180.6,130.9 172.8,182.6 265.2,182.6 273.0,130.9" fill="none" stroke="#5b6771" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.85"/>
+<polygon points="180.6,130.9 172.8,182.6 265.2,182.6 273.0,130.9" fill="none" stroke="#5b6771" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.85"/>
+<polygon points="265.2,182.6 273.0,130.9 273.0,94.9 265.2,146.6" fill="#9aa6b4" fill-opacity="0.88" stroke="#2a3038" stroke-width="1.1"/>
+<polygon points="265.2,146.6 273.0,94.9 273.0,37.3 265.2,89.0" fill="#ddd9d1" fill-opacity="0.88" stroke="#2a3038" stroke-width="1.1"/>
+<polygon points="172.8,182.6 265.2,182.6 265.2,146.6 172.8,146.6" fill="#7f8b98" fill-opacity="0.95" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="172.8,146.6 265.2,146.6 265.2,89.0 172.8,89.0" fill="#cfcbc3" fill-opacity="0.95" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="172.8,146.6 265.2,146.6 273.0,94.9 180.6,94.9" fill="#b7c2d0" fill-opacity="0.9" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="172.8,89.0 265.2,89.0 273.0,37.3 180.6,37.3" fill="#e8e6e1" fill-opacity="0.9" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="126.6,182.6 116.0,253.2 216.8,253.2 227.4,182.6" fill="none" stroke="#5b6771" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.85"/>
+<polygon points="216.8,217.2 227.4,146.6 227.4,89.0 216.8,159.5" fill="#ddd9d1" fill-opacity="0.88" stroke="#2a3038" stroke-width="1.1"/>
+<polygon points="116.0,217.2 216.8,217.2 216.8,159.5 116.0,159.5" fill="#cfcbc3" fill-opacity="0.95" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="116.0,159.5 216.8,159.5 227.4,89.0 126.6,89.0" fill="#e8e6e1" fill-opacity="0.9" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="114.3,264.9 107.2,311.9 199.6,311.9 206.7,264.9" fill="none" stroke="#5b6771" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.85"/>
+<polygon points="199.6,311.9 206.7,264.9 206.7,228.9 199.6,275.9" fill="#cbc5ba" fill-opacity="0.88" stroke="#2a3038" stroke-width="1.1"/>
+<polygon points="107.2,311.9 199.6,311.9 199.6,275.9 107.2,275.9" fill="#bdb6aa" fill-opacity="0.95" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="107.2,275.9 199.6,275.9 206.7,228.9 114.3,228.9" fill="#d9d4cb" fill-opacity="0.9" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="113.2,271.9 98.4,370.6 216.0,370.6 230.8,271.9" fill="none" stroke="#5b6771" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.85"/>
+<polygon points="216.0,334.6 230.8,235.9 230.8,156.8 216.0,255.5" fill="#ddd9d1" fill-opacity="0.88" stroke="#2a3038" stroke-width="1.1"/>
+<polygon points="98.4,334.6 216.0,334.6 216.0,255.5 98.4,255.5" fill="#cfcbc3" fill-opacity="0.95" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="98.4,255.5 216.0,255.5 230.8,156.8 113.2,156.8" fill="#e8e6e1" fill-opacity="0.9" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="107.2,311.9 99.5,363.6 191.9,363.6 199.6,311.9" fill="none" stroke="#5b6771" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.85"/>
+<polygon points="191.9,363.6 199.6,311.9 199.6,275.9 191.9,327.6" fill="#9aa6b4" fill-opacity="0.88" stroke="#2a3038" stroke-width="1.1"/>
+<polygon points="99.5,363.6 191.9,363.6 191.9,327.6 99.5,327.6" fill="#7f8b98" fill-opacity="0.95" stroke="#1a1d22" stroke-width="1.1"/>
+<polygon points="99.5,327.6 191.9,327.6 199.6,275.9 107.2,275.9" fill="#b7c2d0" fill-opacity="0.9" stroke="#1a1d22" stroke-width="1.1"/>
+      <polygon points="112.1,334.8 179.3,334.8 179.3,361.8 112.1,361.8" fill="#111317" fill-opacity="0.85" stroke="#c45c4a" stroke-width="1.6"/>
+      <text x="149.66" y="348.29999999999995" font-size="10" fill="#9a3b2e" font-weight="800">DOOR E</text><polygon points="185.4,153.8 252.6,153.8 252.6,180.8 185.4,180.8" fill="#111317" fill-opacity="0.85" stroke="#c45c4a" stroke-width="1.6"/>
+      <text x="223.0025" y="167.34999999999997" font-size="10" fill="#9a3b2e" font-weight="800">DOOR E</text>
+      <text x="151.66" y="345.6" font-size="10" font-weight="800" fill="#1a2430">GARAGE A · 22×22</text><text x="225.0025" y="164.64999999999998" font-size="10" font-weight="800" fill="#1a2430">GARAGE B · 22×22</text><text x="159.415" y="293.9" font-size="10" font-weight="800" fill="#1a2430">GROUND A · 440 SF</text><text x="170.4025" y="164.64999999999998" font-size="10" font-weight="800" fill="#1a2430">GROUND B · 396 SF</text><text x="163.20250000000001" y="295.04999999999995" font-size="10" font-weight="800" fill="#1a2430">UPPER A · 1,176 SF</text><text x="225.0025" y="117.84999999999997" font-size="10" font-weight="800" fill="#1a2430">UPPER B · LOG 484 SF</text><text x="172.4275" y="188.35" font-size="10" font-weight="800" fill="#1a2430">UPPER B · wing 720 SF</text>
+    </svg>

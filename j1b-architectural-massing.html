@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pondy Flats · J1-B Architectural Massing (Image 3)</title>
+<meta name="description" content="J1-B Image 3 — architectural massing on locked Image 2 camera and footprints. Toggle massing underlay. Deterministic SVG.">
+<style>
+:root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--ok:#416145;--shadow:0 18px 54px rgba(15,26,43,.12)}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+.top{position:sticky;top:0;z-index:50;background:#0d1b33f4;color:#fff}
+.topin{max-width:1480px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand small{display:block;color:#efb34d;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.brand strong{font-size:16px}
+.nav a{color:#fff;text-decoration:none;border:1px solid #ffffff28;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;margin-left:6px}
+.wrap{max-width:1480px;margin:auto;padding:22px 18px 80px}
+.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow);padding:24px;margin-top:18px}
+h1{font:500 clamp(32px,5vw,48px)/1 Georgia,serif;color:var(--navy);margin:0 0 8px}
+h2{color:var(--navy);margin:0 0 10px}
+.lede,p,li{color:var(--muted);line-height:1.55}
+.ok{margin-top:12px;padding:14px;border-left:4px solid var(--ok);background:#edf5e9;color:#2d4a32;font-size:13px;line-height:1.5}
+.lock{margin-top:12px;padding:14px;border-left:4px solid var(--navy);background:#eef3fa;color:#2a4a7a;font-size:13px;line-height:1.5}
+.chain{margin-top:12px;padding:14px;border-left:4px solid var(--gold);background:#fff8eb;color:#6c5429;font-size:13px;line-height:1.5}
+.chain .on{font-weight:900;color:var(--navy)}
+.plan{border:1px solid var(--line);border-radius:16px;background:#f3efe8;padding:8px;margin-top:12px;overflow:auto}
+.plan svg{width:100%;height:auto;display:block}
+.toggles{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;font-family:ui-sans-serif,system-ui}
+.toggles label{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:750;cursor:pointer}
+.toggles input{accent-color:#0d1b33}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:900;background:#edf5e9;color:var(--ok)}
+.stamp{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#445;background:#f4f1eb;border-radius:10px;padding:12px;overflow:auto;margin-top:10px;white-space:pre-wrap}
+.rules{margin:8px 0 0;padding-left:18px}
+.rules li{margin:5px 0}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand"><small>Pondy Flats · Lot 2</small><strong>J1-B · Architectural Massing</strong></div>
+<nav class="nav">
+<a href="j1b-geometry-truth.html">Image 1</a>
+<a href="j1b-massing-truth.html">Image 2</a>
+<a href="study.html">Workflow</a>
+</nav>
+</div></header>
+
+<main class="wrap">
+<section class="panel">
+<h1>Image 3 · Architectural massing</h1>
+<p class="lede">Architecture added to the <strong>same camera and locked volumes</strong> as Image 2. Deterministic SVG. No volume may stretch, shrink, slide, rotate, or merge.</p>
+<div class="ok"><strong>Image 2 approved</strong> as mathematical reference (frozen extrusion specification). Caveat: GitHub HTML/SVG fetch returned 404 at review time — approval is of the documented extrusion, not a pixel-level remote audit.</div>
+<div class="lock"><strong>Locked from Image 2:</strong> camera · lot plane · volume footprints · upper heights (A 22′ / B 16′) · east garage-door faces · Access A paths. Roofs only on existing upper volumes. Porches labeled <em>APPENDAGE</em>.</div>
+<div class="chain">
+1 Geometry truth ✓ → 2 Massing truth ✓ →
+<span class="on">3 Architectural massing ← you are here</span> →
+4 Finished elev + perspective
+</div>
+
+<div class="toggles">
+<label><input type="checkbox" id="arch" checked> Architecture on</label>
+<label><input type="checkbox" id="underlay"> Massing underlay (Image 2 ghost)</label>
+<label><input type="checkbox" id="footprints" checked> Footprint overlays</label>
+</div>
+</section>
+
+<section class="panel">
+<h2>Axon <span class="badge" id="mode">architecture</span></h2>
+<div class="plan" id="view"></div>
+</section>
+
+<section class="panel">
+<h2>Hard rules (Image 3)</h2>
+<ul class="rules">
+<li>Same camera as Image 2</li>
+<li>Same lot plane, footprints, upper heights, garage-door faces, Access A</li>
+<li>Roofs only on top of existing upper volumes</li>
+<li>Porches/entry canopies may project but are labeled architectural appendages</li>
+<li>Windows, siding, stone, timber, trim, light landscaping allowed</li>
+<li>No core volume stretch / shrink / slide / rotate / merge</li>
+<li>Faint footprint overlay for instant drift audit</li>
+<li>Toggle Image 2 massing underlay for truth check</li>
+</ul>
+<pre class="stamp" id="stamp"></pre>
+</section>
+
+<section class="panel">
+<h2>Approval gate for Image 3</h2>
+<p class="lede"><strong>APPROVED</strong> as massing truth for the Image 4 family (architecture on frozen massing; GitHub fetch caveat noted). Image 4 elev/perspective = <strong>DRIFT</strong>; next gate is same-camera axon.</p>
+<p><a href="j1b-image4-1-axon.html">→ Open Image 4.1 · Same-camera axon photoreal</a></p>
+</section>
+</main>
+
+<script src="js/lot2-sot.js"></script>
+<script src="js/lot2-geometry.js"></script>
+<script src="js/lot2-j1b-massing-truth.js"></script>
+<script src="js/lot2-j1b-architectural-massing.js"></script>
+<script>
+function redraw(){
+  const out = Lot2J1BArchitecturalMassing.render({
+    showArchitecture: document.getElementById('arch').checked,
+    showMassingUnderlay: document.getElementById('underlay').checked,
+    showFootprints: document.getElementById('footprints').checked,
+  });
+  document.getElementById('view').innerHTML = out.svg;
+  document.getElementById('mode').textContent = out.mode || (document.getElementById('arch').checked ? 'architecture' : 'massing-only');
+  document.getElementById('stamp').textContent = JSON.stringify(out.freeze || Lot2J1BMassingTruth.freezeCompare(), null, 2);
+}
+['arch','underlay','footprints'].forEach(id => document.getElementById(id).addEventListener('change', redraw));
+redraw();
+</script>
+</body>
+</html>

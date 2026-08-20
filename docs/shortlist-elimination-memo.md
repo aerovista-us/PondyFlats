@@ -52,4 +52,8 @@ Final Three: E2 / G1 / V2
 
 No full elevations for H6, H3, or E3 unless they displace a finalist.
 
+## Access addendum (locked-geometry FS-SUV)
+
+H6 then H3 were tested on the identical 20.5′ × 8.0′ / 25′ gate. **Both FAIL.** The Final Three also FAIL. No challenger is promoted; no finalist is demoted. Shortlist circulation scores assumed schematic drives that cannot carry this vehicle. Treat circulation as a site constraint next — see [`lot2-access.md`](lot2-access.md) / [`access.html`](../access.html). Do not start Pass 2 architecture.
+
 See also: [`lot2-geometry-validation.md`](lot2-geometry-validation.md)
