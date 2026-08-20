@@ -269,6 +269,8 @@ ${extra}`;
       label: 'E2 Recessed Garage',
       role: 'Conventional benchmark',
       group: 'benchmark',
+      firstFloorBenchmark: 900,
+      designConcern: '900/910 SF lower split · safest conventional baseline',
       units: [
         { name: 'UNIT A · 900 SF', x: 83, y: 5, w: 45, h: 20, sf: 900 },
         {
@@ -289,6 +291,7 @@ ${extra}`;
       label: 'G1 Z-Duplex',
       role: 'Efficiency benchmark · Z-stagger interlock',
       group: 'benchmark',
+      designConcern: 'Z-stagger interlock · party-wall / service core',
       units: [
         { name: 'UNIT A · 912 SF', x: 88, y: 5, w: 38, h: 24, sf: 912 },
         { name: 'UNIT B · 646 SF', x: 38, y: 18, w: 38, h: 16, sf: 608 },
@@ -305,6 +308,7 @@ ${extra}`;
       label: 'V2 Long-Axis V',
       role: 'Design ceiling',
       group: 'benchmark',
+      designConcern: 'Angled wings · roof / foundation complexity',
       units: [
         { name: 'UNIT A · 798 SF', poly: [[85, 5], [127, 5], [127, 22], [85, 26]], sf: 798 },
         { name: 'UNIT B · 378 SF', poly: [[85, 26], [127, 22], [127, 33], [85, 33]], sf: 378 },
@@ -321,6 +325,7 @@ ${extra}`;
       label: 'E1 Deep-Stagger',
       role: 'Privacy benchmark',
       group: 'revision',
+      designConcern: 'Drive clearance · west unit clips garage zone',
       units: [
         { name: 'UNIT A · 880 SF', x: 88, y: 5, w: 40, h: 22, sf: 880 },
         { name: 'UNIT B · 880 SF', x: 30, y: 10, w: 28, h: 22, sf: 616 },
@@ -337,6 +342,7 @@ ${extra}`;
       label: 'E3 Front Courtyard',
       role: 'Courtyard benchmark',
       group: 'revision',
+      designConcern: 'Court quality · Penn arrival sequence',
       court: [134, 10, 14, 22],
       units: [
         { name: 'UNIT A · 782 SF', x: 82, y: 5, w: 46, h: 17, sf: 782 },
@@ -354,6 +360,7 @@ ${extra}`;
       label: 'F1 Rear Motor Court',
       role: 'Street-presence benchmark',
       group: 'revision',
+      designConcern: 'Aggressive upper-floor load (1400 SF target)',
       units: [
         { name: 'UNIT A · 400 SF', x: 108, y: 5, w: 20, h: 20, sf: 400 },
         { name: 'UNIT B · 200 SF', x: 108, y: 23, w: 20, h: 10, sf: 200 },
@@ -370,6 +377,7 @@ ${extra}`;
       label: 'G2 Interlocking-L',
       role: 'Architectural wildcard',
       group: 'revision',
+      designConcern: 'L-wing drive routing · interlock / roof junctions',
       units: [
         { name: `UNIT A · L · ${Math.round(polyArea(G2_A))} SF`, poly: G2_A, sf: Math.round(polyArea(G2_A)) },
         { name: `UNIT B · L · ${Math.round(polyArea(G2_B))} SF`, poly: G2_B, sf: Math.round(polyArea(G2_B)) },
@@ -386,6 +394,7 @@ ${extra}`;
       label: 'H2 Carriage-Hinge Duplex',
       role: 'Challenger · hinged L pair around drive',
       group: 'challenger',
+      designConcern: 'Split L program · hinge / drive coordination',
       units: [
         { name: 'UNIT A · L · 820 SF', poly: [[98, 5], [127, 5], [127, 22], [98, 22], [98, 14], [72, 14], [72, 5]], sf: 820 },
         { name: 'UNIT B · L · 547 SF', poly: [[98, 24], [127, 24], [127, 33], [72, 33], [72, 35], [98, 33]], sf: 547 },
@@ -402,6 +411,7 @@ ${extra}`;
       label: 'H3 Mews Courtyard Pair',
       role: 'Challenger · shared mews at Penn',
       group: 'challenger',
+      designConcern: 'Mews court width · shared Penn arrival',
       court: [134, 8, 14, 20],
       units: [
         { name: 'UNIT A · 756 SF', x: 82, y: 5, w: 42, h: 18, sf: 756 },
@@ -419,6 +429,7 @@ ${extra}`;
       label: 'H4 Garage-Under / LOG',
       role: 'Challenger · living over garage mass',
       group: 'challenger',
+      designConcern: 'LOG massing · staggered Penn/rear units',
       units: [
         { name: 'UNIT A · LOG · 880 SF', x: 86, y: 5, w: 40, h: 22, sf: 880 },
         { name: 'UNIT B · LOG · 880 SF', x: 25, y: 10, w: 34, h: 22, sf: 748 },
@@ -435,6 +446,7 @@ ${extra}`;
       label: 'H5 Urban Cottage Pair',
       role: 'Challenger · detached cottage plates',
       group: 'challenger',
+      designConcern: 'Cottage separation · south drive routing',
       units: [
         { name: 'COTTAGE A · 864 SF', x: 90, y: 5, w: 36, h: 24, sf: 864 },
         { name: 'COTTAGE B · 792 SF', x: 48, y: 10, w: 36, h: 22, sf: 792 },
@@ -451,6 +463,7 @@ ${extra}`;
       label: 'H6 Central-Core Duplex',
       role: 'Challenger · garage spine · units flank',
       group: 'challenger',
+      designConcern: 'Central-core architecture · garage spine circulation',
       units: [
         { name: 'UNIT A · 902 SF', x: 86, y: 5, w: 41, h: 22, sf: 902 },
         { name: 'UNIT B · 880 SF', x: 25, y: 10, w: 40, h: 22, sf: 880 },
@@ -466,8 +479,13 @@ ${extra}`;
 
   const CONCEPT_ORDER = ['e2', 'g1', 'v2', 'e1', 'e3', 'f1', 'g2', 'h2', 'h3', 'h4', 'h5', 'h6'];
   const BENCHMARKS = ['e2', 'g1', 'v2'];
-  const REVISION = ['e1', 'e3', 'f1', 'g2'];
+  /** Original seven (non-challenger) — role metadata only; geometry status is separate */
+  const ESTABLISHED = ['e2', 'g1', 'v2', 'e1', 'e3', 'f1', 'g2'];
   const CHALLENGERS = ['h2', 'h3', 'h4', 'h5', 'h6'];
+  const LIVING_TARGET = { min: 1600, max: 1900, label: '~1,800 SF total living per unit' };
+  const SHORTLIST_TRACK = ['e2', 'g1', 'v2', 'h6', 'h3'];
+  const SHORTLIST_BACKUP = ['e3'];
+  const DEPRIORITIZED = ['e1', 'g2', 'h2', 'h4', 'h5'];
 
   function metrics(concept) {
     const unitAreas = (concept.units || []).map((u) => unitFirstFloorArea(u));
@@ -545,28 +563,39 @@ ${extra}`;
     const driveOk = minDriveClear >= DRIVE_W / 2 - 0.75;
     if (!driveOk) reasons.push(`Min drive clearance ${minDriveClear.toFixed(1)}′ < ${DRIVE_W / 2}′ each side`);
 
-    const target900 = (concept.units || []).every((u) => {
-      const a = unitFirstFloorArea(u);
-      const target = u.sf || 900;
-      if (target <= 500) return a >= target * 0.85;
-      if (target < 800) return a >= target * 0.9;
-      return Math.abs(a - target) < 80 || a >= 700;
-    });
+    const m = metrics(concept);
+    const livingTargetOk = m.totalLiving >= LIVING_TARGET.min && m.totalLiving <= LIVING_TARGET.max;
+    if (!livingTargetOk) {
+      reasons.push(`Total living ${m.totalLiving} SF/unit outside ${LIVING_TARGET.min}–${LIVING_TARGET.max} SF band`);
+    }
+
+    let firstFloorBenchmarkOk = true;
+    if (concept.firstFloorBenchmark) {
+      firstFloorBenchmarkOk = (concept.units || []).every((u) => {
+        const a = unitFirstFloorArea(u);
+        const target = u.sf || concept.firstFloorBenchmark;
+        return Math.abs(a - target) < 80;
+      });
+      if (!firstFloorBenchmarkOk) {
+        reasons.push(`First-floor areas must match declared ~${concept.firstFloorBenchmark} SF benchmark (±80 SF)`);
+      }
+    }
+
     const checks = {
       inSurvey,
       inSetback,
       garageOk,
       pennAccess,
       driveOk,
-      target900,
+      livingTargetOk,
+      firstFloorBenchmarkOk,
     };
 
     let status = 'PASS';
     if (!inSurvey || !garageOk || !pennAccess) status = 'FAIL';
-    else if (!inSetback || !driveOk || !target900) status = 'REVIEW';
+    else if (!inSetback || !driveOk || !livingTargetOk || !firstFloorBenchmarkOk) status = 'REVIEW';
 
-    const m = metrics(concept);
-    let verdict = status === 'PASS' ? 'Geometry viable under working assumptions' : status === 'REVIEW' ? 'Partial pass — revise plates, setback, or drive' : 'Fails parcel, garage, or Penn access';
+    let verdict = status === 'PASS' ? 'Geometry PASS under working assumptions' : status === 'REVIEW' ? 'Geometry REVIEW — fix footprint, setback, drive, or program band' : 'Geometry FAIL — parcel, garage, or Penn access';
 
     return {
       status,
@@ -575,6 +604,7 @@ ${extra}`;
       reasons: reasons.slice(0, 8),
       minDriveClear: minDriveClear === Infinity ? null : +minDriveClear.toFixed(1),
       metrics: m,
+      designConcern: concept.designConcern || '—',
     };
   }
 
@@ -603,10 +633,26 @@ ${extra}`;
     return c?.units ? validateConcept(c) : null;
   }
 
+  function validationGroups() {
+    const vals = validateAll();
+    const pass = [];
+    const review = [];
+    const fail = [];
+    CONCEPT_ORDER.forEach((id) => {
+      const s = vals[id]?.status;
+      if (s === 'PASS') pass.push(id);
+      else if (s === 'FAIL') fail.push(id);
+      else review.push(id);
+    });
+    return { pass, review, fail, vals };
+  }
+
   const GROUP_LABELS = {
-    benchmark: 'Validated / Current Benchmarks',
-    revision: 'Needs Geometry Revision',
-    challenger: 'New Challengers',
+    benchmark: 'Benchmark trio (role)',
+    revision: 'Original seven — non-benchmark roles',
+    challenger: 'Challengers H2–H6 (role)',
+    geometryPass: 'Geometry PASS — shortlist eligible',
+    geometryReview: 'Geometry REVIEW — resolve before shortlist',
   };
 
   return {
@@ -618,8 +664,13 @@ ${extra}`;
     CONCEPT_ORDER,
     LAB_ORDER: CONCEPT_ORDER,
     BENCHMARKS,
-    REVISION,
+    ESTABLISHED,
+    REVISION: ['e1', 'e3', 'f1', 'g2'],
     CHALLENGERS,
+    LIVING_TARGET,
+    SHORTLIST_TRACK,
+    SHORTLIST_BACKUP,
+    DEPRIORITIZED,
     GROUP_LABELS,
     setbackPoly,
     envelopePoly: setbackPoly,
@@ -627,6 +678,7 @@ ${extra}`;
     pointInPoly,
     validateConcept,
     validateAll,
+    validationGroups,
     plan,
     getMetrics,
     getValidation,

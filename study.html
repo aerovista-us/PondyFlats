@@ -22,6 +22,7 @@ h1{font:500 clamp(42px,6vw,76px)/.95 Georgia,serif;color:var(--navy);margin:0 0 
 .code{background:#0c1422;color:#e7edf4;border-radius:16px;padding:18px;overflow:auto;font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;margin-top:14px}
 .disclaimer{margin-top:14px;padding:14px;border:1px solid #ebce99;background:#fff6e7;border-radius:12px;font-size:13px;line-height:1.5;color:#6e562c}
 .cta{display:inline-block;margin-top:14px;background:#efb34d;color:#0d1b33;font-weight:900;text-decoration:none;padding:12px 18px;border-radius:999px;margin-right:8px}
+.list{margin:8px 0 0;padding-left:18px}.list li{margin:6px 0}
 .footer{text-align:center;color:#7b838b;font-size:11px;line-height:1.5;margin-top:24px}
 </style>
 </head>
@@ -30,10 +31,10 @@ h1{font:500 clamp(42px,6vw,76px)/.95 Georgia,serif;color:var(--navy);margin:0 0 
 <nav class="nav"><a href="index.html">Study hub</a><a href="lab.html">Validation matrix</a><a href="designs.html">Concept diagrams</a></nav></div></header>
 <main class="wrap">
 <section class="panel"><h1>Pass 1.5 workflow</h1>
-<p class="lede">The seven original concepts are <strong>not</strong> fully validated under the old rectangular envelope. Pass 1.5 re-seats every footprint inside the polygon-accurate survey and working setback envelope before any Pass 2 architecture spend.</p>
+<p class="lede">Pass 1.5 re-seats all <strong>12 concepts</strong> inside the polygon-accurate survey and working setback envelope. Geometry PASS is separate from design refinement — a concept can pass geometry while still needing design judgment before Pass 2.</p>
 <div class="code">SOT survey polygon (frozen)
 → polygon-accurate setbacks (planning assumptions)
-→ concept geometry (12 strategies)
+→ concept geometry (7 established + 5 challengers)
 → validation metrics (PASS / REVIEW / FAIL)
 → approve shortlist (3 finalists)
 → Pass 2 site / elevation (one finalist at a time)</div>
@@ -42,18 +43,32 @@ h1{font:500 clamp(42px,6vw,76px)/.95 Georgia,serif;color:var(--navy);margin:0 0 
 
 <section class="panel"><h2>Stages</h2>
 <div class="timeline">
-<div class="step done"><div class="num">1</div><div><b>SOT survey polygon</b><p>Locked drawing: Pennsylvania RIGHT, north/rear LEFT, 148′ horizontal, irregular bottom boundary. Source: <code>js/lot2-sot.js</code>, <a href="docs/lot2-survey-orientation.md">lot2-survey-orientation.md</a>.</p></div></div>
-<div class="step done"><div class="num">2</div><div><b>Polygon-accurate setbacks</b><p>Inward offset per boundary segment — 20′ Penn/right, 25′ rear/left, 5′ top, 10′ bottom. Planning assumptions only.</p></div></div>
-<div class="step on"><div class="num">3</div><div><b>Concept geometry</b><p>Seven benchmarks/revisions + five challengers (H2–H6). Same lot, garage box, access rules. No concept redraws the parcel.</p></div></div>
-<div class="step on"><div class="num">4</div><div><b>Validation metrics</b><p>Survey fit · setback fit · first-floor area · garage 22×22 · min separation · drive length · paved area · Penn/right connection.</p></div></div>
-<div class="step"><div class="num">5</div><div><b>Approve shortlist</b><p>Benchmark trio E2 · G1 · V2 plus promoted challengers. Three finalists earn Pass 2.</p></div></div>
-<div class="step"><div class="num">6</div><div><b>Pass 2 site / elevation</b><p>Landscape, Pennsylvania elevation, perspective — one finalist at a time, after explicit geometry approval.</p></div></div>
+<div class="step done"><div class="num">1</div><div><b>SOT survey polygon</b><p>Locked drawing: Pennsylvania RIGHT, north/rear LEFT, 148′ horizontal. Source: <code>js/lot2-sot.js</code>.</p></div></div>
+<div class="step done"><div class="num">2</div><div><b>Polygon-accurate setbacks</b><p>20′ Penn/right · 25′ rear/left · 5′ top · 10′ bottom — planning assumptions only.</p></div></div>
+<div class="step done"><div class="num">3</div><div><b>Concept geometry</b><p>7 established concepts + 5 challengers (H2–H6). Same lot, garage box, access rules.</p></div></div>
+<div class="step on"><div class="num">4</div><div><b>Validation metrics</b><p>Survey · setback · garage · drive · ~1,800 SF living band. First-floor size varies by concept unless E2’s 900-SF benchmark applies.</p></div></div>
+<div class="step on"><div class="num">5</div><div><b>Approve shortlist</b><p>Narrow five geometry-PASS candidates to three finalists for Pass 2.</p></div></div>
+<div class="step"><div class="num">6</div><div><b>Pass 2 site / elevation</b><p>Landscape, Pennsylvania elevation, perspective — one finalist at a time.</p></div></div>
 </div></section>
 
-<section class="panel"><h2>Concept groups</h2>
-<p><strong>Validated / Current Benchmarks:</strong> E2 Recessed Garage · G1 Z-Duplex · V2 Long-Axis V</p>
-<p><strong>Needs Geometry Revision:</strong> E1 · E3 · F1 · G2 Interlocking-L</p>
-<p><strong>New Challengers:</strong> H2 Carriage-Hinge · H3 Mews Courtyard · H4 Garage-Under/LOG · H5 Urban Cottage · H6 Central-Core</p></section>
+<section class="panel"><h2>Geometry status (Pass 1.5)</h2>
+<p><strong>Geometry PASS — shortlist eligible:</strong> E2 · G1 · V2 · E3 · F1 · H3 · H6</p>
+<p>These pass survey, setback, garage, Penn access, drive clearance, and the ~1,800 SF living band. Design concerns (court quality, upper-floor load, central-core architecture, etc.) remain for judgment — they do not downgrade a geometric PASS.</p>
+<p><strong>Geometry REVIEW — resolve before shortlist:</strong> E1 · G2 · H2 · H4 · H5</p>
+<p>No further concept expansion recommended until REVIEW items are resolved or eliminated.</p></section>
+
+<section class="panel"><h2>Shortlist track (first pass)</h2>
+<p>Stop expanding the field. Next work is eliminating two of five to reach three Pass 2 finalists.</p>
+<ul class="list">
+<li><strong>E2</strong> — baseline / safest conventional</li>
+<li><strong>G1</strong> — best orthogonal challenger</li>
+<li><strong>V2</strong> — architecture ceiling</li>
+<li><strong>H6</strong> — serious efficiency challenger (central-core)</li>
+<li><strong>H3</strong> — serious lifestyle challenger (mews court)</li>
+</ul>
+<p><strong>Backup:</strong> E3 (courtyard — geometry PASS, court quality TBD)</p>
+<p><strong>Deprioritized until REVIEW resolved:</strong> E1 · G2 · H2 · H4 · H5</p>
+<p>Pass 2 effort belongs on elevation, vehicle-path, and buildability for the final three — not new footprint shapes.</p></section>
 <div class="footer">See <a href="docs/lot2-geometry-validation.md">docs/lot2-geometry-validation.md</a></div>
 </main>
 </body>

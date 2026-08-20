@@ -61,7 +61,7 @@ Calculated area ≈ 7,023 SF (plat 7,028 SF).
 
 ## Pass 1 review (Aug 2026)
 
-All seven concepts exist as SVG in [`js/lot2-geometry.js`](../js/lot2-geometry.js) and render on [`designs.html`](../designs.html). Exports: [`review-pass1/`](../review-pass1/).
+All twelve concepts exist as SVG in [`js/lot2-geometry.js`](../js/lot2-geometry.js) and render on [`designs.html`](../designs.html).
 
 ### Revisions (option 3)
 

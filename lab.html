@@ -20,7 +20,7 @@ h1{font:500 clamp(36px,5vw,58px)/1 Georgia,serif;color:var(--navy);margin:0 0 8p
 .step{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:12px;font-weight:850;color:var(--navy)}
 .step.on{background:var(--navy);color:#fff}.step.done{background:#edf5e9;border-color:#cbdcc3;color:var(--ok)}.step.future{opacity:.55}
 .matrix{overflow:auto;border:1px solid var(--line);border-radius:16px;margin-top:14px}
-table{width:100%;border-collapse:collapse;min-width:1300px;background:#fff;font-size:12px}
+table{width:100%;border-collapse:collapse;min-width:1400px;background:#fff;font-size:12px}
 th,td{padding:10px 12px;border-bottom:1px solid #ece7e0;text-align:left;vertical-align:top}
 th{background:#f6f3ee;color:var(--navy);font-weight:900;position:sticky;top:0}
 td:first-child{font-weight:900;color:var(--navy)}
@@ -32,6 +32,7 @@ td:first-child{font-weight:900;color:var(--navy)}
 .disclaimer{margin-top:14px;padding:14px;border:1px solid #ebce99;background:#fff6e7;border-radius:12px;font-size:13px;line-height:1.5;color:#6e562c}
 .grouphead{margin:22px 0 8px;color:var(--navy);font-size:20px;font-weight:900}
 .issue{font-size:11px;color:#6b4a42;line-height:1.4;margin:2px 0 0}
+.design{font-size:11px;color:#4a5560;line-height:1.45}
 @media(max-width:900px){.nav{display:none}}
 </style>
 </head>
@@ -46,8 +47,8 @@ td:first-child{font-weight:900;color:var(--navy)}
 <div class="funnel">
 <span class="step done">SOT survey polygon</span><span class="step done">→ polygon setbacks</span><span class="step on">→ concept geometry</span><span class="step on">→ validation metrics</span><span class="step future">→ approve shortlist</span><span class="step future">Pass 2 site/elevation</span>
 </div>
-<div class="callout"><strong>Working setback assumptions (planning only):</strong> 20′ front (Pennsylvania/right) · 25′ rear/left · 5′ top · 10′ bottom/irregular. Not survey facts — confirm with R-12 interpretation.</div>
-<div class="disclaimer"><strong>Pass 1.5 validates geometry only.</strong> Swept-path turning, fire separation, utilities, ownership structure, final zoning/setbacks, and structural engineering remain unverified. PASS here does not authorize Pass 2 architecture spend.</div></section>
+<div class="callout"><strong>Program standard:</strong> ~1,800 SF total living target per unit (1,600–1,900 SF band). First-floor size is <em>concept-specific</em> unless a concept claims a 900-SF lower-floor benchmark (E2 only).</div>
+<div class="disclaimer"><strong>Pass 1.5 validates geometry only.</strong> Swept-path turning, fire separation, utilities, ownership structure, final zoning/setbacks, and structural engineering remain unverified. <strong>Geometry PASS</strong> does not mean design refinement is complete — see Design concern column.</div></section>
 
 <section class="panel" id="matrix"><h2>Validation comparison matrix</h2>
 <div id="groups"></div></section>
@@ -56,20 +57,20 @@ td:first-child{font-weight:900;color:var(--navy)}
 <script src="js/lot2-geometry.js"></script>
 <script>
 const groupsEl=document.getElementById('groups');
-const vals=Lot2.getAllValidations();
+const {pass,review,fail,vals}=Lot2.validationGroups();
 const sections=[
-  {key:'benchmark',label:Lot2.GROUP_LABELS.benchmark,ids:Lot2.BENCHMARKS},
-  {key:'revision',label:Lot2.GROUP_LABELS.revision,ids:Lot2.REVISION},
-  {key:'challenger',label:Lot2.GROUP_LABELS.challenger,ids:Lot2.CHALLENGERS},
+  {label:Lot2.GROUP_LABELS.geometryPass,ids:pass},
+  {label:Lot2.GROUP_LABELS.geometryReview,ids:review},
 ];
+if(fail.length) sections.push({label:'Geometry FAIL',ids:fail});
 function statusTag(s){return `<span class="tag ${s.toLowerCase()}">${s}</span>`;}
 function chk(v,k){return v.checks[k]?'<span class="pass">✓</span>':'<span class="fail">✗</span>';}
-sections.forEach(sec=>{
+function renderTable(sec){
   const h=document.createElement('h3');h.className='grouphead';h.textContent=sec.label;groupsEl.appendChild(h);
   const wrap=document.createElement('div');wrap.className='matrix';
   const table=document.createElement('table');
   table.innerHTML=`<thead><tr>
-    <th>Concept</th><th>1st fl / unit</th><th>Living target</th><th>Garage</th><th>Yard</th><th>Paved</th><th>Drive</th><th>Min sep</th><th>Survey</th><th>Setback</th><th>Access</th><th>Status</th><th>Verdict</th>
+    <th>Concept</th><th>Role</th><th>1st fl / unit</th><th>Living target</th><th>Garage</th><th>Yard</th><th>Paved</th><th>Drive</th><th>Survey</th><th>Setback</th><th>Access</th><th>Status</th><th>Design concern</th><th>Verdict</th>
   </tr></thead><tbody></tbody>`;
   const tbody=table.querySelector('tbody');
   sec.ids.forEach(id=>{
@@ -77,23 +78,22 @@ sections.forEach(sec=>{
     if(!c||!m||!v) return;
     const tr=document.createElement('tr');
     const issues=(v.reasons||[]).slice(0,2).map(r=>`<div class="issue">${r}</div>`).join('');
-    tr.innerHTML=`<td>${c.label}<br><span class="tag ${c.group}">${c.group}</span></td>
+    tr.innerHTML=`<td>${c.label}</td><td><span class="tag ${c.group}">${c.group}</span></td>
       <td>${m.firstFloor} SF<br><small>${m.firstFloorExact.map(a=>a.toFixed(0)).join(' · ')} ea</small></td>
       <td>${m.totalLiving} SF</td>
       <td>${m.garageTotal} SF</td>
       <td>${m.yardSF} SF</td>
       <td>${m.pavedSF} SF</td>
       <td>${m.driveLen}′<br><small>${v.minDriveClear??'—'}′ clear</small></td>
-      <td>${m.minSep}′</td>
-      <td>${chk(v,'inSurvey')}</td>
-      <td>${chk(v,'inSetback')}</td>
-      <td>${chk(v,'pennAccess')}</td>
+      <td>${chk(v,'inSurvey')}</td><td>${chk(v,'inSetback')}</td><td>${chk(v,'pennAccess')}</td>
       <td>${statusTag(v.status)}</td>
+      <td><span class="design">${c.designConcern||'—'}</span></td>
       <td>${v.verdict}${issues}</td>`;
     tbody.appendChild(tr);
   });
   wrap.appendChild(table);groupsEl.appendChild(wrap);
-});
+}
+sections.forEach(renderTable);
 </script>
 </body>
 </html>

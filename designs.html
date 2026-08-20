@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0d1b33">
 <title>Pondy Flats · Lot 2 Concept Options</title>
-<meta name="description" content="Lot 2 duplex concept study — seven strategies with Pennsylvania on the right, compass pointing left.">
+<meta name="description" content="Lot 2 duplex concept study — 12 strategies on one locked test bench. Pennsylvania on the right, compass pointing left.">
 <style>
 :root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--house:#efd08c;--garage:#aec0d2;--drive:#d6d8d4;--green:#dce6cb;--shadow:0 18px 54px #0f1a2b1a}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -64,9 +64,9 @@ button,a{font:inherit}.top{position:sticky;top:0;z-index:50;background:#0d1b33f4
 <body>
 <header class="top"><div class="topin"><div class="brand"><small>Pondy Flats · Pennsylvania Avenue</small><strong>Lot 2 Concept Options</strong></div><div><a class="topbtn" href="#duplex-compare">Compare</a> <button class="topbtn" id="share">Share</button></div></div></header>
 <main class="wrap">
-<section class="hero"><div class="panel"><div class="eyebrow">Lot 2 · Corrected Survey Geometry</div><h1>Seven strategies. One test bench.</h1>
+<section class="hero"><div class="panel"><div class="eyebrow">Lot 2 · Corrected Survey Geometry</div><h1>7 established concepts + 5 challengers.<br>One locked test bench.</h1>
 <div class="lede">Locked drawing convention: Pennsylvania is the right-hand vertical 50′ frontage (south / front). The compass points left (north / rear). The 148′ axis runs horizontally from rear/left toward Pennsylvania/right. Drives enter from the right and travel left into the lot.</div>
-<div class="stats"><span class="pill">7,028 SF lot</span><span class="pill">50.00′ Penn · RIGHT · south/front</span><span class="pill">148.00′ horizontal</span><span class="pill">57.01′ left/rear</span><span class="pill">85.98′ + 40.33′ + 23.90′ · bottom</span></div></div>
+<div class="stats"><span class="pill">12 concepts · Pass 1.5</span><span class="pill">7,028 SF lot</span><span class="pill">50.00′ Penn · RIGHT · south/front</span><span class="pill">148.00′ horizontal</span><span class="pill">57.01′ left/rear</span></div></div>
 <aside class="panel"><div class="eyebrow">Geometry Lab</div><h2>Validation before architecture.</h2>
 <p>Concepts live in the <strong>Geometry Lab</strong> until they pass polygon parcel fit, polygon setbacks, garage program, drive width, and preliminary SUV access. Pass 2 (landscape, elevations, perspectives) is blocked until three finalists are chosen.</p>
 <div class="call"><strong><a href="lab.html" style="color:inherit">Open validation matrix →</a></strong> Benchmark trio: E2 · G1 · V2. Challengers: H2–H6.</div></aside></section>
@@ -81,7 +81,7 @@ button,a{font:inherit}.top{position:sticky;top:0;z-index:50;background:#0d1b33f4
 
 <section class="lane active" id="duplex">
 <section class="panel duplex-intro"><h2>Duplex / Two-Home Design Lab</h2>
-<p>Seven genuinely different spatial strategies — each with a defined role in the comparison. No premature numeric ranking until all Pass 1 math exists.</p>
+<p>Twelve spatial strategies on one locked survey — seven established roles plus five challengers. Geometry PASS / REVIEW is in the validation matrix; design concerns are tracked separately.</p>
 <div class="rolebar">
 <div class="role"><b>V2</b><strong>Design ceiling</strong><span>Signature architecture · long-axis V</span></div>
 <div class="role"><b>E2</b><strong>Conventional benchmark</strong><span>Recessed garages · Penn-facing duplex</span></div>
@@ -179,7 +179,7 @@ button,a{font:inherit}.top{position:sticky;top:0;z-index:50;background:#0d1b33f4
 <p>Polygon-accurate validation: <a href="lab.html">lab.html</a>. Setbacks are planning assumptions — not survey facts.</p>
 <div class="warning" style="margin-top:12px;padding:13px;border-left:4px solid #b77d2e;background:#fff6e7;color:#6e562c;font-size:12px;line-height:1.48"><strong>Pass 1.5 validates geometry only.</strong> Swept-path, fire separation, utilities, ownership, final zoning/setbacks, and engineering remain unverified.</div>
 <div class="matrix"><table id="metrics-table"><thead><tr>
-<th>Concept</th><th>Group</th><th>1st fl / unit</th><th>Living</th><th>Garage</th><th>Paved</th><th>Yard</th><th>Drive</th><th>Status</th><th>Verdict</th>
+<th>Concept</th><th>Group</th><th>1st fl / unit</th><th>Living</th><th>Garage</th><th>Paved</th><th>Yard</th><th>Drive</th><th>Status</th><th>Design concern</th><th>Verdict</th>
 </tr></thead><tbody></tbody></table></div>
 <div class="rec"><strong>Next step:</strong> review the <a href="lab.html">validation matrix</a> and <a href="study.html">workflow</a> — Pass 2 architecture waits for three approved finalists.</div></section>
 
@@ -229,7 +229,7 @@ const tbody=document.querySelector('#metrics-table tbody');
 ORDER.forEach(id=>{
   const m=Lot2.getMetrics(id), c=Lot2.CONCEPTS[id], v=vals[id];
   const tr=document.createElement('tr');
-  tr.innerHTML=`<td>${c.label}</td><td>${c.group}</td><td>${m.firstFloor} SF</td><td>${m.totalLiving} SF</td><td>${m.garageTotal} SF</td><td>${m.pavedSF} SF</td><td>${m.yardSF} SF</td><td>${m.driveLen}′</td><td>${v?v.status:'—'}</td><td>${v?v.verdict:'—'}</td>`;
+  tr.innerHTML=`<td>${c.label}</td><td>${c.group}</td><td>${m.firstFloor} SF</td><td>${m.totalLiving} SF</td><td>${m.garageTotal} SF</td><td>${m.pavedSF} SF</td><td>${m.yardSF} SF</td><td>${m.driveLen}′</td><td>${v?v.status:'—'}</td><td>${c.designConcern||'—'}</td><td>${v?v.verdict:'—'}</td>`;
   tbody.appendChild(tr);
 });
 const tabs=[...document.querySelectorAll('.tab')],lanes=[...document.querySelectorAll('.lane')];
