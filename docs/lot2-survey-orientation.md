@@ -1,69 +1,60 @@
-# Lot 2 — Survey Orientation Reference
+# Lot 2 — Locked Drawing Convention
 
-Authoritative geometry source: [`assets/master.image.png`](../assets/master.image.png)
+These rules are **locked**. Do not rotate the parcel to make north point upward.
 
-**Important:** Decorative compass labels on the master image are incorrect. The **boundary-table bearings** govern all math work.
+## Drawing lock
 
-## Correct orientation
-
-Lot 2 sits **south of Pennsylvania Avenue**. Pennsylvania is the **north** boundary.
-
-| Edge | Length | Bearing | Role |
-|------|-------:|---------|------|
-| Pennsylvania frontage | 50.00′ | S 89°37′24″ E | **North** · West ↔ East |
-| West long side | 148.00′ | N 0°22′36″ E | **South ↔ North** long axis |
-| South end | 57.01′ | N 89°37′24″ W | **South** · East ↔ West |
-| East / Lot 1 | 85.98′ + 40.33′ + 23.90′ | S 9°12′03″ E / S 0°58′24″ W / S 17°05′07″ W | **East** irregular boundary |
-
-## Coordinate system
-
-All concept math uses a **north-up plan**:
-
-- **+X** = East
-- **+Y** = South (screen-down)
-- **Origin** = northwest corner (west end of Pennsylvania frontage)
-
-## Traverse vertices (feet)
-
-Clockwise from NW:
+| Rule | Value |
+|------|--------|
+| Pennsylvania Avenue | **RIGHT** side of the drawing, 50.00′ frontage drawn **vertically** |
+| Pennsylvania | **SOUTH / FRONT** |
+| North / Rear | **LEFT** — compass points **left**, directly away from Pennsylvania |
+| 148.00′ | **Horizontal** — rear/left → Pennsylvania/right |
+| Irregular 85.98′ + 40.33′ + 23.90′ | **BOTTOM** |
+| 57.01′ | **LEFT / rear** |
+| Roads / drives / Penn graphics | **Never** along the bottom edge |
+| Vehicular access | Originates at the **right-hand Pennsylvania frontage** and travels **left** into Lot 2 |
 
 ```
-[0.0000, 0.0000]      NW · Penn west
-[49.9989, 0.3287]     NE · Penn east
-[42.9772, 23.1740]    after 23.90′ east segment
-[42.2921, 63.4981]    after 40.33′ east segment
-[56.0400, 148.3719]   southeast corner area
-[-0.9688, 147.9971]   SW · south end west
+NORTH / REAR (LEFT)                         SOUTH / FRONT (RIGHT)
+     ↑ compass                                    PENNSYLVANIA
+  57.01′                                      50.00′ vertical
+
+  ←—————— 148.00′ horizontal ——————→
+
+BOTTOM = 85.98′ + 40.33′ + 23.90′  (no street here)
 ```
 
-- **Closure error:** 0.004 ft
-- **Calculated area:** 7,023.43 SF (recorded plat: 7,028 SF)
+## Coordinate system (all Pass 1 math)
 
-## Terminology replacement
+- **+X** toward Pennsylvania (right)
+- **+Y** down toward the irregular boundary (bottom)
+- **Origin** = rear-left
+- Pennsylvania frontage at **x = 148**
+- Do **not** use a north-up plan
 
-| Old (invalid) | Correct |
-|---------------|---------|
-| Pennsylvania = east / right | Pennsylvania = **north / top** |
-| 148′ east–west depth | 148′ **north–south** depth (west side) |
-| 57.01′ west / rear | 57.01′ **south end** |
-| 85.96′ irregular south | **85.98′** irregular **east** (Lot 1) |
-| Wings open westward (V2) | Wings open **southward** down 148′ axis |
-| Garages west / rear (E2/F1) | Garages **south** of living mass |
+## Survey polygon (drawing feet)
+
+```
+[0, 0]            rear-left / north
+[148, 0]          Pennsylvania, top of 50′
+[148, 50]         Pennsylvania, bottom of 50′
+[125.143, 43.016] after 23.90′
+[84.813, 43.016]  after 40.33′
+[0, 57.01]        rear-left bottom of 57.01′
+```
+
+Calculated area ≈ 7,023 SF (plat 7,028 SF).
 
 ## Working setbacks (planning assumption — not survey fact)
 
-| Side | Assumed |
-|------|--------:|
-| Front (north / Penn) | 20′ |
-| Rear (south) | 25′ |
-| West (148′ side) | 5′ |
-| East (Lot 1) | 10′ |
+| Side | Drawing location | Assumed |
+|------|------------------|--------:|
+| Front | Pennsylvania / right | 20′ |
+| Rear | left | 25′ |
+| West | top | 5′ |
+| East | bottom / irregular | 10′ |
 
-## Implementation
+## Source image
 
-- Shared renderer: [`js/lot2-geometry.js`](../js/lot2-geometry.js)
-- Concept site: [`designs.html`](../designs.html)
-
-## Invalidated prior work
-
-All diagrams built with `+X = Pennsylvania / east` or the old `survey = [[0,0],[148,0],[148,50],…]` polygon are **pre-correction history** only.
+[`assets/master.image.png`](../assets/master.image.png) supplies lengths. This locked drawing convention overrides any north-up rotation.
