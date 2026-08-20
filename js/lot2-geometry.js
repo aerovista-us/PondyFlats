@@ -486,6 +486,9 @@ ${extra}`;
   const SHORTLIST_TRACK = ['e2', 'g1', 'v2', 'h6', 'h3'];
   const SHORTLIST_BACKUP = ['e3'];
   const DEPRIORITIZED = ['e1', 'g2', 'h2', 'h4', 'h5'];
+  /** Locked Pass 2 gate — H6/H3 displace a finalist; they do not fill an open third slot. */
+  const FINAL_THREE = ['e2', 'g1', 'v2'];
+  const ALTERNATES = ['h6', 'h3'];
 
   function metrics(concept) {
     const unitAreas = (concept.units || []).map((u) => unitFirstFloorArea(u));
@@ -671,9 +674,9 @@ ${extra}`;
       massing: 'Two Penn-facing rectangular living blocks over a west-side detached garage pair. Likely gable or simple hip roofs; street reads as duplex houses, not garage architecture.',
       vehicleRisk: 'Moderate — geometry clears 6′ to living mass, but SUV turning from Penn into west spur and backing into tandem-adjacent bays is unproven. Priority swept-path candidate.',
       constructionNote: 'Conventional wood-frame over slab; no skewed walls. Unit B trapezoid may need slightly custom foundation line at rear taper — manageable.',
-      argument: 'Survives unless a challenger clearly beats it on privacy, yard, or architecture without adding disproportionate cost. The rational default for Pass 2 if nothing else compels.',
+      argument: 'Locked as conventional control: buildability, resale familiarity, and cost discipline. Alternates must displace it with a material Pass 2 finding — not a prettier diagram.',
       disposition: 'ADVANCE',
-      dispositionNote: 'Benchmark — proceed to Pass 2 unless eliminated by comparative judgment.',
+      dispositionNote: 'Final Three — conventional benchmark / control case.',
     },
     g1: {
       track: 'main',
@@ -690,9 +693,9 @@ ${extra}`;
       massing: 'Interlocking rectangular bars staggered along the long axis — Penn-near block forward, rear block shifted west. Garages tucked into the Z notch.',
       vehicleRisk: 'Moderate — longest drive in shortlist. West routing at y=12 passes above unit zones; confirm SUV path at garage mouths.',
       constructionNote: 'Standard framing; critical detail is the Z intersection — stairs, plumbing, and fire separation between overlapping plates.',
-      argument: 'Strong chance to advance: may deliver most of V2’s yard privacy with buildability closer to E2. Drop only if floor-plan development shows the interlock is awkward or costly.',
+      argument: 'Locked as strongest orthogonal challenger to E2: privacy and spatial interest of V2 without angled-foundation/roof penalty. H6 may displace it only after a believable core floor plan.',
       disposition: 'ADVANCE',
-      dispositionNote: 'Best orthogonal alternative to V2 — keep in final three unless H6 proves a cleaner efficiency story.',
+      dispositionNote: 'Final Three — orthogonal efficiency / privacy challenger.',
     },
     v2: {
       track: 'main',
@@ -709,9 +712,9 @@ ${extra}`;
       massing: 'Long-axis V with apex at Penn/right, wings spreading left toward rear. Low angular first floor, larger upper stories stepping over garage-adjacent zone.',
       vehicleRisk: 'Moderate–High — wing tips and rear garage access are the stress test. Geometry PASS does not prove backing maneuvers at garage doors.',
       constructionNote: 'Skewed footings, valley roofs, and potential structural transfers at the V joint. Budget for architect-engineered details early.',
-      argument: 'Survives unless vehicle access or construction complexity looks ugly once massing is sketched. Keep for Pass 2 if character goal justifies premium.',
+      argument: 'Locked as design ceiling: tests whether Lot 2’s unusual geometry can create a better product, not merely the easiest. Swept-path and cost may still disqualify it.',
       disposition: 'ADVANCE',
-      dispositionNote: 'Architecture ceiling slot — hold unless swept-path or cost study disqualifies.',
+      dispositionNote: 'Final Three — architecture ceiling.',
     },
     h6: {
       track: 'main',
@@ -728,9 +731,9 @@ ${extra}`;
       massing: 'Garage spine at mid-lot with Penn/right and rear/left living bars flanking. Reads as compound rather than single duplex mass — elevation must unify or deliberately pair.',
       vehicleRisk: 'Low–Moderate — geometry favors this concept for drive-to-garage. Core entry widths and turn radii still need SUV template.',
       constructionNote: 'Garage core may require fire-rated assembly between bays; flanking units need independent egress paths. Highest buildability unknown on shortlist.',
-      argument: 'Most wanted pressure-test: could become the efficiency winner or fail once the central core is developed. Do not advance to full elevation without a floor-plan sanity pass.',
+      argument: 'Closest alternate. Circulation efficiency is strategically interesting, but the garage-core still needs a believable floor plan before it can displace G1 or E2.',
       disposition: 'HOLD',
-      dispositionNote: 'Viable alternate — promote to ADVANCE only after core floor-plan sketch and fire-separation sketch pass.',
+      dispositionNote: 'Alternate #1 — may displace a finalist only if floor-plan, fire separation, or cost testing exposes a material weakness.',
     },
     h3: {
       track: 'main',
@@ -747,9 +750,9 @@ ${extra}`;
       massing: 'Two Penn-adjacent bars flanking a shared mews court at the right/front edge. Garages deep west — street sees court + living, not garage doors.',
       vehicleRisk: 'Moderate — vehicles enter mews from Penn and proceed west to garages. Court turning and guest parking in mews need explicit layout.',
       constructionNote: 'Court grade, drainage toward irregular south boundary, and snow/storage in shared mews are design-development items.',
-      argument: 'Must prove mews/courtyard experience genuinely beats simpler Penn-facing duplexes. Drop if court feels like a driveway gap, not a place.',
+      argument: 'Must prove the mews is a real outdoor room, not circulation dressed as landscape. May displace a finalist only if that test passes and a Final Three concept shows a material weakness.',
       disposition: 'HOLD',
-      dispositionNote: 'Lifestyle slot — compete with V2 for character; promote if mews sketch reads as outdoor room.',
+      dispositionNote: 'Alternate #2 — mews/courtyard lifestyle; not in the Final Three yet.',
     },
     e3: {
       track: 'appendix',
@@ -766,9 +769,9 @@ ${extra}`;
       massing: 'Flanking Penn-facing units with shared front court — similar to H3 but slightly wider court (14×22′).',
       vehicleRisk: 'Moderate — parallel to H3; use as fallback if H3 drops but courtyard typology survives.',
       constructionNote: 'If H3 advances, E3 likely redundant. Keep as appendix reference only.',
-      argument: 'Hold outside main five. Substitute only if H3 drops and team still wants a courtyard typology without H3’s mews branding.',
+      argument: 'Hold outside main five and outside the Final Three. Substitute only if H3 drops and the team still wants a courtyard typology.',
       disposition: 'HOLD',
-      dispositionNote: 'Appendix fallback — not a full contender unless H3 exits.',
+      dispositionNote: 'Appendix / courtyard fallback — not a full contender unless H3 exits.',
     },
   };
 
@@ -798,6 +801,8 @@ ${extra}`;
     SHORTLIST_TRACK,
     SHORTLIST_BACKUP,
     DEPRIORITIZED,
+    FINAL_THREE,
+    ALTERNATES,
     SHORTLIST_MEMO,
     SCORE_CRITERIA,
     GROUP_LABELS,

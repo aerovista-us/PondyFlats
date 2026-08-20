@@ -108,20 +108,6 @@ E1 · G2 · H2 · H4 · H5
 | **H5** | Urban Cottage Pair |
 | **H6** | Central-Core Duplex |
 
-## Shortlist track (first pass)
-
-Narrow five to three for Pass 2:
-
-1. **E2** — baseline / safest
-2. **G1** — best orthogonal challenger
-3. **V2** — architecture ceiling
-4. **H6** — serious efficiency challenger
-5. **H3** — serious lifestyle challenger
-
-**Backup:** E3 (courtyard)
-
-**Deprioritized until REVIEW resolved:** E1 · G2 · H2 · H4 · H5
-
 ## E2 validation case
 
 E2 was fixed first against the real setback taper:
@@ -131,18 +117,34 @@ E2 was fixed first against the real setback taper:
 - **Garages** — two exact 22×22′ boxes recessed left/rear
 - **Drive** — enters at Pennsylvania/right (x = 148), routes west
 
-## Shortlist Elimination Memo
+## Locked Final Three
 
-After Pass 1.5 geometry PASS, the five track concepts (E2 · G1 · V2 · H6 · H3) are scored on seven criteria with ADVANCE / HOLD / DROP dispositions. E3 is appendix only.
+**E2, G1, and V2 are the provisional Final Three.** H6 and H3 remain active alternates and may displace a finalist only if swept-path, floor-plan, or cost testing exposes a material weakness.
+
+| Slot | Concepts |
+|------|----------|
+| **Final Three** | E2 · G1 · V2 |
+| **Alternate #1** | H6 |
+| **Alternate #2** | H3 |
+| **Fallback appendix** | E3 |
+
+**Deprioritized until REVIEW resolved:** E1 · G2 · H2 · H4 · H5
+
+## Shortlist Elimination Memo
 
 See [`shortlist.html`](../shortlist.html) and [`shortlist-elimination-memo.md`](shortlist-elimination-memo.md).
 
 ## What Pass 2 is NOT
 
-Pass 2 is not automatic. No elevation or perspective work until:
+Pass 2 is not a new concept round and not full renders for all five. Sequence:
 
-1. Validation matrix reviewed
-2. Three finalists selected
-3. Finalist Pass 1.5 geometry explicitly approved
+```
+Final Three (E2 / G1 / V2)
+→ preliminary SUV swept paths
+→ massing / elevation sketches
+→ floor-plan sanity check
+→ cost / complexity comparison
+→ preferred concept
+```
 
 See also: [`lot2-survey-orientation.md`](lot2-survey-orientation.md)

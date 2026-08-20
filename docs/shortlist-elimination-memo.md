@@ -4,21 +4,20 @@
 
 ## Purpose
 
-Stop expanding the concept field. Score the five track concepts on the same criteria, expose tradeoffs, and assign a disposition before Pass 2 architectural render spend.
+Stop expanding the concept field. Score the five track concepts, lock the Final Three, and keep two active alternates that can *displace* a finalist — not fill an open third slot.
 
-## Main five
+## Locked Pass 2 gate
 
-| ID | Concept | Preliminary disposition |
-|----|---------|-------------------------|
-| **E2** | Recessed Garage | ADVANCE — baseline everything else must beat |
-| **G1** | Z-Duplex | ADVANCE — orthogonal efficiency / privacy |
-| **V2** | Long-Axis V | ADVANCE — architecture ceiling |
-| **H6** | Central-Core Duplex | HOLD — pressure-test core floor plans & buildability |
-| **H3** | Mews Courtyard Pair | HOLD — prove mews experience worth arrangement |
+**E2, G1, and V2 are the provisional Final Three.** H6 and H3 remain active alternates and may displace a finalist only if swept-path, floor-plan, or cost testing exposes a material weakness.
 
-## Appendix
-
-| **E3** | Front Courtyard | HOLD — fallback if H3 drops but courtyard typology survives |
+| Slot | ID | Disposition |
+|------|-----|-------------|
+| **Final Three** | E2 Recessed Garage | ADVANCE — conventional benchmark / control |
+| **Final Three** | G1 Z-Duplex | ADVANCE — orthogonal privacy without V2 angle penalty |
+| **Final Three** | V2 Long-Axis V | ADVANCE — design ceiling |
+| **Alternate #1** | H6 Central-Core | HOLD — closest alternate; needs believable garage-core floor plan |
+| **Alternate #2** | H3 Mews Courtyard | HOLD — mews must prove it is a real outdoor room |
+| **Appendix** | E3 Front Courtyard | HOLD — courtyard fallback if H3 exits |
 
 ## Seven scoring criteria
 
@@ -36,14 +35,14 @@ Ratings are qualitative (Strong / Good / Fair / Low / Moderate / High) — not a
 
 | Disposition | Meaning |
 |-------------|---------|
-| **ADVANCE → Pass 2** | Proceed to massing sketch, SUV swept path, floor-plan sanity |
-| **HOLD → viable alternate** | Could replace an ADVANCE if judgment shifts |
-| **DROP → archive** | Remove from Pass 2 consideration with documented reason |
+| **ADVANCE → Pass 2** | Final Three — SUV path, massing, floor-plan sanity |
+| **HOLD → viable alternate** | May displace a finalist after a material Pass 2 finding |
+| **DROP → archive** | Remove from Pass 2 with documented reason |
 
-## Pass 2 sequence (final three only)
+## Pass 2 sequence (Final Three only)
 
 ```
-Final 3
+Final Three: E2 / G1 / V2
 → preliminary SUV swept paths
 → massing / elevation sketches
 → floor-plan sanity check
@@ -51,6 +50,6 @@ Final 3
 → preferred concept
 ```
 
-No full elevations for all five — judgment pages first, then pick three.
+No full elevations for H6, H3, or E3 unless they displace a finalist.
 
 See also: [`lot2-geometry-validation.md`](lot2-geometry-validation.md)
