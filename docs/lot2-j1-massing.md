@@ -59,24 +59,20 @@ SF band misses → **REVIEW** (Pass 2A conceptual tolerance). Ribbon or access *
 
 All three pass the **ribbon kill**. J1-B has cleanest FS-SUV access with ground pods clear of the B-bay turn envelope.
 
-## Critical design question
+## Critical design question — answered
 
 **Can we turn the parking geometry the lot demands into architecture we'd intentionally choose?**
 
-Pass 2A massing suggests yes — if elevation design uses:
+**NO** (Image 4.2 ownership gate). Honest J1-B remains garage/access-first; Building B is subordinate; pedestrian identity is weak. Windows and trim would not change that hierarchy.
 
-- Second-story mass and projecting rooms
-- Deep garage-door recesses (not raw four-door storage)
-- Separate pedestrian entries
-- Porch/stair hierarchy and landscaping
-- Roof forms that read as **two substantial urban homes with integrated garages**
+## Disposition
 
-## Next steps
+> **IMAGE 4.2 OFFICIAL — LAYER MATCH / VALID**  
+> **OWNERSHIP GATE — NO**  
+> **J1-B — STOP** · **J1-A / J1-C — CLOSED**  
+> **FLOOR-PLAN SANITY — CANCELLED**
 
-1. **Images 1–3** — **APPROVED**
-2. **Image 4.1** — **PASS** (immutable lock scaffold)
-3. **Image 4.2** — Penn elev + eye-level ([`j1b-image4-2-views.html`](../j1b-image4-2-views.html)) — ownership gate
-4. Floor-plan sanity only after ownership YES
+Images 1–4.2 retained as the complete audit trail. **Next:** parking-only [`access-geometry.html`](../access-geometry.html) (**Parking Skeleton A-F**). No J1 rescue.
 
 See [`lot2-visual-chain.md`](lot2-visual-chain.md) · [`lot2-j1b-image4.md`](lot2-j1b-image4.md).
 

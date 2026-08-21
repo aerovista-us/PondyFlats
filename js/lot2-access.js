@@ -33,13 +33,15 @@ const Lot2Access = (() => {
   function garagePoly(g) {
     return [[g.x, g.y], [g.x + g.w, g.y], [g.x + g.w, g.y + g.h], [g.x, g.y + g.h]];
   }
-  function obstacles(concept, skipGarageName) {
+  function obstacles(concept, skipGarageName, ignoreIds) {
+    const ignore = new Set(ignoreIds || []);
     const out = [];
     (concept.units || []).forEach((u) => out.push({ label: u.name, poly: unitPoly(u), kind: 'unit' }));
     (concept.garages || []).forEach((g) => {
       if (g.integrated) return;
       if (skipGarageName && g.name === skipGarageName) return;
-      out.push({ label: g.name, poly: garagePoly(g), kind: 'garage' });
+      if (g.id && ignore.has(g.id)) return;
+      out.push({ label: g.name, id: g.id, poly: garagePoly(g), kind: 'garage' });
     });
     return out;
   }
@@ -264,6 +266,8 @@ const Lot2Access = (() => {
   function bestDoors(concept) {
     const obsAll = obstacles(concept);
     return (concept.garages || []).filter((g) => !g.integrated).map((g) => {
+      const ignore = g.apronIgnoreIds || [];
+      const obs = ignore.length ? obstacles(concept, null, ignore) : obsAll;
       const ranked = doorCandidates(g)
         .map((d) => {
           const reasons = [];
@@ -275,7 +279,7 @@ const Lot2Access = (() => {
             const cx = d.x - Math.cos(d.heading) * s;
             const cy = d.y - Math.sin(d.heading) * s;
             const poly = vehiclePoly(cx, cy, d.heading);
-            const hits = poseHits(poly, obsAll.filter((o) => o.label !== g.name), `${g.name} ${d.face} apron`);
+            const hits = poseHits(poly, obs.filter((o) => o.label !== g.name), `${g.name} ${d.face} apron`);
             if (hits.length) reasons.push(...hits.slice(0, 1));
             staging.push({ s, hits: hits.length });
           }
@@ -289,7 +293,10 @@ const Lot2Access = (() => {
           return { ...d, reasons, clearDepth, ok: reasons.length === 0 && d.apron >= V.length, score };
         })
         .sort((a, b) => b.score - a.score);
-      return { garage: g, doors: ranked, best: ranked[0] };
+      const declared = g.doorFace ? ranked.find((d) => d.face === g.doorFace) || null : null;
+      /** Gate face: declared door when set, else engine best. Hard staging uses this face. */
+      const gate = declared || ranked[0];
+      return { garage: g, doors: ranked, best: ranked[0], declared, gate };
     });
   }
 
@@ -306,16 +313,16 @@ const Lot2Access = (() => {
     if (shareWall || attached) {
       notes.push('Garages share a wall — one apron/door orientation must serve both without crossing the other bay');
     }
-    const faces = doorRows.map((r) => r.best.face);
+    const faces = doorRows.map((r) => r.gate.face);
     if (faces[0] === faces[1] && shareWall) {
-      notes.push(`Both best doors face ${faces[0]} — a vehicle staged at one bay occupies the shared approach`);
+      notes.push(`Both gate doors face ${faces[0]} — a vehicle staged at one bay occupies the shared approach`);
     }
     doorRows.forEach((r) => {
-      if (r.best.clearDepth < 12) notes.push(`${r.garage.name}: best face ${r.best.face} only ${r.best.clearDepth}′ clear staging (< 12′ parked-vehicle envelope)`);
+      if (r.gate.clearDepth < 12) notes.push(`${r.garage.name}: gate face ${r.gate.face} only ${r.gate.clearDepth}′ clear staging (< 12′ parked-vehicle envelope)`);
     });
-    const independent = doorRows.every((r) => r.best.clearDepth >= 12)
+    const independent = doorRows.every((r) => r.gate.clearDepth >= 12)
       && !attached
-      && !(shareWall && faces[0] === faces[1] && doorRows[0].best.clearDepth < V.apronDepth);
+      && !(shareWall && faces[0] === faces[1] && doorRows[0].gate.clearDepth < V.apronDepth);
     return { independent, shareWall, attached, faces, notes };
   }
 
@@ -404,6 +411,10 @@ const Lot2Access = (() => {
     const doors = bestDoors(concept);
     doors.forEach((row) => {
       inbound.push(`${row.garage.name}: best door ${row.best.face} · apron ${row.best.apron.toFixed(1)}′ · clear staging ${row.best.clearDepth}′`);
+      if (row.declared) {
+        inbound.push(`${row.garage.name}: declared door ${row.declared.face} · apron ${row.declared.apron.toFixed(1)}′ · clear staging ${row.declared.clearDepth}′${row.declared.ok ? '' : ' · NOT OK'}`);
+        if (row.declared.reasons.length) inbound.push(`${row.garage.name} ${row.declared.face}: ${row.declared.reasons[0]}`);
+      }
       if (row.best.reasons.length) inbound.push(`${row.garage.name} ${row.best.face}: ${row.best.reasons[0]}`);
     });
 
@@ -411,17 +422,24 @@ const Lot2Access = (() => {
     block.notes.forEach((n) => reasons.push(n));
 
     const pinch = minPinch(fil.poses, obstacles(concept).filter((o) => o.kind === 'unit'));
-    const reverseIn = doors.some((d) => d.best.face === 'N' || d.best.clearDepth < V.apronDepth);
+    const reverseIn = doors.some((d) => d.gate.face === 'N' || d.gate.clearDepth < V.apronDepth);
     const threePoint = fil.notes.some((n) => n.kind === 'short-tangent');
     const sharpFail = fil.notes.filter((n) => n.kind === 'short-tangent' && n.have < 8).length > 0;
     const offLot = offLotN > 0 || reasons.some((r) => r.includes('off survey') || r.includes('beyond survey'));
     const hitBldg = bldgNames.length > 0 || reasons.some((r) => r.includes('swept body hits') || r.includes('Swept envelope clips'));
-    const noDoor = doors.some((d) => d.best.clearDepth < 8);
+    const noDoor = doors.some((d) => d.gate.clearDepth < 8);
+    /** Hard physical: declared (or best) face must clear full-size staging depth. */
+    const stagingFail = doors.some((d) => d.gate.clearDepth < V.length - 0.5 || d.gate.apron < V.length - 0.5);
+    doors.forEach((row) => {
+      if (row.gate.clearDepth < V.length - 0.5 || row.gate.apron < V.length - 0.5) {
+        reasons.push(`${row.garage.name}: gate face ${row.gate.face} staging ${row.gate.clearDepth}′ / apron ${row.gate.apron.toFixed(1)}′ < ${V.length}′ FS-SUV (hard physical FAIL)`);
+      }
+    });
 
     let technical = 'PASS';
-    if (!pennOk || offLot || noDoor || hitBldg) technical = 'FAIL';
+    if (!pennOk || offLot || noDoor || hitBldg || stagingFail) technical = 'FAIL';
     else if (sharpFail || !block.independent || pinch.min !== null && pinch.min < 2 || threePoint) technical = 'REVIEW';
-    else if (fil.notes.length || doors.some((d) => d.best.apron < V.apronDepth)) technical = 'REVIEW';
+    else if (fil.notes.length || doors.some((d) => d.gate.apron < V.apronDepth)) technical = 'REVIEW';
 
     let daily = 'Good';
     let burden = 'Moderate';
@@ -435,7 +453,7 @@ const Lot2Access = (() => {
     } else if (!block.independent) {
       daily = 'Fair — shared apron / stacked dependence';
       burden = 'High';
-    } else if (doors.every((d) => d.best.face === 'S' || d.best.face === 'W') && doors.every((d) => d.best.clearDepth >= V.apronDepth)) {
+    } else if (doors.every((d) => d.gate.face === 'S' || d.gate.face === 'W') && doors.every((d) => d.gate.clearDepth >= V.apronDepth)) {
       daily = 'Good — obvious approach, reverse-out typical';
       burden = 'Low';
     } else {
@@ -464,10 +482,30 @@ const Lot2Access = (() => {
       v2: 'Same south-apron and west-alley failures as G1, plus Garage A staging well short of 20.5′ and the angled Penn wing pinching the entry. Highest daily pain if forced.',
       h6: 'Best *intent* of the five: short south approach to a mid-lot garage core, no west alley. Still FAIL on locked plates — ~1′ off survey on the 40.33′ run, CORE B south aisle only 13′ vs 20.5′ vehicle, 10′ leftover on the 90° at (74, 40). Does not PASS and is not REVIEW.',
       h3: 'Mews is 14×20 in the Penn setback — not an FS-SUV court (3′ leftover each side; 25′ radius cannot fit). Drive is the same y=41 west-alley path as the finalists. Garages overlap 14′. FAIL in the same class as E2/G1/V2.',
-      g1a: 'Circulation proof only — not a candidate. Demonstrated east-facing tandem + y≈37 south lane before illustrative houses were drawn. See Access A skeleton.',
-      access_a: 'Known-good baseline: Garage A straight Penn inbound (y=16). Garage B via on-lot south lane (y=37) and shallow offset. Both doors east. Independent FS-SUV paths.',
+      g1a: 'Circulation proof only — not a candidate. Demonstrated east-facing tandem + y~37 south lane before illustrative houses were drawn. See Access A skeleton.',
+      access_a: 'Known-good baseline: Garage A straight Penn inbound (y=16). Garage B via on-lot south lane (y~37) and shallow offset. Both doors east. Independent FS-SUV paths.',
       access_b: 'Central paired core at (52,8)+(74,8) — H6 circulation without architecture. Garage A path clips Garage B; Garage B needs 90° with 18′ vertical vs 25′ required. Shared core cannot give two independent east-door FS-SUV aprons.',
       access_c: 'Split depth: A at Penn (102,5), B deeper rear/left (25,22). Same south lane as Access A. Tests whether staggering garage depth improves architecture remaining vs tandem offset.',
+      access_d: 'E1 rear-stack: GA door E Penn mid-lane; GB door S clear-south. Swept clips cleared. Physical FAIL — GB declared S staging 12′ < 20.5′ (apron partly off-survey).',
+      access_e: 'E3 courtyard circulation reference: declared W+E (not S+E). Declared S on A audited at 8′ staging FAIL; W+E both clear 24′. Physical PASS · architecture remaining FAIL (rear ribbon).',
+      access_f: 'F1 rear court: GA door S · GB door E. Swept clips cleared. Physical FAIL — GA declared S staging 12′ < 20.5′ (apron partly off-survey).',
+      reset_r1: 'Parking Reset R1 Practical Pair — E recipe with 14×24 W+E singles + 10×22 covered. Scored on Parking Reset Gate (not twin 22×22).',
+      reset_r2: 'Parking Reset R2 Lift Pair — E recipe 14×24 W+E with two-car lifts (4 enclosed in small footprint).',
+      reset_r3: 'Parking Reset R3 Dual Tandem — E recipe 16×46 W+E tandem boxes (≈14×46 program).',
+      reset_r4: 'Parking Reset R4 Hybrid — E recipe asymmetric two-car E + single W + covered.',
+      access_d_mews: 'Archive: facing rear mews experiment. Mid-lot path clipped GB; not the official E1-derived D.',
+      e2: 'Clear-south corridor applied (was y=41 pinch FAIL). Footprints unchanged. Re-score remaining building/apron issues.',
+      g1: 'Clear-south corridor applied (was y=41 pinch FAIL). Locked footprints unchanged. G1-A remains the east-door circulation proof.',
+      v2: 'Clear-south corridor applied (was y=41 pinch FAIL). Footprints unchanged.',
+      h3: 'Clear-south corridor applied (was y=41 west-alley FAIL). Mews court and garage overlap issues remain separate.',
+      h6: 'Clear-south corridor applied (was y=40 spine off-lot). Core staging / turn issues remain separate.',
+      e1: 'Clear-south corridor applied (was y=41 pinch). Same garage stack as Skeleton D.',
+      e3: 'Clear-south corridor applied (was y=41 pinch). H3 courtyard fallback family.',
+      f1: 'Clear-south corridor applied (was y=41 pinch). Rear motor-court family.',
+      g2: 'Clear-south corridor applied (was y=41 pinch). Mid-lot garage family ≈ E3/H3.',
+      h2: 'Clear-south corridor applied (was y=41 pinch). Mid-lot garage family ≈ E3/H3.',
+      h4: 'Clear-south corridor applied (was y=41 pinch). Depth-stack family ≈ E1.',
+      h5: 'Clear-south corridor applied (was y=41 pinch). Garage band ≈ E1/A.',
     };
 
     return {
@@ -493,12 +531,27 @@ const Lot2Access = (() => {
         apron: +d.best.apron.toFixed(1),
         clear: d.best.clearDepth,
         ok: d.best.ok,
+        declared: d.declared
+          ? {
+              face: d.declared.face,
+              apron: +d.declared.apron.toFixed(1),
+              clear: d.declared.clearDepth,
+              ok: d.declared.ok,
+              reasons: d.declared.reasons.slice(0, 2),
+            }
+          : null,
+        gate: {
+          face: d.gate.face,
+          apron: +d.gate.apron.toFixed(1),
+          clear: d.gate.clearDepth,
+          ok: d.gate.ok,
+        },
       })),
       poses: fil.poses,
       corridor: stem,
       branches: branches.map((b) => b.garage.name),
       westAlley,
-      track: FINAL.includes(id) ? 'baseline' : VARIANTS.includes(id) ? 'variant' : (L.ACCESS_PROOFS || []).includes(id) ? 'access-proof' : (L.ACCESS_SKELETONS || []).includes(id) ? 'access-skeleton' : 'challenger',
+      track: FINAL.includes(id) ? 'baseline' : VARIANTS.includes(id) ? 'variant' : (L.ACCESS_PROOFS || []).includes(id) ? 'access-proof' : (L.PARKING_RESETS || []).includes(id) ? 'parking-reset' : (L.ACCESS_SKELETONS || []).includes(id) ? 'access-skeleton' : 'challenger',
       change,
       relative: RELATIVE[id],
       reasons: [...new Set(reasons)].slice(0, 10),

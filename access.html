@@ -55,16 +55,16 @@ th{background:#f6f3ee;color:var(--navy);font-weight:900}
 <main class="wrap">
 <section class="panel">
 <h1>Locked geometry. Full-size SUV.</h1>
-<p class="lede">Same FS-SUV gate: <strong>20.5′ × 8.0′ F-150/Tahoe class, 25′ radius</strong>. Locked Pass 1.5 plates stay on this page as the audit trail. <strong>G1-A</strong> is circulation proof only — not a candidate. Next study: <a href="access-geometry.html">Access Geometry A/B/C</a> (parking skeletons, no houses).</p>
+<p class="lede">Same FS-SUV gate: <strong>20.5′ × 8.0′ F-150/Tahoe class, 25′ radius</strong>. Locked Pass 1.5 plates stay on this page as the audit trail. <strong>G1-A</strong> is circulation proof only — not a candidate. Next: <a href="access-geometry.html">Parking Skeleton A-F</a> (parking only; no houses; no architecture until the gate clears).</p>
 <div class="callout"><strong>Two judgments:</strong> Technical access = can the vehicle physically do it? Daily usability = would an owner enjoy this every day? A three-point that “works” is not a clean approach.</div>
-<div class="failbox" id="decision"><strong>Locked five FAIL.</strong> H6/H3 are not promoted. G1-A proves circulation rules — see <a href="access-geometry.html" style="color:inherit">Access A/B/C</a>.</div>
+<div class="failbox" id="decision"><strong>Locked five FAIL.</strong> H6/H3 are not promoted. G1-A proves circulation rules — see <a href="access-geometry.html" style="color:inherit">Parking Skeleton A-F</a>.</div>
 <div class="jump">
 <a href="#table">Five-way table</a>
 <a href="#baseline">Baseline E2 · G1 · V2</a>
 <a href="#h6">H6 challenger</a>
 <a href="#h3">H3 challenger</a>
 <a href="#g1a">G1-A proof</a>
-<a href="access-geometry.html">Access A/B/C →</a>
+<a href="access-geometry.html">Parking Skeleton A-F →</a>
 </div>
 </section>
 
@@ -91,7 +91,7 @@ th{background:#f6f3ee;color:var(--navy);font-weight:900}
 
 <div class="grouphead" id="variant">
 <h2>Circulation proof — G1-A</h2>
-<p class="lede">Locked G1 is unchanged. G1-A proved east-facing tandem + y≈37 south lane before illustrative houses were drawn. <strong>Not a candidate</strong> — architectural cost too high (Penn garage, 11′ Unit B bar, upper-heavy program). See <a href="access-geometry.html">Access Geometry A/B/C</a>.</p>
+<p class="lede">Locked G1 is unchanged. G1-A proved east-facing tandem + y~37 south lane before illustrative houses were drawn. <strong>Not a candidate</strong> — architectural cost too high (Penn garage, 11′ Unit B bar, upper-heavy program). See <a href="access-geometry.html">Parking Skeleton A-F</a>.</p>
 </div>
 <section class="panel">
 <div class="summary"><table>
@@ -137,7 +137,11 @@ function renderPage(id, host, src){
   const r=src.rows[id], c=Lot2.CONCEPTS[id];
   const sec=document.createElement('section');
   sec.className='panel'; sec.id=id;
-  const doors=(r.doors||[]).map(d=>`${d.name}: door ${d.best}, staging ${d.clear}′ / apron ${d.apron}′`).join('<br>');
+  const doors=(r.doors||[]).map(d=>{
+    const g=d.gate||{face:d.best,clear:d.clear,apron:d.apron};
+    const decl=d.declared?` · declared ${d.declared.face} ${d.declared.clear}′`:'';
+    return `${d.name}: gate ${g.face} staging ${g.clear}′ / apron ${g.apron}′${decl}`;
+  }).join('<br>');
   const issues=(r.reasons||[]).map(x=>`<div class="issue">· ${x}</div>`).join('');
   const track=r.track==='baseline'?'Baseline / Locked Pass 1.5':r.track==='variant'?'Variant · circulation-first':r.track==='access-proof'?'Circulation proof · not a candidate':r.track==='access-skeleton'?'Access skeleton':'Challenger';
   const badge=r.technical==='PASS'?'ok':r.technical==='REVIEW'?'review':'fail';
@@ -157,7 +161,7 @@ function renderPage(id, host, src){
         <div class="metric"><small>Maneuver burden</small><strong>${r.burden}</strong></div>
         <div class="metric"><small>Independent bays</small><strong>${r.independent?'Yes':'No'}</strong></div>
         <div class="metric"><small>Pinch</small><strong>${r.pinchFt===null?'—':r.pinchFt+'′'} ${r.pinchLabel||''}</strong></div>
-        <div class="metric"><small>Doors (best face)</small><strong style="font-size:13px;font-weight:650">${doors}</strong></div>
+        <div class="metric"><small>Doors (gate / declared)</small><strong style="font-size:13px;font-weight:650">${doors}</strong></div>
       </div>
     </div>
     <h3>Pennsylvania → garage inbound</h3>

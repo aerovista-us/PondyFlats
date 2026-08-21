@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pondy Flats · South lot pinch — can a curve clear?</title>
+<meta name="description" content="FS-SUV south pinch: y=41 fails; a northward curve (or y~37 lane) keeps the 8′ vehicle on-lot.">
+<style>
+:root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--bad:#9a3b2e;--ok:#416145;--shadow:0 18px 54px #0f1a2b1a}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:Georgia,serif}
+.top{position:sticky;top:0;z-index:50;background:#0d1b33f4;color:#fff;font-family:ui-sans-serif,system-ui}
+.topin{max-width:1200px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand small{display:block;color:#efb34d;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.nav a{color:#fff;text-decoration:none;border:1px solid #ffffff28;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;margin-left:6px}
+.wrap{max-width:1200px;margin:auto;padding:22px 18px 80px}
+.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow);padding:24px;margin-top:18px}
+h1{font:500 clamp(32px,4vw,48px)/1.05 Georgia,serif;color:var(--navy);margin:0 0 10px}
+h2{color:var(--navy);margin:0 0 10px;font-size:22px}
+.lede{color:var(--muted);line-height:1.55;font-family:ui-sans-serif,system-ui;font-size:14px}
+.callout{margin-top:14px;padding:14px;border-left:4px solid var(--bad);background:#fdecea;color:#6b3a32;font-size:13px;line-height:1.5;font-family:ui-sans-serif,system-ui}
+.okbox{margin-top:14px;padding:14px;border-left:4px solid var(--ok);background:#edf5e9;color:#2d4a32;font-size:13px;line-height:1.5;font-family:ui-sans-serif,system-ui}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.plan{border:1px solid var(--line);border-radius:16px;background:#fbfaf7;padding:8px}
+.plan svg{width:100%;height:auto;display:block}
+.metric{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff;margin-bottom:8px;font-family:ui-sans-serif,system-ui}
+.metric small{display:block;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#92702e}
+.metric strong{color:var(--navy);font-size:15px}
+.fail{color:var(--bad);font-weight:900}.pass{color:var(--ok);font-weight:900}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand"><small>Pondy Flats · Lot 2</small><strong>South pinch · curve test</strong></div>
+<nav class="nav"><a href="access-geometry.html">Skeletons A-F</a><a href="access.html">SUV audit</a><a href="index.html">Hub</a></nav>
+</div></header>
+<main class="wrap">
+<section class="panel">
+<h1>Can we curve the drive to clear?</h1>
+<p class="lede"><strong>Yes — and it is now applied field-wide.</strong> Every design that failed the shared y≈41 south-apron error now uses <code>CLEAR_SOUTH_CURVE</code> → y≈37 (same class as Skeletons A/C). Original pinch paths are stored as <code>drivePinchFail</code>. Pinch is <strong>CLEAR</strong>; remaining FAIL reasons are garage/building clips, staging, and architecture — not the south apron.</p>
+<div class="okbox"><strong>Safe centerline ceiling (westbound FS-SUV):</strong> along the flat 40.33′ south run, survey y≈43.0′ → max CL ≈ <strong>38.8′</strong> (half-width 4′ + 0.25′ margin). At the Penn taper (x≈130′), max CL ≈ <strong>40.3′</strong>. Anything riding at y=41′ through that zone is already over budget.</div>
+<div class="callout"><strong>What a curve does <em>not</em> fix by itself:</strong> garage door staging, 25′ turn tangents into rear bays, or “architecture remaining.” Clearing the pinch only restores the same class of path Skeletons A/C already use — and those still fail the full parking gate on home-zone / independence grounds.</div>
+<div class="grid">
+  <div>
+    <h2>Fail · straight y=41′</h2>
+    <div class="plan" id="fail"></div>
+    <div class="metric"><small>Off-lot samples</small><strong class="fail" id="failN">—</strong></div>
+  </div>
+  <div>
+    <h2>Clear · northward curve → y≈37′</h2>
+    <div class="plan" id="clear"></div>
+    <div class="metric"><small>Off-lot samples</small><strong class="pass" id="clearN">—</strong></div>
+  </div>
+</div>
+<div class="grid" style="margin-top:8px">
+  <div class="metric"><small>Fail path</small><strong>(148,41) → (15,41)</strong></div>
+  <div class="metric"><small>Clear path (probe)</small><strong>(148,44) → (140,42) → (130,39) → (125,37) → (15,37)</strong></div>
+</div>
+</section>
+</main>
+<script src="js/lot2-sot.js"></script>
+<script src="js/lot2-geometry.js"></script>
+<script src="js/lot2-access.js"></script>
+<script>
+const SURVEY = Lot2.SURVEY;
+const VEH = Lot2Access.VEHICLE;
+const FAIL_PATH = [[148, 41], [15, 41]];
+const CLEAR_PATH = [[148, 44], [140, 42], [130, 39], [125, 37], [15, 37]];
+
+function probe(path) {
+  Lot2.CONCEPTS._pinch = {
+    id: '_pinch', label: 'pinch probe', units: [], skeleton: true,
+    garages: [{ name: 'GA', id: 'A', x: 102, y: 5, w: 22, h: 22, doorFace: 'E' }],
+    drive: path, accessPaths: [{ garage: 'A', path }],
+  };
+  const r = Lot2Access.analyzeConcept('_pinch');
+  delete Lot2.CONCEPTS._pinch;
+  return r;
+}
+
+function corners(p) {
+  const L = VEH.length / 2, W = VEH.width / 2;
+  const c = Math.cos(p.th), s = Math.sin(p.th);
+  return [[L, W], [L, -W], [-L, -W], [-L, W]].map(([dx, dy]) => [p.x + dx * c - dy * s, p.y + dx * s + dy * c]);
+}
+
+function surveyYAt(x) {
+  const segs = [
+    [[148, 50], [125.143, 43.016]],
+    [[125.143, 43.016], [84.813, 43.016]],
+    [[84.813, 43.016], [0, 57.01]],
+  ];
+  for (const [[x1, y1], [x2, y2]] of segs) {
+    if (x <= Math.max(x1, x2) + 0.01 && x >= Math.min(x1, x2) - 0.01) {
+      const t = Math.abs(x2 - x1) < 1e-9 ? 0 : (x - x1) / (x2 - x1);
+      return y1 + t * (y2 - y1);
+    }
+  }
+  return 50;
+}
+
+function pathD(path, sx, sy) {
+  return path.map((p, i) => `${i ? 'L' : 'M'} ${sx(p[0])} ${sy(p[1])}`).join(' ');
+}
+
+function draw(el, report, path, ok) {
+  const S = 5.2, MX = 50, MY = 30;
+  const sx = (x) => MX + x * S, sy = (y) => MY + y * S;
+  const pts = SURVEY.map((p) => `${sx(p[0])},${sy(p[1])}`).join(' ');
+  const poses = (report.poses || []).filter((p) => p.x > 20 && p.x < 148);
+  let off = 0;
+  const bodies = poses.filter((_, i) => i % 4 === 0).map((p) => {
+    const c = corners(p);
+    const isOff = Math.max(...c.map((q) => q[1])) > surveyYAt(p.x) + 0.05;
+    if (isOff) off++;
+    const poly = c.map(([x, y]) => `${sx(x)},${sy(y)}`).join(' ');
+    return `<polygon points="${poly}" fill="${isOff ? '#c45c4a66' : '#41614555'}" stroke="${isOff ? '#9a3b2e' : '#416145'}" stroke-width="1"/>`;
+  }).join('');
+  // ceiling band along south
+  let ceil = '';
+  for (let x = 148; x >= 85; x -= 3) {
+    const y = surveyYAt(x) - 4.25;
+    ceil += `${ceil ? 'L' : 'M'} ${sx(x)} ${sy(y)} `;
+  }
+  el.innerHTML = `<svg viewBox="0 0 ${148 * S + MX * 2} ${60 * S + MY * 2}" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="${pts}" fill="#f8f3e7" stroke="#232a31" stroke-width="2"/>
+    <path d="${ceil}" fill="none" stroke="#92702e" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <text x="${sx(100)}" y="${sy(35)}" font-size="10" font-family="ui-sans-serif,system-ui" fill="#92702e" font-weight="800">max safe CL ≈ 38.8′</text>
+    <path d="${pathD(path, sx, sy)}" fill="none" stroke="${ok ? '#416145' : '#9a3b2e'}" stroke-width="3"/>
+    ${bodies}
+    <text x="${sx(148)}" y="${sy(22)}" text-anchor="end" font-size="11" font-family="ui-sans-serif,system-ui" fill="#0d1b33" font-weight="800">Pennsylvania →</text>
+    <text x="${sx(4)}" y="${sy(8)}" font-size="11" font-family="ui-sans-serif,system-ui" fill="#0d1b33" font-weight="800">← North / rear</text>
+    <text x="${sx(80)}" y="${sy(55)}" text-anchor="middle" font-size="13" font-family="ui-sans-serif,system-ui" fill="${ok ? '#416145' : '#9a3b2e'}" font-weight="900">${ok ? 'ON-LOT' : 'OFF-LOT'}</text>
+  </svg>`;
+  return off;
+}
+
+const failR = probe(FAIL_PATH);
+const clearR = probe(CLEAR_PATH);
+document.getElementById('failN').textContent = (failR.reasons || []).find((x) => /leaves the lot/i.test(x)) || 'FAIL';
+document.getElementById('clearN').textContent = (clearR.reasons || []).find((x) => /leaves the lot|South lot pinch/i.test(x)) || '0 — cleared';
+draw(document.getElementById('fail'), failR, FAIL_PATH, false);
+draw(document.getElementById('clear'), clearR, CLEAR_PATH, true);
+</script>
+</body>
+</html>

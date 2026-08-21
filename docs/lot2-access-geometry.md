@@ -1,96 +1,142 @@
-# Lot 2 — Access Geometry A/B/C
+# Lot 2 — Parking Skeleton A-F
 
 **Artifact:** [`access-geometry.html`](../access-geometry.html)  
 **Engine:** `js/lot2-access-skeleton.js` + `js/lot2-access.js`  
-**Proof (not candidate):** G1-A — see [`lot2-g1a.md`](lot2-g1a.md) and [`access.html`](../access.html)
+**Proof (not candidate):** G1-A — see [`lot2-g1a.md`](lot2-g1a.md) and [`access.html`](../access.html)  
+**D/E/F close:** [`lot2-def-closure.md`](lot2-def-closure.md)
 
-Parking/circulation skeletons only. No house masses attached. Goal: discover the limited number of FS-SUV circulation layouts that work, then measure **architecture remaining after circulation**.
+## Naming (important)
 
-## Why this study exists
+| Name | Meaning |
+| ---- | ------- |
+| **Access A** (J1 trail) | Locked circulation under J1-B. Remains that name in Images 1–4.2 docs. |
+| **Parking Skeleton A-F** | Next-phase parking-only options. Prefer this label going forward. |
+| Code IDs `access_a` … `access_f` | Stable internal IDs. |
 
-G1-A proved east-facing garage doors + a south drive lane at **y≈37** can pass the FS-SUV gate. It also showed the architectural cost: Garage A becomes part of the Pennsylvania street face, Unit B collapses to an ~11′ bar, and both homes rely heavily on upper-floor / living-over-garage area.
+Parking Skeleton A ≡ J1 Access A geometry (rename only).
 
-G1-A is **circulation proof**, not a candidate. Do not iterate G1-A further.
+## Phase rule — no architecture yet
 
-## Three skeletons
+J1 is **CLOSED** (valid visualization · ownership NO). No rescue passes. No house masses until a parking concept clears the **appropriate named gate** below.
 
-| ID | Name | Intent |
-|----|------|--------|
-| **access_a** | Access A — East-Facing Tandem | Known-good baseline from G1-A proof. Garage A straight Penn inbound (y=16). Garage B via south lane (y=37) + shallow offset. |
-| **access_b** | Access B — Central Garage Core | Paired 22×22 core at (52,8)+(74,8) — H6 circulation stripped of architecture. Tests whether a recessed core preserves street face. |
-| **access_c** | Access C — Split-Depth Garages | Garage A at Penn (102,5); Garage B deeper rear/left (25,22). Same south lane. Tests whether staggering depth improves buildable zones. |
+## Two named gates
 
-All three use **east-facing doors** and Pennsylvania/right entry (x=148).
+### Original Program Gate
 
-## PASS criteria
+Closes all twin-22×22 / four-enclosed-space work (including Skeletons A–F):
 
-A skeleton **PASS**es only if **all** of the following hold:
+1. Survey / lot containment  
+2. Full-size SUV swept path  
+3. **20.5′ vehicle staging on each declared door** (hard physical FAIL if missed — not REVIEW)  
+4. Required turning radius  
+5. Two independent garage approaches  
+6. Four enclosed spaces through two genuine 22×22 garages  
+7. Realistic daily maneuvering burden  
+8. Two ≥ ~18′ contiguous home plates / credible lower floor  
 
-1. Both **22×22** garages remain exact.
-2. Both bays are **independently usable** (no parked vehicle blocks the other bay).
-3. Inbound/outbound FS-SUV paths stay **on lot** (ROW x≥148 allowed).
-4. **No three-point** required for normal use.
-5. **Realistic staging** for the 20.5′ design vehicle (≥20.5′ clear at door).
-6. **Architecture remaining:** after subtracting garages and 12′ drive corridors from the setback polygon, two contiguous zones (Penn-side cx≥72 and rear cx<72) each have **≥18′ minimum width**, **≥500 SF** area, and **≥600 SF** for plausible first-floor massing toward ~1,800 SF total living per unit.
+### Parking Reset Gate
 
-A skeleton that passes circulation but leaves 4–16′ residential ribbons is **FAIL** — not a real winner.
+For intentionally revised parking programs (smaller garages, tandem, covered, lift). Four-space arrangement is **defined per concept**. Still requires FS-SUV access, independence as claimed, and two viable home plates. Do not auto-fail solely for lacking twin 22×22.
 
-## Results (FS-SUV gate)
+## Field closure status
 
-| Skeleton | Physical access | Architecture remaining | Plausible two homes | Verdict |
-| -------- | --------------- | ---------------------- | ------------------- | ------- |
-| **Access A** | PASS | Poor — Unit A 4′ min width; Unit B 12′ ribbon | No | **FAIL** |
-| **Access B** | FAIL — path clips GB; off-lot; 18′ vs 25′ tangent | Poor | No | **FAIL** |
-| **Access C** | PASS | Poor — Unit A no zone; Unit B 4′ ribbon | No | **FAIL** |
+| Concept | Last recorded status | Official FS-SUV / skeleton closure |
+| ------- | -------------------- | ---------------------------------- |
+| E2 · G1 · V2 · H6 · H3 | FS-SUV FAIL | **Yes** — locked five |
+| J1-A/B/C | Ownership NO | **Yes** |
+| **E1** | Geometry REVIEW | **Yes — Skeleton D physical FAIL / Original Program Gate FAIL** |
+| **E3** | Geometry PASS; H3 fallback | **Yes — Skeleton E physical PASS\* / Original Program Gate FAIL** (arch remaining) |
+| **F1** | Geometry PASS; architectural concern | **Yes — Skeleton F physical FAIL / Original Program Gate FAIL** |
+| G2 · H2 | Geometry REVIEW | **Yes — family / equivalence closure** to E3 mid-lot pair + south/west approach (not an exact-coordinate retest) |
+| H4 | Geometry REVIEW | **Yes — family / equivalence closure** to E1-style depth stack + south corridor family |
+| H5 | Geometry REVIEW | **Yes — family / equivalence closure** to E1/A garage-band + south corridor family |
 
-### Access A (circulation PASS, architecture FAIL)
+\*E declared-door note: south face on Garage A audited at **8′ staging FAIL**; locked reference is **W + E** both **24′**. See [`lot2-def-closure.md`](lot2-def-closure.md).
 
-- Garages: A (102,5), B (25,16). Paths match G1-A proof.
-- Independent bays: **yes**. No three-point. Daily: **Fair**.
-- Buildable zones after circulation: Penn zone **4′** min width; rear zone **12′** min width — both below the 18′ ribbon threshold.
+Skeleton E replaced E3’s overlapping recorded garage plates with a valid non-overlapping pair — equivalence closures are about **circulation family**, not identical coordinates.
 
-### Access B (circulation FAIL)
+## Skeletons
 
-- Central core at (52,8)+(74,8). Garage A inbound clips Garage B envelope.
-- Garage B path leaves lot; 90° at (106.25,37) has **18′** tangent vs **25′** required.
-- Independent bays: **no**. Three-point: **yes**.
-- Confirms H6’s circulation problem is structural — not fixable by architecture alone.
+| ID | Display name | Source | Intent |
+|----|--------------|--------|--------|
+| **access_a** | **A** — East-Facing Tandem | G1-A / J1 Access A | Known-good east doors + y~37 south lane |
+| **access_b** | **B** — Central Garage Core | H6 stripped | Paired mid-lot core |
+| **access_c** | **C** — Split-Depth | Access A family | Penn A + deeper B |
+| **access_d** | **D** — E1 Rear Stack | **E1** | Depth-stack toward rear; Penn free of garages |
+| **access_e** | **E** — E3 Courtyard | **E3** | Mid-lot pair + Penn court void (H3 fallback) |
+| **access_f** | **F** — F1 Rear Motor Court | **F1** | Rear pair; Penn street free of garages |
 
-### Access C (circulation PASS, architecture FAIL)
+### E3 garage-coord note
 
-- Garage B moved deeper to (25,22). Same south lane as Access A.
-- Independent bays: **yes**. No three-point.
-- Split depth does **not** recover Penn-side architecture: Unit A has **no contiguous zone**; Unit B rear zone **4′** min width.
+Recorded E3/G2/H2/H3 garage plates `(48,5)+(48,13)` **overlap**. Skeleton E uses a non-overlapping mid-lot pair with a court between boxes. Equivalence for G2/H2 is **family-level**, not “same plates.”
 
-## Architecture remaining metric
+### Archived experiment
 
-Implemented in `Lot2AccessSkeleton.architectureRemaining()`:
+`access_d_mews` — facing rear mews before E1-derived D. Not in the active skeleton list.
 
-1. Grid the setback polygon at 2′ steps (x 25–128, y 5–43).
-2. Mark cells occupied by garages or within 12′ of any drive/access path.
-3. Flood-fill contiguous free cells into components.
-4. Split largest Penn component (cx≥72) vs rear (cx<72).
-5. Score each zone: min horizontal run width, area, bounding box.
-6. **Plausible homes** = both zones pass width/area thresholds.
+## Results — historical (pre-adjustment)
 
-Visualized on `access-geometry.html` as shaded overlays (green = plausible, red = ribbon/missing).
+> **Historical pre-adjustment results — superseded.**  
+> Captures the first FS-SUV pass before clear-south and driveway/clip repairs. Do not use for disposition.
+
+| Skeleton | Physical | Architecture remaining | Plausible homes | Verdict |
+| -------- | -------- | ---------------------- | --------------- | ------- |
+| **A** | PASS | Poor | No | **FAIL** |
+| **B** | FAIL | Poor | No | **FAIL** |
+| **C** | PASS | Poor | No | **FAIL** |
+| **D (E1)** | FAIL — south y≈41 off-lot; short tangents; B staging 4′ | Weak (Penn opens) | No | **FAIL** |
+| **E (E3)** | FAIL — south y≈41 off-lot; clips GA; west turn 0′ tangent | Weak (Penn opens) | No | **FAIL** |
+| **F (F1)** | FAIL — south y≈41 off-lot; shared E approach; A staging 0′ | Weak (Penn opens) | No | **FAIL** |
+
+### Shared failure mode (D / E / F) — historical note
+
+**South y≈41 pinch was later cleared** on all affected designs via shared `CLEAR_SOUTH_CURVE` → y≈37 lane (see [`../south-pinch.html`](../south-pinch.html)). Original y=41 polylines kept as `drivePinchFail` for audit.
+
+## Results — current (post clear-south + driveway rework)
+
+| Skeleton | Physical | Architecture remaining | Plausible homes | Verdict / disposition |
+| -------- | -------- | ---------------------- | --------------- | --------------------- |
+| **A** | PASS | Poor | No | FAIL (historical east-door reference) |
+| **B** | FAIL | Poor | No | FAIL |
+| **C** | PASS | Poor | No | FAIL (historical) |
+| **D** | **FAIL** (B staging 12′ &lt; 20.5′) | Weak (B: 6′ ribbon) | No | **CLOSE** |
+| **E** | **PASS\*** (declared W+E 24′/24′) | Weak (B: 10′ ribbon) | No | **CLOSE as layout; KEEP as circulation reference** |
+| **F** | **FAIL** (A staging 12′ &lt; 20.5′) | Weak (B: 4′ ribbon) | No | **CLOSE** |
+
+\*Declared south on E Garage A = **8′ staging FAIL** (audit). Locked reference uses **W + E**.
+
+**Circulation reference:** Skeleton **E** (split **W+E** doors + court + Penn mid-lane + clear-south). Replaces A/C as the strongest FS-SUV pattern under the Original Program Gate’s physical tests.
+
+**Next:** parking-program reset scored under the **Parking Reset Gate** — see [`lot2-def-closure.md`](lot2-def-closure.md). No architecture yet.
+
+### Shared failure mode (D / E / F) — current
+
+South y≈41 pinch and swept garage clips are cleared. Remaining conflict:
+
+- **D / F:** hard **staging FAIL** on a declared south door (12′ clear; apron partly off-survey), plus architecture remaining.  
+- **E:** physical circulation PASS on declared W+E; **architecture remaining FAIL** (rear ribbon).
+
+### Equivalence closures (family — no separate skeleton)
+
+| Concept | Why not tested as exact-coordinate audit |
+| ------- | ---------------------------------------- |
+| **G2** · **H2** | Same mid-lot garage **family** + south/west approach as E3/H3 → covered by Skeleton E + locked H3 FAIL (plates may differ; E fixed overlap) |
+| **H4** | Depth-split garage **family** + south corridor as E1 → covered by Skeleton D |
+| **H5** | Garage-band **family** + south corridor → covered by Skeleton D / A family |
+
+Reopen only if a concept introduces a **genuinely new** parking path (not another south-corridor or mid-lot pair variant).
 
 ## Lesson
 
-**All three skeletons FAIL overall** — but they converge on the same circulation generator:
+1. East-door + y~37 lane (A/C) can pass circulation and still leave unbuildable home ribbons.  
+2. Central core (B) cannot give two independent FS-SUV bays.  
+3. **D and F fail hard staging plus architecture remaining. E passes physical circulation, subject to declared-door verification (W+E locked; S audited FAIL), but fails architecture remaining.**  
+4. E3’s H3-fallback condition was honored — tested as Skeleton E — and fails the Original Program Gate on homes.  
+5. J1 remains CLOSED. No architecture until a concept clears the **Original Program Gate** or an explicit **Parking Reset Gate** for that concept.
 
-> **East-facing garage doors + Pennsylvania straight shot + south drive lane at y≈37**
+## Related
 
-Access B proves a **central recessed core** cannot deliver two independent FS-SUV bays on this parcel.
-
-Access A and C prove that even when circulation works, **architecture remaining is poor** — the site consumes its width and depth for parking and drive before honest ~1,800-SF lower-floor plates can form.
-
-**Implication:** Stop fighting garage-forward / garage-integrated architecture. The next Pass 2 move is to **design homes around** a proven parking skeleton (Access A circulation), not to rescue recessed living-first concepts (locked G1, E2, H6).
-
-Do **not** start massing until that trade is explicitly accepted.
-
-## Related artifacts
-
-- [`access.html`](../access.html) — locked five FAIL + G1-A circulation proof (audit trail)
-- [`lot2-access.md`](lot2-access.md) — five-way swept-path documentation
-- [`lot2-g1a.md`](lot2-g1a.md) — G1-A proof write-up (reframed as proof, not candidate)
+- [`lot2-def-closure.md`](lot2-def-closure.md) — D/E/F quantitative close + named gates  
+- [`access.html`](../access.html) — locked five FAIL + G1-A proof  
+- [`lot2-j1b-image4.md`](lot2-j1b-image4.md) — J1 disposition  
+- [`shortlist-elimination-memo.md`](shortlist-elimination-memo.md) — E3 as H3 fallback

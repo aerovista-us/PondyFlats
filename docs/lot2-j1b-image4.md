@@ -1,5 +1,18 @@
 # Lot 2 — J1-B Image 4 / 4.1 / 4.2
 
+## Final disposition (J1 closed)
+
+> **IMAGE 4.2 OFFICIAL — LAYER MATCH / VALID**  
+> **OWNERSHIP GATE — NO**  
+> **J1-B — STOP**  
+> **J1-A / J1-C — CLOSED**  
+> **FLOOR-PLAN SANITY — CANCELLED, not advanced**  
+> **Images 1–4.2 retained as the complete audit trail**
+
+J1 did not fail because the renderer drifted. It failed only after we finally rendered the exact geometry honestly. The Pennsylvania view remains garage-dominated with a very large upper wall; the site composition reads primarily as *access lane → near garage → deep garage → living stacked above*, not *desirable home A + desirable home B*. Building B is visually subordinate; pedestrian identity is weak; the architecture’s defining feature remains accommodation of four enclosed parking spaces.
+
+**Next when resuming:** parking-only [Parking Skeleton A-F](../access-geometry.html) exercise.
+
 ## Image 4 — DRIFT (style archive only)
 
 See [`reference/failed-visualization-drift/`](../reference/failed-visualization-drift/).
@@ -18,34 +31,38 @@ See [`reference/failed-visualization-drift/`](../reference/failed-visualization-
 | Export integrity (audit SVGs identical) | PASS |
 | Materials wash without relocating doors | PASS |
 
-Images 1–3 remain frozen. Crowded labels = presentation only, not geometry drift.
-
 | Artifact | Path |
 | -------- | ---- |
 | Page | [`j1b-image4-1-axon.html`](../j1b-image4-1-axon.html) |
 | Audit annotated | [`imgs/j1b-image4-1-finished-base.svg`](../imgs/j1b-image4-1-finished-base.svg) ≡ [`lock-scaffold.svg`](../imgs/j1b-image4-1-lock-scaffold.svg) |
 | Clean (no labels) | [`imgs/j1b-image4-1-clean-base.svg`](../imgs/j1b-image4-1-clean-base.svg) |
-| Engine | `js/lot2-j1b-image41-scaffold.js` (`annotations: true\|false`) |
+| Engine | `js/lot2-j1b-image41-scaffold.js` |
 
 **Door policy:** `east-plane-svg-locked`
 
-## Image 4.2 — ownership gate (current)
+## IMAGE 4.2 — LAYER MATCH / VALID · ownership NO
 
-Derived from approved 4.1 base only.
+### Layer match (PASSED)
 
-| View | Vector | Notes |
-| ---- | ------ | ----- |
-| Pennsylvania elevation | [`imgs/j1b-image4-2-penn-elevation.svg`](../imgs/j1b-image4-2-penn-elevation.svg) · materials [`penn-elevation.png`](../imgs/j1b-image4-2-penn-elevation.png) | Orthographic from +X; east doors face viewer |
-| Eye-level perspective | [`imgs/j1b-image4-2-eye-level.svg`](../imgs/j1b-image4-2-eye-level.svg) · materials [`eye-level.png`](../imgs/j1b-image4-2-eye-level.png) | Penn sidewalk / SE 3/4 · Access A → east door |
-| Page | [`j1b-image4-2-views.html`](../j1b-image4-2-views.html) | Ownership gate |
-| Engine | `js/lot2-j1b-image42-views.js` | |
+- Eye-level material polygons match the deterministic base
+- Access A and B remain the locked side lanes
+- A near / B deep retained
+- Both door overlays use exact locked east-plane coordinates
+- Pennsylvania elevation: two equal doors, each **128 SVG units = 16′**
+- Apparent overlap is honest depth projection — not a merged or resized façade
+- No direct street-to-garage shortcut or generator-created silhouette
 
-### Ownership gate
+Official regeneration supersedes archived photoreal washes as Image 4.2 geometry proof. Those washes remain **DRIFT** (style only).
 
-- **YES** → floor-plan sanity
-- **NO** → stop J1; reconsider four enclosed parking
-- **DRIFT** → regenerate 4.2 only; Image 4.1 stays APPROVED
+### Ownership (NO)
 
-Floor-plan sanity remains **WAIT** until clear YES.
+Would not choose to build this if the site were not forcing the architecture. Additional windows and trim could improve appearance but would not change the fundamental garage-first hierarchy.
+
+| View | Geometry SVG | Surfaces (no doors) | Composite (doors on top) |
+| ---- | ------------ | ------------------- | ------------------------ |
+| Pennsylvania elevation | [`penn-elevation.svg`](../imgs/j1b-image4-2-penn-elevation.svg) | [`penn-elevation-nodoors.svg`](../imgs/j1b-image4-2-penn-elevation-nodoors.svg) | [`penn-elevation-materials.svg`](../imgs/j1b-image4-2-penn-elevation-materials.svg) · [`penn-elevation.png`](../imgs/j1b-image4-2-penn-elevation.png) |
+| Site view (Penn) | [`eye-level.svg`](../imgs/j1b-image4-2-eye-level.svg) | [`eye-level-nodoors.svg`](../imgs/j1b-image4-2-eye-level-nodoors.svg) | [`eye-level-materials.svg`](../imgs/j1b-image4-2-eye-level-materials.svg) · [`eye-level.png`](../imgs/j1b-image4-2-eye-level.png) |
+| Page | [`j1b-image4-2-views.html`](../j1b-image4-2-views.html) | | |
+| Engine | `js/lot2-j1b-image42-views.js` | | |
 
 See [`lot2-visual-chain.md`](lot2-visual-chain.md).

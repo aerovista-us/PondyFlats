@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pondy Flats · Access Geometry A/B/C</title>
-<meta name="description" content="Lot 2 parking/circulation skeletons only — FS-SUV gate plus architecture remaining after circulation. No house concepts attached.">
+<title>Pondy Flats · Parking Skeleton A-F</title>
+<meta name="description" content="Lot 2 parking skeletons A–F (incl. E1/E3/F1) — no architecture until a skeleton independently clears survey, FS-SUV swept path, 20.5′ staging, turning radius, two independent approaches, four enclosed spaces, and realistic daily burden.">
 <style>
 :root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--ok:#416145;--warn:#7b5721;--bad:#9a3b2e;--garage:#aec0d2;--shadow:0 18px 54px #0f1a2b1a}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:Inter,system-ui,sans-serif}
@@ -43,35 +43,86 @@ th{background:#f6f3ee;color:var(--navy);font-weight:900}
 </head>
 <body>
 <header class="top"><div class="topin">
-<div class="brand"><small>Pondy Flats · Lot 2</small><strong>Access Geometry A/B/C</strong></div>
+<div class="brand"><small>Pondy Flats · Lot 2</small><strong>Parking Skeleton A-F</strong></div>
 <nav class="nav"><a href="index.html">Hub</a><a href="access.html">SUV audit trail</a><a href="study.html">Workflow</a><a href="lab.html">Lab</a></nav>
 </div></header>
 <main class="wrap">
 <section class="panel">
-<h1>Parking skeletons only. No houses.</h1>
-<p class="lede">G1-A proved the circulation rules — it is <strong>not</strong> a candidate. These three skeletons strip architecture away and ask: what parking/circulation layouts actually work for the FS-SUV (20.5′ × 8.0′, 25′ radius), and what buildable area remains?</p>
-<div class="callout"><strong>PASS only if:</strong> both 22×22 garages exact · independently usable · no cross-blocking · on-lot paths · no three-point for normal use · realistic 20.5′ staging · <em>and</em> contiguous buildable zones can plausibly support two ~1,800-SF homes (≥18′ min width, ≥600 SF per zone).</div>
+<h1>Parking Skeleton A-F · no houses</h1>
+<p class="lede">J1 is closed (valid visualization · ownership NO). <strong>D/E/F all fail the Original Program Gate.</strong> <strong>E</strong> is the circulation reference (physical PASS · declared W+E · court) but fails architecture remaining. <strong>Resume:</strong> <a href="parking-reset.html">Parking Reset Matrix</a> (R6/R6.1 CONDITIONAL · harden fillet).</p>
+<div class="callout" style="border-color:#c45c4a;background:#fdecea;color:#6b3a32"><strong>D/E/F closed.</strong> Quantitative pass: <a href="docs/lot2-def-closure.md" style="color:#6b3a32;font-weight:800">lot2-def-closure.md</a>. D/F = physical FAIL (12′ staging). E keeps the path recipe; two 22×22 boxes still leave rear home ribbons (&lt;18′).</div>
+<div class="callout"><strong>Original Program Gate:</strong> twin 22×22 / four enclosed · no swept clips · <strong>20.5′ declared-door staging (hard FAIL if missed)</strong> · turning · independent bays · daily burden · each home ≥~18′ contiguous. <strong>Parking Reset Gate:</strong> four-space arrangement defined per concept — see closure doc. Architecture remaining is scored but houses are not attached.</div>
 <ul class="criteria">
-<li><strong>Access A</strong> — East-facing tandem (known-good from G1-A proof)</li>
-<li><strong>Access B</strong> — Shared central garage core (H6 circulation, no architecture)</li>
-<li><strong>Access C</strong> — Split depth: Penn garage + deeper rear/left garage</li>
+<li><strong>A</strong> — East-facing tandem (G1-A / J1 Access A)</li>
+<li><strong>B</strong> — Central garage core (H6 stripped)</li>
+<li><strong>C</strong> — Split depth (Penn + deeper)</li>
+<li><strong>D</strong> — E1 Rear Stack</li>
+<li><strong>E</strong> — E3 Courtyard (H3 fallback triggered)</li>
+<li><strong>F</strong> — F1 Rear Motor Court</li>
 </ul>
 <div class="lesson" id="lesson"></div>
 <div class="jump">
 <a href="#table">Comparison table</a>
-<a href="#access_a">Access A</a>
-<a href="#access_b">Access B</a>
-<a href="#access_c">Access C</a>
-<a href="j1-massing.html">J1 massing →</a>
+<a href="#field">Field status</a>
+<a href="south-pinch.html">See south pinch →</a>
+<a href="garage-clips.html">See garage clips →</a>
+<a href="#access_a">A</a>
+<a href="#access_b">B</a>
+<a href="#access_c">C</a>
+<a href="#access_d">D · E1</a>
+<a href="#access_e">E · E3</a>
+<a href="#access_f">F · F1</a>
+<a href="parking-reset.html">Parking Reset →</a>
+<a href="docs/lot2-def-closure.md">D/E/F closure →</a>
+<a href="docs/lot2-access-geometry.md">Docs</a>
+<a href="j1b-image4-2-views.html">J1 closed →</a>
 </div>
 </section>
 
 <section class="panel" id="table">
 <h2>Architecture remaining after circulation</h2>
-<p class="lede">Shaded zones = contiguous buildable area after subtracting garages and 12′ drive corridors. Green = plausible home zone; red = ribbon or missing.</p>
+<p class="lede">Shaded zones = contiguous buildable area after subtracting garages and 12′ drive corridors. Green = plausible home zone; red = ribbon or missing. <strong>E</strong> = circulation reference; none of D/E/F clear two ≥18′ home plates.</p>
 <div class="summary"><table>
 <thead><tr><th>Skeleton</th><th>Physical access</th><th>Architecture remaining</th><th>Plausible two homes</th><th>Daily usability</th><th>Verdict</th></tr></thead>
 <tbody id="tbl"></tbody>
+</table></div>
+</section>
+
+<section class="panel" id="closure">
+<h2>D / E / F quantitative close</h2>
+<p class="lede">Soft issues measured against hard thresholds. Full write-up: <a href="docs/lot2-def-closure.md">lot2-def-closure.md</a>. *E PASS requires declared W+E; south door audited at 8′ staging FAIL.</p>
+<div class="summary"><table>
+<thead><tr><th>Metric</th><th>D</th><th>E (reference)</th><th>F</th></tr></thead>
+<tbody>
+<tr><td>Physical gate</td><td class="fail">FAIL</td><td class="ok">PASS*</td><td class="fail">FAIL</td></tr>
+<tr><td>Swept clips</td><td class="ok">None</td><td class="ok">None</td><td class="ok">None</td></tr>
+<tr><td>Staging (declared)</td><td>A 24′ · B <span class="fail">12′</span></td><td class="ok">A W 24′ · B E 24′</td><td>A <span class="fail">12′</span> · B 24′</td></tr>
+<tr><td>Direction changes (A / B)</td><td>0 / 2</td><td>1 / 0</td><td>2 / 0</td></tr>
+<tr><td>Inbound length (A / B)</td><td>46′ / 114′</td><td>128′ / 41′</td><td>111′ / 56′</td></tr>
+<tr><td>Independent bays</td><td class="ok">Yes</td><td class="ok">Yes</td><td class="ok">Yes</td></tr>
+<tr><td>Daily</td><td class="fail">Poor</td><td>Fair</td><td class="fail">Poor</td></tr>
+<tr><td>Home A min width / area</td><td class="ok">32′ / 1080 SF</td><td class="ok">24′ / 840 SF</td><td class="ok">20′ / 844 SF</td></tr>
+<tr><td>Home B min width / area</td><td class="fail">6′ / 116 SF</td><td class="fail">10′ / 476 SF</td><td class="fail">4′ / 244 SF</td></tr>
+<tr><td>Original Program Gate</td><td class="fail">FAIL</td><td class="fail">FAIL (keep path recipe)</td><td class="fail">FAIL</td></tr>
+</tbody>
+</table></div>
+<div class="lesson"><strong>Lesson.</strong> D and F fail hard staging plus architecture remaining. E passes physical circulation on declared W+E (south door audited FAIL at 8′), but fails architecture remaining. Next = Parking Reset Gate, not architecture.</div>
+</section>
+
+<section class="panel" id="field">
+<h2>Original field — FS-SUV / access closure</h2>
+<p class="lede">Concepts that never received the same official FS-SUV closure as the locked five are closed here via Skeleton D/E/F or by access equivalence.</p>
+<div class="summary"><table>
+<thead><tr><th>Concept</th><th>Prior status</th><th>Official closure</th></tr></thead>
+<tbody>
+<tr><td><strong>E1</strong> Staggered / Deep-Stagger</td><td>Geometry REVIEW</td><td class="fail">Skeleton D · <strong>CLOSED</strong> (physical FAIL · B staging 12′ · rear 6′ ribbon)</td></tr>
+<tr><td><strong>E3</strong> Front Courtyard</td><td>Geometry PASS; H3 fallback</td><td class="fail">Skeleton E · <strong>CLOSED as layout</strong> · physical PASS (W+E) · <strong>circulation reference</strong></td></tr>
+<tr><td><strong>F1</strong> Rear Motor Court</td><td>Geometry PASS; architectural concern</td><td class="fail">Skeleton F · <strong>CLOSED</strong> (physical FAIL · A staging 12′ · rear 4′ ribbon)</td></tr>
+<tr><td>G2 · H2</td><td>Geometry REVIEW</td><td class="fail">Family / equivalence closure to E3 mid-lot pair (not exact-coordinate audit)</td></tr>
+<tr><td>H4 · H5</td><td>Geometry REVIEW</td><td class="fail">Family / equivalence closure to E1 / A garage-band families</td></tr>
+<tr><td>E2 · G1 · V2 · H6 · H3</td><td>Was FS-SUV FAIL (y=41)</td><td class="fail">Clear corridor applied · pinch CLEAR · still FAIL on footprint clips</td></tr>
+<tr><td>J1-A/B/C</td><td>Ownership NO</td><td class="fail">Closed (prior)</td></tr>
+</tbody>
 </table></div>
 </section>
 

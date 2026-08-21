@@ -17,7 +17,7 @@ Stop expanding the concept field. Score the five track concepts, lock the Final 
 | **Final Three** | V2 Long-Axis V | ADVANCE — design ceiling |
 | **Alternate #1** | H6 Central-Core | HOLD — closest alternate; needs believable garage-core floor plan |
 | **Alternate #2** | H3 Mews Courtyard | HOLD — mews must prove it is a real outdoor room |
-| **Appendix** | E3 Front Courtyard | HOLD — courtyard fallback if H3 exits |
+| **Appendix** | E3 Front Courtyard | **CLOSED** — H3 FAIL triggered fallback; Parking Skeleton E (E3) also **FAIL** (south y≈41 FS-SUV pinch). See [`lot2-access-geometry.md`](lot2-access-geometry.md). |
 
 ## Seven scoring criteria
 
@@ -56,4 +56,8 @@ No full elevations for H6, H3, or E3 unless they displace a finalist.
 
 H6 then H3 were tested on the identical 20.5′ × 8.0′ / 25′ gate. **Both FAIL.** The Final Three also FAIL. No challenger is promoted; no finalist is demoted. Shortlist circulation scores assumed schematic drives that cannot carry this vehicle. Treat circulation as a site constraint next — see [`lot2-access.md`](lot2-access.md) / [`access.html`](../access.html). Do not start Pass 2 architecture.
 
-See also: [`lot2-geometry-validation.md`](lot2-geometry-validation.md)
+## Clear-south corridor (applied)
+
+Shared y≈41 FS-SUV off-lot error is addressed site-wide via `Lot2.clearSouthPath` / `CLEAR_SOUTH_CURVE` → y≈37. Original paths kept as `drivePinchFail`. **Pinch CLEAR** on E2/G1/V2/H3/H6 and revision/challenger drives; remaining FAIL reasons are footprint clips / staging / architecture — see [`lot2-access-geometry.md`](lot2-access-geometry.md) and [`../south-pinch.html`](../south-pinch.html).
+
+See also: [`lot2-geometry-validation.md`](lot2-geometry-validation.md) · [`lot2-access-geometry.md`](lot2-access-geometry.md)

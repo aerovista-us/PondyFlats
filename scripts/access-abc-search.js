@@ -1,5 +1,6 @@
 /**
- * Access Geometry A/B/C — parking skeletons only (no houses).
+ * Parking Skeleton A/B/C — parking only (no houses).
+ * Code IDs: access_a / access_b / access_c.
  * G1-A is circulation proof, not a candidate.
  */
 global.Lot2SOT = require('../js/lot2-sot.js');

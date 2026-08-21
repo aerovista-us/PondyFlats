@@ -91,8 +91,8 @@ H6 is the least-wrong *diagram*, not a PASS, and not a REVIEW.
 - H6 / H3 did **not** PASS cleanly → no promotion, no demotion of a finalist.
 - They did **not** REVIEW → do not spend this pass comparing H6 building moves vs G1’s unused drive-only variant as if both were “almost.”
 - **All five FAIL** → stop testing existing concepts as the circulation answer. Solve circulation as a **site constraint** first.
-- **G1-A** (`g1a`): circulation **proof** only — east doors + y≈37 south lane. Illustrative houses show architectural cost; **not a candidate**. See [`lot2-g1a.md`](lot2-g1a.md).
-- **Access Geometry A/B/C** — parking skeletons only, no houses. See [`access-geometry.html`](../access-geometry.html) and [`lot2-access-geometry.md`](lot2-access-geometry.md).
-- Do **not** start Pass 2 architecture (massing / elevations / floor plans) until the garage-forward trade is accepted. Do not iterate G1-A further.
+- **G1-A** (`g1a`): circulation **proof** only — east doors + y~37 south lane. Illustrative houses show architectural cost; **not a candidate**. See [`lot2-g1a.md`](lot2-g1a.md).
+- **Parking Skeleton A-F** — parking only, no houses. See [`access-geometry.html`](../access-geometry.html) and [`lot2-access-geometry.md`](lot2-access-geometry.md).
+- Do **not** attach architecture until a parking skeleton independently clears the pre-architecture gate. J1 is CLOSED (no rescue). Do not iterate G1-A further.
 
 See also: [`shortlist-elimination-memo.md`](shortlist-elimination-memo.md)

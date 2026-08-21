@@ -1,16 +1,16 @@
-# Lot 2 — Geometry Validation (Pass 1.5 / 1.5A)
+# Lot 2 ? Geometry Validation (Pass 1.5 / 1.5A)
 
 ## Funnel
 
 ```
-SOT survey polygon → polygon-accurate setbacks → concept geometry → validation metrics → approve shortlist → Pass 2 site/elevation
+SOT survey polygon ? polygon-accurate setbacks ? concept geometry ? validation metrics ? approve shortlist ? Pass 2 site/elevation
 ```
 
 | Stage | What happens | Deliverable |
 |-------|----------------|-------------|
 | **SOT** | Parcel polygon, compass, Pennsylvania frontage locked | `js/lot2-sot.js` |
 | **Polygon setbacks** | Inward offset per boundary segment (planning assumptions) | `Lot2.setbackPoly()` in `js/lot2-geometry.js` |
-| **Concept geometry** | 12 strategies on shared lot — no concept redraws the parcel | `designs.html` |
+| **Concept geometry** | 12 strategies on shared lot ? no concept redraws the parcel | `designs.html` |
 | **Validation metrics** | PASS / REVIEW / FAIL with reasons | `lab.html` |
 | **Shortlist** | Three finalists after judgment | `study.html` |
 | **Pass 2** | Site plan, Penn elevation, perspective | One finalist at a time |
@@ -21,16 +21,16 @@ SOT survey polygon → polygon-accurate setbacks → concept geometry → valida
 
 | Edge | Assumption |
 |------|------------|
-| Pennsylvania / right (front) | 20′ |
-| Rear / left | 25′ |
-| Top (y = 0) | 5′ |
-| Bottom / irregular | 10′ |
+| Pennsylvania / right (front) | 20? |
+| Rear / left | 25? |
+| Top (y = 0) | 5? |
+| Bottom / irregular | 10? |
 
 The old axis-aligned rectangular envelope is **deprecated**. All pass/fail results use the polygon-accurate inward offset from the survey polygon.
 
 ## Program standard
 
-- **~1,800 SF total living target per unit** — validated band **1,600–1,900 SF** (first floor + upper target).
+- **~1,800 SF total living target per unit** ? validated band **1,600?1,900 SF** (first floor + upper target).
 - **First-floor size is concept-specific** unless a concept claims a **900-SF lower-floor benchmark** (E2 only).
 - V2, F1, H4, and others intentionally use different lower/upper splits. PASS does not imply 900/900 on both floors.
 
@@ -38,36 +38,36 @@ The old axis-aligned rectangular envelope is **deprecated**. All pass/fail resul
 
 Each concept is checked for:
 
-1. **Survey polygon** — all footprint vertices inside locked survey
-2. **Setback polygon** — all vertices inside working setback envelope
-3. **First-floor area** — exact polygon or rectangle area per unit (reported, not uniformly judged)
-4. **Garage program** — two 22×22′ bays (484 SF each); integrated LOG counts toward bay total
-5. **Minimum separation** — axis-aligned box separation between structures
-6. **Driveway length** — polyline path length
-7. **Paved area** — drive length × 12′ nominal width
-8. **Minimum drive clearance** — centerline distance to **living** footprints (≥ 6′ each side)
-9. **Pennsylvania / right access** — drive originates at x ≈ 148
-10. **Living target band** — total living per unit within 1,600–1,900 SF
-11. **First-floor benchmark** (E2 only) — declared lower-floor areas within ±80 SF
+1. **Survey polygon** ? all footprint vertices inside locked survey
+2. **Setback polygon** ? all vertices inside working setback envelope
+3. **First-floor area** ? exact polygon or rectangle area per unit (reported, not uniformly judged)
+4. **Garage program** ? two 22?22? bays (484 SF each); integrated LOG counts toward bay total
+5. **Minimum separation** ? axis-aligned box separation between structures
+6. **Driveway length** ? polyline path length
+7. **Paved area** ? drive length ? 12? nominal width
+8. **Minimum drive clearance** ? centerline distance to **living** footprints (? 6? each side)
+9. **Pennsylvania / right access** ? drive originates at x ? 148
+10. **Living target band** ? total living per unit within 1,600?1,900 SF
+11. **First-floor benchmark** (E2 only) ? declared lower-floor areas within ?80 SF
 
 ### Status (geometry only)
 
-- **PASS** — survey, setback, garage, Penn access, drive clearance, living band (and first-floor benchmark if claimed)
-- **REVIEW** — partial pass; see reasons (setback clip, drive clearance, living band, etc.)
-- **FAIL** — outside survey, missing garage, or no Penn connection
+- **PASS** ? survey, setback, garage, Penn access, drive clearance, living band (and first-floor benchmark if claimed)
+- **REVIEW** ? partial pass; see reasons (setback clip, drive clearance, living band, etc.)
+- **FAIL** ? outside survey, missing garage, or no Penn connection
 
-**Geometry PASS ≠ design complete.** Design concerns (court quality, upper-floor load, central-core architecture) are tracked separately and do not downgrade a geometric PASS.
+**Geometry PASS ? design complete.** Design concerns (court quality, upper-floor load, central-core architecture) are tracked separately and do not downgrade a geometric PASS.
 
 ## Design concern column
 
-Each concept carries a `designConcern` string for shortlist judgment — e.g. E3 “court quality,” F1 “aggressive upper-floor load,” H6 “central-core architecture.” See `lab.html` matrix.
+Each concept carries a `designConcern` string for shortlist judgment ? e.g. E3 ?court quality,? F1 ?aggressive upper-floor load,? H6 ?central-core architecture.? See `lab.html` matrix.
 
 ## Files
 
 | File | Role |
 |------|------|
 | `js/lot2-sot.js` | Frozen source of truth |
-| `js/lot2-geometry.js` | Authoritative Pass 1.5 engine — setbacks, concepts, render, validation |
+| `js/lot2-geometry.js` | Authoritative Pass 1.5 engine ? setbacks, concepts, render, validation |
 | `js/lot2-validate.js` | Legacy per-segment clearance + SUV checks (optional supplement) |
 | `lab.html` | Validation matrix grouped by geometry PASS / REVIEW |
 | `designs.html` | Visual concept diagrams + metrics |
@@ -75,30 +75,37 @@ Each concept carries a `designConcern` string for shortlist judgment — e.g. E3
 
 ## Geometry status (current engine)
 
-### Geometry PASS — shortlist eligible
+### Geometry PASS ? shortlist eligible (historical)
 
-E2 · G1 · V2 · E3 · F1 · H3 · H6
+E2 ? G1 ? V2 ? E3 ? F1 ? H3 ? H6
 
-### Geometry REVIEW — resolve before shortlist
+### Former Geometry REVIEW ? now closed
 
-E1 · G2 · H2 · H4 · H5
+| Concept | Closure |
+| ------- | ------- |
+| **E1** | Skeleton D ? physical FAIL / Original Program Gate FAIL |
+| **E3** | Skeleton E ? physical PASS (declared W+E) / Original Program Gate FAIL (arch remaining) |
+| **F1** | Skeleton F ? physical FAIL / Original Program Gate FAIL |
+| **G2 ? H2 ? H4 ? H5** | Family / equivalence closures (not exact-coordinate audits) |
 
-## Concept roles (metadata — not geometry status)
+See [`lot2-access-geometry.md`](lot2-access-geometry.md) ? [`lot2-def-closure.md`](lot2-def-closure.md).
+
+## Concept roles (metadata ? not geometry status)
 
 ### Benchmark trio
 
-- **E2** — Recessed Garage (conventional · claims 900-SF lower-floor benchmark)
-- **G1** — Z-Duplex (efficiency · Z-stagger in G1)
-- **V2** — Long-Axis V (design ceiling)
+- **E2** ? Recessed Garage (conventional ? claims 900-SF lower-floor benchmark)
+- **G1** ? Z-Duplex (efficiency ? Z-stagger in G1)
+- **V2** ? Long-Axis V (design ceiling)
 
-### Original seven — other established roles
+### Original seven ? other established roles
 
-- **E1** — Deep-Stagger
-- **E3** — Front Courtyard
-- **F1** — Rear Motor Court
-- **G2** — Interlocking-L
+- **E1** ? Deep-Stagger
+- **E3** ? Front Courtyard
+- **F1** ? Rear Motor Court
+- **G2** ? Interlocking-L
 
-### Challengers H2–H6
+### Challengers H2?H6
 
 | ID | Strategy |
 |----|----------|
@@ -112,10 +119,10 @@ E1 · G2 · H2 · H4 · H5
 
 E2 was fixed first against the real setback taper:
 
-- **Unit A** — 45×20′ (900 SF) at Pennsylvania/right
-- **Unit B** — trapezoid ~910 SF extending west (two full 45×20′ stacked plates do not fit inside the setback polygon at Penn/right)
-- **Garages** — two exact 22×22′ boxes recessed left/rear
-- **Drive** — enters at Pennsylvania/right (x = 148), routes west
+- **Unit A** ? 45?20? (900 SF) at Pennsylvania/right
+- **Unit B** ? trapezoid ~910 SF extending west (two full 45?20? stacked plates do not fit inside the setback polygon at Penn/right)
+- **Garages** ? two exact 22?22? boxes recessed left/rear
+- **Drive** ? enters at Pennsylvania/right (x = 148), routes west
 
 ## Locked Final Three
 
@@ -123,12 +130,12 @@ E2 was fixed first against the real setback taper:
 
 | Slot | Concepts |
 |------|----------|
-| **Final Three** | E2 · G1 · V2 |
+| **Final Three** | E2 ? G1 ? V2 |
 | **Alternate #1** | H6 |
 | **Alternate #2** | H3 |
 | **Fallback appendix** | E3 |
 
-**Deprioritized until REVIEW resolved:** E1 · G2 · H2 · H4 · H5
+**Deprioritized / FS-SUV closed by skeleton or equivalence:** E1 (Skeleton D FAIL) ? E3 (Skeleton E ? layout FAIL, circulation reference) ? F1 (Skeleton F FAIL) ? G2 ? H2 ? H4 ? H5 ? see [`lot2-access-geometry.md`](lot2-access-geometry.md)
 
 ## Shortlist Elimination Memo
 
@@ -138,11 +145,12 @@ See [`shortlist.html`](../shortlist.html) and [`shortlist-elimination-memo.md`](
 
 See [`access.html`](../access.html), [`access-geometry.html`](../access-geometry.html), [`lot2-access.md`](lot2-access.md), and [`lot2-access-geometry.md`](lot2-access-geometry.md).
 
-- Baseline Final Three (E2 · G1 · V2): **FAIL** on locked plates — remains on `access.html` as Locked Pass 1.5.
+- Baseline Final Three (E2 ? G1 ? V2): **FAIL** on locked plates ? remains on `access.html` as Locked Pass 1.5.
 - Challengers H6 then H3: **FAIL** on the same FS-SUV gate. Neither is promoted.
 - **G1-A** = circulation proof (`g1a`, locked `g1` untouched): technical PASS, daily Fair, **not a candidate**. See [`lot2-g1a.md`](lot2-g1a.md).
-- **Access Geometry A/B/C** — parking skeletons only. Convergence: east-facing garages + south lane at y≈37. See [`lot2-access-geometry.md`](lot2-access-geometry.md).
-- **J1 Pass 2A massing** — trade accepted; three treatments on locked Access A. See [`j1-massing.html`](../j1-massing.html) and [`lot2-j1-massing.md`](lot2-j1-massing.md).
+- **Parking Skeleton A-F** ? parking only. Original Program Gate closed D/E/F; next is **Parking Reset Gate**. See [`lot2-def-closure.md`](lot2-def-closure.md).
+- **Parking Reset** ? R6 / R6.1 **CONDITIONAL** (integrated plates). Architecture OFF until FULL PASS (bay + 25? fillet). See [`lot2-parking-reset.md`](lot2-parking-reset.md) � [`../parking-reset.html`](../parking-reset.html).
+- **J1 Pass 2A massing** ? CLOSED after Image 4.2 ownership NO. See [`lot2-j1-massing.md`](lot2-j1-massing.md).
 
 ## What Pass 2 is NOT
 
@@ -150,14 +158,12 @@ Pass 2 is not a new concept round and not full renders for all five. Sequence:
 
 ```
 Final Three (E2 / G1 / V2)
-→ preliminary SUV swept paths  (all five FAIL — locked geometry; see access.html)
-→ G1-A circulation proof (technical PASS — not a candidate; see lot2-g1a.md)
-→ Access Geometry A/B/C (see access-geometry.html)
-→ J1 Pass 2A massing (trade accepted — see j1-massing.html)
-→ schematic Penn elevation (Pass 2B)
-→ floor-plan sanity check
-→ cost / complexity comparison
-→ preferred concept
+? preliminary SUV swept paths  (all five FAIL ? locked geometry; see access.html)
+? G1-A circulation proof (technical PASS ? not a candidate; see lot2-g1a.md)
+? Parking Skeleton A?F (Original Program Gate FAIL on D/E/F; E = circulation reference)
+? Parking Reset � R6 CONDITIONAL � R6.1 hardening (bay OK � fillet open)
+? FULL PASS ? R5 � schematic architecture (CONDITIONAL does not unlock)
+? J1 Pass 2A massing (CLOSED ? ownership NO; see j1b-image4-2-views.html)
 ```
 
-See also: [`lot2-survey-orientation.md`](lot2-survey-orientation.md)
+See also: [`lot2-survey-orientation.md`](lot2-survey-orientation.md) � hub [`../index.html`](../index.html)

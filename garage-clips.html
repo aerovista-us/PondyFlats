@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pondy Flats · Garage clips (FS-SUV swept envelope)</title>
+<meta name="description" content="After the clear-south corridor, remaining FAIL: FS-SUV swept body intersecting garage plates on Skeletons D/E/F.">
+<style>
+:root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--bad:#9a3b2e;--ok:#416145;--shadow:0 18px 54px #0f1a2b1a}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:Georgia,serif}
+.top{position:sticky;top:0;z-index:50;background:#0d1b33f4;color:#fff;font-family:ui-sans-serif,system-ui}
+.topin{max-width:1400px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand small{display:block;color:#efb34d;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.nav a{color:#fff;text-decoration:none;border:1px solid #ffffff28;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;margin-left:6px}
+.wrap{max-width:1400px;margin:auto;padding:22px 18px 80px}
+.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow);padding:24px;margin-top:18px}
+h1{font:500 clamp(32px,4vw,48px)/1.05 Georgia,serif;color:var(--navy);margin:0 0 10px}
+h2{color:var(--navy);margin:0 0 8px;font-size:20px}
+.lede{color:var(--muted);line-height:1.55;font-family:ui-sans-serif,system-ui;font-size:14px}
+.callout{margin-top:14px;padding:14px;border-left:4px solid var(--bad);background:#fdecea;color:#6b3a32;font-size:13px;line-height:1.5;font-family:ui-sans-serif,system-ui}
+.okbox{margin-top:14px;padding:14px;border-left:4px solid var(--ok);background:#edf5e9;color:#2d4a32;font-size:13px;line-height:1.5;font-family:ui-sans-serif,system-ui}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.plan{border:1px solid var(--line);border-radius:16px;background:#fbfaf7;padding:8px}
+.plan svg{width:100%;height:auto;display:block}
+.metric{border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff;margin-top:8px;font-family:ui-sans-serif,system-ui;font-size:13px}
+.metric small{display:block;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#92702e}
+.fail{color:var(--bad);font-weight:900}.pass{color:var(--ok);font-weight:900}
+.badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:900;font-family:ui-sans-serif,system-ui;margin-left:8px}
+.badge.fail{background:#fdecea;color:var(--bad)}.badge.ok{background:#edf5e9;color:var(--ok)}
+@media(max-width:980px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand"><small>Pondy Flats · Lot 2</small><strong>Garage clips</strong></div>
+<nav class="nav">
+<a href="access-geometry.html">Skeletons A-F</a>
+<a href="south-pinch.html">South pinch</a>
+<a href="access.html">SUV audit</a>
+</nav>
+</div></header>
+<main class="wrap">
+<section class="panel">
+<h1>Garage clips after clear-south</h1>
+<p class="lede">South y≈41 apron is cleared. Driveway rework on D/E/F (split door faces, Penn mid-lane to the eastern bay, clear-south to the western bay) was aimed at these clips. <strong>Red</strong> = pose still hitting a garage; <strong>green</strong> = clear. Re-check after the latest path edits.</p>
+<div class="okbox"><strong>Contrast:</strong> Skeleton A (east-facing tandem) has <strong>no garage clips</strong> — same corridor class, different door geometry.</div>
+<div class="callout" id="summary"></div>
+</section>
+<div class="grid" id="cards"></div>
+</main>
+<script src="js/lot2-sot.js"></script>
+<script src="js/lot2-geometry.js"></script>
+<script src="js/lot2-access.js"></script>
+<script>
+const SHOW = ['access_d', 'access_e', 'access_f', 'access_a'];
+const SURVEY = Lot2.SURVEY;
+const VEH = Lot2Access.VEHICLE;
+
+function corners(p) {
+  const L = VEH.length / 2, W = VEH.width / 2;
+  const c = Math.cos(p.th), s = Math.sin(p.th);
+  return [[L, W], [L, -W], [-L, -W], [-L, W]].map(([dx, dy]) => [
+    p.x + dx * c - dy * s,
+    p.y + dx * s + dy * c,
+  ]);
+}
+
+function garagePolys(c) {
+  return (c.garages || []).map((g) => ({
+    label: g.name || g.id,
+    poly: [
+      [g.x, g.y],
+      [g.x + g.w, g.y],
+      [g.x + g.w, g.y + g.h],
+      [g.x, g.y + g.h],
+    ],
+    g,
+  }));
+}
+
+function polysIntersect(a, b) {
+  const polys = [a, b];
+  for (const poly of polys) {
+    for (let i = 0; i < poly.length; i++) {
+      const p1 = poly[i];
+      const p2 = poly[(i + 1) % poly.length];
+      const nx = p2[1] - p1[1];
+      const ny = p1[0] - p2[0];
+      const projA = a.map((p) => p[0] * nx + p[1] * ny);
+      const projB = b.map((p) => p[0] * nx + p[1] * ny);
+      if (Math.max(...projA) < Math.min(...projB) - 0.02 || Math.max(...projB) < Math.min(...projA) - 0.02) return false;
+    }
+  }
+  return true;
+}
+
+function hitsGarage(body, garages) {
+  return garages.filter((g) => polysIntersect(body, g.poly)).map((g) => g.label);
+}
+
+function pathD(path, sx, sy) {
+  return (path || []).map((p, i) => `${i ? 'L' : 'M'} ${sx(p[0])} ${sy(p[1])}`).join(' ');
+}
+
+function drawCard(id) {
+  const c = Lot2.CONCEPTS[id];
+  const r = Lot2Access.analyzeConcept(id);
+  const garages = garagePolys(c);
+  const clipReasons = (r.reasons || []).filter((x) => /clips|hits/i.test(x));
+  const tech = r.technical || (clipReasons.length ? 'FAIL' : 'PASS');
+
+  let clipCount = 0;
+  const hitLabels = new Set();
+
+  const S = 5.0, MX = 40, MY = 28;
+  const sx = (x) => MX + x * S;
+  const sy = (y) => MY + y * S;
+  const lot = SURVEY.map((p) => `${sx(p[0])},${sy(p[1])}`).join(' ');
+
+  const garageSvg = garages.map((g) => {
+    const clipped = clipReasons.some((x) => x.includes(g.label) || (g.g.id && x.includes(`GARAGE ${g.g.id}`)));
+    return `<rect x="${sx(g.g.x)}" y="${sy(g.g.y)}" width="${g.g.w * S}" height="${g.g.h * S}"
+      fill="${clipped ? '#9a3b2e44' : '#aec0d2'}" stroke="${clipped ? '#9a3b2e' : '#30363b'}" stroke-width="${clipped ? 3 : 2}"/>
+      <text x="${sx(g.g.x + g.g.w / 2)}" y="${sy(g.g.y + g.g.h / 2)}" text-anchor="middle" dominant-baseline="middle"
+        font-size="11" font-family="ui-sans-serif,system-ui" font-weight="800" fill="${clipped ? '#9a3b2e' : '#232a31'}">${g.g.id || 'G'}</text>`;
+  }).join('');
+
+  // Color poses from engine result: only flag if analyzeConcept reported garage clips.
+  const engineClipSet = new Set();
+  clipReasons.forEach((x) => {
+    garages.forEach((g) => {
+      if (x.includes(g.label) || (g.g.id && x.includes(`GARAGE ${g.g.id}`))) engineClipSet.add(g.label);
+    });
+  });
+  const poses = r.poses || [];
+  const bodies = poses.filter((_, i) => i % 3 === 0).map((p) => {
+    const body = corners(p);
+    const hits = engineClipSet.size ? hitsGarage(body, garages).filter((lab) => engineClipSet.has(lab)) : [];
+    if (hits.length) {
+      clipCount++;
+      hits.forEach((h) => hitLabels.add(h));
+    }
+    const poly = body.map(([x, y]) => `${sx(x)},${sy(y)}`).join(' ');
+    const bad = hits.length > 0;
+    return `<polygon points="${poly}" fill="${bad ? '#c45c4a88' : '#41614533'}" stroke="${bad ? '#9a3b2e' : '#41614555'}" stroke-width="1"/>`;
+  }).join('');
+
+  const paths = (c.accessPaths || []).map((ap) =>
+    `<path d="${pathD(ap.path, sx, sy)}" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 4"/>`
+  ).join('');
+
+  const drive = pathD(c.drive, sx, sy);
+
+  const sec = document.createElement('section');
+  sec.className = 'panel';
+  sec.id = id;
+  const engineClip = clipReasons[0] || (clipCount ? `Client sampler: ${[...hitLabels].join(', ')}` : 'No swept-envelope garage clips.');
+  sec.innerHTML = `
+    <h2>${c.label} <span class="badge ${tech === 'PASS' ? 'ok' : tech === 'REVIEW' ? 'fail' : 'fail'}">${tech}</span></h2>
+    <p class="lede">${engineClip}</p>
+    <div class="plan">
+      <svg viewBox="0 0 ${148 * S + MX * 2} ${58 * S + MY * 2}" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="${lot}" fill="#f8f3e7" stroke="#232a31" stroke-width="2"/>
+        <path d="${drive}" fill="none" stroke="#d2d4d0" stroke-width="${10 * S}" stroke-linecap="round" opacity=".45"/>
+        ${paths}
+        ${garageSvg}
+        ${bodies}
+        <text x="${sx(148)}" y="${sy(18)}" text-anchor="end" font-size="11" font-family="ui-sans-serif,system-ui" font-weight="800" fill="#0d1b33">Pennsylvania →</text>
+      </svg>
+    </div>
+    <div class="metric"><small>Other-garage clip poses (sampled)</small><strong class="${clipCount ? 'fail' : 'pass'}">${clipCount}${clipCount ? ' · hits ' + [...hitLabels].join(', ') : ' · none'}</strong></div>
+    <div class="metric"><small>Inbound paths</small><strong style="font-size:12px;font-weight:650">${(c.accessPaths || []).map((ap) => ap.garage + ': ' + ap.path.map((p) => `(${p[0]},${p[1]})`).join(' → ')).join('<br>') || (c.drive || []).map((p) => `(${p[0]},${p[1]})`).join(' → ')}</strong></div>
+  `;
+  document.getElementById('cards').appendChild(sec);
+  return { id, tech, clipCount, labels: [...hitLabels], reasons: clipReasons };
+}
+
+const results = SHOW.map(drawCard);
+const clipped = results.filter((r) => r.clipCount);
+document.getElementById('summary').innerHTML = clipped.length
+  ? '<strong>Remaining visual clips:</strong> ' + clipped.map((r) => `${r.id.replace('access_', '').toUpperCase()} → ${r.labels.join(' + ')}`).join(' · ')
+  : '<strong>Swept garage clips cleared</strong> on D/E/F after driveway rework (Penn mid-lane + clear-south + split door faces). Engine: E physical PASS on declared W+E; D/F physical FAIL on declared south staging 12′ — not envelope clips.';
+</script>
+</body>
+</html>

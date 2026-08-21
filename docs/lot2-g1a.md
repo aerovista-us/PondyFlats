@@ -3,11 +3,11 @@
 **Artifact:** [`access.html`](../access.html) (section G1-A)  
 **Locked original:** `Lot2.CONCEPTS.g1` is unchanged.  
 **Proof concept:** `Lot2.CONCEPTS.g1a`  
-**Next study:** [`access-geometry.html`](../access-geometry.html) — Access A/B/C skeletons
+**Next study:** [`access-geometry.html`](../access-geometry.html) — **Parking Skeleton A-F** (display name; code IDs `access_a`/`b`/`c`)
 
-G1-A is **circulation proof**, not a candidate. It demonstrated that east-facing garage doors + a south lane at y≈37 can pass the FS-SUV gate. The illustrative houses attached afterward show why it was rejected: Garage A at the Pennsylvania street face, Unit B as an ~11′ bar, heavy upper-floor / LOG burden.
+G1-A is **circulation proof**, not a candidate. It demonstrated that east-facing garage doors + a south lane at y~37 can pass the FS-SUV gate. The illustrative houses attached afterward show why it was rejected: Garage A at the Pennsylvania street face, Unit B as an ~11′ bar, heavy upper-floor / LOG burden.
 
-Do **not** iterate G1-A further. Access A in the A/B/C study codifies the same parking skeleton without houses.
+Do **not** iterate G1-A further. **Parking Skeleton A** codifies the same parking geometry without houses (J1’s trail called this Access A — keep those names distinct going forward).
 
 Vehicle, parcel, setbacks, and 22×22 bays were **not** shrunk.
 
@@ -33,9 +33,9 @@ Vehicle, parcel, setbacks, and 22×22 bays were **not** shrunk.
 | Bay | Plate | Door | Inbound |
 | --- | ----- | ---- | ------- |
 | Garage A | (102, 5) 22×22 | East at x=124, y=16 | Straight: (148, 16) → (134.3, 16). 24′ apron to Penn. |
-| Garage B | (25, 16) 22×22 | East at x=47, y=27 | South lane y=37 until x=80 (clears A), then shallow offset to (57.3, 27). 24′ apron x=47–71. |
+| Garage B | (25, 16) 22×22 | East at x=47, y=27 | South lane y~37 until x=80 (clears A), then shallow offset to (57.3, 27). 24′ apron x=47–71. |
 
-South lane y=37: 8′ body is on survey along the 40.33′ run (lot ~43′). This is the site constraint the locked y=41 polylines violated.
+South lane y~37: 8′ body is on survey along the 40.33′ run (lot ~43′). This is the site constraint the locked y=41 polylines violated.
 
 Normal parking: A’s Penn apron does not sit on B’s south lane; B’s apron does not sit on A’s y=16 shot. Independent: **yes**.
 
@@ -68,7 +68,7 @@ Daily is **Fair, not Good**. Architecture remaining fails plausible-two-homes te
 | Upper floor | 1,054 | 1,327 |
 | Total living | ~1,814 | ~1,800 |
 | Garage doors | Recessed, west hunt | **Both east; A faces Penn** |
-| Drive | y=41 west alley (FAIL) | y=16 Penn shot + y=37 south lane |
+| Drive | y=41 west alley (FAIL) | y=16 Penn shot + y~37 south lane |
 | Building footprint | 2,488 SF | 1,914 SF |
 | Yard (est.) | 1,535 SF | 3,996 SF |
 | Paved (schematic) | 3,000 SF / 250′ | 1,114 SF / 93′ south lane (plus a second 12′ Penn lane not fully in that count) |
@@ -83,6 +83,6 @@ Daily is **Fair, not Good**. Architecture remaining fails plausible-two-homes te
 - Does not promote H6/H3.
 - Does not claim daily delight equal to a recessed-garage E2.
 
-If the street-facing garage or upper-floor burden is unacceptable, the next study is **Access Geometry A/B/C** ([`access-geometry.html`](../access-geometry.html)) — not endless G1-A plate nudges.
+If the street-facing garage or upper-floor burden is unacceptable, the next study is **Parking Skeleton A-F** ([`access-geometry.html`](../access-geometry.html)) — not endless G1-A plate nudges. J1 later designed on that skeleton and failed ownership; no J1 rescue.
 
 See also: [`lot2-access.md`](lot2-access.md)

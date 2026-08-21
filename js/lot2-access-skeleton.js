@@ -1,6 +1,7 @@
 /**
- * Lot 2 — Access Geometry A/B/C (parking skeletons only)
- * Architecture remaining after circulation. G1-A is proof, not a candidate.
+ * Lot 2 — Parking Skeleton A-F (parking only; no houses).
+ * Display names: Parking Skeleton A-F. Code IDs remain access_a…access_f.
+ * “Access A” in the J1 trail = same geometry as Parking Skeleton A — keep names distinct.
  */
 const Lot2AccessSkeleton = (() => {
   const S = typeof Lot2SOT !== 'undefined' ? Lot2SOT : {};
@@ -47,11 +48,14 @@ const Lot2AccessSkeleton = (() => {
     return Math.hypot(px - (x1 + t * dx), py - (y1 + t * dy));
   }
 
-  function occupiedByCirculation(concept, x, y) {
+  function occupiedByCirculation(concept, x, y, opts = {}) {
     if (!L.pointInPoly(x, y, SETBACK, 0.05)) return true;
-    for (const g of concept.garages || []) {
-      const r = garageRect(g);
-      if (x >= r.x - 0.1 && x <= r.x + r.w + 0.1 && y >= r.y - 0.1 && y <= r.y + r.h + 0.1) return true;
+    const integrated = opts.integratedParking || concept.parkingIntegrated;
+    if (!integrated) {
+      for (const g of concept.garages || []) {
+        const r = garageRect(g);
+        if (x >= r.x - 0.1 && x <= r.x + r.w + 0.1 && y >= r.y - 0.1 && y <= r.y + r.h + 0.1) return true;
+      }
     }
     for (const path of allDrivePaths(concept)) {
       for (let i = 0; i < path.length - 1; i++) {
@@ -61,7 +65,73 @@ const Lot2AccessSkeleton = (() => {
     return false;
   }
 
+  function plateMetrics(plate, concept) {
+    const area = +(plate.w * plate.h).toFixed(0);
+    const minWidth = +Math.min(plate.w, plate.h).toFixed(1);
+    const garageSf = (concept.garages || [])
+      .filter((g) => g.plate === plate.id || (!g.covered && plate.containsGarage === g.id))
+      .reduce((s, g) => s + g.w * g.h, 0);
+    const inPlateGarages = (concept.garages || []).filter((g) => {
+      const cx = g.x + g.w / 2;
+      const cy = g.y + g.h / 2;
+      return cx >= plate.x && cx <= plate.x + plate.w && cy >= plate.y && cy <= plate.y + plate.h;
+    });
+    const gSf = inPlateGarages.reduce((s, g) => s + g.w * g.h, 0) || garageSf;
+    return {
+      area,
+      minWidth,
+      bboxW: plate.w,
+      bboxH: plate.h,
+      minX: plate.x,
+      maxX: plate.x + plate.w,
+      minY: plate.y,
+      maxY: plate.y + plate.h,
+      cx: plate.x + plate.w / 2,
+      cy: plate.y + plate.h / 2,
+      garageGroundSf: gSf,
+      integrated: true,
+    };
+  }
+
   function architectureRemaining(concept) {
+    const integrated = !!concept.parkingIntegrated;
+    const reserved = concept.reservedPlates || [];
+
+    /** Integrated track: reserved structural plates; garages are ground program inside the plate — not subtracted. */
+    if (integrated && reserved.length >= 2) {
+      const byRole = {};
+      reserved.forEach((p) => { byRole[p.role || p.id] = p; });
+      const plateA = byRole.penn || byRole.A || reserved.find((p) => (p.x + p.w / 2) >= 72) || reserved[1];
+      const plateB = byRole.rear || byRole.B || reserved.find((p) => (p.x + p.w / 2) < 72) || reserved[0];
+      const zoneA = plateMetrics(plateA, concept);
+      const zoneB = plateMetrics(plateB, concept);
+      function zoneScore(z, label) {
+        if (!z) return { ok: false, note: 'no reserved plate' };
+        if (z.minWidth < MIN_HOME_WIDTH) return { ok: false, note: `${z.minWidth}′ min width (< ${MIN_HOME_WIDTH}′)` };
+        if (z.area < MIN_ZONE_AREA) return { ok: false, note: `${z.area} SF plate too small` };
+        const gNote = z.garageGroundSf ? ` · ${z.garageGroundSf} SF garage ground program` : '';
+        return { ok: true, note: `${z.area} SF plate · ${z.minWidth}′ width · ${z.bboxW}×${z.bboxH}′${gNote}` };
+      }
+      const sA = zoneScore(zoneA, 'A');
+      const sB = zoneScore(zoneB, 'B');
+      const plausibleHomes = sA.ok && sB.ok && zoneA.area >= PLAUSIBLE_FIRST && zoneB.area >= PLAUSIBLE_FIRST;
+      let verdict = 'Poor';
+      if (plausibleHomes && zoneA.minWidth >= 20 && zoneB.minWidth >= 20) verdict = 'Strong';
+      else if (plausibleHomes) verdict = 'Fair';
+      else if (sA.ok || sB.ok) verdict = 'Weak';
+      return {
+        mode: 'integrated',
+        components: [zoneB, zoneA],
+        zoneA,
+        zoneB,
+        unitA: sA,
+        unitB: sB,
+        plausibleHomes,
+        verdict,
+        summary: `Unit A (Penn): ${sA.note}. Unit B (rear): ${sB.note}.`,
+      };
+    }
+
     const step = 2;
     const xs = [];
     const ys = [];
@@ -73,7 +143,7 @@ const Lot2AccessSkeleton = (() => {
     for (let j = 0; j < rows; j++) {
       free[j] = [];
       for (let i = 0; i < cols; i++) {
-        free[j][i] = !occupiedByCirculation(concept, xs[i], ys[j]);
+        free[j][i] = !occupiedByCirculation(concept, xs[i], ys[j], { integratedParking: integrated });
       }
     }
     const seen = Array.from({ length: rows }, () => Array(cols).fill(false));
@@ -150,6 +220,7 @@ const Lot2AccessSkeleton = (() => {
     else if (plausibleHomes) verdict = 'Fair';
     else if (sA.ok || sB.ok) verdict = 'Weak';
     return {
+      mode: integrated ? 'integrated-flood' : 'detached',
       components,
       zoneA,
       zoneB,
@@ -234,7 +305,7 @@ const Lot2AccessSkeleton = (() => {
     const circPass = order.filter((id) => rows[id].physical === 'PASS');
     const archPass = order.filter((id) => rows[id].verdict === 'PASS');
     if (archPass.length === 0 && circPass.length >= 2) {
-      return 'East-facing garages + Pennsylvania straight shot + south lane at y≈37 is the circulation generator (Access A and C). Central core (Access B) cannot give two independent FS-SUV bays. Circulation passes, but architecture remaining fails on all three — Penn zone and rear zone collapse to 4–16′ ribbons. The site wants garage-forward / garage-integrated architecture; do not fight that with recessed living-first plates.';
+      return 'D/E/F fail the Original Program Gate. D and F are physical FAIL (declared south staging 12′ < 20.5′). E is physical PASS on declared W+E (south door audited FAIL at 8′) but fails architecture remaining — rear zone is a ribbon. Next: Parking Reset Gate (smaller / tandem / covered / lift) using E’s path pattern — not architecture. J1 CLOSED.';
     }
     if (archPass.length === 1) {
       return `Only ${rows[archPass[0]].label} fully passes circulation and architecture remaining.`;

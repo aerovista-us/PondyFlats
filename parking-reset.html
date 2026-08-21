@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pondy Flats · Parking Reset Matrix</title>
+<meta name="description" content="Lot 2 Parking Reset Gate — integrated track R6–R8 + detached R1–R4 audit. R6 is the first geometry-validated working option.">
+<style>
+:root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--ok:#416145;--warn:#7b5721;--bad:#9a3b2e;--garage:#aec0d2;--shadow:0 18px 54px #0f1a2b1a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+.top{position:sticky;top:0;z-index:50;background:#0d1b33f4;color:#fff}
+.topin{max-width:1480px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand small{display:block;color:#efb34d;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.brand strong{font-size:16px}
+.nav a{color:#fff;text-decoration:none;border:1px solid #ffffff28;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;margin-left:6px}
+.wrap{max-width:1480px;margin:auto;padding:22px 18px 80px}
+.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow);padding:24px;margin-top:18px}
+h1{font:500 clamp(36px,5vw,56px)/1 Georgia,serif;color:var(--navy);margin:0 0 8px}h2{color:var(--navy);margin:0 0 10px}h3{color:var(--navy);font-size:18px;margin:16px 0 8px}
+.lede,p,li{color:var(--muted);line-height:1.55}
+.callout{margin-top:14px;padding:14px;border-left:4px solid var(--gold);background:#fff8eb;color:#6c5429;font-size:13px;line-height:1.5}
+.callout.win{border-left-color:var(--ok);background:#edf5e9;color:#2d4a32}
+.lesson{margin-top:14px;padding:14px;border-left:4px solid var(--navy);background:#eef3fa;color:#2a4a7a;font-size:13px;line-height:1.5}
+.summary{overflow:auto;border:1px solid var(--line);border-radius:16px;margin-top:14px}
+table{width:100%;border-collapse:collapse;min-width:980px;background:#fff;font-size:12px}
+th,td{padding:10px 12px;border-bottom:1px solid #ece7e0;text-align:left;vertical-align:top}
+th{background:#f6f3ee;color:var(--navy);font-weight:900}
+.fail{color:var(--bad);font-weight:900}.review{color:var(--warn);font-weight:850}.ok{color:var(--ok);font-weight:900}
+.plan{border:1px solid var(--line);border-radius:16px;background:#fbfaf7;padding:6px;margin-top:10px}.plan svg{width:100%;height:auto;display:block}
+.grid2{display:grid;grid-template-columns:1.35fr .85fr;gap:16px}
+.metric{border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff;margin-bottom:8px}
+.metric small{display:block;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#92702e}
+.metric strong{color:var(--navy)}
+.issue{font-size:12px;color:#6b4a42;margin:4px 0 0}
+.suv{fill:#c45c4a55;stroke:#9a3b2e;stroke-width:1.2}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.08em}
+.badge.fail{background:#fdecea;color:var(--bad)}.badge.review{background:#fff4e5;color:var(--warn)}.badge.ok{background:#edf5e9;color:var(--ok)}.badge.conditional{background:#fff4e5;color:var(--warn)}.badge.track{background:#eef3fa;color:#2a4a7a;margin-left:8px}
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.jump a{color:var(--navy);text-decoration:none;border:1px solid var(--line);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800}
+.criteria{font-size:13px;margin:10px 0 0;padding-left:18px;color:var(--muted)}.criteria li{margin:6px 0}
+.check{font-size:11px}.check .ok{color:var(--ok)}.check .fail{color:var(--bad)}
+@media(max-width:980px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand"><small>Pondy Flats · Lot 2</small><strong>Parking Reset Matrix</strong></div>
+<nav class="nav">
+<a href="index.html">Hub</a>
+<a href="access-geometry.html">Skeleton A–F</a>
+<a href="docs/lot2-parking-reset.md">Docs</a>
+<a href="study.html">Workflow</a>
+</nav>
+</div></header>
+<main class="wrap">
+<section class="panel">
+<h1>Parking Reset Gate</h1>
+<p class="lede">J1 and Skeletons A–F remain <strong>closed</strong>. Active search: <strong>R6.1 hardening</strong> after R6 conditional. Detached R1–R4 are audit-only. <strong>CONDITIONAL ≠ approval.</strong></p>
+<div class="callout win" id="working"></div>
+<div class="callout"><strong>Integrated plate math:</strong> home plate = envelope − drive corridors; garage SF = ground program inside the plate. <strong>Full PASS</strong> also requires bay depth ≥22′ and FS-SUV tangents ≥25′ — no fillet waivers.</div>
+<ul class="criteria">
+<li><strong>R6.1 — Lift Bay Hardening</strong> (priority 0) · 16×24 envelopes · close swept REVIEW</li>
+<li><strong>R6 — Integrated Lift Pair</strong> · CONDITIONAL topology record</li>
+<li><strong>R5 — Integrated Practical Pair</strong> · after R6.1 full close</li>
+<li><strong>R7 / R8</strong> · queued · <em>Audit:</em> R1–R4 detached</li>
+</ul>
+<div class="lesson" id="lesson"></div>
+<div class="jump">
+<a href="#matrix">Matrix</a>
+<a href="#reset_r6_1">R6.1</a>
+<a href="#reset_r6">R6</a>
+<a href="#reset_r5">R5</a>
+<a href="#reset_r7">R7</a>
+<a href="#reset_r8">R8</a>
+<a href="docs/lot2-parking-reset.md">Docs</a>
+</div>
+</section>
+
+<section class="panel" id="matrix">
+<h2>Parking Reset Matrix</h2>
+<p class="lede">R6.1 first. Same named gate; plate scoring differs by track. Architecture unlocks only on <strong>PASS</strong>.</p>
+<div class="summary"><table>
+<thead><tr>
+<th>Reset</th><th>Track</th><th>Program</th><th>Physical</th><th>Bay</th><th>Staging</th><th>≥18′ plates</th><th>Gate</th>
+</tr></thead>
+<tbody id="tbl"></tbody>
+</table></div>
+</section>
+
+<div id="pages"></div>
+</main>
+<script src="js/lot2-sot.js"></script>
+<script src="js/lot2-geometry.js"></script>
+<script src="js/lot2-access.js"></script>
+<script src="js/lot2-access-skeleton.js"></script>
+<script src="js/lot2-parking-reset.js"></script>
+<script>
+const SCALE=5.45, MX=70, MY=40;
+const sx=x=>MX+x*SCALE, sy=y=>MY+y*SCALE;
+const report=Lot2ParkingReset.analyzeAll();
+document.getElementById('lesson').innerHTML=`<strong>Lesson.</strong> ${report.lesson}`;
+const full=report.fullPasses&&report.fullPasses[0];
+const cond=report.conditionalPasses&&report.conditionalPasses[0];
+document.getElementById('working').innerHTML=full
+  ? `<strong>FULL PASS — ${report.rows[full].label}</strong><br>Bay depth + FS-SUV 25′ fillet closed. Schematic architecture may unlock after confirmation.`
+  : cond
+  ? `<strong>First viable working geometry — conditional validation</strong><br>Four enclosed lift-assisted spaces and two viable ~22′ home plates. Final bay dimensions, FS-SUV swept path, lift equipment, ceiling height, structure, zoning and fire separation remain pending. <em>Architecture OFF until FULL PASS.</em>`
+  : `<strong>No complete PASS yet.</strong> Integrated track is active; detached R1–R4 are audit-only.`;
+
+const tbody=document.getElementById('tbl');
+report.table.forEach((row)=>{
+  const cls=row.verdict==='PASS'?'ok':(row.verdict==='CONDITIONAL'||row.verdict==='REVIEW')?'review':'fail';
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td><strong><a href="#${row.id}" style="color:inherit">${row.reset}</a></strong></td>
+    <td>${row.track||'—'}</td>
+    <td>${row.program}</td>
+    <td class="${row.physical==='PASS'?'ok':row.physical==='REVIEW'?'review':'fail'}">${row.physical}</td>
+    <td class="${row.bay==='OK'?'ok':'fail'}">${row.bay||'—'}</td>
+    <td class="${row.staging==='PASS'?'ok':'fail'}">${row.staging}</td>
+    <td class="${row.homes==='Yes'?'ok':'fail'}">${row.homes}</td>
+    <td class="${cls}">${row.verdict}</td>`;
+  tbody.appendChild(tr);
+});
+
+function overlay(poses){
+  const L=Lot2Access.VEHICLE.length, W=Lot2Access.VEHICLE.width;
+  return (poses||[]).filter((_,i)=>i%2===0&&_.x<160).map(p=>{
+    const cx=sx(p.x), cy=sy(p.y);
+    const deg=p.th*180/Math.PI;
+    return `<rect class="suv" x="${cx-(L*SCALE)/2}" y="${cy-(W*SCALE)/2}" width="${L*SCALE}" height="${W*SCALE}" transform="rotate(${deg} ${cx} ${cy})"/>`;
+  }).join('');
+}
+
+function checkRow(checks){
+  return Object.entries(checks).map(([k,v])=>{
+    const cls=v.ok?'ok':'fail';
+    return `<div class="check"><span class="${cls}">${v.ok?'PASS':'FAIL'}</span> · <strong>${k}</strong> — ${v.detail}</div>`;
+  }).join('');
+}
+
+function renderPage(id){
+  const r=report.rows[id], c=Lot2.CONCEPTS[id], arch=r.architecture;
+  const sec=document.createElement('section');
+  sec.className='panel'; sec.id=id;
+  const badge=r.verdict==='PASS'?'ok':(r.verdict==='CONDITIONAL'||r.verdict==='REVIEW')?'conditional':'fail';
+  const prog=r.program?`${r.program.name} · ${r.program.spacesEnclosed} enclosed / ${r.program.spacesTotal} total · ${r.program.note}`:'';
+  const track=c.parkingIntegrated?'Integrated':'Detached audit';
+  const paths=(c.accessPaths||[]).map(ap=>`${ap.garage}: ${ap.path.map(p=>`(${p[0]},${p[1]})`).join(' → ')}`).join('<br>');
+  const opens=(r.openIssues||[]).map(x=>`<div class="issue">OPEN · ${x}</div>`).join('')||'<div class="issue">No open hard checks listed.</div>';
+  sec.innerHTML=`<h2>${c.label} <span class="badge ${badge}">${r.verdict}</span><span class="badge track">${track} · P${c.priority ?? '—'}</span></h2>
+    <p class="lede">${prog}</p>
+    <p class="lede">${r.relative||c.designConcern||''}</p>
+    <div class="grid2">
+      <div>
+        <h3>Locked survey · reserved plates · parking</h3>
+        <div class="plan" id="plan-${id}"></div>
+      </div>
+      <div>
+        <div class="metric"><small>Gate verdict</small><strong>${r.verdict}</strong></div>
+        <div class="metric"><small>FS-SUV physical</small><strong>${r.physical}</strong></div>
+        <div class="metric"><small>Bay envelope</small><strong style="font-size:13px;font-weight:650">${r.checks.bayDepth.detail}</strong></div>
+        <div class="metric"><small>Plate scoring</small><strong>${arch.mode||'detached'}</strong></div>
+        <div class="metric"><small>Unit A (Penn)</small><strong style="font-size:13px;font-weight:650">${arch.unitA.note}</strong></div>
+        <div class="metric"><small>Unit B (rear)</small><strong style="font-size:13px;font-weight:650">${arch.unitB.note}</strong></div>
+        <div class="metric"><small>Plausible two ~1,800-SF homes</small><strong>${arch.plausibleHomes?'Yes':'No'}</strong></div>
+      </div>
+    </div>
+    <h3>Open hard checks</h3>
+    ${opens}
+    <h3>Gate checks</h3>
+    ${checkRow(r.checks)}
+    <h3>Inbound paths</h3>
+    <p>${paths}</p>
+    <h3>Findings</h3>
+    ${(r.reasons||[]).map(x=>`<div class="issue">· ${x}</div>`).join('')}`;
+  document.getElementById('pages').appendChild(sec);
+  const hold=document.getElementById('plan-'+id);
+  hold.innerHTML=Lot2.plan(id);
+  const svg=hold.querySelector('svg');
+  if(svg) svg.insertAdjacentHTML('beforeend', overlay(r.access.poses||[])+Lot2ParkingReset.renderArchitectureOverlay(c, SCALE, MX, MY));
+}
+
+report.order.forEach(renderPage);
+</script>
+</body>
+</html>

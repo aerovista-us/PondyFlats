@@ -3,185 +3,253 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Pondy Flats Lot 2 — Duplex Concept Study</title>
-<meta name="description" content="Lot 2 duplex study hub — J1-B visual chain, ownership gate, Access A, geometry lab, and study guide.">
+<title>Pondy Flats Lot 2 — Study Hub</title>
+<meta name="description" content="Lot 2 duplex study hub — R6/R6.1 CONDITIONAL working geometry. Architecture off until FULL PASS. Parking Reset Matrix is the active surface.">
 <style>
-:root{--navy:#0d1b33;--ink:#18212b;--muted:#64707c;--gold:#d79b36;--line:#ddd7cf;--green:#edf4e7;--warn:#fff5e6;--ok:#416145;--shadow:0 18px 50px rgba(13,27,51,.10)}
+:root{--navy:#0d1b33;--ink:#18212b;--muted:#64707c;--gold:#d79b36;--line:#ddd7cf;--green:#edf4e7;--warn:#fff5e6;--ok:#416145;--bad:#9a3b2e;--shadow:0 18px 50px rgba(13,27,51,.10)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e1);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
-.top{position:sticky;top:0;z-index:20;background:rgba(13,27,51,.96);color:#fff;border-bottom:1px solid #ffffff18;backdrop-filter:blur(12px)}
-.topin{max-width:1400px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;flex-wrap:wrap}
-.brand small{display:block;color:#efb34d;font-weight:900;letter-spacing:.14em;text-transform:uppercase;font-size:10px}.brand strong{font-size:16px}
-.nav{display:flex;gap:8px;flex-wrap:wrap}.nav a{font-size:12px;font-weight:800;text-decoration:none;color:#fff;border:1px solid #ffffff26;padding:8px 11px;border-radius:999px;background:#ffffff0b}
-.wrap{max-width:1400px;margin:auto;padding:24px 18px 70px}.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow)}
-.hero-main,.hero-side{padding:clamp(24px,4vw,48px)}.eyebrow{font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#956d29}
-h1{font:500 clamp(40px,5.5vw,68px)/.95 Georgia,serif;color:var(--navy);letter-spacing:-.04em;margin:14px 0}h2{color:var(--navy);font-size:clamp(26px,3.5vw,40px);margin:0 0 10px}h3{color:var(--navy);margin:0 0 8px;font-size:17px}
-.lede{font-size:clamp(16px,2vw,20px);line-height:1.6;color:var(--muted)}.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
-.pill{border:1px solid #e5d7bd;background:#fff8ea;color:#6c5429;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:850}
-.hero-side{background:linear-gradient(145deg,#0d1b33,#17355f);color:#fff}.hero-side h2{color:#fff}.hero-side p{color:#dce5f2;line-height:1.55}
-.callout{margin-top:16px;border:1px solid #ffffff22;background:#ffffff0d;border-radius:15px;padding:14px;line-height:1.5;color:#e7edf5}
-.cta{display:inline-block;margin-top:14px;background:#efb34d;color:#0d1b33;font-weight:900;text-decoration:none;padding:12px 18px;border-radius:999px;margin-right:8px}
+.top{position:sticky;top:0;z-index:40;background:rgba(13,27,51,.97);color:#fff;border-bottom:1px solid #ffffff18;backdrop-filter:blur(12px)}
+.topin{max-width:1400px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 18px;flex-wrap:wrap}
+.brand small{display:block;color:#efb34d;font-weight:900;letter-spacing:.14em;text-transform:uppercase;font-size:10px}.brand strong{font-size:15px}
+.nav{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.nav a{font-size:11px;font-weight:800;text-decoration:none;color:#fff;border:1px solid #ffffff26;padding:7px 10px;border-radius:999px;background:#ffffff0b}
+.nav a.primary{background:#efb34d;color:#0d1b33;border-color:#efb34d}
+.nav .sep{width:1px;height:18px;background:#ffffff30;margin:0 2px}
+.wrap{max-width:1400px;margin:auto;padding:22px 18px 70px}
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}
+.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow)}
+.hero-main,.hero-side{padding:clamp(22px,3.5vw,40px)}
+.eyebrow{font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#956d29}
+h1{font:500 clamp(36px,5vw,62px)/.95 Georgia,serif;color:var(--navy);letter-spacing:-.04em;margin:12px 0}
+h2{color:var(--navy);font-size:clamp(24px,3.2vw,36px);margin:0 0 10px}
+h3{color:var(--navy);margin:0 0 6px;font-size:16px}
+.lede{font-size:clamp(15px,1.8vw,18px);line-height:1.55;color:var(--muted)}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.pill{border:1px solid #e5d7bd;background:#fff8ea;color:#6c5429;border-radius:999px;padding:7px 11px;font-size:11px;font-weight:850}
+.pill.ok{border-color:#c5d6bc;background:#edf5e9;color:#2d4a32}
+.pill.warn{border-color:#e5d7bd;background:#fff8ea;color:#6c5429}
+.pill.bad{border-color:#e8c4be;background:#fdecea;color:#6b3a32}
+.hero-side{background:linear-gradient(145deg,#0d1b33,#17355f);color:#fff}.hero-side h2,.hero-side .eyebrow{color:#fff}.hero-side .eyebrow{color:#efb34d}
+.hero-side p{color:#dce5f2;line-height:1.5;font-size:14px}
+.callout{margin-top:12px;border:1px solid #ffffff22;background:#ffffff0d;border-radius:14px;padding:12px;line-height:1.5;color:#e7edf5;font-size:13px}
+.cta{display:inline-block;margin-top:12px;background:#efb34d;color:#0d1b33;font-weight:900;text-decoration:none;padding:11px 16px;border-radius:999px;margin-right:6px;font-size:13px}
 .cta.secondary{background:transparent;color:#efb34d;border:1px solid #efb34d}
-.funnel{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0}.fstep{font-size:11px;font-weight:850;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--navy)}
+.cta.ghost{background:transparent;color:var(--navy);border:1px solid var(--line)}
+.funnel{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}
+.fstep{font-size:10px;font-weight:850;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--navy)}
 .fstep.on{background:var(--navy);color:#fff;border-color:var(--navy)}.fstep.done{background:var(--green);border-color:#cbdcc3;color:#416145}
-.section{margin-top:22px;padding:24px}.section p{color:var(--muted);line-height:1.6}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.card{border:1px solid var(--line);background:#fff;border-radius:16px;padding:16px}.card b{color:var(--gold);font-size:11px;letter-spacing:.04em;text-transform:uppercase}.card p{font-size:13px;margin:6px 0 0;color:var(--muted)}.card a{color:var(--navy);font-weight:800;text-decoration:none}.card a:hover{text-decoration:underline}
-.card ul{margin:8px 0 0;padding-left:16px;font-size:13px;color:var(--muted)}.card li{margin:4px 0}
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:#fff}table{width:100%;border-collapse:collapse;min-width:720px}
-th,td{padding:12px 13px;border-bottom:1px solid #ece7e0;text-align:left;vertical-align:top;font-size:13px}th{background:#f4f1eb;color:var(--navy);font-weight:900}td:first-child{font-weight:900;color:var(--navy)}
-.status{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.status .card strong{display:block;color:var(--navy);font-size:17px;margin-top:4px}.good{background:var(--green)}.warn{background:var(--warn)}
-.note{margin-top:14px;padding:14px;border-left:4px solid #d79b36;background:#fff8eb;color:#6c5429;font-size:13px;line-height:1.5;border-radius:0 12px 12px 0}
-.code{background:#0c1422;color:#e7edf4;border-radius:16px;padding:18px;overflow:auto;font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
-.footer{text-align:center;color:#7b838b;font-size:12px;line-height:1.6;margin-top:24px}
-@media(max-width:1100px){.grid4{grid-template-columns:1fr 1fr}.status{grid-template-columns:1fr 1fr}}
+.section{margin-top:18px;padding:22px}.section p{color:var(--muted);line-height:1.55;font-size:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:14px}
+.card b{color:var(--gold);font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+.card p{font-size:13px;margin:6px 0 0;color:var(--muted)}
+.card a{color:var(--navy);font-weight:800;text-decoration:none}.card a:hover{text-decoration:underline}
+.card.next{border-color:#d79b36;background:#fffaf0}
+.status{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.status .card strong{display:block;color:var(--navy);font-size:15px;margin-top:4px}
+.good{background:var(--green)}.warn{background:var(--warn)}.hold{background:#f0f2f5}
+.note{margin-top:12px;padding:12px 14px;border-left:4px solid #d79b36;background:#fff8eb;color:#6c5429;font-size:13px;line-height:1.5;border-radius:0 12px 12px 0}
+.lock{margin-top:12px;padding:12px 14px;border-left:4px solid var(--navy);background:#eef3fa;color:#2a4a7a;font-size:13px;line-height:1.5;border-radius:0 12px 12px 0}
+.steps{counter-reset:n;display:grid;gap:10px;margin-top:12px}
+.steps li{list-style:none;display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.steps li::before{counter-increment:n;content:counter(n);width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:900}
+.steps li b{color:var(--navy);font-size:14px}.steps li p{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff;margin-top:10px}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{padding:10px 12px;border-bottom:1px solid #ece7e0;text-align:left;vertical-align:top;font-size:13px}
+th{background:#f4f1eb;color:var(--navy);font-weight:900}td:first-child{font-weight:800;color:var(--navy)}
+.code{background:#0c1422;color:#e7edf4;border-radius:14px;padding:16px;overflow:auto;font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;margin-top:10px}
+.footer{text-align:center;color:#7b838b;font-size:12px;line-height:1.6;margin-top:22px}
+.footer a{color:var(--navy);font-weight:700}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.quick a{font-size:12px;font-weight:800;text-decoration:none;color:var(--navy);border:1px solid var(--line);background:#fff;padding:8px 12px;border-radius:999px}
+@media(max-width:1100px){.grid4,.status{grid-template-columns:1fr 1fr}}
 @media(max-width:980px){.hero,.grid2,.grid3,.grid4,.status{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header class="top"><div class="topin">
-<div class="brand"><small>Pondy Flats · Lot 2</small><strong>Duplex / Two-Home Concept Study</strong></div>
-<nav class="nav">
-<a href="guide.html">Study guide</a>
-<a href="j1b-image4-2-views.html">Ownership gate</a>
-<a href="j1b-image4-1-axon.html">Image 4.1</a>
+<div class="brand"><small>Pondy Flats · Lot 2</small><strong>Study Hub</strong></div>
+<nav class="nav" aria-label="Primary">
+<a class="primary" href="parking-reset.html">Parking Reset</a>
+<a href="parking-reset.html#reset_r6_1">R6.1</a>
+<a href="parking-reset.html#reset_r6">R6</a>
+<span class="sep" aria-hidden="true"></span>
+<a href="access-geometry.html">Skeletons A–F</a>
+<a href="access.html">SUV audit</a>
+<span class="sep" aria-hidden="true"></span>
 <a href="study.html">Workflow</a>
-<a href="lab.html">Geometry Lab</a>
-<a href="docs/lot2-visual-chain.md">Docs</a>
+<a href="guide.html">Guide</a>
+<a href="lab.html">Lab</a>
+<span class="sep" aria-hidden="true"></span>
+<a href="docs/lot2-parking-reset.md">Docs</a>
+<a href="docs/README.md">Docs index</a>
+<a href="https://github.com/aerovista-us/PondyFlats" target="_blank" rel="noopener">GitHub</a>
 </nav>
 </div></header>
 
 <main class="wrap">
 <section class="hero">
 <div class="panel hero-main">
-<div class="eyebrow">Active path · J1-B visual chain</div>
+<div class="eyebrow">Active · Parking Reset Gate · conditional validation</div>
 <h1>Lot 2 concept study</h1>
-<p class="lede">Two ~1,800&nbsp;SF homes and two genuine 2-car garages on a locked parcel. Geometry and Access&nbsp;A come first; architecture must not invent a different building.</p>
-<div class="funnel">
+<p class="lede"><strong>First viable working geometry — conditional validation.</strong> Integrated lift parking inside two ~22′ reserved home plates. Bay length and FS-SUV 25′ fillet remain open. Architecture stays off until a <strong>FULL PASS</strong>.</p>
+<div class="funnel" aria-label="Study funnel">
 <span class="fstep done">SOT</span>
-<span class="fstep done">Access A</span>
-<span class="fstep done">J1-B massing</span>
-<span class="fstep done">Images 1–3</span>
-<span class="fstep done">4.1 PASS</span>
-<span class="fstep on">4.2 ownership gate</span>
+<span class="fstep done">J1 closed</span>
+<span class="fstep done">A–F closed</span>
+<span class="fstep done">R6 conditional</span>
+<span class="fstep on">R6.1 harden</span>
+<span class="fstep">FULL PASS</span>
+<span class="fstep">R5 / arch</span>
 </div>
 <div class="stats">
-<span class="pill">7,028 SF · 0.161 AC</span>
-<span class="pill">J1-B ADVANCE</span>
-<span class="pill">Image 4.1 APPROVED</span>
-<span class="pill">Floor-plan WAIT</span>
+<span class="pill warn">R6 CONDITIONAL</span>
+<span class="pill ok">R6.1 bay depth OK</span>
+<span class="pill warn">Fillet ~19′ &lt; 25′</span>
+<span class="pill bad">Architecture OFF</span>
 </div>
-<a class="cta" href="guide.html">Read the study guide →</a>
-<a class="cta secondary" href="j1b-image4-2-views.html">Ownership gate</a>
-<a class="cta secondary" href="j1b-image4-1-axon.html">Approved 4.1 base</a>
+<div class="quick">
+<a href="parking-reset.html">Open matrix</a>
+<a href="parking-reset.html#reset_r6_1">R6.1 plan</a>
+<a href="docs/lot2-parking-reset.md">Gate rules</a>
+<a href="#next">Next steps</a>
+<a href="#start">How to use</a>
+</div>
 </div>
 <aside class="panel hero-side">
-<div class="eyebrow">Right now</div>
-<h2>Ownership gate</h2>
-<p>Image 4.1 lock scaffold is approved. Image 4.2 asks whether the Pennsylvania elevation and eye-level view are honest to that base — and whether we’d intentionally choose to build it.</p>
-<div class="callout"><strong>YES</strong> → floor-plan sanity<br><strong>NO</strong> → stop J1; reconsider four enclosed parking<br><strong>DRIFT</strong> → regenerate 4.2 only</div>
-<a class="cta" href="j1b-image4-2-views.html">Open Image 4.2 →</a>
+<div class="eyebrow">Status snapshot</div>
+<h2>Conditional — not approval</h2>
+<p>Same discipline as J1: promising ≠ PASS. Integrated plates fixed home-width; hard vehicle checks still open.</p>
+<div class="callout">
+<strong>R6</strong> CONDITIONAL · topology record<br>
+<strong>R6.1</strong> CONDITIONAL · 16×24 bays · fillet open<br>
+<strong>R5</strong> queued after FULL PASS<br>
+<strong>R1–R4</strong> detached audit only<br>
+<strong>J1 / A–F</strong> CLOSED
+</div>
+<a class="cta" href="parking-reset.html#reset_r6_1">View R6.1 →</a>
+<a class="cta secondary" href="#next">Next steps</a>
 </aside>
 </section>
 
-<section class="panel section">
-<h2>New here?</h2>
-<p>Start with the educational guide, then the current gate. Everything else is supporting proof.</p>
+<section class="panel section" id="start">
+<h2>How to use this hub</h2>
+<p>One path for daily work. Closed trails stay linked for evidence — they are not the active design surface.</p>
 <div class="grid3">
-<div class="card"><b>1 · Orient</b><h3><a href="guide.html">Study guide</a></h3><p>What we’re doing, where we are, what’s left, and why the anti-drift visual chain exists.</p></div>
-<div class="card"><b>2 · Decide</b><h3><a href="j1b-image4-2-views.html">Ownership gate</a></h3><p>Penn elevation + eye-level derived from the approved 4.1 lock scaffold.</p></div>
-<div class="card"><b>3 · Verify</b><h3><a href="j1b-image4-1-axon.html">Image 4.1 base</a></h3><p>Immutable east-door SVG geometry. Clean unlabeled export for finished imagery.</p></div>
+<div class="card next"><b>Start here</b><h3><a href="parking-reset.html">Parking Reset Matrix</a></h3>
+<p>Live gate scores, reserved plates, swept paths. Read R6.1 first, then R6.</p></div>
+<div class="card"><b>Rules</b><h3><a href="docs/lot2-parking-reset.md">Gate + conditional write-up</a></h3>
+<p>FULL PASS vs CONDITIONAL · bay depth · 25′ fillet · no architecture until PASS.</p></div>
+<div class="card"><b>Orient</b><h3><a href="guide.html">Study guide</a> · <a href="study.html">Workflow</a></h3>
+<p>What closed, what’s active, and the stage timeline.</p></div>
 </div>
+</section>
+
+<section class="panel section" id="next">
+<h2>Next steps</h2>
+<ol class="steps">
+<li><b>Close R6.1 swept-path REVIEW</b><p>Shared-spine fillet must meet <strong>25′</strong> FS-SUV (or a closed swept-path simulation). No REVIEW waiver. Keep ~1012 / 1056 SF plates.</p></li>
+<li><b>Promote to FULL PASS only when both hard checks clear</b><p>Bay depth (≥22′ · ≥16′ door) already OK on R6.1. Fillet still open. Schematic architecture unlocks only after FULL PASS.</p></li>
+<li><b>Repair R5 — Integrated Practical Pair</b><p>Preferable conventional product once R6.1 is full. Same plates; covered staging still FAIL today.</p></li>
+<li><b>Do not reopen closed trails</b><p>J1 ownership NO · Skeletons A–F Original Program Gate FAIL · detached R1–R4 audit only.</p></li>
+</ol>
+<div class="lock"><strong>Unlock rule:</strong> FULL PASS on Parking Reset Gate → schematic architecture may begin. CONDITIONAL does not unlock massing, zoning packages, or lift engineering drawings.</div>
+</section>
+
+<section class="panel section" id="now">
+<h2>Where we are</h2>
+<div class="grid2">
+<div class="card next"><b>Active</b><h3><a href="parking-reset.html">Integrated Parking Reset</a></h3>
+<p><strong>R6.1</strong> hardening (16×24 lift bays · plates preserved). <strong>R6</strong> is the topology record. Detached R1–R4 remain audit trail — same dual-corridor ribbons.</p></div>
+<div class="card"><b>Closed</b><h3><a href="access-geometry.html">Skeleton A–F</a> · <a href="j1b-image4-2-views.html">J1 / 4.2</a></h3>
+<p>Original Program Gate FAIL (D/F staging; E rear ribbon). J1 LAYER MATCH · ownership NO. Keep E’s W+E recipe as circulation reference only.</p></div>
+</div>
+<div class="note"><strong>Headline:</strong> vehicle paths can be repaired; twin 22×22 left no credible rear home plate. Integrated plates attack home width without subtracting garage SF from the house footprint.</div>
 </section>
 
 <section class="panel section" id="status">
 <h2>Status board</h2>
 <div class="status">
-<div class="card good"><b>Approved</b><strong>Images 1–3</strong><p>Geometry · massing · architectural massing</p></div>
-<div class="card good"><b>Approved</b><strong>Image 4.1</strong><p>Lock scaffold · east-plane-svg-locked</p></div>
-<div class="card warn"><b>Current</b><strong>Image 4.2 gate</strong><p><a href="j1b-image4-2-views.html">Elev + perspective</a></p></div>
-<div class="card warn"><b>Waiting</b><strong>Floor plans</strong><p>Only after ownership YES</p></div>
-<div class="card good"><b>Locked</b><strong>Access A</strong><p><a href="access-geometry.html">Circulation skeleton</a></p></div>
-<div class="card good"><b>Advance</b><strong>J1-B</strong><p>Staggered volumes · <a href="j1-massing.html">Pass 2A</a></p></div>
-<div class="card"><b>Hold</b><strong>J1-A · J1-C</strong><p>Not active this pass</p></div>
-<div class="card"><b>Archive</b><strong>Drift refs</strong><p><a href="reference/failed-visualization-drift/">Style only</a></p></div>
+<div class="card good"><b>Closed</b><strong>J1 family</strong><p>Ownership NO · floor plans cancelled</p></div>
+<div class="card good"><b>Closed</b><strong>Skeleton A–F</strong><p>Original Program Gate FAIL</p></div>
+<div class="card good"><b>Reference</b><strong>Skeleton E</strong><p>W+E · court · clear-south</p></div>
+<div class="card warn"><b>Conditional</b><strong>R6 / R6.1</strong><p>Viable geometry · not full PASS</p></div>
+<div class="card warn"><b>Active</b><strong>R6.1 fillet</strong><p>Close 25′ FS-SUV tangent</p></div>
+<div class="card hold"><b>Queued</b><strong>R5 Practical</strong><p>After FULL PASS</p></div>
+<div class="card hold"><b>Hold</b><strong>Architecture</strong><p>Off until FULL PASS</p></div>
+<div class="card"><b>Audit</b><strong>R1–R4 detached</strong><p>Dual-corridor trail only</p></div>
 </div>
 </section>
 
 <section class="panel section" id="links">
-<h2>Full link map</h2>
+<h2>Navigation map</h2>
 
-<h3 style="margin-top:8px">Visual chain (J1-B)</h3>
+<h3 style="margin-top:4px">Active — Parking Reset</h3>
 <div class="grid4">
-<div class="card"><b>Image 1</b><h3><a href="j1b-geometry-truth.html">Geometry truth</a></h3><p>Frozen footprints + Access A plan</p></div>
-<div class="card"><b>Image 2</b><h3><a href="j1b-massing-truth.html">Massing truth</a></h3><p>Deterministic axon volumes</p></div>
-<div class="card"><b>Image 3</b><h3><a href="j1b-architectural-massing.html">Architectural massing</a></h3><p>Same camera · roofs · appendages</p></div>
-<div class="card"><b>Image 4</b><h3><a href="j1b-image4-finished.html">Finished (DRIFT)</a></h3><p>Rejected geometry proof · style archive</p></div>
-<div class="card"><b>Image 4.1</b><h3><a href="j1b-image4-1-axon.html">Lock scaffold PASS</a></h3><p>Immutable finished base</p></div>
-<div class="card"><b>Image 4.2</b><h3><a href="j1b-image4-2-views.html">Elev + eye-level</a></h3><p>Ownership gate</p></div>
-<div class="card"><b>Docs</b><h3><a href="docs/lot2-visual-chain.md">Visual chain</a></h3><p>Anti-drift rules</p></div>
-<div class="card"><b>Docs</b><h3><a href="docs/lot2-j1b-image4.md">Image 4 family</a></h3><p>PASS / DRIFT log</p></div>
+<div class="card next"><b>1 · Matrix</b><h3><a href="parking-reset.html">parking-reset.html</a></h3><p>Gate scores · plates · paths</p></div>
+<div class="card"><b>2 · R6.1</b><h3><a href="parking-reset.html#reset_r6_1">Lift bay hardening</a></h3><p>16×24 · fillet open</p></div>
+<div class="card"><b>3 · Docs</b><h3><a href="docs/lot2-parking-reset.md">lot2-parking-reset.md</a></h3><p>CONDITIONAL vs FULL PASS</p></div>
+<div class="card"><b>4 · Closure</b><h3><a href="docs/lot2-def-closure.md">lot2-def-closure.md</a></h3><p>E recipe · named gates</p></div>
 </div>
 
-<h3 style="margin-top:22px">Circulation &amp; massing</h3>
+<h3 style="margin-top:20px">Closed evidence trails</h3>
 <div class="grid4">
-<div class="card"><b>Access</b><h3><a href="access-geometry.html">Access A/B/C</a></h3><p>Parking skeletons + architecture remaining</p></div>
-<div class="card"><b>Access</b><h3><a href="access.html">Audit trail</a></h3><p>FS-SUV path history</p></div>
-<div class="card"><b>J1</b><h3><a href="j1-massing.html">Pass 2A massing</a></h3><p>Bridge · Stagger · Spine</p></div>
-<div class="card"><b>J1</b><h3><a href="j1-pass2b-elevations.html">Pass 2B elevs</a></h3><p>Earlier schematic façades</p></div>
-<div class="card"><b>J1-B</b><h3><a href="j1b-pass2c-architectural-proof.html">Pass 2C</a></h3><p>Schematic architectural proof</p></div>
-<div class="card"><b>J1-B</b><h3><a href="j1b-pass2c1-visualization.html">Pass 2C.1</a></h3><p>INVALID · visualization drift</p></div>
-<div class="card"><b>Docs</b><h3><a href="docs/lot2-j1-massing.md">J1 massing notes</a></h3><p>Trade + disposition</p></div>
-<div class="card"><b>Docs</b><h3><a href="docs/lot2-access-geometry.md">Access geometry</a></h3><p>A/B/C write-up</p></div>
+<div class="card"><b>Skeletons</b><h3><a href="access-geometry.html">A–F audit</a></h3><p>E = circulation ref</p></div>
+<div class="card"><b>SUV</b><h3><a href="access.html">Access audit</a></h3><p>Locked five + G1-A</p></div>
+<div class="card"><b>4.2</b><h3><a href="j1b-image4-2-views.html">Ownership gate</a></h3><p>LAYER MATCH · NO</p></div>
+<div class="card"><b>Lab</b><h3><a href="lab.html">Geometry Lab</a></h3><p>Pass 1.5 matrix</p></div>
 </div>
 
-<h3 style="margin-top:22px">Pass 1.5 lab &amp; shortlist</h3>
+<h3 style="margin-top:20px">Orientation</h3>
 <div class="grid4">
-<div class="card"><b>Lab</b><h3><a href="lab.html">Geometry Lab</a></h3><p>Validation matrix</p></div>
-<div class="card"><b>Diagrams</b><h3><a href="designs.html">Concept diagrams</a></h3><p>All strategies on SOT</p></div>
-<div class="card"><b>Memo</b><h3><a href="shortlist.html">Elimination memo</a></h3><p>E2 · G1 · V2 historical Final Three</p></div>
-<div class="card"><b>Workflow</b><h3><a href="study.html">Study workflow</a></h3><p>Stage timeline</p></div>
+<div class="card"><b>Guide</b><h3><a href="guide.html">Study guide</a></h3><p>What / why / next</p></div>
+<div class="card"><b>Workflow</b><h3><a href="study.html">Stage timeline</a></h3><p>Pass 1.5 funnel</p></div>
+<div class="card"><b>Docs index</b><h3><a href="docs/README.md">docs/README.md</a></h3><p>All memos</p></div>
+<div class="card"><b>Repo</b><h3><a href="https://github.com/aerovista-us/PondyFlats">GitHub</a></h3><p>aerovista-us/PondyFlats</p></div>
 </div>
 
-<h3 style="margin-top:22px">Documentation index</h3>
+<h3 style="margin-top:20px">J1-B visual chain (closed)</h3>
+<div class="grid4">
+<div class="card"><b>Image 1</b><h3><a href="j1b-geometry-truth.html">Geometry truth</a></h3><p>Frozen footprints</p></div>
+<div class="card"><b>Image 2</b><h3><a href="j1b-massing-truth.html">Massing truth</a></h3><p>Deterministic axon</p></div>
+<div class="card"><b>Image 3</b><h3><a href="j1b-architectural-massing.html">Architectural massing</a></h3><p>Same camera</p></div>
+<div class="card"><b>4.1 / 4.2</b><h3><a href="j1b-image4-1-axon.html">4.1</a> · <a href="j1b-image4-2-views.html">4.2</a></h3><p>Lock · ownership NO</p></div>
+</div>
+
+<h3 style="margin-top:20px">Documentation</h3>
 <div class="table-wrap"><table>
 <thead><tr><th>Doc</th><th>Topic</th></tr></thead>
 <tbody>
-<tr><td><a href="guide.html">guide.html</a></td><td>Educational overview — what / where / what’s left</td></tr>
-<tr><td><a href="docs/lot2-visual-chain.md">lot2-visual-chain.md</a></td><td>Anti-drift image chain status</td></tr>
-<tr><td><a href="docs/lot2-j1b-image4.md">lot2-j1b-image4.md</a></td><td>Image 4 / 4.1 PASS / 4.2 gate</td></tr>
-<tr><td><a href="docs/lot2-j1b-architectural-massing.md">lot2-j1b-architectural-massing.md</a></td><td>Image 3</td></tr>
-<tr><td><a href="docs/lot2-j1b-massing-truth.md">lot2-j1b-massing-truth.md</a></td><td>Image 2</td></tr>
-<tr><td><a href="docs/lot2-j1-massing.md">lot2-j1-massing.md</a></td><td>J1 family + disposition</td></tr>
-<tr><td><a href="docs/lot2-j1-pass2b.md">lot2-j1-pass2b.md</a></td><td>Pass 2B elevations</td></tr>
-<tr><td><a href="docs/lot2-j1b-pass2c.md">lot2-j1b-pass2c.md</a></td><td>Pass 2C architectural proof</td></tr>
-<tr><td><a href="docs/lot2-j1b-pass2c1.md">lot2-j1b-pass2c1.md</a></td><td>Pass 2C.1 INVALID</td></tr>
-<tr><td><a href="docs/lot2-access-geometry.md">lot2-access-geometry.md</a></td><td>Access A/B/C</td></tr>
-<tr><td><a href="docs/lot2-access.md">lot2-access.md</a></td><td>Access audit</td></tr>
-<tr><td><a href="docs/lot2-g1a.md">lot2-g1a.md</a></td><td>G1-A circulation proof</td></tr>
+<tr><td><a href="docs/lot2-parking-reset.md">lot2-parking-reset.md</a></td><td><strong>Current</strong> — CONDITIONAL R6/R6.1 · FULL PASS rules</td></tr>
+<tr><td><a href="docs/lot2-def-closure.md">lot2-def-closure.md</a></td><td>D/E/F close · E W+E · named gates</td></tr>
+<tr><td><a href="docs/lot2-access-geometry.md">lot2-access-geometry.md</a></td><td>Parking Skeleton A–F (closed)</td></tr>
 <tr><td><a href="docs/lot2-geometry-validation.md">lot2-geometry-validation.md</a></td><td>Pass 1.5 geometry rules</td></tr>
-<tr><td><a href="docs/lot2-survey-orientation.md">lot2-survey-orientation.md</a></td><td>Survey / orientation</td></tr>
-<tr><td><a href="docs/shortlist-elimination-memo.md">shortlist-elimination-memo.md</a></td><td>Final Three memo</td></tr>
+<tr><td><a href="docs/lot2-visual-chain.md">lot2-visual-chain.md</a></td><td>Anti-drift image chain</td></tr>
+<tr><td><a href="docs/lot2-j1b-image4.md">lot2-j1b-image4.md</a></td><td>Image 4 / 4.1 / 4.2 · ownership NO</td></tr>
+<tr><td><a href="docs/README.md">docs/README.md</a></td><td>Full docs index</td></tr>
 <tr><td><a href="reference/failed-visualization-drift/">failed-visualization-drift/</a></td><td>Style-only drift archive</td></tr>
 </tbody>
 </table></div>
 </section>
 
 <section class="panel section">
-<h2>Proof chain (condensed)</h2>
-<div class="code">SOT survey (frozen) → Pass 1.5 lab → Access A (FS-SUV)
-→ J1 trade (parking owns ground / LOG upper)
-→ J1-B stagger on Access A
-→ Image 1–3 APPROVED → Image 4.1 PASS
-→ Image 4.2 ownership gate  ← you are here
-→ floor-plan sanity (WAIT) → professional verification</div>
-<div class="note"><strong>Pass 1.5 validates geometry only.</strong> Swept-path was advanced separately via Access A. Fire, utilities, ownership structure, final zoning/setbacks, and engineering remain unverified. Photoreal style from drifted images is archive-only — never geometry proof.</div>
+<h2>Proof chain</h2>
+<div class="code">SOT survey (frozen) → Pass 1.5 → Access / Skeletons
+→ J1-B on Access A → Images 1–3 → 4.1 PASS → 4.2 ownership NO → J1 STOP
+→ D/E/F Original Program Gate FAIL · E = W+E circulation reference
+→ Parking Reset · integrated R6 CONDITIONAL · R6.1 hardening  ← you are here
+→ FULL PASS (bay + 25′ fillet) → then R5 · schematic architecture
+→ CONDITIONAL never unlocks architecture</div>
 </section>
 
 <div class="footer">
-<a href="guide.html">Study guide</a> ·
-<a href="j1b-image4-2-views.html">Ownership gate</a> ·
-<a href="study.html">Workflow</a> ·
-<a href="docs/lot2-visual-chain.md">Visual chain</a><br>
+<a href="parking-reset.html">Parking Reset</a> ·
+<a href="parking-reset.html#reset_r6_1">R6.1</a> ·
+<a href="docs/lot2-parking-reset.md">Reset docs</a> ·
+<a href="https://github.com/aerovista-us/PondyFlats">GitHub</a><br>
 Pondy Flats Lot 2 · concept study · not permit drawings
 </div>
 </main>

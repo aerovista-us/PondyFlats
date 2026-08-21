@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Pondy Flats Lot 2 — Study Workflow</title>
-<meta name="description" content="Lot 2 study workflow — SOT to Pass 1.5 geometry validation to Pass 2 architecture.">
+<title>Pondy Flats Lot 2 � Study Workflow</title>
+<meta name="description" content="Lot 2 study workflow ? SOT through Parking Reset Gate � R6 conditional � R6.1 hardening.">
 <style>
 :root{--navy:#0d1b33;--ink:#18212b;--muted:#64707c;--gold:#d79b36;--line:#ddd7cf;--green:#edf4e7;--warn:#fff5e6;--shadow:0 18px 50px rgba(13,27,51,.10)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e1);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -20,59 +20,45 @@ h1{font:500 clamp(42px,6vw,76px)/.95 Georgia,serif;color:var(--navy);margin:0 0 
 .step.on .num{background:#d79b36;color:#0d1b33}.step.done .num{background:#416145}
 .step b{color:var(--navy);font-size:16px}.step p{margin:4px 0 0;font-size:14px}
 .code{background:#0c1422;color:#e7edf4;border-radius:16px;padding:18px;overflow:auto;font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;margin-top:14px}
-.disclaimer{margin-top:14px;padding:14px;border:1px solid #ebce99;background:#fff6e7;border-radius:12px;font-size:13px;line-height:1.5;color:#6e562c}
 .cta{display:inline-block;margin-top:14px;background:#efb34d;color:#0d1b33;font-weight:900;text-decoration:none;padding:12px 18px;border-radius:999px;margin-right:8px}
 .list{margin:8px 0 0;padding-left:18px}.list li{margin:6px 0}
 .footer{text-align:center;color:#7b838b;font-size:11px;line-height:1.5;margin-top:24px}
 </style>
 </head>
 <body>
-<header class="top"><div class="topin"><div class="brand"><small>Pondy Flats · Lot 2</small><strong>Study Workflow</strong></div>
-<nav class="nav"><a href="index.html">Study hub</a><a href="guide.html">Guide</a><a href="j1b-image4-2-views.html">Ownership gate</a><a href="access-geometry.html">Access A/B/C</a><a href="j1-massing.html">J1 massing</a><a href="lab.html">Validation matrix</a></nav></div></header>
+<header class="top"><div class="topin"><div class="brand"><small>Pondy Flats � Lot 2</small><strong>Study Workflow</strong></div>
+<nav class="nav"><a href="index.html">Study hub</a><a href="parking-reset.html">Parking Reset</a><a href="access-geometry.html">Skeleton A-F</a><a href="j1b-image4-2-views.html">4.2 disposition</a><a href="lab.html">Validation matrix</a></nav></div></header>
 <main class="wrap">
-<section class="panel"><h1>Pass 1.5 workflow</h1>
-<p class="lede">Pass 1.5 re-seats all <strong>12 concepts</strong> inside the polygon-accurate survey and working setback envelope. Geometry PASS is separate from design refinement — a concept can pass geometry while still needing design judgment before Pass 2.</p>
-<div class="code">SOT survey polygon (frozen)
-→ polygon-accurate setbacks (planning assumptions)
-→ concept geometry (7 established + 5 challengers)
-→ validation metrics (PASS / REVIEW / FAIL)
-→ locked Final Three: E2 / G1 / V2
-→ Pass 2: SUV paths → Access A/B/C → J1 Pass 2A massing (trade accepted) → elevation / floor plan</div>
-<div class="disclaimer"><strong>Pass 1.5 validates geometry only.</strong> Swept-path, fire separation, utilities, ownership structure, final zoning/setbacks, and engineering remain unverified.</div>
-<a class="cta" href="j1-massing.html">Open J1 Pass 2A massing →</a><a class="cta" href="lab.html" style="background:transparent;border:2px solid #0d1b33;color:#0d1b33">Validation matrix</a></section>
+<section class="panel"><h1>Pass 1.5 � Parking Reset</h1>
+<p class="lede"><strong>R6 = CONDITIONAL</strong> ? first viable working geometry, not full approval. Active work is <strong>R6.1 hardening</strong> (bay depth + 25? fillet). Architecture stays off until FULL PASS.</p>
+<div class="code">SOT ? setbacks ? concepts ? Final Three ? J1 closed (ownership NO)
+? Skeleton A?F closed (Original Program Gate FAIL � E = W+E reference)
+? Parking Reset � R6 CONDITIONAL � R6.1 hardening (active)</div>
+<a class="cta" href="parking-reset.html#reset_r6_1">View R6.1 hardening ?</a>
+<a class="cta" href="index.html" style="background:transparent;border:2px solid #0d1b33;color:#0d1b33">Hub</a></section>
 
 <section class="panel"><h2>Stages</h2>
 <div class="timeline">
-<div class="step done"><div class="num">1</div><div><b>SOT survey polygon</b><p>Locked drawing: Pennsylvania RIGHT, north/rear LEFT, 148′ horizontal. Source: <code>js/lot2-sot.js</code>.</p></div></div>
-<div class="step done"><div class="num">2</div><div><b>Polygon-accurate setbacks</b><p>20′ Penn/right · 25′ rear/left · 5′ top · 10′ bottom — planning assumptions only.</p></div></div>
-<div class="step done"><div class="num">3</div><div><b>Concept geometry</b><p>7 established concepts + 5 challengers (H2–H6). Same lot, garage box, access rules.</p></div></div>
-<div class="step done"><div class="num">4</div><div><b>Validation metrics</b><p>Survey · setback · garage · drive · ~1,800 SF living band. First-floor size varies by concept unless E2’s 900-SF benchmark applies.</p></div></div>
-<div class="step done"><div class="num">5</div><div><b>Shortlist elimination memo</b><p>E2 · G1 · V2 ADVANCE. H6 · H3 HOLD as displacing alternates. E3 appendix. <a href="shortlist.html">Open memo →</a></p></div></div>
-<div class="step on"><div class="num">6</div><div><b>Locked Final Three</b><p>E2 (benchmark) · G1 (orthogonal) · V2 (ceiling). Alternates may displace a finalist only after a material Pass 2 finding.</p></div></div>
-<div class="step on"><div class="num">7</div><div><b>Pass 2A — J1 massing</b><p>Trade accepted: parking owns ground plane; LOG upper is primary living. Three treatments on locked Access A: <a href="j1-massing.html">J1-A Bridge · J1-B Stagger · J1-C Spine</a>. Next: Penn elevation on preferred treatment.</p></div></div>
-<div class="step on"><div class="num">8</div><div><b>Visual chain · ownership gate</b><p>Image 4.1 <strong>PASS</strong>. Current: <a href="j1b-image4-2-views.html">4.2 Penn elev + eye-level</a>. Floor-plan WAIT until YES. <a href="docs/lot2-visual-chain.md">docs</a></p></div></div>
+<div class="step done"><div class="num">1</div><div><b>SOT survey polygon</b><p>Pennsylvania RIGHT, north/rear LEFT, 148? horizontal.</p></div></div>
+<div class="step done"><div class="num">2</div><div><b>Polygon-accurate setbacks</b><p>Planning assumptions only.</p></div></div>
+<div class="step done"><div class="num">3?6</div><div><b>Concepts ? Final Three</b><p>E2 � G1 � V2 historical; H6/H3 alternates.</p></div></div>
+<div class="step done"><div class="num">7?8</div><div><b>J1 massing ? Image 4.2</b><p>Ownership NO � J1 STOP. <a href="j1b-image4-2-views.html">disposition</a></p></div></div>
+<div class="step done"><div class="num">9</div><div><b>Parking Skeleton A?F</b><p>Original Program Gate FAIL. E = circulation reference. <a href="docs/lot2-def-closure.md">closure</a></p></div></div>
+<div class="step done"><div class="num">10</div><div><b>R6 conditional</b><p>First viable integrated geometry. Bay + fillet still open. <a href="docs/lot2-parking-reset.md">docs</a></p></div></div>
+<div class="step on"><div class="num">11</div><div><b>R6.1 harden ? FULL PASS</b><p>16�24 bays done. Close 25? FS-SUV fillet. Then R5. Architecture OFF until FULL PASS.</p></div></div>
 </div></section>
 
-<section class="panel"><h2>Geometry status (Pass 1.5)</h2>
-<p><strong>Geometry PASS — shortlist eligible:</strong> E2 · G1 · V2 · E3 · F1 · H3 · H6</p>
-<p>These pass survey, setback, garage, Penn access, drive clearance, and the ~1,800 SF living band. Design concerns (court quality, upper-floor load, central-core architecture, etc.) remain for judgment — they do not downgrade a geometric PASS.</p>
-<p><strong>Geometry REVIEW — resolve before shortlist:</strong> E1 · G2 · H2 · H4 · H5</p>
-<p>No further concept expansion recommended until REVIEW items are resolved or eliminated.</p></section>
-
-<section class="panel"><h2>Locked Final Three</h2>
-<p><strong>E2, G1, and V2 are the provisional Final Three.</strong> H6 and H3 remain active alternates and may displace a finalist only if swept-path, floor-plan, or cost testing exposes a material weakness.</p>
+<section class="panel"><h2>Closed vs active</h2>
 <ul class="list">
-<li><strong>E2 — ADVANCE</strong> · conventional benchmark / control case</li>
-<li><strong>G1 — ADVANCE</strong> · strongest orthogonal challenger (V2 privacy without angle penalty)</li>
-<li><strong>V2 — ADVANCE</strong> · design ceiling — unusual lot geometry as product</li>
-<li><strong>H6 — HOLD</strong> · Alternate #1 — garage-core floor plan still unproven</li>
-<li><strong>H3 — HOLD</strong> · Alternate #2 — mews must prove it is a real outdoor room</li>
-<li><strong>E3 — HOLD</strong> · appendix / courtyard fallback</li>
+<li><strong>Closed:</strong> J1 � Skeletons A?F � Original Program Gate</li>
+<li><strong>Conditional:</strong> R6 Integrated Lift Pair (not full PASS)</li>
+<li><strong>Active:</strong> R6.1 bay/fillet hardening</li>
+<li><strong>Next:</strong> R5 Practical Pair after FULL PASS</li>
+<li><strong>Off:</strong> Schematic architecture until FULL PASS</li>
 </ul>
-<p><strong>Deprioritized until REVIEW resolved:</strong> E1 · G2 · H2 · H4 · H5</p>
-<p><a class="cta" href="shortlist.html">Open Shortlist Elimination Memo →</a></p>
-<p>Pass 2: <a href="access.html">audit trail</a> · <a href="access-geometry.html">Access A/B/C</a> · <a href="j1-massing.html">J1 Pass 2A massing</a> (trade accepted).</p></section>
-<div class="footer">See <a href="docs/lot2-geometry-validation.md">docs/lot2-geometry-validation.md</a></div>
+<p><a class="cta" href="parking-reset.html#reset_r6_1">View R6.1 ?</a></p>
+</section>
+<div class="footer">See <a href="docs/lot2-parking-reset.md">docs/lot2-parking-reset.md</a></div>
 </main>
 </body>
 </html>

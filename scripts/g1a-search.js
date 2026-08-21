@@ -127,7 +127,7 @@ test(
 );
 
 test(
-  'B path y=37 until x=90',
+  'B path y~37 until x=90',
   { x: 102, y: 5, w: 22, h: 22 },
   { x: 25, y: 16, w: 22, h: 22 },
   [[148, 16], [124, 16]],
@@ -143,7 +143,7 @@ test(
 );
 
 test(
-  'GA x=102 24′ apron; B y=37 to x=80 then to door',
+  'GA x=102 24′ apron; B y~37 to x=80 then to door',
   { x: 102, y: 5, w: 22, h: 22 },
   { x: 25, y: 16, w: 22, h: 22 },
   [[148, 16], [124, 16]],
