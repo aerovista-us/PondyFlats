@@ -8,7 +8,7 @@ const Lot2ParkingReset = (() => {
   const A = typeof Lot2Access !== 'undefined' ? Lot2Access : null;
   const Sk = typeof Lot2AccessSkeleton !== 'undefined' ? Lot2AccessSkeleton : null;
   const V = (typeof Lot2SOT !== 'undefined' && Lot2SOT.SUV_FS) || { length: 20.5, width: 8, doorWidth: 16, apronDepth: 24 };
-  const ORDER = L.PARKING_RESETS || ['reset_r6_1', 'reset_r6', 'reset_r5', 'reset_r7', 'reset_r8', 'reset_r1', 'reset_r2', 'reset_r4', 'reset_r3'];
+  const ORDER = L.PARKING_RESETS || ['reset_r6_1', 'reset_r6_2', 'reset_r5', 'reset_r6_3', 'reset_r6', 'reset_r7', 'reset_r8', 'reset_r1', 'reset_r2', 'reset_r4', 'reset_r3'];
   const MIN_BAY_DEPTH = L.MIN_LIFT_BAY_DEPTH || 22;
 
   function gateClear(d) {
@@ -56,14 +56,16 @@ const Lot2ParkingReset = (() => {
       const p = byId[h.structures.find((id) => byId[id])];
       return p && p[0] && p[0][0] >= 147;
     });
-    if (concept.sharedSpine) {
+    if (concept.sharedSpine || concept.dualCurbCut) {
       const doorsOk = (access.doors || []).every((d) => (d.gate ? d.gate.clear : d.clear) >= 12);
       const ok = hasPath && pennOk && doorsOk;
       return {
         ok,
         note: ok
-          ? 'Shared side-access spine · independent door staging per household'
-          : 'Shared spine present but household door approaches incomplete',
+          ? (concept.dualCurbCut
+            ? 'Two Penn curb cuts · independent door staging per household'
+            : 'Shared side-access spine · independent door staging per household')
+          : 'Household door approaches incomplete',
       };
     }
     const primary = hh.map((h) => {
@@ -112,11 +114,14 @@ const Lot2ParkingReset = (() => {
 
     const openIssues = [];
     if (!bay.ok) openIssues.push(`Bay envelope: ${bay.detail}`);
-    if (!tangentOk || access.technical === 'REVIEW' || threePoint) {
-      const tanNote = Number.isFinite(minTangent)
-        ? `min tangent ${(+minTangent).toFixed(1)}′ < 25′ FS-SUV`
-        : 'FS-SUV swept path still REVIEW / three-point';
-      openIssues.push(`Swept path: ${tanNote}`);
+    if (!tangentOk) {
+      openIssues.push(`Swept path: min tangent ${(+minTangent).toFixed(1)}′ < 25′ FS-SUV`);
+    } else if (access.technical === 'REVIEW' || threePoint) {
+      openIssues.push(
+        threePoint
+          ? 'Swept path: three-point / sharp corner burden remains'
+          : 'Swept path: on-lot · 25′ fillet closed · daily / apron REVIEW (not FULL PASS)',
+      );
     }
     (concept.openIssues || []).forEach((o) => {
       if (!openIssues.some((x) => x.includes(o.slice(0, 24)))) openIssues.push(o);
@@ -128,7 +133,9 @@ const Lot2ParkingReset = (() => {
         ok: sweptSoftOk,
         detail: access.technical === 'PASS' && tangentOk
           ? 'FS-SUV PASS · tangents ≥25′'
-          : `FS-SUV ${access.technical}${Number.isFinite(minTangent) ? ` · min tangent ${(+minTangent).toFixed(1)}′` : ''}`,
+          : tangentOk && access.technical === 'REVIEW'
+            ? 'FS-SUV REVIEW · 25′ fillet closed · daily/apron open'
+            : `FS-SUV ${access.technical}${Number.isFinite(minTangent) ? ` · min tangent ${(+minTangent).toFixed(1)}′` : ''}`,
       },
       staging: {
         ok: stagingOk,
@@ -137,7 +144,7 @@ const Lot2ParkingReset = (() => {
       independent: { ok: hh.ok, detail: hh.note },
       daily: {
         ok: dailyOk && !threePoint && tangentOk,
-        detail: `${access.daily || '—'}${threePoint || !tangentOk ? ' · fillet / three-point open' : ''}`,
+        detail: `${access.daily || '—'}${!tangentOk ? ' · fillet open' : threePoint ? ' · three-point open' : access.technical === 'REVIEW' ? ' · apron / reverse REVIEW' : ''}`,
       },
       bayDepth: { ok: bay.ok, detail: bay.detail },
       homeWidth: {
@@ -202,18 +209,16 @@ const Lot2ParkingReset = (() => {
     let lesson = 'No reset clears the Parking Reset Gate yet. Architecture stays off.';
     if (full.length >= 1) {
       const first = full.sort((a, b) => (rows[a].priority ?? 99) - (rows[b].priority ?? 99))[0];
-      lesson = `FULL PASS: ${rows[first].label}. Schematic architecture may unlock after confirmation. Bay depth + FS-SUV 25′ fillet closed.`;
+      lesson = `FULL PASS: ${rows[first].label}. Schematic architecture may unlock after confirmation. Bay depth + FS-SUV 25′ / clear polygonal sweep closed.`;
       if (full.length > 1) lesson += ` Also FULL PASS: ${full.filter((id) => id !== first).map((id) => rows[id].label).join(', ')}.`;
     } else if (conditional.length >= 1) {
-      const first = conditional.sort((a, b) => (rows[a].priority ?? 99) - (rows[b].priority ?? 99))[0];
-      const r = rows[first];
+      const leadId = rows.reset_r6_1?.verdict === 'CONDITIONAL' ? 'reset_r6_1'
+        : conditional.sort((a, b) => (rows[a].priority ?? 99) - (rows[b].priority ?? 99))[0];
+      const r = rows[leadId];
       const opens = (r.openIssues || []).slice(0, 2).join(' · ') || 'named hard checks still open';
-      lesson = `First viable working geometry — conditional validation: ${r.label}. Four enclosed lift-assisted spaces and two viable ~22′ home plates. Still open: ${opens}. Final bay dimensions, FS-SUV swept path, lift equipment, ceiling height, structure, zoning and fire separation remain pending. Architecture stays OFF until FULL PASS.`;
-      if (conditional.length > 1) {
-        lesson += ` Also CONDITIONAL: ${conditional.filter((id) => id !== first).map((id) => rows[id].label.replace(/^Parking Reset /, '')).join(', ')}.`;
-      }
+      lesson = `Public hierarchy: R6.1 leading CONDITIONAL · R5 practical under repair · R1–R4 audit-only · architecture OFF. ${r.label}: four enclosed lift spaces + two credible plates. Open: ${opens}. Active: R6.2A (25′ arc + corner flare) → R6.4 straight-spine → R6.3 dual curb.`;
     } else {
-      lesson = 'Integrated track (R6.1 → R6 → R5 → R7 → R8) is the active search. Detached R1–R4 remain audit-only. No architecture yet.';
+      lesson = 'Integrated track active. Hierarchy: R6.1 lead → R6.2A arc → R6.4 straight-spine → R5 repair → R6.3 fallback. Detached R1–R4 audit-only. Architecture OFF.';
     }
     return {
       order: ORDER,

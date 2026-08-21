@@ -2,15 +2,19 @@
 
 **Hub:** [`../index.html`](../index.html) · **Guide:** [`../guide.html`](../guide.html) · **Repo:** [aerovista-us/PondyFlats](https://github.com/aerovista-us/PondyFlats)
 
+**File roles:** [`lot2-file-map.md`](lot2-file-map.md) — **TRUTH · CURRENT · EXPERIMENT · DERIVATIVE · ARCHIVE · TEMP**
+
 ## Current decision
 
 | Item | Status |
 | ---- | ------ |
-| **R6** Integrated Lift Pair | **CONDITIONAL** — first viable working geometry (topology record) |
-| **R6.1** Lift Bay Hardening | **CONDITIONAL** — 16×24 bays OK · FS-SUV fillet ~19′ \< 25′ still open |
-| **Architecture** | **OFF** until Parking Reset **FULL PASS** |
-| **Next** | Close R6.1 25′ fillet → FULL PASS → repair R5 |
-| **Closed** | J1 (ownership NO) · Skeletons A–F (Original Program Gate FAIL) |
+| **R6.1** Lift Bay Hardening | **Leading CONDITIONAL** — show today · bay OK · sweep open |
+| **R6.2A** 25′ Arc + Flare | Active · **25′ fillet closed on-lot** · daily/apron REVIEW |
+| **R6.4** Straight-Spine Doors | Experiment · both E · no B 90° · reverse-out trade |
+| **R5** Practical Pair | **CONDITIONAL** · under repair · not leading |
+| **R1–R4** detached | Audit-only |
+| **Architecture** | **OFF** until FULL PASS |
+| **Next** | Close R6.2A daily → else R6.4 → else R6.3 |
 
 Live matrix: [`../parking-reset.html`](../parking-reset.html) · write-up: [`lot2-parking-reset.md`](lot2-parking-reset.md)
 
@@ -18,9 +22,10 @@ Live matrix: [`../parking-reset.html`](../parking-reset.html) · write-up: [`lot
 
 | Doc | Topic |
 | --- | ----- |
-| [lot2-parking-reset.md](lot2-parking-reset.md) | **Current** — CONDITIONAL vs FULL PASS · R6 / R6.1 · R5–R8 · R1–R4 audit |
+| [lot2-file-map.md](lot2-file-map.md) | **File roles** — what is truth vs archive vs temp |
+| [lot2-parking-reset.md](lot2-parking-reset.md) | **Current** — R6.1 lead · R6.2A / R6.4 · R5 · FULL PASS rules |
 | [lot2-def-closure.md](lot2-def-closure.md) | D/E/F close · Original vs Parking Reset gates · E W+E reference |
-| [lot2-geometry-validation.md](lot2-geometry-validation.md) | Pass 1.5 geometry rules · drawing convention |
+| [lot2-geometry-validation.md](lot2-geometry-validation.md) | Pass 1.5 geometry rules · drawing convention (still binding) |
 | [lot2-access-geometry.md](lot2-access-geometry.md) | Parking Skeleton A–F (closed) |
 | [lot2-access.md](lot2-access.md) | FS-SUV access audit trail |
 
@@ -50,7 +55,7 @@ When the tree is dirty or remote has moved:
 1. **Fetch first** — `git fetch origin` before commit or push.
 2. **Prefer merge over rebase** on shared `main` if remote advanced — keeps local Parking Reset / CONDITIONAL docs intact.
 3. **Authoritative for “where we are”** — hub [`../index.html`](../index.html) + [`lot2-parking-reset.md`](lot2-parking-reset.md). On conflict, keep CONDITIONAL (not premature PASS) and R6.1 bay-depth hardening.
-4. **Do not discard** untracked reset artifacts: `parking-reset.html`, `js/lot2-parking-reset.js`, `docs/lot2-parking-reset.md`, `docs/lot2-def-closure.md`.
-5. **Closed trails** (J1, A–F) stay in-repo as evidence; do not “clean up” by deleting them in a merge.
+4. **Do not discard** untracked reset artifacts: `parking-reset.html`, `js/lot2-parking-reset.js`, `docs/lot2-parking-reset.md`, `docs/lot2-def-closure.md`, `docs/lot2-file-map.md`.
+5. **Closed trails** (J1, A–F) stay in-repo as evidence; do not “clean up” by deleting them in a merge. See [`lot2-file-map.md`](lot2-file-map.md).
 
 Browser start: [`../index.html`](../index.html) → Parking Reset → R6.1.

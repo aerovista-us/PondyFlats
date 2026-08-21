@@ -39,6 +39,8 @@ const Lot2Access = (() => {
     (concept.units || []).forEach((u) => out.push({ label: u.name, poly: unitPoly(u), kind: 'unit' }));
     (concept.garages || []).forEach((g) => {
       if (g.integrated) return;
+      /** Open covered bays are roof structure only — not solid swept-path / staging obstacles. */
+      if (g.covered) return;
       if (skipGarageName && g.name === skipGarageName) return;
       if (g.id && ignore.has(g.id)) return;
       out.push({ label: g.name, id: g.id, poly: garagePoly(g), kind: 'garage' });
@@ -423,8 +425,13 @@ const Lot2Access = (() => {
 
     const pinch = minPinch(fil.poses, obstacles(concept).filter((o) => o.kind === 'unit'));
     const reverseIn = doors.some((d) => d.gate.face === 'N' || d.gate.clearDepth < V.apronDepth);
-    const threePoint = fil.notes.some((n) => n.kind === 'short-tangent');
-    const sharpFail = fil.notes.filter((n) => n.kind === 'short-tangent' && n.have < 8).length > 0;
+    /** Polygonal swept-path concepts: dense polylines create many small-angle short-tangent notes — score envelope first; only sharp corners (<12′) count as three-point burden. */
+    const polySweep = !!concept.polygonalSweep;
+    const shortTanNotes = fil.notes.filter((n) => n.kind === 'short-tangent');
+    const sharpFail = shortTanNotes.filter((n) => n.have < 8).length > 0;
+    const threePoint = polySweep
+      ? shortTanNotes.some((n) => n.have < 12)
+      : shortTanNotes.length > 0;
     const offLot = offLotN > 0 || reasons.some((r) => r.includes('off survey') || r.includes('beyond survey'));
     const hitBldg = bldgNames.length > 0 || reasons.some((r) => r.includes('swept body hits') || r.includes('Swept envelope clips'));
     const noDoor = doors.some((d) => d.gate.clearDepth < 8);
@@ -436,10 +443,22 @@ const Lot2Access = (() => {
       }
     });
 
+    const envelopeClear = !offLot && !hitBldg && !stagingFail && pennOk && !noDoor;
     let technical = 'PASS';
     if (!pennOk || offLot || noDoor || hitBldg || stagingFail) technical = 'FAIL';
     else if (sharpFail || !block.independent || pinch.min !== null && pinch.min < 2 || threePoint) technical = 'REVIEW';
-    else if (fil.notes.length || doors.some((d) => d.gate.apron < V.apronDepth)) technical = 'REVIEW';
+    else if (!polySweep && (fil.notes.length || doors.some((d) => d.gate.apron < V.apronDepth))) technical = 'REVIEW';
+    else if (polySweep && shortTanNotes.some((n) => n.have < 25 - 0.5) && shortTanNotes.length) technical = 'REVIEW';
+    else if (doors.some((d) => d.gate.apron < V.apronDepth)) technical = 'REVIEW';
+
+    if (polySweep && envelopeClear && technical !== 'FAIL') {
+      const minHave = shortTanNotes.reduce((m, n) => Math.min(m, n.have), Infinity);
+      if (Number.isFinite(minHave) && minHave < 25 - 0.5) {
+        reasons.push(`Polygonal swept-path envelope on-lot · min corner run ${minHave.toFixed(1)}′ < 25′ FS-SUV design radius (CONDITIONAL — not FULL PASS)`);
+      } else if (!shortTanNotes.length) {
+        reasons.push('Polygonal swept-path envelope on-lot · no sharp corner shortfall recorded');
+      }
+    }
 
     let daily = 'Good';
     let burden = 'Moderate';

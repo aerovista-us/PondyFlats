@@ -53,23 +53,23 @@ th{background:#f6f3ee;color:var(--navy);font-weight:900}
 <main class="wrap">
 <section class="panel">
 <h1>Parking Reset Gate</h1>
-<p class="lede">J1 and Skeletons A–F remain <strong>closed</strong>. Active search: <strong>R6.1 hardening</strong> after R6 conditional. Detached R1–R4 are audit-only. <strong>CONDITIONAL ≠ approval.</strong></p>
+<p class="lede">J1 and Skeletons A–F remain <strong>closed</strong>. Active search: <strong>R6.2A</strong> (25′ arc) → <strong>R6.4</strong> → <strong>R6.3</strong>. R6.1 remains the show lead. <strong>CONDITIONAL ≠ approval.</strong></p>
 <div class="callout win" id="working"></div>
-<div class="callout"><strong>Integrated plate math:</strong> home plate = envelope − drive corridors; garage SF = ground program inside the plate. <strong>Full PASS</strong> also requires bay depth ≥22′ and FS-SUV tangents ≥25′ — no fillet waivers.</div>
+<div class="callout"><strong>Integrated plate math:</strong> home plate = envelope − drive corridors; garage SF = ground program inside the plate. <strong>Full PASS</strong> also requires bay depth ≥22′ and FS-SUV tangents ≥25′ — no fillet waivers. Widen the <em>corner</em>, not the whole driveway.</div>
 <ul class="criteria">
-<li><strong>R6.1 — Lift Bay Hardening</strong> (priority 0) · 16×24 envelopes · close swept REVIEW</li>
-<li><strong>R6 — Integrated Lift Pair</strong> · CONDITIONAL topology record</li>
-<li><strong>R5 — Integrated Practical Pair</strong> · after R6.1 full close</li>
-<li><strong>R7 / R8</strong> · queued · <em>Audit:</em> R1–R4 detached</li>
+<li><strong>R6.1 — Lift Bay Hardening</strong> · <em>leading CONDITIONAL</em> · 16×24 bays · show today</li>
+<li><strong>R6.2A — 25′ Arc + Corner Flare</strong> · active · spine ~12′ · flare 16–18′ at arc only</li>
+<li><strong>R6.4 — Straight-Spine Doors</strong> · experiment · both E · no B 90°</li>
+<li><strong>R5</strong> · CONDITIONAL under repair · <strong>R6.3</strong> dual curb fallback · <em>Audit:</em> R1–R4 · Architecture OFF</li>
 </ul>
 <div class="lesson" id="lesson"></div>
 <div class="jump">
 <a href="#matrix">Matrix</a>
 <a href="#reset_r6_1">R6.1</a>
-<a href="#reset_r6">R6</a>
+<a href="#reset_r6_2a">R6.2A</a>
+<a href="#reset_r6_4">R6.4</a>
 <a href="#reset_r5">R5</a>
-<a href="#reset_r7">R7</a>
-<a href="#reset_r8">R8</a>
+<a href="#reset_r6_3">R6.3</a>
 <a href="docs/lot2-parking-reset.md">Docs</a>
 </div>
 </section>
@@ -102,7 +102,7 @@ const cond=report.conditionalPasses&&report.conditionalPasses[0];
 document.getElementById('working').innerHTML=full
   ? `<strong>FULL PASS — ${report.rows[full].label}</strong><br>Bay depth + FS-SUV 25′ fillet closed. Schematic architecture may unlock after confirmation.`
   : cond
-  ? `<strong>First viable working geometry — conditional validation</strong><br>Four enclosed lift-assisted spaces and two viable ~22′ home plates. Final bay dimensions, FS-SUV swept path, lift equipment, ceiling height, structure, zoning and fire separation remain pending. <em>Architecture OFF until FULL PASS.</em>`
+  ? `<strong>Public hierarchy — R6.1 leading CONDITIONAL</strong><br>Show R6.1 today. Active engineering: <strong>R6.2A</strong> (25′ arc closed on-lot · daily/apron REVIEW) → <strong>R6.4</strong> straight-spine → <strong>R6.3</strong> dual curb. R5 under repair · R1–R4 audit · <em>Architecture OFF until FULL PASS.</em>`
   : `<strong>No complete PASS yet.</strong> Integrated track is active; detached R1–R4 are audit-only.`;
 
 const tbody=document.getElementById('tbl');
