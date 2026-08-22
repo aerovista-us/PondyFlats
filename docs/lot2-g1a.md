@@ -1,88 +1,160 @@
-# Lot 2 — G1-A Circulation Proof (not a candidate)
+# Lot 2 — G1-A Circulation Proof / Optimization Track
 
 **Artifact:** [`access.html`](../access.html) (section G1-A)  
-**Locked original:** `Lot2.CONCEPTS.g1` is unchanged.  
-**Proof concept:** `Lot2.CONCEPTS.g1a`  
-**Next study:** [`access-geometry.html`](../access-geometry.html) — **Parking Skeleton A-F** (display name; code IDs `access_a`/`b`/`c`)
+**Locked original:** `Lot2.CONCEPTS.g1` remains unchanged.  
+**Proof / optimization variant:** `Lot2.CONCEPTS.g1a`  
+**Rules:** [`../AGENTS.md`](../AGENTS.md) · [`lot2-circulation-optimization.md`](lot2-circulation-optimization.md)  
+**Machine-readable policy:** [`../config/lot2-circulation-rules.json`](../config/lot2-circulation-rules.json)  
+**Related study:** [`access-geometry.html`](../access-geometry.html) — Parking Skeleton A-F
 
-G1-A is **circulation proof**, not a candidate. It demonstrated that east-facing garage doors + a south lane at y~37 can pass the FS-SUV gate. The illustrative houses attached afterward show why it was rejected: Garage A at the Pennsylvania street face, Unit B as an ~11′ bar, heavy upper-floor / LOG burden.
+## Role
 
-Do **not** iterate G1-A further. **Parking Skeleton A** codifies the same parking geometry without houses (J1’s trail called this Access A — keep those names distinct going forward).
+G1-A is a **circulation proof and optimization track**, not a promoted architectural candidate.
 
-Vehicle, parcel, setbacks, and 22×22 bays were **not** shrunk.
+The important distinction is:
 
-## Order of work
+- locked `g1` is historical evidence and must not be altered;
+- `g1a` may be refined in new revisions when the failure is caused by geometry that is allowed to move.
 
-1. Empty survey + polygon setbacks.
-2. Pennsylvania/right entry. 8′ body must stay on survey (ROW x≥148 allowed).
-3. 12′ corridor. Max centerline on the 40.33′ south run: **y ≤ 39** (vehicle) / **y ≤ 37** (12′ pavement on-lot).
-4. Two genuine 22×22 garages, independently approached, 16′ doors, ~24′ staging.
-5. Inbound + outbound for **both** bays (reverse of inbound).
-6. Only then: two orthogonal staggered living masses.
+Do **not** close G1-A merely because an illustrative house or early driveway centerline creates a small pinch. First identify whether the obstruction is LOCKED, MOVABLE, or CONDITIONAL and run the bounded correction sequence.
 
-## What the math forbade
+## Absolute access rule
 
-- Two 22×22 stacked in Y inside setbacks: need 44′; envelope is ~33–38′ N–S. **Impossible.**
-- 90° / 25′ radius from a south E–W lane into a south-facing door: the lot is not deep enough on that short axis. **Impossible without a three-point (REVIEW, not PASS).**
-- Shared-wall pair with the same door face: stacked dependence (H6/E2).
+All vehicle access remains from **Pennsylvania Street / the right-east side of the drawing**.
 
-## Envelope that works
+No rear, west, alley, neighboring-lot, or off-site access may be introduced to manufacture a pass.
 
-**Generator:** both garage doors face **east** (toward Pennsylvania). Inbound is heading west. No 90° fillet required.
+A Pennsylvania-origin driveway **may** curve, flare, taper, widen locally, or shift its centerline after entering the parcel.
 
-| Bay | Plate | Door | Inbound |
-| --- | ----- | ---- | ------- |
-| Garage A | (102, 5) 22×22 | East at x=124, y=16 | Straight: (148, 16) → (134.3, 16). 24′ apron to Penn. |
-| Garage B | (25, 16) 22×22 | East at x=47, y=27 | South lane y~37 until x=80 (clears A), then shallow offset to (57.3, 27). 24′ apron x=47–71. |
+## What stays locked
 
-South lane y~37: 8′ body is on survey along the 40.33′ run (lot ~43′). This is the site constraint the locked y=41 polylines violated.
+For comparable Original Program Gate testing:
 
-Normal parking: A’s Penn apron does not sit on B’s south lane; B’s apron does not sit on A’s y=16 shot. Independent: **yes**.
+1. Lot 2 survey polygon.
+2. Pennsylvania-only vehicle access origin.
+3. FS-SUV / full-size pickup design vehicle and turning assumptions.
+4. Two dwelling units.
+5. Two genuine 22×22 two-car garages / four enclosed spaces.
+6. Current planning setback/building envelope.
+7. Locked source concept `g1`.
 
-## Houses after the envelope
+Garage plates may translate or rotate if the study allows it, but they may not be shrunk under the Original Program Gate.
 
-Z idea kept (orthogonal, staggered along the long axis). Coordinates are new.
+## What may move
 
-- **Unit A** 20×22 = 440 SF at (82, 5) — north-middle bar, flush to Garage A (LOG-capable).
-- **Unit B** 46×11 = 506 SF at (25, 5) — north-rear bar, Garage B shifted south (the Z).
+Optimize these before rejecting G1-A:
 
-~1,800 SF/unit via **second floor 1,327 SF** (average first floor 473 SF). Living-over-garage is assumed, not optional, if the program holds.
+- driveway centerline and control points;
+- local driveway width, curve, flare, taper, or turn pocket;
+- apron/staging geometry;
+- garage door position or face;
+- Garage B by a small translation;
+- Unit B by a small translation or footprint refinement;
+- larger architectural geometry only after the cheaper corrections fail.
 
-Geometry validation: **PASS** (survey, setbacks, 22×22, Penn access, living band).
+## Required G1-A optimization order
 
-## FS-SUV verdict (circulation only)
+1. **Driveway centerline only.** Shift/smooth the south lane and Garage B approach.
+2. **Local pavement geometry.** Add a flare or local widening at the pinch without moving buildings.
+3. **Apron / Garage B approach.** Improve staging and the final approach geometry.
+4. **Garage door position or face.** Preserve required clear width and garage capacity.
+5. **Garage B micro-shift.** Test roughly 1 ft, 2 ft, then 3 ft if the envelope permits.
+6. **Unit B micro-shift / footprint refinement.** Use only after driveway and garage corrections are exhausted.
+7. Major architectural re-layout is last.
 
-| Concept | Physical access | Daily usability | Maneuver burden | Role | Verdict |
-| ------- | --------------- | --------------- | --------------- | ---- | ------- |
-| G1-A | **PASS** | Fair — A is a clean Penn shot; B is a shallow offset then reverse-out. | Moderate | **Circulation proof** | Technical PASS — **not promoted** |
+The goal is the **smallest permitted change that produces a defensible PASS**, not proving that one exact sketch fails.
 
-Pinch to illustrative Unit B ≈ 3.2′. No three-point. Forward in / reverse out.
+## Historical circulation generator
 
-Daily is **Fair, not Good**. Architecture remaining fails plausible-two-homes test — see Access A skeleton in [`lot2-access-geometry.md`](lot2-access-geometry.md).
+The original G1-A idea used east-facing garage doors with a south lane near y≈37:
 
-## Sacrifices vs locked G1
+| Bay | Plate | Door / approach intent |
+| --- | --- | --- |
+| Garage A | (102, 5) 22×22 | East-facing; Pennsylvania straight shot |
+| Garage B | (25, 16) 22×22 | East-facing; Pennsylvania entry → south lane → shallow offset |
 
-| | Locked G1 | G1-A |
-| - | --------- | ---- |
-| First floor / unit | 912 · 608 (avg 760) | 440 · 506 (avg 473) |
-| Upper floor | 1,054 | 1,327 |
-| Total living | ~1,814 | ~1,800 |
-| Garage doors | Recessed, west hunt | **Both east; A faces Penn** |
-| Drive | y=41 west alley (FAIL) | y=16 Penn shot + y~37 south lane |
-| Building footprint | 2,488 SF | 1,914 SF |
-| Yard (est.) | 1,535 SF | 3,996 SF |
-| Paved (schematic) | 3,000 SF / 250′ | 1,114 SF / 93′ south lane (plus a second 12′ Penn lane not fully in that count) |
-| Separation | Interlock / 0′ | Unit A attached to Garage A (0′) |
-| Street | Living at Penn | **Garage door at Penn** |
-| Floor plan | Honest lower split | Thin B bar · LOG / upper-heavy |
+That circulation family remains useful evidence because it showed that a Pennsylvania-origin route can reach both independent bays without relying on a rear/alley access assumption.
 
-## What this does *not* do
+## Current interpretation of a pinch
 
-- Does not overwrite `g1`.
-- Does not start Pass 2 massing/elevations.
-- Does not promote H6/H3.
-- Does not claim daily delight equal to a recessed-garage E2.
+If the current renderer reports a small clearance at Unit B — for example the recent **~0.69 ft Unit B pinch** — treat that as a **NEAR-PASS / ITERATE condition** when:
 
-If the street-facing garage or upper-floor burden is unacceptable, the next study is **Parking Skeleton A-F** ([`access-geometry.html`](../access-geometry.html)) — not endless G1-A plate nudges. J1 later designed on that skeleton and failed ownership; no J1 rescue.
+- the vehicle is still approaching from Pennsylvania;
+- the survey boundary and turning-radius assumptions are not the cause;
+- the collision/pinch is against Unit B, driveway geometry, apron geometry, or another movable element; and
+- the garage/program requirements are unchanged.
 
-See also: [`lot2-access.md`](lot2-access.md)
+It is a terminal FAIL only if a locked constraint is the blocker or the bounded optimization sequence has been exhausted.
+
+## Clearance scoring
+
+Record actual engine output; never invent a passing clearance.
+
+| Minimum swept-body clearance | Working status |
+| --- | --- |
+| overlap / negative | FAIL |
+| 0 to <1 ft | MARGINAL / ITERATE |
+| 1 to <2 ft | PASS, then review daily usability |
+| ≥2 ft | STRONG PASS where practical |
+
+A boundary, turning-radius, independence, or required staging failure remains a hard fail regardless of obstacle clearance.
+
+## Inbound / outbound requirement
+
+Both garages must demonstrate:
+
+- inbound from Pennsylvania;
+- valid declared-door staging;
+- no swept-body collision with fixed obstacles or the survey boundary;
+- independent access as claimed;
+- outbound maneuver, normally reverse of inbound unless a valid forward exit is explicitly demonstrated.
+
+## Houses after circulation
+
+The illustrative G1-A houses were attached after the circulation envelope and should not become accidental immovable obstacles merely because they were drawn early.
+
+Historical massing:
+
+- Unit A: 20×22 = 440 SF at (82, 5).
+- Unit B: 46×11 = 506 SF at (25, 5).
+
+Those plates exposed architectural weaknesses — especially the thin Unit B bar and upper-floor burden — but they do **not** prove that the Pennsylvania-side circulation family is unusable.
+
+If a small Unit B adjustment converts a marginal path into a clean pass while keeping the home credible, that is an allowed optimization of `g1a`; it does not overwrite locked `g1`.
+
+## Iteration record
+
+Each accepted or rejected adjustment should record:
+
+```text
+Variant: G1-A.x
+Failure: [object/boundary]
+Constraint class: LOCKED | MOVABLE | CONDITIONAL
+Before clearance: [engine value]
+Adjustment: [exact geometry change]
+After clearance: [engine value]
+Survey containment: PASS/FAIL
+Turn radius: PASS/FAIL
+Garage A staging: PASS/FAIL
+Garage B staging: PASS/FAIL
+Independence: PASS/FAIL
+Inbound/outbound: PASS/FAIL
+Verdict: PASS | MARGINAL | NEAR-PASS / ITERATE | FAIL-CLOSED
+```
+
+## Relationship to Parking Skeleton A-F
+
+Parking Skeleton A remains the historical stripped-down reference for this east-door / south-lane family. Skeleton E remains another strong circulation reference under later tests.
+
+Neither reference means G1-A should be frozen at one driveway centerline. The new rule is to preserve the hard program and **optimize the cheapest geometry first**.
+
+## What this does not do
+
+- Does not overwrite locked `g1`.
+- Does not weaken the Pennsylvania-only access requirement.
+- Does not shrink the FS-SUV.
+- Does not shrink 22×22 garages under the Original Program Gate.
+- Does not claim architecture passes merely because circulation passes.
+- Does not allow off-site or rear access as a rescue.
+
+See also: [`lot2-access.md`](lot2-access.md) · [`lot2-access-geometry.md`](lot2-access-geometry.md)
