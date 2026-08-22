@@ -2,8 +2,10 @@
 
 **Purpose:** Declare what each major path is for. Generations of site studies, access tests, J1 visuals, failed renders, and Parking Reset co-exist in one tree — this map prevents treating an archive page as live design authority.
 
-**Status authority (where we are):** [`../index.html`](../index.html) + [`lot2-r64-daily.md`](lot2-r64-daily.md) + [`lot2-parking-reset.md`](lot2-parking-reset.md)  
-**Live gate matrix:** [`../parking-reset.html`](../parking-reset.html) · **Daily-use:** [`../r64-daily.html`](../r64-daily.html)
+**Status authority (where we are):** [`../index.html`](../index.html) + [`../r51e-deliverable.html`](../r51e-deliverable.html) + [`lot2-r51e-v1-baseline.md`](lot2-r51e-v1-baseline.md)  
+**Parking-gate matrix (still valid scores):** [`../parking-reset.html`](../parking-reset.html) · **Daily-use:** [`../r64-daily.html`](../r64-daily.html)
+
+> **FLAG (2026-08-22 — not deleted):** The previous authority line was hub + `lot2-r64-daily.md` + `lot2-parking-reset.md`. That pairing still describes **parking**. It contradicts architecture DESIGN COMPLETE. Original CURRENT labels on `study.html` / `r5-schematic.html` / `reset_r5` “schematic CONDITIONAL” are kept below. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).
 
 ---
 
@@ -25,12 +27,18 @@
 | Path | Role | Notes |
 | ---- | ---- | ----- |
 | [`index.html`](../index.html) | **CURRENT** | Study hub — locked hierarchy |
+| [`r51e.html`](../r51e.html) | **CURRENT** | R5.1e visual demo |
+| [`r51e-deliverable.html`](../r51e-deliverable.html) | **CURRENT** | **v1.0 front door** · Design Complete package |
+| [`r51e-site-plan.html`](../r51e-site-plan.html) | **CURRENT** | Site plan freeze |
+| [`r51e-penn-elev.html`](../r51e-penn-elev.html) | **CURRENT** | Pennsylvania elevation |
+| [`r51e-architectural-massing.html`](../r51e-architectural-massing.html) | **CURRENT** | Architectural massing freeze |
 | [`r64-daily.html`](../r64-daily.html) | **CURRENT** | R6.4 daily-use scenarios |
 | [`parking-reset.html`](../parking-reset.html) | **CURRENT** | Parking Reset Gate matrix (live scores) |
-| [`guide.html`](../guide.html) | **CURRENT** | What / why / next |
-| [`study.html`](../study.html) | **CURRENT** | Stage timeline |
+| [`guide.html`](../guide.html) | **CURRENT** | What / why / next (older A–F CTAs flagged, not deleted) |
+| [`study.html`](../study.html) | **CURRENT** *(FLAG: body still schematic CONDITIONAL — historical landing)* | Stage timeline |
 | [`docs/lot2-r64-daily.md`](lot2-r64-daily.md) | **CURRENT** | Daily-use closure write-up |
-| [`docs/lot2-parking-reset.md`](lot2-parking-reset.md) | **CURRENT** | Reset write-up · FULL PASS rules |
+| [`docs/lot2-parking-reset.md`](lot2-parking-reset.md) | **CURRENT** *(parking only)* | Reset write-up · FULL PASS rules |
+| [`docs/lot2-status-conflicts.md`](lot2-status-conflicts.md) | **CURRENT** | Flagged contradictions for path review |
 | [`docs/README.md`](README.md) | **CURRENT** | Docs index |
 | [`docs/lot2-file-map.md`](lot2-file-map.md) | **CURRENT** | This map |
 
@@ -66,13 +74,22 @@
 
 | ID | Role | Notes |
 | -- | ---- | ----- |
-| `reset_r5` | **CURRENT** (FULL PASS · public lead) | Parking frozen · schematic CONDITIONAL |
+| `reset_r5` | **CURRENT** (FULL PASS · public lead) | Parking frozen · schematic CONDITIONAL *(FLAG: architecture later DESIGN COMPLETE)* |
 | `js/lot2-r5-freeze.js` | **CURRENT** | R5 geometry freeze assert |
 | `js/lot2-r51e-lock.js` | **CURRENT** | R5.1e plate / SF lock |
 | `js/lot2-r51e-massing-truth.js` | **CURRENT** | Massing extrusion + geometric gate |
+| `js/lot2-r51e-architectural-massing.js` | **CURRENT** | Architectural massing + freeze gate |
+| `js/lot2-r51e-plan-closure.js` | **CURRENT** | Floor-plan closure inside frozen shells |
+| `js/lot2-r51e-site-plan.js` | **CURRENT** | Site plan · Penn access · setbacks · yards |
+| `js/lot2-r51e-sheet.js` | **CURRENT** | Sheet presentation kit · revision R5.1e-v1.0 |
+| `js/lot2-r51e-penn-elev.js` | **CURRENT** | Pennsylvania elevation · representation-only |
+| `js/lot2-r51e-elevations.js` | **CURRENT** | Rear / north / south elevations |
+| `js/lot2-r51e-sections.js` | **CURRENT** | Sections A-A · B-B |
+| `js/lot2-r51e-consistency.js` | **CURRENT** | Deliverable v1.0 package gate |
+| `js/lot2-r51e-axon-lock.js` | **CURRENT** | Same-camera axon lock · inheritance gate |
 | `js/lot2-r51e-plans.js` | **CURRENT** | Exact rooms + hard sanity gate · Unit A core repair |
 | `js/lot2-r51-rebalance.js` | CURRENT | Plate reopen study |
-| `js/lot2-r5-schematic.js` | **CURRENT** | Floor plans + sanity gate |
+| `js/lot2-r5-schematic.js` | **CURRENT** *(FLAG: cottage schematic superseded by R5.1e)* | Floor plans + sanity gate |
 | `reset_r6_1` | **CURRENT** (reference) | CONDITIONAL |
 | `reset_r6_4a` | **CURRENT** (secondary repair) | Midpoint turn pocket |
 | `reset_r6_4b` | **CURRENT** (secondary repair) | Independent lift equipment |
@@ -95,12 +112,22 @@ Architecture unlocks only on **FULL PASS** of the Parking Reset Gate — never o
 | ---- | ---- |
 | `index.html` | Hub |
 | `r51e.html` | **CURRENT** · R5.1e visual demo |
+| `r51e-architectural-massing.html` | **CURRENT** · architectural massing + gate |
+| `r51e-plan-closure.html` | **CURRENT** · floor-plan closure |
+| `r51e-site-plan.html` | **CURRENT** · site plan freeze |
+| `r51e-penn-elev.html` | **CURRENT** · Pennsylvania elevation |
+| `r51e-rear-elev.html` | **CURRENT** · rear / west elevation |
+| `r51e-side-elevs.html` | **CURRENT** · north + south elevations |
+| `r51e-sections.html` | **CURRENT** · sections A-A / B-B |
+| `r51e-deliverable.html` | **CURRENT** | **v1.0 front door** · Design Complete package |
+| `r51e-axon-lock.html` | **CURRENT** · same-camera axon lock |
 | `r51e-massing-truth.html` | **CURRENT** · massing axon + gate |
 | `r51e-plans.html` | **CURRENT** · R5.1e exact plans gate |
-| `r51-rebalance.html` | CURRENT · R5.1 plate reopen evidence |
-| `r5-schematic.html` | CURRENT · R5 floor plans · CONDITIONAL |
+| `r51-rebalance.html` | CURRENT · R5.1 plate reopen evidence *(chose R5.1e)* |
+| `r5-schematic.html` | CURRENT · R5 floor plans · CONDITIONAL *(FLAG: superseded cottage path)* |
+| `r5-cottage-alternate.html` | PRESERVED ALTERNATE · ~920 / ~1,882 |
 | `parking-reset.html` | Gate matrix |
-| `guide.html` / `study.html` | Orientation |
+| `guide.html` / `study.html` | Orientation *(study.html = historical “you are here”)* |
 
 ### ARCHIVE — Access / skeletons (closed; evidence)
 
@@ -146,6 +173,14 @@ Supporting docs: `docs/lot2-visual-chain.md`, `docs/lot2-j1*.md`, `docs/lot2-j1b
 
 | Path | Role | Notes |
 | ---- | ---- | ----- |
+| `imgs/r51e-architectural-massing.svg` | **CURRENT** / **DERIVATIVE** | Frozen R5.1e architectural axon |
+| `imgs/r51e-axon-lock-audit.svg` / `r51e-axon-lock-clean.svg` | **CURRENT** / **DERIVATIVE** | Axon lock |
+| `imgs/r51e-plan-ground.svg` / `r51e-plan-upper.svg` | **CURRENT** / **DERIVATIVE** | Plan closure sheets |
+| `imgs/r51e-site-plan.svg` | **CURRENT** / **DERIVATIVE** | Frozen site plan |
+| `imgs/r51e-penn-elev.svg` | **CURRENT** / **DERIVATIVE** | Pennsylvania elevation |
+| `imgs/r51e-rear-elev.svg` | **CURRENT** / **DERIVATIVE** | Rear / west elevation |
+| `imgs/r51e-north-elev.svg` / `r51e-south-elev.svg` | **CURRENT** / **DERIVATIVE** | Side elevations |
+| `imgs/r51e-section-aa.svg` / `r51e-section-bb.svg` | **CURRENT** / **DERIVATIVE** | Sections |
 | `imgs/j1b-image4-1-*.svg` / lock scaffolds | **ARCHIVE** / **DERIVATIVE** | 4.1 geometry lock trail |
 | `imgs/j1b-image4-2-*.svg` | **ARCHIVE** / **DERIVATIVE** | 4.2 layer-match views |
 | `imgs/j1b-*-materials*.svg` / `*-ref.png` | **DERIVATIVE** | Materials / refs on locked polygons |
@@ -163,6 +198,8 @@ Supporting docs: `docs/lot2-visual-chain.md`, `docs/lot2-j1*.md`, `docs/lot2-j1b
 
 | Path | Role | Notes |
 | ---- | ---- | ----- |
+| `scripts/r51e-deliverable-gates.js` | **CURRENT** | Axon lock + plan-closure gates |
+| `scripts/r51e-arch-massing-gate.js` | **CURRENT** | Architectural massing gate + SVG freeze |
 | `scripts/g1a-search.js` | **ARCHIVE** | G1-A search (complete) |
 | `scripts/access-abc-search.js` | **ARCHIVE** | Access A/B/C search |
 
@@ -183,9 +220,11 @@ If you find a file only under `_push-temp/`, treat the **repo root** copy as can
 
 ## Decision rules (quick)
 
-1. **“Where are we?”** → hub + `lot2-parking-reset.md` + `parking-reset.html`  
+1. **“Where are we?”** → hub + `r51e-deliverable.html` + `lot2-r51e-v1-baseline.md`  
+   *(FLAG — previous line was hub + `r51e.html` + architectural-massing.md; both still valid sheets, not the package front door.)*  
 2. **Survey / vehicle / compass** → `js/lot2-sot.js` only  
 3. **Can we build architecture?** → only after Parking Reset **FULL PASS** (not CONDITIONAL, not J1 visuals)  
+   *(FLAG — FULL PASS was reached; architecture is now DESIGN COMPLETE. Original gate sentence kept.)*  
 4. **Pretty duplex image** → check role: if under `reference/failed-visualization-drift/` or Pass 2C.1 / Image 4 photoreal drift → **style only**  
 5. **A–F or access.html PASS** → historical / reference; does **not** reopen Original Program Gate  
 6. **Cleanup merges** → do not delete ARCHIVE evidence; do discard or ignore TEMP  

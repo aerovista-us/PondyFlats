@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pondy Flats · R5.1e Deliverable v1.0</title>
+<meta name="description" content="R5.1e Design Complete — frozen duplex package. Professional validation pending.">
+<style>
+:root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--ok:#416145;--bad:#9a3b2e;--shadow:0 18px 54px #0f1a2b1a}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:ui-sans-serif,system-ui,sans-serif}
+.top{background:#0d1b33f4;color:#fff}.topin{max-width:1480px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand small{display:block;color:#efb34d;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.nav a{color:#fff;text-decoration:none;border:1px solid #ffffff28;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;margin-left:6px}
+.nav a.primary{background:#efb34d;color:#0d1b33;border-color:#efb34d}
+.wrap{max-width:1240px;margin:auto;padding:22px 18px 80px}
+.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow);padding:24px;margin-top:18px}
+h1{font:500 clamp(28px,4vw,52px)/.95 Georgia,serif;color:var(--navy);margin:0 0 8px}h2{color:var(--navy);margin:0 0 10px}h3{color:var(--navy);margin:0 0 6px;font-size:15px}
+.lede,p,li{color:var(--muted);line-height:1.55;font-size:14px}
+.ok{margin-top:12px;padding:12px 14px;border-left:4px solid var(--ok);background:#edf5e9;color:#2d4a32;font-size:13px;border-radius:0 12px 12px 0}
+.warn{margin-top:12px;padding:12px 14px;border-left:4px solid var(--gold);background:#fff8eb;color:#6c5429;font-size:13px;border-radius:0 12px 12px 0}
+.lock{margin-top:12px;padding:12px 14px;border-left:4px solid var(--navy);background:#eef3fa;color:#2a4a7a;font-size:13px;border-radius:0 12px 12px 0}
+.badge{display:inline-block;padding:5px 11px;border-radius:999px;font-size:11px;font-weight:900}
+.badge.ok{background:#edf5e9;color:var(--ok)}.badge.fail{background:#fdecea;color:var(--bad)}
+.hero-banners{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0 4px}
+.rev{font-size:12px;font-weight:800;color:var(--navy);letter-spacing:.04em}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.fact{border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff}
+.fact small{display:block;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#92702e}
+.fact strong{color:var(--navy);font-size:15px}
+.sheet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sheet{border:1px solid var(--line);background:#fff;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.sheet .no{font-size:11px;font-weight:900;letter-spacing:.08em;color:#956d29}
+.sheet a{color:var(--navy);font-weight:800;text-decoration:none}
+.sheet a:hover{text-decoration:underline}
+.sheet p{margin:0;font-size:12px}
+.sheet .svg{font-size:11px;font-weight:800}
+.check{font-size:12px;padding:7px 0;border-bottom:1px solid #ece7e0}
+.check .ok{color:var(--ok);font-weight:900}.check .fail{color:var(--bad);font-weight:900}
+details{margin-top:8px}
+details summary{cursor:pointer;font-weight:800;color:var(--navy);font-size:13px}
+@media(max-width:980px){.facts,.sheet-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.facts,.sheet-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand"><small>Pondy Flats · Lot 2</small><strong>Deliverable v1.0</strong></div>
+<nav class="nav">
+<a href="index.html">Hub</a>
+<a href="r51e.html">Demo</a>
+<a class="primary" href="r51e-deliverable.html">v1.0</a>
+<a href="r51e-site-plan.html">Site</a>
+<a href="r51e-plan-closure.html">Plans</a>
+<a href="r51e-penn-elev.html">Elevs</a>
+<a href="r51e-sections.html">Sections</a>
+<a href="https://github.com/aerovista-us/PondyFlats" target="_blank" rel="noopener">GitHub</a>
+</nav>
+</div></header>
+<main class="wrap">
+<section class="panel">
+<div style="font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#956d29">Package front door · not a permit set</div>
+<h1>R5.1e — Design Complete</h1>
+<p class="lede">The first complete Pondy Flats duplex. Geometry is frozen. This page is the v1.0 front door: facts, sheet index, revision identity, and the consistency gate.</p>
+<div class="hero-banners">
+  <span class="badge ok" id="statusBadge">DESIGN COMPLETE</span>
+  <span class="rev" id="revLine">R5.1e-v1.0 · 2026-08-22 · geometry IMMUTABLE</span>
+</div>
+<div class="ok" id="verdict"></div>
+<div class="warn" id="pending"></div>
+<div class="lock">Honest program: <strong>R5 — two enclosed garage spaces plus two covered spaces, independently accessible.</strong> Pennsylvania is SOUTH / FRONT at the right of every plan. Compass points left. Canonical copy: <a href="https://github.com/aerovista-us/PondyFlats">GitHub aerovista-us/PondyFlats</a> (no separate running host). Older landings stay in-repo; see <a href="docs/lot2-status-conflicts.md">conflict catalog</a>.</div>
+<div class="facts">
+  <div class="fact"><small>Conditioned SF</small><strong>1,556 / 1,806</strong></div>
+  <div class="fact"><small>Plates</small><strong>A 56×22.5 · B 42×28</strong></div>
+  <div class="fact"><small>Ridges</small><strong>27.0′ / 26.5′</strong></div>
+  <div class="fact"><small>Demising</small><strong>x=70 blank</strong></div>
+  <div class="fact"><small>Parking</small><strong>FULL PASS · frozen</strong></div>
+  <div class="fact"><small>Covered stalls</small><strong>Open · 8 posts</strong></div>
+  <div class="fact"><small>Access</small><strong>Pennsylvania only</strong></div>
+  <div class="fact"><small>Revision</small><strong id="revId">R5.1e-v1.0</strong></div>
+</div>
+</section>
+
+<section class="panel">
+<h2>Sheet index</h2>
+<p>Open a drawing page, or download the frozen SVG. Presentation may be edited; buildings, openings, ridges, parking, posts, paths, setbacks, and stairs may not.</p>
+<div class="sheet-grid" id="sheets"></div>
+</section>
+
+<section class="panel">
+<h2>Consistency gate</h2>
+<p>Machine comparison of site, plans, four elevations, sections, and frozen massing. PASS is Design Complete. It is not zoning, fire, structural, or survey approval.</p>
+<div id="checks"></div>
+<details>
+<summary>Layer verdicts</summary>
+<div id="layers"></div>
+</details>
+</section>
+</main>
+<script src="js/lot2-sot.js"></script>
+<script src="js/lot2-geometry.js"></script>
+<script src="js/lot2-access.js"></script>
+<script src="js/lot2-access-skeleton.js"></script>
+<script src="js/lot2-parking-reset.js"></script>
+<script src="js/lot2-r5-freeze.js"></script>
+<script src="js/lot2-r51e-lock.js"></script>
+<script src="js/lot2-r51e-plans.js"></script>
+<script src="js/lot2-r51e-massing-truth.js"></script>
+<script src="js/lot2-r51e-sheet.js"></script>
+<script src="js/lot2-r51e-architectural-massing.js"></script>
+<script src="js/lot2-r51e-plan-closure.js"></script>
+<script src="js/lot2-r51e-axon-lock.js"></script>
+<script src="js/lot2-r51e-site-plan.js"></script>
+<script src="js/lot2-r51e-penn-elev.js"></script>
+<script src="js/lot2-r51e-elevations.js"></script>
+<script src="js/lot2-r51e-sections.js"></script>
+<script src="js/lot2-r51e-consistency.js"></script>
+<script>
+const REV = Lot2R51eSheet.REV;
+const gate = Lot2R51eConsistency.analyze();
+const ok = gate.verdict === 'PASS';
+document.getElementById('statusBadge').className = 'badge ' + (ok ? 'ok' : 'fail');
+document.getElementById('statusBadge').textContent = gate.designComplete ? 'DESIGN COMPLETE' : gate.verdict;
+document.getElementById('revLine').textContent = `${REV.id} · ${REV.date} · geometry ${REV.geometry}`;
+document.getElementById('revId').textContent = REV.id;
+document.getElementById('verdict').innerHTML = `<strong>${gate.next}</strong>`;
+document.getElementById('pending').innerHTML = `<strong>Professional validation pending:</strong> ${gate.pending.join(' · ')}`;
+document.getElementById('checks').innerHTML = Object.entries(gate.checks).map(([k,v]) =>
+  `<div class="check"><span class="${v.ok?'ok':'fail'}">${v.ok?'PASS':'FAIL'}</span> · <strong>${k}</strong> — ${v.detail}</div>`
+).join('');
+document.getElementById('layers').innerHTML = Object.entries(gate.layers || {}).map(([k,v]) =>
+  `<div class="check"><span class="${v?'ok':'fail'}">${v?'PASS':'FAIL'}</span> · ${k}</div>`
+).join('');
+document.getElementById('sheets').innerHTML = Lot2R51eSheet.SHEETS.map((s) => {
+  const svg = s.svg ? `<a class="svg" href="${s.svg}">SVG</a>` : '<span class="svg">this page</span>';
+  return `<article class="sheet">
+    <div class="no">${s.no}</div>
+    <h3><a href="${s.href}">${s.title}</a></h3>
+    <p>${svg}</p>
+  </article>`;
+}).join('');
+</script>
+</body>
+</html>

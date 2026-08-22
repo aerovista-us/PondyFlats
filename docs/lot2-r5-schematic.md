@@ -8,6 +8,8 @@
 **Artifact:** [`../r5-schematic.html`](../r5-schematic.html) · engine [`../js/lot2-r5-schematic.js`](../js/lot2-r5-schematic.js)  
 **Parking freeze:** [`../js/lot2-r5-freeze.js`](../js/lot2-r5-freeze.js) · FULL PASS [`lot2-r5-full-pass.md`](lot2-r5-full-pass.md)
 
+> **FLAG (2026-08-22 — not deleted):** This cottage schematic (demising ~x=76–80 · A ~920) is **not** the live duplex. Live: R5.1e 1,556 / 1,806 · x=70 · DESIGN COMPLETE. Original CONDITIONAL / WAIT / LOCKED claims kept for path review. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).
+
 ## Frozen (do not move without freeze-break)
 
 - North-of-spine vehicle path / outbound soft arc  

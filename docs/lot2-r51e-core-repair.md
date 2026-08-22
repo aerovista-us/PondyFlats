@@ -4,8 +4,10 @@
 **Parking:** **FULL PASS / frozen** (unchanged)  
 **Massing truth:** **PASS** (no Unit A ground undercroft after repair)  
 **Exact plans:** **PASS** (see live gate on [`../r51e-plans.html`](../r51e-plans.html))  
-**Architectural massing:** **UNLOCKED** on frozen R5.1e extrusion  
-**Visualization:** **LOCKED**
+**Architectural massing:** **PASS / FROZEN** · [`../r51e-architectural-massing.html`](../r51e-architectural-massing.html)  
+**Photoreal:** **UNLOCKED** on frozen architecture
+
+> **FLAG (2026-08-22 — not deleted):** Photoreal UNLOCKED / ±120 / “Next: photoreal” kept. Live package: DESIGN COMPLETE · representation-only · SF lock 1,556 / 1,806. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).
 
 ## Problem
 
@@ -56,10 +58,11 @@ Pre-repair nominal target was ~1,761 A; **~205 SF** delta is the south-band serv
 - [`../js/lot2-r51e-plans.js`](../js/lot2-r51e-plans.js) — `unitAGroundCoreRepair()` · `hitsSweep()` · `sweepClear` check  
 - [`../js/lot2-r51e-lock.js`](../js/lot2-r51e-lock.js) — post-repair target A **1,556 ±120**  
 - [`../js/lot2-r51e-massing-truth.js`](../js/lot2-r51e-massing-truth.js) — undercroft list empty for Unit A ground core
+- [`lot2-r51e-architectural-massing.md`](lot2-r51e-architectural-massing.md) — roofs frozen on this repair
 
 ## Next
 
 1. Exact plans **PASS** ✓  
 2. Massing truth **PASS** ✓  
-3. **Architectural massing** (same camera · frozen footprints)  
-4. Photoreal after architectural massing freeze
+3. Architectural massing **PASS** ✓  
+4. Photoreal from frozen architecture

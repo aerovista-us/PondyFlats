@@ -4,8 +4,10 @@
 **Duplex base:** R5.1e APPROVED  
 **Parking:** FULL PASS / frozen  
 **Exact plans:** PASS · A **1,556** / B **1,806** SF (post core repair)  
-**Architectural massing:** **UNLOCKED**  
-**Photoreal / materials:** still locked  
+**Architectural massing:** **PASS / FROZEN** · [`../r51e-architectural-massing.html`](../r51e-architectural-massing.html)  
+**Photoreal / materials:** **UNLOCKED** on frozen architecture  
+
+> **FLAG (2026-08-22 — not deleted):** “Photoreal UNLOCKED” below vs v1.0 **representation-only** (a photoreal that moves a volume fails visualization). Original line kept. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).  
 
 **Demo:** [`../r51e.html`](../r51e.html)  
 **Massing page:** [`../r51e-massing-truth.html`](../r51e-massing-truth.html)  
@@ -53,10 +55,11 @@ Toggles: plan projection · parking/path underlay · swept-path underlay.
 
 All geometric checks PASS (plan align · covered open · 8 posts · x=70 demising · sweep-clear opaque volumes · over-covered upper · heights).
 
-**Freeze this extrusion** before architectural massing. Zoning, fire engineering, and structural design remain pending.
+**Freeze this extrusion** — done. Architectural massing is frozen on it. Zoning, fire engineering, and structural design remain pending.
 
 ## Related
 
 - [`lot2-r51e-plans.md`](lot2-r51e-plans.md)  
+- [`lot2-r51e-architectural-massing.md`](lot2-r51e-architectural-massing.md)  
 - [`lot2-r5-full-pass.md`](lot2-r5-full-pass.md)  
 - [`lot2-j1b-massing-truth.md`](lot2-j1b-massing-truth.md) — prior chain (closed)  

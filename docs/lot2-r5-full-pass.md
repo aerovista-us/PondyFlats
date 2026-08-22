@@ -5,6 +5,8 @@
 **Architecture:** parking frozen · schematic at [`../r5-schematic.html`](../r5-schematic.html) (**CONDITIONAL** — see [`lot2-r5-schematic.md`](lot2-r5-schematic.md))  
 **Artifact:** [`../r64-daily.html`](../r64-daily.html) · [`../parking-reset.html`](../parking-reset.html) · [`../r5-schematic.html`](../r5-schematic.html)
 
+> **FLAG (2026-08-22 — not deleted):** Parking FULL PASS / DAILY PASS still true. Architecture CONDITIONAL / massing-held lines below are parking-era. Live architecture: DESIGN COMPLETE. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).
+
 ## Failure → repair (recorded)
 
 South hammerhead from spine y=28 is **illegal** for the axle-correct FS-SUV: heading due south places the body ~16.5′ ahead of the rear axle (AXLE_TO_BODY + L/2), so axle at y=28 → front ~y=44.5 beyond survey ~43′.

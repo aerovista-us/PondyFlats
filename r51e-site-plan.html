@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pondy Flats · R5.1e Site Plan</title>
+<meta name="description" content="R5.1e site plan — frozen footprints, Pennsylvania access, drive, stalls, setbacks, yards. No landscaping.">
+<style>
+:root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--ok:#416145;--bad:#9a3b2e;--shadow:0 18px 54px #0f1a2b1a}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:ui-sans-serif,system-ui,sans-serif}
+.top{background:#0d1b33f4;color:#fff}.topin{max-width:1480px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand small{display:block;color:#efb34d;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.nav a{color:#fff;text-decoration:none;border:1px solid #ffffff28;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;margin-left:6px}
+.nav a.primary{background:#efb34d;color:#0d1b33;border-color:#efb34d}
+.wrap{max-width:1480px;margin:auto;padding:22px 18px 80px}
+.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow);padding:24px;margin-top:18px}
+h1{font:500 clamp(28px,4vw,48px)/1 Georgia,serif;color:var(--navy);margin:0 0 8px}h2{color:var(--navy);margin:0 0 10px}
+.lede,p,li{color:var(--muted);line-height:1.55;font-size:14px}
+.ok{margin-top:12px;padding:12px 14px;border-left:4px solid var(--ok);background:#edf5e9;color:#2d4a32;font-size:13px;border-radius:0 12px 12px 0}
+.callout{margin-top:12px;padding:12px 14px;border-left:4px solid var(--gold);background:#fff8eb;color:#6c5429;font-size:13px;border-radius:0 12px 12px 0}
+.lock{margin-top:12px;padding:12px 14px;border-left:4px solid var(--navy);background:#eef3fa;color:#2a4a7a;font-size:13px;border-radius:0 12px 12px 0}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:900}
+.badge.ok{background:#edf5e9;color:var(--ok)}.badge.fail{background:#fdecea;color:var(--bad)}
+.plan{border:1px solid var(--line);border-radius:16px;background:#fbfaf7;padding:8px;overflow:auto}
+.plan svg{width:100%;height:auto;display:block}
+.check{font-size:12px;padding:7px 0;border-bottom:1px solid #ece7e0}
+.check .ok{color:var(--ok);font-weight:900}.check .fail{color:var(--bad);font-weight:900}
+.grid2{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.metric{border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff;margin-bottom:8px}
+.metric small{display:block;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#92702e}
+.metric strong{color:var(--navy);font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-top:10px;background:#fff}
+th,td{padding:7px 9px;border-bottom:1px solid #ece7e0;text-align:left}
+th{background:#f6f3ee;color:var(--navy)}
+@media(max-width:980px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand"><small>Pondy Flats · Lot 2</small><strong>R5.1e Site Plan</strong></div>
+<nav class="nav">
+<a href="index.html">Hub</a>
+<a href="r51e.html">Demo</a>
+<a href="r51e-plan-closure.html">Plan closure</a>
+<a class="primary" href="r51e-site-plan.html">Site plan</a>
+<a href="r51e-axon-lock.html">Axon lock</a>
+<a href="docs/lot2-r51e-site-plan.md">Docs</a>
+</nav>
+</div></header>
+<main class="wrap">
+<section class="panel">
+<div style="font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#956d29">Design Deliverable v1.0 · geometry only</div>
+<h1>Site plan</h1>
+<p class="lede">Frozen R5.1e footprints on the locked survey. Pennsylvania is the only access side. Drive, stalls, setbacks, primary walks, and usable yards are annotated from freeze numbers — not redesigned. No landscaping, materials, or photoreal.</p>
+<div id="banner"></div>
+<div class="ok" id="verdict"></div>
+<div class="callout">If this PASSes, freeze the SVG and move to elevations (Pennsylvania first). A prettier site that moves a stall or invents a second curb fails this drawing, not architecture.</div>
+</section>
+<section class="panel">
+<h2>Site-plan gate</h2>
+<div class="grid2">
+<div id="checks"></div>
+<div>
+<div class="metric"><small>Penn → plate A</small><strong id="dPenn">—</strong></div>
+<div class="metric"><small>Rear → plate B</small><strong id="dRear">—</strong></div>
+<div class="metric"><small>Garage A apron</small><strong id="dApron">—</strong></div>
+<div class="metric"><small>Yard total (sampled)</small><strong id="yards">—</strong></div>
+<div class="lock" id="freeze"></div>
+</div>
+</div>
+</section>
+<section class="panel">
+<h2>Site plan</h2>
+<div class="plan" id="drawing"></div>
+</section>
+<section class="panel">
+<h2>Critical dimensions</h2>
+<table>
+<thead><tr><th>Item</th><th>Value</th></tr></thead>
+<tbody id="dims"></tbody>
+</table>
+</section>
+<section class="panel">
+<h2>Yard / coverage schedule</h2>
+<p class="lede">Sampled on a 2′ grid from the survey polygon. Buildings = plates minus open undercroft. Paved = freeze drive, Access A, Garage A apron, stall slabs, and sweep-clear undercroft.</p>
+<table>
+<thead><tr><th>Region</th><th>SF</th></tr></thead>
+<tbody id="areas"></tbody>
+</table>
+</section>
+</main>
+<script src="js/lot2-sot.js"></script>
+<script src="js/lot2-geometry.js"></script>
+<script src="js/lot2-access.js"></script>
+<script src="js/lot2-access-skeleton.js"></script>
+<script src="js/lot2-parking-reset.js"></script>
+<script src="js/lot2-r5-freeze.js"></script>
+<script src="js/lot2-r51e-lock.js"></script>
+<script src="js/lot2-r51e-plans.js"></script>
+<script src="js/lot2-r51e-massing-truth.js"></script>
+<script src="js/lot2-r51e-sheet.js"></script>
+<script src="js/lot2-r51e-architectural-massing.js"></script>
+<script src="js/lot2-r51e-plan-closure.js"></script>
+<script src="js/lot2-r51e-site-plan.js"></script>
+<script>
+const gate = Lot2R51eSitePlan.analyze();
+const badge = gate.verdict === 'PASS' ? 'ok' : 'fail';
+document.getElementById('banner').innerHTML = `<span class="badge ${badge}">${gate.verdict}</span>
+  <strong style="margin-left:8px">Site plan · Design Deliverable v1.0</strong>`;
+document.getElementById('verdict').innerHTML = `<strong>${gate.verdict}.</strong> ${gate.next}`;
+document.getElementById('checks').innerHTML = Object.entries(gate.checks).map(([k,v]) =>
+  `<div class="check"><span class="${v.ok?'ok':'fail'}">${v.ok?'PASS':'FAIL'}</span> · <strong>${k}</strong> — ${v.detail}</div>`
+).join('');
+document.getElementById('freeze').innerHTML = gate.freezeNote || 'Not frozen.';
+document.getElementById('dPenn').textContent = `${gate.dims.pennToPlateA}′`;
+document.getElementById('dRear').textContent = `${gate.dims.rearToPlateB}′`;
+document.getElementById('dApron').textContent = `${gate.dims.apronA}′`;
+document.getElementById('yards').textContent = `${gate.areas.yards.total.toLocaleString()} SF`;
+document.getElementById('drawing').innerHTML = Lot2R51eSitePlan.render(gate);
+document.getElementById('dims').innerHTML = Object.entries(gate.dims).map(([k,v]) =>
+  `<tr><td>${k}</td><td>${v}</td></tr>`
+).join('');
+const a = gate.areas;
+document.getElementById('areas').innerHTML = [
+  ['Rear yard', a.yards.rear],
+  ['North setback strip', a.yards.north],
+  ['Penn / front remainder', a.yards.penn],
+  ['South yard', a.yards.south],
+  ['Yard total', a.yards.total],
+  ['Building (plates − undercroft)', a.buildingSf],
+  ['Paved / circulation', a.pavedSf],
+  ['Survey', a.surveySf],
+].map((r) => `<tr><td>${r[0]}</td><td>${r[1].toLocaleString()}</td></tr>`).join('');
+</script>
+</body>
+</html>

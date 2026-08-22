@@ -1,6 +1,6 @@
 # Docs index — Pondy Flats Lot 2
 
-**Hub:** [`../index.html`](../index.html) · **Guide:** [`../guide.html`](../guide.html) · **Repo:** [aerovista-us/PondyFlats](https://github.com/aerovista-us/PondyFlats)
+**Hub:** [`../index.html`](../index.html) · **v1.0:** [`../r51e-deliverable.html`](../r51e-deliverable.html) · **Repo:** [aerovista-us/PondyFlats](https://github.com/aerovista-us/PondyFlats) · **Conflicts (flagged, not deleted):** [`lot2-status-conflicts.md`](lot2-status-conflicts.md)
 
 **File roles:** [`lot2-file-map.md`](lot2-file-map.md) — **TRUTH · CURRENT · EXPERIMENT · DERIVATIVE · ARCHIVE · TEMP**
 
@@ -8,20 +8,36 @@
 
 | Item | Status |
 | ---- | ------ |
-| **R5.1e duplex** | **Show today** — parking FULL PASS + 1,556 / 1,806 SF · core repair PASS · [`../r51e.html`](../r51e.html) |
+| **R5.1e duplex** | **DESIGN COMPLETE / Deliverable v1.0** · [`../r51e-deliverable.html`](../r51e-deliverable.html) |
+| **Professional validation** | **Pending** — zoning · fire · structural · civil/survey |
 | **Exact plans** | **PASS** · [`lot2-r51e-core-repair.md`](lot2-r51e-core-repair.md) |
 | **Massing truth** | **PASS / frozen** · [`../r51e-massing-truth.html`](../r51e-massing-truth.html) |
-| **Architectural massing** | Next |
-| **Photoreal** | Locked |
+| **Architectural massing** | **PASS / frozen** · [`../r51e-architectural-massing.html`](../r51e-architectural-massing.html) |
+| **Floor-plan closure** | **PASS** · [`../r51e-plan-closure.html`](../r51e-plan-closure.html) |
+| **Site plan** | **PASS / FROZEN** · [`../r51e-site-plan.html`](../r51e-site-plan.html) |
+| **Penn elevation** | **PASS / FROZEN** · [`../r51e-penn-elev.html`](../r51e-penn-elev.html) |
+| **Axon lock** | **PASS** · representation-only · [`../r51e-axon-lock.html`](../r51e-axon-lock.html) |
 | **R5 parking** | **FULL PASS / frozen** |
 | **R6.4A / R6.4B** | Dormant |
 
-Live: [`../r51e.html`](../r51e.html) · [`lot2-r51e-massing-truth.md`](lot2-r51e-massing-truth.md) · [`lot2-r51e-plans.md`](lot2-r51e-plans.md)
+Live: [`../r51e.html`](../r51e.html) · [`lot2-r51e-architectural-massing.md`](lot2-r51e-architectural-massing.md) · [`lot2-r51e-massing-truth.md`](lot2-r51e-massing-truth.md) · [`lot2-r51e-plans.md`](lot2-r51e-plans.md)
 
 ## Active docs
 
 | Doc | Topic |
 | --- | ----- |
+| [lot2-status-conflicts.md](lot2-status-conflicts.md) | **FLAGGED** contradictions kept for path review |
+| [lot2-r51e-deliverable-v1.md](lot2-r51e-deliverable-v1.md) | **Deliverable v1.0** · DESIGN COMPLETE |
+| [lot2-r51e-v1-baseline.md](lot2-r51e-v1-baseline.md) | Immutable baseline identity **R5.1e-v1.0** |
+| [lot2-r51e-sheet-legibility.md](lot2-r51e-sheet-legibility.md) | Presentation pass · geometry untouched |
+| [lot2-r51e-validation-readiness.md](lot2-r51e-validation-readiness.md) | Next phase · zoning / fire / structural / survey |
+| [lot2-r51e-site-plan.md](lot2-r51e-site-plan.md) | Site plan · PASS / frozen |
+| [lot2-r51e-penn-elev.md](lot2-r51e-penn-elev.md) | Pennsylvania elevation |
+| [lot2-r51e-elevations.md](lot2-r51e-elevations.md) | Rear + north + south elevations |
+| [lot2-r51e-sections.md](lot2-r51e-sections.md) | Sections A-A / B-B |
+| [lot2-r51e-plan-closure.md](lot2-r51e-plan-closure.md) | Floor-plan closure PASS |
+| [lot2-r51e-axon-lock.md](lot2-r51e-axon-lock.md) | Same-camera axon lock · representation-only |
+| [lot2-r51e-architectural-massing.md](lot2-r51e-architectural-massing.md) | **R5.1e architectural massing** · roofs · freeze |
 | [lot2-r51e-core-repair.md](lot2-r51e-core-repair.md) | **R5.1e Unit A core repair** · sweep-clear · exact plans PASS |
 | [lot2-r51e-massing-truth.md](lot2-r51e-massing-truth.md) | **R5.1e massing truth** · extrusion freeze |
 | [lot2-r51e-plans.md](lot2-r51e-plans.md) | R5.1e exact plans · approved duplex base |
@@ -58,6 +74,8 @@ Live: [`../r51e.html`](../r51e.html) · [`lot2-r51e-massing-truth.md`](lot2-r51e
 
 Remote: `https://github.com/aerovista-us/PondyFlats` (`origin/main`).
 
+> **FLAG (2026-08-22 — not deleted):** Items 3 and the “Browser start … R6.1” line below are the **parking-era** merge rule. Live authority is hub [`../index.html`](../index.html) + [`lot2-r51e-v1-baseline.md`](lot2-r51e-v1-baseline.md) + [`../r51e-deliverable.html`](../r51e-deliverable.html). Do not treat “keep CONDITIONAL” as current architecture status. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).
+
 When the tree is dirty or remote has moved:
 
 1. **Fetch first** — `git fetch origin` before commit or push.
@@ -65,5 +83,7 @@ When the tree is dirty or remote has moved:
 3. **Authoritative for “where we are”** — hub [`../index.html`](../index.html) + [`lot2-parking-reset.md`](lot2-parking-reset.md). On conflict, keep CONDITIONAL (not premature PASS) and R6.1 bay-depth hardening.
 4. **Do not discard** untracked reset artifacts: `parking-reset.html`, `js/lot2-parking-reset.js`, `docs/lot2-parking-reset.md`, `docs/lot2-def-closure.md`, `docs/lot2-file-map.md`.
 5. **Closed trails** (J1, A–F) stay in-repo as evidence; do not “clean up” by deleting them in a merge. See [`lot2-file-map.md`](lot2-file-map.md).
+6. **Authoritative for “where we are” (2026-08-22):** hub + Deliverable v1.0. Parking-reset remains **parking-gate** authority only.
 
-Browser start: [`../index.html`](../index.html) → Parking Reset → R6.1.
+Browser start (historical, kept): [`../index.html`](../index.html) → Parking Reset → R6.1.  
+Browser start (live 2026-08-22): [`../index.html`](../index.html) → [`../r51e-deliverable.html`](../r51e-deliverable.html).

@@ -6,6 +6,8 @@
 **Dedicated engine:** [`../js/lot2-r5-cottage-schematic.js`](../js/lot2-r5-cottage-schematic.js)  
 **Dedicated freeze snapshot:** [`../js/lot2-r5-cottage-freeze.js`](../js/lot2-r5-cottage-freeze.js)
 
+> **FLAG (2026-08-22 — not deleted):** Preserved alternate remains in-repo. Live product is R5.1e DESIGN COMPLETE, not the 920 / 1,882 cottage. Original PRESERVED ALTERNATE status kept. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).
+
 ## Why this copy exists
 
 R5 achieved a FULL PASS for parking, but its first schematic produced an asymmetric living program:

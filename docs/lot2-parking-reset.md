@@ -4,6 +4,8 @@
 **FULL PASS write-up:** [`lot2-r5-full-pass.md`](lot2-r5-full-pass.md)  
 **Hub:** [`../index.html`](../index.html)
 
+> **FLAG (2026-08-22 — not deleted):** This file remains the **parking-gate** write-up. Architecture is no longer schematic CONDITIONAL — live is **R5.1e DESIGN COMPLETE / Deliverable v1.0**. Original Architecture row kept. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).
+
 ## Locked hierarchy
 
 | Role | Option | Status |

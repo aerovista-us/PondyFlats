@@ -1,4 +1,6 @@
-# Lot 2 ? Geometry Validation (Pass 1.5 / 1.5A)
+# Lot 2 — Geometry Validation (Pass 1.5 / 1.5A)
+
+> **FLAG (2026-08-22 — not deleted):** Pass 1.5 funnel and “Architecture OFF until FULL PASS” / “next is Parking Reset · R6.1” remain historical. Live: R5 FULL PASS + R5.1e DESIGN COMPLETE. Encoding `?` for dashes in this file is also kept. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).
 
 ## Funnel
 

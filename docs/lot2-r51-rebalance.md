@@ -5,6 +5,8 @@
 **Ownership:** **YES — R5.1e approved as duplex base** (2026-08-21)  
 **Next:** exact plans [`../r51e-plans.html`](../r51e-plans.html) · [`lot2-r51e-plans.md`](lot2-r51e-plans.md)  
 
+> **FLAG (2026-08-22 — not deleted):** Approved package SF targets **~1,761 / ~1,806** below predate Unit A core repair. Live lock is **1,556 / 1,806**. Original table kept. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).  
+
 ## Approved package (R5.1e)
 
 | Item | Lock |

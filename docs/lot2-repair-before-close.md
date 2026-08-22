@@ -4,6 +4,8 @@
 
 **Artifacts:** [`../r64-daily.html`](../r64-daily.html) · [`../js/lot2-daily-use.js`](../js/lot2-daily-use.js) · [`../parking-reset.html`](../parking-reset.html)
 
+> **FLAG (2026-08-22 — not deleted):** Hierarchy table still says R5 **DAILY CONDITIONAL** and Architecture **OFF**. Later R5 achieved FULL PASS and R5.1e is DESIGN COMPLETE. Original table kept. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).
+
 ## Locked hierarchy
 
 | Role | Option | Status |

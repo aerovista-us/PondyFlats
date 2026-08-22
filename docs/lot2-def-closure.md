@@ -4,6 +4,8 @@
 **Date:** 2026-08-21 (lock corrections)  
 **Rule:** No architectural renders. Parking / circulation only.
 
+> **FLAG (2026-08-22 — not deleted):** “No architecture should begin” was true at D/E/F close. Architecture later began on R5 FULL PASS and is now DESIGN COMPLETE. Original locked conclusion kept. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).
+
 ## Safe conclusion (locked)
 
 - **D / E / F all fail the full gate** (Original Program Gate below).
