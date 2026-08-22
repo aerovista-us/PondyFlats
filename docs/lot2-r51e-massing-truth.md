@@ -3,8 +3,8 @@
 **Status:** **PASS** (geometric extrusion gate)  
 **Duplex base:** R5.1e APPROVED  
 **Parking:** FULL PASS / frozen  
-**Exact plans:** PASS · A **1,556** / B **1,806** SF (post core repair)  
-**Architectural massing:** **UNLOCKED**  
+**Exact plans:** **CONDITIONAL** · A **1,556** / B **1,806** SF — living gate not yet closed  
+**Architectural massing:** **WAIT**  
 **Photoreal / materials:** still locked  
 
 **Demo:** [`../r51e.html`](../r51e.html)  
@@ -15,7 +15,7 @@
 
 > **R5 — two enclosed garage spaces plus two covered spaces, independently accessible.**
 
-First option that clears both: vehicle FULL PASS **and** two comparable homes.
+Parking and geometric extrusion pass. The current living program does **not** yet clear the restored comparable-home gate.
 
 ## Declared heights
 
@@ -53,7 +53,7 @@ Toggles: plan projection · parking/path underlay · swept-path underlay.
 
 All geometric checks PASS (plan align · covered open · 8 posts · x=70 demising · sweep-clear opaque volumes · over-covered upper · heights).
 
-**Freeze this extrusion** before architectural massing. Zoning, fire engineering, and structural design remain pending.
+Keep this extrusion as the x=70 geometric reference. Test x=69 / x=68 program repair before architectural massing. Zoning, fire engineering, and structural design remain pending.
 
 ## Related
 
