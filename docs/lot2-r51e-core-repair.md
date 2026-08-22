@@ -3,8 +3,8 @@
 **Phase:** deterministic **R5.1e Core Repair** — complete  
 **Parking:** **FULL PASS / frozen** (unchanged)  
 **Massing truth:** **PASS** (no Unit A ground undercroft after repair)  
-**Exact plans:** **PASS** (see live gate on [`../r51e-plans.html`](../r51e-plans.html))  
-**Architectural massing:** **UNLOCKED** on frozen R5.1e extrusion  
+**Exact plans:** **CONDITIONAL** — core sweep repair passes; original living-program gate fails  
+**Architectural massing:** **WAIT** pending program rebalance  
 **Visualization:** **LOCKED**
 
 ## Problem
@@ -40,7 +40,7 @@ Unit A ground core (stair, powder, mech, south storage/util) sat inside the **FS
 
 | Unit | SF | Band / target |
 | ---- | -- | ------------- |
-| A | **1,556** | Core-repair target **1,556 ±120** · owner band floor **1,550** (south sweep exclusion) |
+| A | **1,556** | **FAIL** — original minimum is 1,600 SF |
 | B | **1,806** | unchanged |
 
 Pre-repair nominal target was ~1,761 A; **~205 SF** delta is the south-band service area excluded from conditioned count (open undercroft at grade) plus north-core repack.
@@ -54,12 +54,13 @@ Pre-repair nominal target was ~1,761 A; **~205 SF** delta is the south-band serv
 ## Engines
 
 - [`../js/lot2-r51e-plans.js`](../js/lot2-r51e-plans.js) — `unitAGroundCoreRepair()` · `hitsSweep()` · `sweepClear` check  
-- [`../js/lot2-r51e-lock.js`](../js/lot2-r51e-lock.js) — post-repair target A **1,556 ±120**  
+- [`../js/lot2-r51e-lock.js`](../js/lot2-r51e-lock.js) — restored gate: **1,600–1,900 SF each · ≤120 SF difference**  
 - [`../js/lot2-r51e-massing-truth.js`](../js/lot2-r51e-massing-truth.js) — undercroft list empty for Unit A ground core
 
 ## Next
 
-1. Exact plans **PASS** ✓  
-2. Massing truth **PASS** ✓  
-3. **Architectural massing** (same camera · frozen footprints)  
-4. Photoreal after architectural massing freeze
+1. Core sweep repair **PASS** ✓  
+2. Massing geometry **PASS** ✓  
+3. Test demising **x=69 / x=68** under the restored program gate  
+4. Exact plans PASS → architectural massing  
+5. Photoreal after architectural massing freeze
