@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pondy Flats · Daily-Use · Repair Branch</title>
+<meta name="description" content="Daily-use / repair branch — R5 FULL PASS lead · R6.4A/B dormant · schematic CONDITIONAL.">
+<style>
+:root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--ok:#416145;--warn:#7b5721;--bad:#9a3b2e;--shadow:0 18px 54px #0f1a2b1a}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+.top{background:#0d1b33f4;color:#fff}.topin{max-width:1100px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand small{display:block;color:#efb34d;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.nav a{color:#fff;text-decoration:none;border:1px solid #ffffff28;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;margin-left:6px}
+.wrap{max-width:1100px;margin:auto;padding:22px 18px 80px}
+.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow);padding:24px;margin-top:18px}
+h1{font:500 clamp(28px,4vw,44px)/1 Georgia,serif;color:var(--navy);margin:0 0 8px}h2{color:var(--navy);margin:0 0 10px}
+.lede,p,li{color:var(--muted);line-height:1.55;font-size:14px}
+.callout{margin-top:12px;padding:14px;border-left:4px solid var(--gold);background:#fff8eb;color:#6c5429;font-size:13px}
+.callout.ok{border-left-color:var(--ok);background:#edf5e9;color:#2d4a32}
+.callout.bad{border-left-color:var(--bad);background:#fdecea;color:#6b3a32}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-top:10px;background:#fff}
+th,td{padding:8px 10px;border-bottom:1px solid #ece7e0;text-align:left;vertical-align:top}
+th{background:#f6f3ee;color:var(--navy)}
+.ok{color:var(--ok);font-weight:800}.fail{color:var(--bad);font-weight:800}
+.block{margin-top:18px;padding-top:12px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand"><small>Pondy Flats · Lot 2</small><strong>Daily-Use · Repair Branch</strong></div>
+<nav class="nav">
+<a href="index.html">Hub</a>
+<a href="r5-schematic.html">R5 schematic</a>
+<a href="parking-reset.html">Matrix</a>
+<a href="docs/lot2-repair-before-close.md">Docs</a>
+</nav>
+</div></header>
+<main class="wrap">
+<section class="panel">
+<h1>Daily-use · repair-before-close</h1>
+<p class="lede"><strong>R5</strong> is the FULL PASS public lead (parking frozen). <strong>R6.4A/B</strong> stays dormant unless four enclosed is restored. Schematic: <a href="r5-schematic.html">r5-schematic.html</a>.</p>
+<div class="callout" id="hier"></div>
+</section>
+<div id="blocks"></div>
+</main>
+<script src="js/lot2-sot.js"></script>
+<script src="js/lot2-geometry.js"></script>
+<script src="js/lot2-access.js"></script>
+<script src="js/lot2-access-skeleton.js"></script>
+<script src="js/lot2-parking-reset.js"></script>
+<script src="js/lot2-daily-use.js"></script>
+<script>
+const ids=['reset_r5','reset_r6_4a','reset_r6_4b','reset_r6_4','reset_r6_1'];
+const H=Lot2.PARKING_HIERARCHY||{};
+document.getElementById('hier').innerHTML=`<strong>Hierarchy</strong><br>
+Public reference: ${H.publicReference} · Active practical: <strong>${H.activePractical}</strong> · Repair: ${(H.activeRepair||[]).join(', ')} · Closed: ${(H.closed||[]).join(', ')} · AHJ: ${H.ahjFallback}<br>
+<em>${(Lot2.REPAIR_BEFORE_CLOSE&&Lot2.REPAIR_BEFORE_CLOSE.rule)||''}</em>`;
+const root=document.getElementById('blocks');
+ids.forEach(id=>{
+  const d=Lot2DailyUse.analyze(id);
+  const r=Lot2ParkingReset.analyzeReset(id);
+  const cls=d.verdict.includes('CONDITIONAL')&&!d.verdict.includes('REPAIR')?'ok':d.verdict.includes('POOR')||d.verdict.includes('FAIL')?'bad':'';
+  const sec=document.createElement('section');
+  sec.className='panel block';
+  sec.id=id;
+  sec.innerHTML=`<h2>${d.label||id}</h2>
+    <div class="callout ${cls}"><strong>${d.verdict}</strong> · gate <strong>${r.verdict}</strong><br>${d.recommendation}
+    <br><em>B reverse ~${d.metrics.B.reverseDistanceFt}′ · forwardExit ${!!d.metrics.B.forwardExit} · lift ${d.metrics.lift.verdict}</em></div>
+    <table><thead><tr><th>ID</th><th>Scenario</th><th>OK</th><th>Rev</th><th>Block</th><th>Penn rev</th><th>Notes</th></tr></thead>
+    <tbody>${d.scenarios.map(s=>`<tr>
+      <td>${s.id}</td><td>${s.title}</td>
+      <td class="${s.ok?'ok':'fail'}">${s.ok?'OK':'FAIL'}</td>
+      <td>${s.reverseDistanceFt!=null?s.reverseDistanceFt+'′':'—'}</td>
+      <td class="${s.blocksOther?'fail':'ok'}">${s.blocksOther?'YES':'no'}</td>
+      <td>${s.entersPennsylvaniaReverse?'YES':'no'}</td>
+      <td>${s.detail}</td></tr>`).join('')}</tbody></table>`;
+  root.appendChild(sec);
+});
+</script>
+</body>
+</html>

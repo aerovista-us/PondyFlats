@@ -66,8 +66,42 @@ const Lot2AccessSkeleton = (() => {
   }
 
   function plateMetrics(plate, concept) {
-    const area = +(plate.w * plate.h).toFixed(0);
-    const minWidth = +Math.min(plate.w, plate.h).toFixed(1);
+    /** Sample reserved plate; subtract driveway/apron corridors (notched structural area). */
+    const step = 2;
+    const cells = [];
+    for (let x = plate.x + step * 0.5; x < plate.x + plate.w; x += step) {
+      for (let y = plate.y + step * 0.5; y < plate.y + plate.h; y += step) {
+        if (occupiedByCirculation(concept, x, y, { integratedParking: true })) continue;
+        cells.push([x, y]);
+      }
+    }
+    const area = +(cells.length * step * step).toFixed(0);
+    const fullArea = +(plate.w * plate.h).toFixed(0);
+    const notchSf = Math.max(0, fullArea - area);
+    let minW = Infinity;
+    if (cells.length) {
+      const ys = [...new Set(cells.map((p) => +p[1].toFixed(1)))].sort((a, b) => a - b);
+      ys.forEach((y) => {
+        const row = cells.filter((p) => Math.abs(p[1] - y) < step * 0.6).map((p) => p[0]).sort((a, b) => a - b);
+        if (row.length < 2) {
+          minW = Math.min(minW, step);
+          return;
+        }
+        let run = 1;
+        let maxRun = 1;
+        for (let k = 1; k < row.length; k++) {
+          if (row[k] - row[k - 1] <= step * 1.2) run++;
+          else {
+            maxRun = Math.max(maxRun, run);
+            run = 1;
+          }
+        }
+        maxRun = Math.max(maxRun, run);
+        minW = Math.min(minW, maxRun * step);
+      });
+    } else {
+      minW = 0;
+    }
     const garageSf = (concept.garages || [])
       .filter((g) => g.plate === plate.id || (!g.covered && plate.containsGarage === g.id))
       .reduce((s, g) => s + g.w * g.h, 0);
@@ -77,11 +111,16 @@ const Lot2AccessSkeleton = (() => {
       return cx >= plate.x && cx <= plate.x + plate.w && cy >= plate.y && cy <= plate.y + plate.h;
     });
     const gSf = inPlateGarages.reduce((s, g) => s + g.w * g.h, 0) || garageSf;
+    const xsC = cells.map((p) => p[0]);
+    const ysC = cells.map((p) => p[1]);
     return {
       area,
-      minWidth,
-      bboxW: plate.w,
-      bboxH: plate.h,
+      fullArea,
+      notchSf,
+      notched: notchSf > 0,
+      minWidth: minW === Infinity ? 0 : +minW.toFixed(1),
+      bboxW: cells.length ? +(Math.max(...xsC) - Math.min(...xsC) + step).toFixed(1) : 0,
+      bboxH: cells.length ? +(Math.max(...ysC) - Math.min(...ysC) + step).toFixed(1) : 0,
       minX: plate.x,
       maxX: plate.x + plate.w,
       minY: plate.y,
@@ -90,6 +129,39 @@ const Lot2AccessSkeleton = (() => {
       cy: plate.y + plate.h / 2,
       garageGroundSf: gSf,
       integrated: true,
+    };
+  }
+
+  /** True when an access centerline enters a reserved plate beyond the door-apron strip. */
+  function plateDriveCrossing(concept) {
+    const plates = concept.reservedPlates || [];
+    if (!plates.length) return { ok: true, detail: 'No reserved plates' };
+    const hits = [];
+    const apron = V.apronDepth || 24;
+    (concept.accessPaths || []).forEach((ap) => {
+      const g = (concept.garages || []).find((x) => x.id === ap.garage);
+      (ap.path || []).forEach((pt) => {
+        plates.forEach((p) => {
+          if (pt[0] < p.x || pt[0] > p.x + p.w || pt[1] < p.y || pt[1] > p.y + p.h) return;
+          let inApron = false;
+          if (g) {
+            if (g.doorFace === 'E' && pt[0] >= g.x + g.w - 0.5 && pt[0] <= g.x + g.w + apron
+              && pt[1] >= g.y - 1 && pt[1] <= g.y + g.h + 1) inApron = true;
+            if (g.doorFace === 'W' && pt[0] <= g.x + 0.5 && pt[0] >= g.x - apron
+              && pt[1] >= g.y - 1 && pt[1] <= g.y + g.h + 1) inApron = true;
+            if (g.doorFace === 'S' && pt[1] >= g.y + g.h - 0.5 && pt[1] <= g.y + g.h + apron
+              && pt[0] >= g.x - 1 && pt[0] <= g.x + g.w + 1) inApron = true;
+            if (g.doorFace === 'N' && pt[1] <= g.y + 0.5 && pt[1] >= g.y - apron
+              && pt[0] >= g.x - 1 && pt[0] <= g.x + g.w + 1) inApron = true;
+          }
+          if (!inApron) hits.push(`${ap.garage || '?'} @ (${pt[0]}, ${pt[1]}) in ${p.name || p.id}`);
+        });
+      });
+    });
+    return {
+      ok: hits.length === 0,
+      detail: hits.length ? `Drive enters structural plate: ${hits.slice(0, 3).join('; ')}` : 'No structural plate crossing (apron-only OK)',
+      hits,
     };
   }
 
@@ -110,7 +182,8 @@ const Lot2AccessSkeleton = (() => {
         if (z.minWidth < MIN_HOME_WIDTH) return { ok: false, note: `${z.minWidth}′ min width (< ${MIN_HOME_WIDTH}′)` };
         if (z.area < MIN_ZONE_AREA) return { ok: false, note: `${z.area} SF plate too small` };
         const gNote = z.garageGroundSf ? ` · ${z.garageGroundSf} SF garage ground program` : '';
-        return { ok: true, note: `${z.area} SF plate · ${z.minWidth}′ width · ${z.bboxW}×${z.bboxH}′${gNote}` };
+        const nNote = z.notchSf ? ` · −${z.notchSf} SF drive notch` : '';
+        return { ok: true, note: `${z.area} SF plate · ${z.minWidth}′ width · ${z.bboxW}×${z.bboxH}′${gNote}${nNote}` };
       }
       const sA = zoneScore(zoneA, 'A');
       const sB = zoneScore(zoneB, 'B');
@@ -334,6 +407,8 @@ const Lot2AccessSkeleton = (() => {
     analyzeSkeleton,
     analyzeAllSkeletons,
     architectureRemaining,
+    plateDriveCrossing,
+    occupiedByCirculation,
     renderArchitectureOverlay,
     SKEL,
   };

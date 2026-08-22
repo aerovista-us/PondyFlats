@@ -2,8 +2,8 @@
 
 **Purpose:** Declare what each major path is for. Generations of site studies, access tests, J1 visuals, failed renders, and Parking Reset co-exist in one tree — this map prevents treating an archive page as live design authority.
 
-**Status authority (where we are):** [`../index.html`](../index.html) + [`lot2-parking-reset.md`](lot2-parking-reset.md)  
-**Live gate matrix:** [`../parking-reset.html`](../parking-reset.html)
+**Status authority (where we are):** [`../index.html`](../index.html) + [`lot2-r64-daily.md`](lot2-r64-daily.md) + [`lot2-parking-reset.md`](lot2-parking-reset.md)  
+**Live gate matrix:** [`../parking-reset.html`](../parking-reset.html) · **Daily-use:** [`../r64-daily.html`](../r64-daily.html)
 
 ---
 
@@ -24,10 +24,12 @@
 
 | Path | Role | Notes |
 | ---- | ---- | ----- |
-| [`index.html`](../index.html) | **CURRENT** | Study hub — public hierarchy + links |
+| [`index.html`](../index.html) | **CURRENT** | Study hub — locked hierarchy |
+| [`r64-daily.html`](../r64-daily.html) | **CURRENT** | R6.4 daily-use scenarios |
 | [`parking-reset.html`](../parking-reset.html) | **CURRENT** | Parking Reset Gate matrix (live scores) |
 | [`guide.html`](../guide.html) | **CURRENT** | What / why / next |
 | [`study.html`](../study.html) | **CURRENT** | Stage timeline |
+| [`docs/lot2-r64-daily.md`](lot2-r64-daily.md) | **CURRENT** | Daily-use closure write-up |
 | [`docs/lot2-parking-reset.md`](lot2-parking-reset.md) | **CURRENT** | Reset write-up · FULL PASS rules |
 | [`docs/README.md`](README.md) | **CURRENT** | Docs index |
 | [`docs/lot2-file-map.md`](lot2-file-map.md) | **CURRENT** | This map |
@@ -43,6 +45,7 @@
 | [`js/lot2-access.js`](../js/lot2-access.js) | **TRUTH** | FS-SUV swept-path engine |
 | [`js/lot2-access-skeleton.js`](../js/lot2-access-skeleton.js) | **TRUTH** | Integrated plate / architecture-remaining scoring |
 | [`js/lot2-parking-reset.js`](../js/lot2-parking-reset.js) | **CURRENT** | Parking Reset Gate scorer (PASS / CONDITIONAL / FAIL) |
+| [`js/lot2-r64-daily.js`](../js/lot2-r64-daily.js) | **CURRENT** | R6.4 daily-use scenario scorer |
 | [`js/lot2-render-core.js`](../js/lot2-render-core.js) | **DERIVATIVE** | Shared SVG plan rendering |
 | [`js/lot2-validate.js`](../js/lot2-validate.js) | **DERIVATIVE** | Validation helpers for lab |
 
@@ -63,11 +66,15 @@
 
 | ID | Role | Notes |
 | -- | ---- | ----- |
-| `reset_r6_1` | **CURRENT** (lead) | Leading CONDITIONAL — show today |
-| `reset_r6_2a` | **EXPERIMENT** (active) | 25′ arc + corner flare |
-| `reset_r6_4` | **EXPERIMENT** | Straight-spine doors |
-| `reset_r6_3` | **EXPERIMENT** (fallback) | Two curb cuts |
-| `reset_r5` | **EXPERIMENT** (repair) | Practical pair — not leading |
+| `reset_r5` | **CURRENT** (FULL PASS · public lead) | Parking frozen · schematic CONDITIONAL |
+| `js/lot2-r5-freeze.js` | **CURRENT** | R5 geometry freeze assert |
+| `js/lot2-r5-schematic.js` | **CURRENT** | Floor plans + sanity gate |
+| `reset_r6_1` | **CURRENT** (reference) | CONDITIONAL |
+| `reset_r6_4a` | **CURRENT** (secondary repair) | Midpoint turn pocket |
+| `reset_r6_4b` | **CURRENT** (secondary repair) | Independent lift equipment |
+| `reset_r6_4` | **CURRENT** (repair parent) | REPAIR — DAILY POOR |
+| `reset_r6_3` | **EXPERIMENT** (AHJ hold) | Only if shortens B reverse / lift retrieval |
+| `reset_r6_2a` | **ARCHIVE** (closed FAIL) | No more curved-driveway work |
 | `reset_r6` / `reset_r6_2` | **ARCHIVE** baseline | Topology / front-zone record |
 | `reset_r7` / `reset_r8` | **EXPERIMENT** (queued) | Integrated variants |
 | `reset_r1`–`reset_r4` | **ARCHIVE** audit | Detached track only |
@@ -83,6 +90,7 @@ Architecture unlocks only on **FULL PASS** of the Parking Reset Gate — never o
 | File | Role |
 | ---- | ---- |
 | `index.html` | Hub |
+| `r5-schematic.html` | **CURRENT** · R5 floor plans + sanity gate |
 | `parking-reset.html` | Gate matrix |
 | `guide.html` / `study.html` | Orientation |
 

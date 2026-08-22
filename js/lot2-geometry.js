@@ -129,6 +129,14 @@ const Lot2 = (() => {
     (concept.garages || []).forEach((g) => {
       if (!g.integrated) fps.push({ label: g.name, coords: garageFootprint(g), kind: 'garage' });
     });
+    /** Reserved home plates must sit in survey + working setback (Parking Reset containment). */
+    (concept.reservedPlates || []).forEach((p) => {
+      fps.push({
+        label: p.name || `PLATE ${p.id}`,
+        coords: [[p.x, p.y], [p.x + p.w, p.y], [p.x + p.w, p.y + p.h], [p.x, p.y + p.h]],
+        kind: 'plate',
+      });
+    });
     return fps;
   }
 
@@ -761,24 +769,25 @@ ${extra}`;
         spacesEnclosed: 4,
         note: '16×24 lift envelope per plate (16′ door face · 24′ depth ≥ 20.5′ FS-SUV + lift margin) · same ~22′ plates',
       },
-      designConcern: 'Preserve R6 plates (~1012/1056 SF). Bay depth closed. Fillet must meet 25′ or remain CONDITIONAL — no waiver.',
+      designConcern: 'Preserve ≥18′ plates. Bay depth closed. Under validation closure: dual-elevation straights (axle-relative body) · fillet family deferred to R6.2A. Fillet/daily still CONDITIONAL — no waiver.',
       units: [],
       reservedPlates: [
-        { id: 'B', role: 'rear', name: 'HOME PLATE B · rear', x: 28, y: 5, w: 48, h: 22 },
-        { id: 'A', role: 'penn', name: 'HOME PLATE A · Penn', x: 80, y: 5, w: 46, h: 22 },
+        { id: 'B', role: 'rear', name: 'HOME PLATE B · rear', x: 28, y: 5, w: 48, h: 28 },
+        { id: 'A', role: 'penn', name: 'HOME PLATE A · Penn', x: 80, y: 5, w: 46, h: 20 },
       ],
       garages: [
-        { name: 'GARAGE B · 16×24 LIFT', id: 'B', x: 46, y: 5, w: 24, h: 16, doorFace: 'E', enclosed: true, lift: true, spaces: 2 },
+        { name: 'GARAGE B · 16×24 LIFT', id: 'B', x: 46, y: 18, w: 24, h: 16, doorFace: 'E', enclosed: true, lift: true, spaces: 2 },
         { name: 'GARAGE A · 16×24 LIFT', id: 'A', x: 102, y: 5, w: 24, h: 16, doorFace: 'E', enclosed: true, lift: true, spaces: 2 },
       ],
       households: [
         { id: 'B', structures: ['B'], label: 'Household B (rear)' },
         { id: 'A', structures: ['A'], label: 'Household A (Penn)' },
       ],
-      drive: [[148, 32], [125, 32], [100, 32]],
+      /** Parallel E straights — axle-correct body cannot hold the old y=32 south 90° on-lot. */
+      drive: [[148, 28], [120, 28]],
       accessPaths: [
-        { garage: 'A', path: [[148, 32], [128, 32], [128, 13]] },
-        { garage: 'B', path: [[148, 32], [125, 32], [100, 32], [78, 32], [78, 13]] },
+        { garage: 'A', path: [[148, 13], [140, 13], [128, 13]] },
+        { garage: 'B', path: [[148, 28], [125, 28], [100, 28], [78, 28]] },
       ],
       clearSouthCorridor: true,
     },
@@ -838,16 +847,17 @@ ${extra}`;
     reset_r6_2a: {
       id: 'reset_r6_2a',
       label: 'Parking Reset R6.2A — 25′ Arc + Corner Flare',
-      role: 'ACTIVE · 25′ FS-SUV arc · localized 16–18′ flare · plates ≥18′',
+      role: 'CLOSED FAIL · curved-driveway work stopped · axle body off-lot on south arc',
       group: 'parking-reset-integrated',
       parkingReset: true,
       parkingIntegrated: true,
       sharedSpine: true,
       polygonalSweep: true,
       skeleton: true,
-      closed: false,
+      closed: true,
+      closedReason: 'Validation closure: axle-relative FS-SUV leaves lot on 25′ south arc. No more curve optimization.',
       parentReset: 'reset_r6_2',
-      priority: 1,
+      priority: 99,
       track: 'integrated',
       spineWidth: 12,
       designRadius: 25,
@@ -858,11 +868,11 @@ ${extra}`;
         spacesEnclosed: 4,
         note: '16×24 lifts · ≥18′ plates · ≥25′ straight before arc · continuous 25′ centerline radius · corner flare ~17′',
       },
-      designConcern: 'Turn geometry not driveway width. Bend in Penn/front zone; keep shared spine ~12′; flare only the arc until SUV is straightened toward the bay.',
+      designConcern: 'Turn geometry not driveway width. Under validation closure: Penn plate ≤ x=128; axle-relative body. Current south 90° arc fails on-lot front-swing — CONDITIONAL/FAIL until arc relocates or R6.4 wins.',
       units: [],
       reservedPlates: [
         { id: 'B', role: 'rear', name: 'HOME PLATE B · rear', x: 28, y: 5, w: 48, h: 18 },
-        { id: 'A', role: 'penn', name: 'HOME PLATE A · Penn', x: 100, y: 5, w: 36, h: 18 },
+        { id: 'A', role: 'penn', name: 'HOME PLATE A · Penn', x: 84, y: 5, w: 44, h: 18 },
       ],
       garages: [
         { name: 'GARAGE B · 16×24 LIFT', id: 'B', x: 40, y: 5, w: 24, h: 16, doorFace: 'E', enclosed: true, lift: true, spaces: 2 },
@@ -872,13 +882,16 @@ ${extra}`;
         { id: 'B', structures: ['B'], label: 'Household B (rear)' },
         { id: 'A', structures: ['A'], label: 'Household A (Penn)' },
       ],
-      /** ≥25′ westbound before P1; 90° at (90,36) with T=25′; end in door band (single arc — no stacked second 90°). */
+      /** Arc retained as experiment; axle-correct body currently leaves survey on this corner. */
       drive: [[148, 36], [123, 36], [90, 36]],
       accessPaths: [
         { garage: 'A', path: [[148, 13], [140, 13], [130, 13], [128, 13]] },
         { garage: 'B', path: [[148, 36], [123, 36], [90, 36], [90, 11]] },
       ],
       clearSouthCorridor: true,
+      openIssues: [
+        'Axle-relative FS-SUV body leaves lot on 25′ south arc — relocate arc or prefer R6.4 straights',
+      ],
     },
     /**
      * Parking Reset R6.4 — Straight-Spine Doors (eliminate B’s 90°).
@@ -888,7 +901,7 @@ ${extra}`;
     reset_r6_4: {
       id: 'reset_r6_4',
       label: 'Parking Reset R6.4 — Straight-Spine Doors',
-      role: 'EXPERIMENT · Both E doors · parallel straights · no B 90°',
+      role: 'REPAIR — DAILY POOR · straight-spine works · deep turnaround + lift retrieval open',
       group: 'parking-reset-integrated',
       parkingReset: true,
       parkingIntegrated: true,
@@ -896,20 +909,23 @@ ${extra}`;
       polygonalSweep: true,
       skeleton: true,
       closed: false,
+      repairable: true,
+      repairStatus: 'DAILY POOR',
       parentReset: 'reset_r6_2',
-      priority: 1,
+      priority: 3,
       track: 'integrated',
+      footprintsFrozen: true,
       spineWidth: 12,
       parkingProgram: {
         name: 'Integrated Lift Pair · straight-spine doors',
         spacesTotal: 4,
         spacesEnclosed: 4,
-        note: 'Both doors E · A @ y≈13 straight from Penn · B @ y≈28 straight from Penn (Y-stagger clears A footprint)',
+        note: 'REPAIR branch: R6.4A turn pocket · R6.4B lift equipment · R6.4C back-in ops',
       },
-      designConcern: 'Eliminates B’s south-to-north 90°. Test inbound, outbound, and simultaneous use — may exchange turn pain for reverse-out / stacked apron dependence.',
+      designConcern: 'Straight-spine geometry works; deep-household turnaround and independent lift retrieval remain unresolved. Apply repair-before-close.',
       units: [],
       reservedPlates: [
-        { id: 'B', role: 'rear', name: 'HOME PLATE B · rear', x: 28, y: 5, w: 48, h: 34 },
+        { id: 'B', role: 'rear', name: 'HOME PLATE B · rear', x: 28, y: 5, w: 48, h: 28 },
         { id: 'A', role: 'penn', name: 'HOME PLATE A · Penn', x: 80, y: 5, w: 46, h: 20 },
       ],
       garages: [
@@ -927,17 +943,132 @@ ${extra}`;
       ],
       clearSouthCorridor: true,
       openIssues: [
-        'Simultaneous use: shared Penn opening + parallel aprons — outbound reverse may block the other household',
+        'B reverse ~84′ to Penn — REPAIR via R6.4A midpoint turn pocket',
+        'Conventional lift = stacked retrieval — REPAIR via R6.4B independent equipment',
       ],
     },
     /**
+     * R6.4A — Midpoint turn pocket (repair of R6.4 daily reverse).
+     * B reverses only to pocket, one controlled maneuver, exits Pennsylvania forward.
+     */
+    reset_r6_4a: {
+      id: 'reset_r6_4a',
+      label: 'Parking Reset R6.4A — Midpoint Turn Pocket',
+      role: 'ACTIVE REPAIR · R6.4 branch · hammerhead between plates',
+      group: 'parking-reset-integrated',
+      parkingReset: true,
+      parkingIntegrated: true,
+      sharedSpine: true,
+      polygonalSweep: true,
+      skeleton: true,
+      closed: false,
+      repairable: true,
+      parentReset: 'reset_r6_4',
+      priority: 2,
+      track: 'integrated',
+      turnPocket: true,
+      spineWidth: 12,
+      parkingProgram: {
+        name: 'Integrated Lift Pair · turn pocket',
+        spacesTotal: 4,
+        spacesEnclosed: 4,
+        note: 'Same 16×24 lifts as R6.4 · localized hammerhead near plate gap · B forward-exit to Penn',
+      },
+      designConcern: 'Smallest geometric repair for 84′ reverse. Pocket must stay in survey; plates ≥18′ after notch; no A approach interference; axle-correct sweep.',
+      units: [],
+      reservedPlates: [
+        { id: 'B', role: 'rear', name: 'HOME PLATE B · rear', x: 28, y: 5, w: 48, h: 28 },
+        { id: 'A', role: 'penn', name: 'HOME PLATE A · Penn', x: 80, y: 5, w: 46, h: 20 },
+      ],
+      garages: [
+        { name: 'GARAGE B · 16×24 LIFT', id: 'B', x: 40, y: 20, w: 24, h: 16, doorFace: 'E', enclosed: true, lift: true, spaces: 2 },
+        { name: 'GARAGE A · 16×24 LIFT', id: 'A', x: 102, y: 5, w: 24, h: 16, doorFace: 'E', enclosed: true, lift: true, spaces: 2 },
+      ],
+      households: [
+        { id: 'B', structures: ['B'], label: 'Household B (rear)' },
+        { id: 'A', structures: ['A'], label: 'Household A (Penn)' },
+      ],
+      /** Drive includes pocket spur so notched plate math sees the pavement. */
+      drive: [[148, 28], [100, 28], [82, 28], [82, 31], [94, 31]],
+      accessPaths: [
+        { garage: 'A', path: [[148, 13], [140, 13], [130, 13], [128, 13]] },
+        {
+          garage: 'B',
+          path: [[148, 28], [125, 28], [100, 28], [80, 28], [66, 28]],
+          forwardExit: true,
+          /** Shallow pocket (axle ≤32′) — body+6.25′ must stay inside south survey. */
+          outbound: [
+            [66, 28],
+            [82, 28],
+            [82, 31],
+            [94, 31],
+            [94, 28],
+            [120, 28],
+            [148, 28],
+          ],
+        },
+      ],
+      clearSouthCorridor: true,
+      openIssues: [
+        'Lift retrieval still stacked unless R6.4B independent equipment',
+        'Pocket turn must clear 25′ FS-SUV tangents without clipping A apron',
+      ],
+    },
+    /**
+     * R6.4B — same geometry as R6.4; lift equipment interpretation only.
+     * Conventional stacked vs pit/puzzle independent retrieval.
+     */
+    reset_r6_4b: {
+      id: 'reset_r6_4b',
+      label: 'Parking Reset R6.4B — Independent Lift Equipment',
+      role: 'ACTIVE REPAIR · R6.4 branch · equipment interpretation (same 16×24 envelope)',
+      group: 'parking-reset-integrated',
+      parkingReset: true,
+      parkingIntegrated: true,
+      sharedSpine: true,
+      polygonalSweep: true,
+      skeleton: true,
+      closed: false,
+      repairable: true,
+      parentReset: 'reset_r6_4',
+      priority: 2,
+      track: 'integrated',
+      liftInterpretation: 'independent',
+      parkingProgram: {
+        name: 'Integrated Lift Pair · independent retrieval equipment',
+        spacesTotal: 4,
+        spacesEnclosed: 4,
+        note: 'Geometry = R6.4 · assumes pit/puzzle lift with independent retrieval in same 16×24 · cost/excavation/structure burden ownership',
+      },
+      designConcern: 'Do not let stacked capacity masquerade as independent. Independent system may PASS daily S5; still needs R6.4A for reverse unless paired.',
+      units: [],
+      reservedPlates: [
+        { id: 'B', role: 'rear', name: 'HOME PLATE B · rear', x: 28, y: 5, w: 48, h: 28 },
+        { id: 'A', role: 'penn', name: 'HOME PLATE A · Penn', x: 80, y: 5, w: 46, h: 20 },
+      ],
+      garages: [
+        { name: 'GARAGE B · 16×24 LIFT IND', id: 'B', x: 40, y: 20, w: 24, h: 16, doorFace: 'E', enclosed: true, lift: true, liftIndependent: true, spaces: 2 },
+        { name: 'GARAGE A · 16×24 LIFT IND', id: 'A', x: 102, y: 5, w: 24, h: 16, doorFace: 'E', enclosed: true, lift: true, liftIndependent: true, spaces: 2 },
+      ],
+      households: [
+        { id: 'B', structures: ['B'], label: 'Household B (rear)' },
+        { id: 'A', structures: ['A'], label: 'Household A (Penn)' },
+      ],
+      drive: [[148, 28], [120, 28]],
+      accessPaths: [
+        { garage: 'A', path: [[148, 13], [140, 13], [130, 13], [128, 13]] },
+        { garage: 'B', path: [[148, 28], [125, 28], [100, 28], [80, 28], [66, 28]] },
+      ],
+      clearSouthCorridor: true,
+    },
+    /**
      * Parking Reset R6.3 — two curb cuts (jurisdiction-dependent fallback).
-     * Separate Penn openings so each household gets a long straight E approach without a shared south bypass.
+     * Hold only if it materially shortens B’s reverse / changes lift retrieval.
      */
     reset_r6_3: {
       id: 'reset_r6_3',
       label: 'Parking Reset R6.3 — Two Curb Cuts',
-      role: 'FALLBACK · Jurisdiction-dependent · two Penn openings',
+      role: 'AHJ FALLBACK · hold only if it shortens B reverse / changes lift retrieval — not for curb cuts alone',
       group: 'parking-reset-integrated',
       parkingReset: true,
       parkingIntegrated: true,
@@ -983,7 +1114,9 @@ ${extra}`;
     reset_r5: {
       id: 'reset_r5',
       label: 'Parking Reset R5 — Integrated Practical Pair',
-      role: 'PRACTICAL ALTERNATIVE · under repair · queued after R6.x FULL PASS',
+      role: 'FULL PASS · public lead · one enclosed + one covered · schematic architecture unlocked',
+      workingOption: true,
+      fullPass: true,
       group: 'parking-reset-integrated',
       parkingReset: true,
       parkingIntegrated: true,
@@ -991,36 +1124,72 @@ ${extra}`;
       polygonalSweep: true,
       skeleton: true,
       closed: false,
-      priority: 2,
+      priority: 1,
       track: 'integrated',
+      boundaryClearanceFt: 0.75,
       parkingProgram: {
         name: 'Integrated Practical Pair',
         spacesTotal: 4,
         spacesEnclosed: 2,
-        note: 'One 16×24 garage under each home + one covered bay west of each garage · 4 / 2 enclosed',
+        note: 'One 16×24 garage + one covered bay per home · independent retrieval · north pocket forward-exit',
       },
-      designConcern: 'R6.2 approach · 16×24 enclosed · CB west of B · CA west of A (open carports · not solid sweep obstacles)',
+      designConcern: 'Outbound centerline repair: north-of-spine pocket (south 90° illegal for axle-body). Posts + snow edge as obstacles. FULL PASS → public lead + architecture.',
       units: [],
       reservedPlates: [
-        { id: 'B', role: 'rear', name: 'HOME PLATE B · rear', x: 28, y: 5, w: 48, h: 20 },
+        { id: 'B', role: 'rear', name: 'HOME PLATE B · rear', x: 28, y: 5, w: 48, h: 28 },
         { id: 'A', role: 'penn', name: 'HOME PLATE A · Penn', x: 80, y: 5, w: 46, h: 20 },
       ],
       garages: [
-        { name: 'COVERED B · 12×16', id: 'CB', x: 28, y: 5, w: 12, h: 16, doorFace: 'E', covered: true, enclosed: false, spaces: 1, apronIgnoreIds: ['B'] },
-        { name: 'GARAGE B · 16×24', id: 'B', x: 40, y: 5, w: 24, h: 16, doorFace: 'E', enclosed: true, spaces: 1, apronIgnoreIds: ['CB'] },
-        { name: 'COVERED A · 12×16', id: 'CA', x: 90, y: 5, w: 12, h: 16, doorFace: 'E', covered: true, enclosed: false, spaces: 1, apronIgnoreIds: ['A'] },
-        { name: 'GARAGE A · 16×24', id: 'A', x: 102, y: 5, w: 24, h: 16, doorFace: 'E', enclosed: true, spaces: 1, apronIgnoreIds: ['CA'] },
+        { name: 'COVERED B · 12×14', id: 'CB', x: 28, y: 20, w: 12, h: 14, doorFace: 'S', covered: true, enclosed: false, spaces: 1, apronIgnoreIds: ['B'] },
+        { name: 'GARAGE B · 16×24', id: 'B', x: 42, y: 20, w: 24, h: 16, doorFace: 'E', enclosed: true, spaces: 1, apronIgnoreIds: ['CB'] },
+        { name: 'COVERED A · 12×14', id: 'CA', x: 86, y: 5, w: 12, h: 14, doorFace: 'S', covered: true, enclosed: false, spaces: 1, apronIgnoreIds: ['A'] },
+        { name: 'GARAGE A · 16×24', id: 'A', x: 100, y: 5, w: 24, h: 16, doorFace: 'E', enclosed: true, spaces: 1, apronIgnoreIds: ['CA'] },
       ],
       households: [
         { id: 'B', structures: ['B', 'CB'], label: 'Household B (rear)' },
         { id: 'A', structures: ['A', 'CA'], label: 'Household A (Penn)' },
       ],
-      drive: [[148, 28], [130, 28], [128, 13]],
+      drive: [[148, 28], [125, 28], [106, 28], [100, 27], [94, 26.5], [86, 27], [80, 28]],
       accessPaths: [
-        { garage: 'A', path: [[148, 13], [140, 13], [130, 13], [128, 13]] },
-        { garage: 'B', path: [[148, 34], [125, 34], [91, 34], [66, 34], [66, 13]] },
+        { garage: 'A', path: [[148, 13], [140, 13], [130, 13], [126, 13]] },
+        {
+          garage: 'B',
+          path: [[148, 28], [125, 28], [100, 28], [80, 28], [68, 28]],
+          forwardExit: true,
+          outbound: [
+            [68, 28],
+            [80, 28],
+            [86, 27],
+            [94, 26.5],
+            [100, 27],
+            [106, 28],
+            [125, 28],
+            [148, 28],
+          ],
+        },
+      ],
+      siteObstacles: [
+        {
+          id: 'snow_south',
+          label: 'SNOW EDGE · south windrow',
+          kind: 'snow',
+          poly: [[60, 41.5], [120, 41.5], [120, 43], [60, 43]],
+        },
+        {
+          id: 'curb_penn_n',
+          label: 'CURB · Pennsylvania north',
+          kind: 'curb',
+          poly: [[147.2, 0], [148, 0], [148, 8], [147.2, 8]],
+        },
+        {
+          id: 'curb_penn_s',
+          label: 'CURB · Pennsylvania south',
+          kind: 'curb',
+          poly: [[147.2, 36], [148, 36], [148, 46], [147.2, 46]],
+        },
       ],
       clearSouthCorridor: true,
+      openIssues: [],
     },
     /**
      * Parking Reset R7 — Integrated Tandem Pair (priority 3).
@@ -1423,7 +1592,7 @@ ${extra}`;
     court: CONCEPTS.access_a.court,
   };
 
-  const CONCEPT_ORDER = ['e2', 'g1', 'v2', 'e1', 'e3', 'f1', 'g2', 'h2', 'h3', 'h4', 'h5', 'h6', 'g1a', 'access_a', 'access_b', 'access_c', 'access_d', 'access_e', 'access_f', 'access_d_mews', 'reset_r6_1', 'reset_r6_2a', 'reset_r6_4', 'reset_r6_2', 'reset_r6_3', 'reset_r6', 'reset_r5', 'reset_r7', 'reset_r8', 'reset_r1', 'reset_r2', 'reset_r3', 'reset_r4', 'j1a', 'j1b', 'j1c'];
+  const CONCEPT_ORDER = ['e2', 'g1', 'v2', 'e1', 'e3', 'f1', 'g2', 'h2', 'h3', 'h4', 'h5', 'h6', 'g1a', 'access_a', 'access_b', 'access_c', 'access_d', 'access_e', 'access_f', 'access_d_mews', 'reset_r5', 'reset_r6_1', 'reset_r6_4a', 'reset_r6_4b', 'reset_r6_4', 'reset_r6_3', 'reset_r6_2a', 'reset_r6_2', 'reset_r6', 'reset_r7', 'reset_r8', 'reset_r1', 'reset_r2', 'reset_r3', 'reset_r4', 'j1a', 'j1b', 'j1c'];
   const BENCHMARKS = ['e2', 'g1', 'v2'];
   /** Original seven (non-challenger) — role metadata only; geometry status is separate */
   const ESTABLISHED = ['e2', 'g1', 'v2', 'e1', 'e3', 'f1', 'g2'];
@@ -1440,10 +1609,28 @@ ${extra}`;
   const ACCESS_SKELETONS = ['access_a', 'access_b', 'access_c', 'access_d', 'access_e', 'access_f'];
   /** Strongest FS-SUV pattern after D/E/F close — not a buildable two-home answer. */
   const CIRCULATION_REFERENCE = 'access_e';
-  /** Public hierarchy: R6.1 lead → R6.2A arc test → R6.4 straight-spine → R5 → R6.3 → baselines → audit. */
-  const PARKING_RESETS = ['reset_r6_1', 'reset_r6_2a', 'reset_r6_4', 'reset_r5', 'reset_r6_3', 'reset_r6_2', 'reset_r6', 'reset_r7', 'reset_r8', 'reset_r1', 'reset_r2', 'reset_r4', 'reset_r3'];
-  const PARKING_RESETS_INTEGRATED = ['reset_r6_1', 'reset_r6_2a', 'reset_r6_4', 'reset_r5', 'reset_r6_3', 'reset_r6_2', 'reset_r6', 'reset_r7', 'reset_r8'];
+  /**
+   * Hierarchy: R6.1 public reference · R5 active practical · R6.4A/B repair · R6.2A closed · R6.3 AHJ hold.
+   * Repair-before-close: identify failure → smallest fix → rerun affected gates → close only if repair fails.
+   */
+  const PARKING_RESETS = ['reset_r5', 'reset_r6_1', 'reset_r6_4a', 'reset_r6_4b', 'reset_r6_4', 'reset_r6_3', 'reset_r6_2a', 'reset_r6_2', 'reset_r6', 'reset_r7', 'reset_r8', 'reset_r1', 'reset_r2', 'reset_r4', 'reset_r3'];
+  const PARKING_RESETS_INTEGRATED = ['reset_r5', 'reset_r6_1', 'reset_r6_4a', 'reset_r6_4b', 'reset_r6_4', 'reset_r6_3', 'reset_r6_2a', 'reset_r6_2', 'reset_r6', 'reset_r7', 'reset_r8'];
+  const PARKING_RESETS_ACTIVE = ['reset_r5', 'reset_r6_4a', 'reset_r6_4b'];
   const PARKING_RESETS_DETACHED = ['reset_r1', 'reset_r2', 'reset_r4', 'reset_r3'];
+  const PARKING_HIERARCHY = Object.freeze({
+    publicLead: 'reset_r5',
+    publicReference: 'reset_r6_1',
+    activePractical: 'reset_r5',
+    activeRepair: ['reset_r6_4a', 'reset_r6_4b'],
+    repairParent: 'reset_r6_4',
+    closed: ['reset_r6_2a'],
+    ahjFallback: 'reset_r6_3',
+    architecture: 'UNLOCKED_DETERMINISTIC',
+    fullPass: 'reset_r5',
+  });
+  const REPAIR_BEFORE_CLOSE = Object.freeze({
+    rule: 'Identify exact failure → smallest geometry/ops fix → rerun every affected gate → close only when repair fails, breaks another hard gate, or creates unacceptable ownership trade.',
+  });
   const MIN_LIFT_BAY_DEPTH = 22;
   const J1_MASSING = ['j1a', 'j1b', 'j1c'];
 
@@ -1533,7 +1720,9 @@ ${extra}`;
     if (!driveOk) reasons.push(`Min drive clearance ${minDriveClear.toFixed(1)}′ < ${DRIVE_W / 2}′ each side`);
 
     const m = metrics(concept);
-    const livingTargetOk = m.totalLiving >= LIVING_TARGET.min && m.totalLiving <= LIVING_TARGET.max;
+    const livingTargetOk = concept.parkingReset || concept.skeleton || !(concept.units || []).length
+      ? true
+      : m.totalLiving >= LIVING_TARGET.min && m.totalLiving <= LIVING_TARGET.max;
     if (!livingTargetOk) {
       reasons.push(`Total living ${m.totalLiving} SF/unit outside ${LIVING_TARGET.min}–${LIVING_TARGET.max} SF band`);
     }
@@ -1787,7 +1976,10 @@ ${extra}`;
     CIRCULATION_REFERENCE,
     PARKING_RESETS,
     PARKING_RESETS_INTEGRATED,
+    PARKING_RESETS_ACTIVE,
     PARKING_RESETS_DETACHED,
+    PARKING_HIERARCHY,
+    REPAIR_BEFORE_CLOSE,
     MIN_LIFT_BAY_DEPTH,
     ACCESS_A_INFRA,
     J1_MASSING,

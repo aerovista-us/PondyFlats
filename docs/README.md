@@ -8,22 +8,26 @@
 
 | Item | Status |
 | ---- | ------ |
-| **R6.1** Lift Bay Hardening | **Leading CONDITIONAL** — show today · bay OK · sweep open |
-| **R6.2A** 25′ Arc + Flare | Active · **25′ fillet closed on-lot** · daily/apron REVIEW |
-| **R6.4** Straight-Spine Doors | Experiment · both E · no B 90° · reverse-out trade |
-| **R5** Practical Pair | **CONDITIONAL** · under repair · not leading |
-| **R1–R4** detached | Audit-only |
-| **Architecture** | **OFF** until FULL PASS |
-| **Next** | Close R6.2A daily → else R6.4 → else R6.3 |
+| **R5** Practical Pair | **FULL PASS · public lead** · parking frozen |
+| **R5 schematic** | **CONDITIONAL** · ownership cottage trade · [`../r5-schematic.html`](../r5-schematic.html) |
+| **R6.4A / R6.4B** | Dormant (four enclosed) |
+| **R6.4** | REPAIR — DAILY POOR |
+| **R6.1** | Public reference |
+| **R6.2A** | Closed FAIL |
+| **Massing / viz** | Held until schematic ownership YES |
 
-Live matrix: [`../parking-reset.html`](../parking-reset.html) · write-up: [`lot2-parking-reset.md`](lot2-parking-reset.md)
+Live: [`../r5-schematic.html`](../r5-schematic.html) · [`../parking-reset.html`](../parking-reset.html) · [`lot2-r5-schematic.md`](lot2-r5-schematic.md) · [`lot2-r5-full-pass.md`](lot2-r5-full-pass.md)
 
 ## Active docs
 
 | Doc | Topic |
 | --- | ----- |
-| [lot2-file-map.md](lot2-file-map.md) | **File roles** — what is truth vs archive vs temp |
-| [lot2-parking-reset.md](lot2-parking-reset.md) | **Current** — R6.1 lead · R6.2A / R6.4 · R5 · FULL PASS rules |
+| [lot2-r5-schematic.md](lot2-r5-schematic.md) | **R5 schematic** · floor-plan sanity CONDITIONAL |
+| [lot2-r5-full-pass.md](lot2-r5-full-pass.md) | **R5 FULL PASS** · outbound pocket repair |
+| [lot2-repair-before-close.md](lot2-repair-before-close.md) | Repair rule · R6.4A/B |
+| [lot2-parking-reset.md](lot2-parking-reset.md) | Gate · hierarchy |
+| [lot2-validation-closure.md](lot2-validation-closure.md) | Validator harden |
+| [lot2-file-map.md](lot2-file-map.md) | File roles |
 | [lot2-def-closure.md](lot2-def-closure.md) | D/E/F close · Original vs Parking Reset gates · E W+E reference |
 | [lot2-geometry-validation.md](lot2-geometry-validation.md) | Pass 1.5 geometry rules · drawing convention (still binding) |
 | [lot2-access-geometry.md](lot2-access-geometry.md) | Parking Skeleton A–F (closed) |

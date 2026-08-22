@@ -94,7 +94,7 @@ const Lot2ParkingReset = (() => {
     const geom = L.validateConcept ? L.validateConcept(concept) : { status: 'FAIL', reasons: ['No validator'] };
     const access = A ? A.analyzeConcept(id) : { technical: 'FAIL', reasons: ['No access engine'], doors: [] };
     const arch = Sk ? Sk.architectureRemaining(concept) : { plausibleHomes: false, verdict: 'Poor', summary: 'No arch engine', unitA: {}, unitB: {} };
-    const doors = access.doors || [];
+    const doors = (access.doors || []).filter((d) => !(d.name || '').includes('COVERED'));
     const stagingOk = doors.length > 0 && doors.every(gateOk);
     const hh = householdIndependence(concept, access);
     const threePoint = !!(access.threePoint || (access.shortTangents || []).some((n) => n.kind === 'short-tangent'));
@@ -103,17 +103,30 @@ const Lot2ParkingReset = (() => {
     const tangentOk = shortTans.length === 0 || (Number.isFinite(minTangent) && minTangent >= 25 - 0.5);
     const bay = bayDepthReport(concept);
     const dailyOk = access.daily && !String(access.daily).startsWith('Poor') && !String(access.daily).startsWith('N/A');
+    /** FULL PASS requires Good daily (forward-exit / clean ops) — Fair stays CONDITIONAL. */
+    const dailyFullOk = dailyOk && String(access.daily).startsWith('Good');
     const surveyOk = geom.status === 'PASS' || (geom.inSurvey !== false && geom.inSetback !== false && !String(geom.status || '').includes('FAIL'));
     const containOk = geom.reasons
       ? !geom.reasons.some((r) => /outside survey|outside working setback/i.test(r))
       : surveyOk;
+    const plateCross = Sk && Sk.plateDriveCrossing ? Sk.plateDriveCrossing(concept) : { ok: true, detail: '—' };
+    const outboundOk = access.outboundClear !== false;
+    const axleOk = A && A.AXLE_TO_BODY != null
+      ? Math.abs(A.AXLE_TO_BODY - ((V.length / 2) - (V.rearOverhang != null ? V.rearOverhang : 4))) < 0.05
+      : true;
     const sweptHardFail = access.technical === 'FAIL'
-      || (access.reasons || []).some((r) => /off survey|clips|hits|leaves the lot/i.test(r));
+      || (access.reasons || []).some((r) =>
+        (/Inbound FS-SUV.*leaves the lot/i.test(r) || /Swept envelope clips/i.test(r) || /swept body hits/i.test(r))
+        && !/^Outbound/i.test(r));
     const sweptSoftOk = access.technical === 'PASS'
       || (access.technical === 'REVIEW' && !sweptHardFail);
 
     const openIssues = [];
     if (!bay.ok) openIssues.push(`Bay envelope: ${bay.detail}`);
+    if (!containOk) openIssues.push(`Containment: plate/garage outside survey or working setback`);
+    if (!plateCross.ok) openIssues.push(plateCross.detail);
+    if (!outboundOk) openIssues.push('Outbound swept path unresolved (reverse of inbound)');
+    if (!axleOk) openIssues.push('Vehicle body not positioned on rear-axle path (SOT wheelbase/overhang)');
     if (!tangentOk) {
       openIssues.push(`Swept path: min tangent ${(+minTangent).toFixed(1)}′ < 25′ FS-SUV`);
     } else if (access.technical === 'REVIEW' || threePoint) {
@@ -127,12 +140,20 @@ const Lot2ParkingReset = (() => {
       if (!openIssues.some((x) => x.includes(o.slice(0, 24)))) openIssues.push(o);
     });
 
+    const notchNote = arch.zoneA || arch.zoneB
+      ? [arch.zoneA, arch.zoneB].filter(Boolean).map((z) => (z.notchSf ? `−${z.notchSf} SF notch` : null)).filter(Boolean).join(' · ')
+      : '';
     const checks = {
-      containment: { ok: containOk && geom.status !== 'FAIL', detail: containOk ? 'Survey / setback OK' : (geom.reasons || []).slice(0, 2).join('; ') || geom.status },
+      containment: {
+        ok: containOk && geom.status !== 'FAIL',
+        detail: containOk
+          ? (geom.status === 'PASS' ? 'Survey / setback OK (incl. reserved plates)' : `Geom ${geom.status} · plates in envelope`)
+          : (geom.reasons || []).slice(0, 2).join('; ') || geom.status,
+      },
       swept: {
         ok: sweptSoftOk,
         detail: access.technical === 'PASS' && tangentOk
-          ? 'FS-SUV PASS · tangents ≥25′'
+          ? 'FS-SUV PASS · tangents ≥25′ · axle-relative body'
           : tangentOk && access.technical === 'REVIEW'
             ? 'FS-SUV REVIEW · 25′ fillet closed · daily/apron open'
             : `FS-SUV ${access.technical}${Number.isFinite(minTangent) ? ` · min tangent ${(+minTangent).toFixed(1)}′` : ''}`,
@@ -155,16 +176,32 @@ const Lot2ParkingReset = (() => {
         ok: !!arch.plausibleHomes,
         detail: arch.plausibleHomes
           ? (arch.mode === 'integrated'
-            ? 'Integrated plates OK (garage = ground program inside plate)'
+            ? `Integrated plates OK (notched for drive/apron${notchNote ? ` · ${notchNote}` : ''})`
             : 'Both plates ≥600 SF contiguous (supports ~1,800 SF with upper)')
-          : 'Contiguous plates insufficient for two plausible homes',
+          : 'Contiguous / notched plates insufficient for two plausible homes',
+      },
+      plateIntegrity: {
+        ok: plateCross.ok,
+        detail: plateCross.detail,
+      },
+      outbound: {
+        ok: outboundOk,
+        detail: outboundOk ? 'Outbound reverse sweep clear' : 'Outbound movement unresolved',
+      },
+      axleModel: {
+        ok: axleOk,
+        detail: axleOk
+          ? `Rear-axle path · body +${(A && A.AXLE_TO_BODY != null ? A.AXLE_TO_BODY : 6.25).toFixed(2)}′ ahead`
+          : 'Invalid rear-axle / body offset',
       },
     };
 
     const hardFail = !checks.containment.ok || sweptHardFail || !checks.staging.ok;
     const plateOk = checks.homeWidth.ok && checks.homeArea.ok && checks.independent.ok;
+    /** FULL PASS regressions: setback plates, no structural plate crossing, axle model, inbound+outbound, daily. */
     const fullHard = checks.swept.ok && access.technical === 'PASS' && tangentOk && checks.bayDepth.ok
-      && checks.daily.ok && plateOk && checks.containment.ok && checks.staging.ok;
+      && dailyFullOk && !threePoint && plateOk && checks.containment.ok && checks.staging.ok
+      && checks.plateIntegrity.ok && checks.outbound.ok && checks.axleModel.ok;
 
     let verdict = 'FAIL';
     if (hardFail) verdict = 'FAIL';
@@ -209,16 +246,16 @@ const Lot2ParkingReset = (() => {
     let lesson = 'No reset clears the Parking Reset Gate yet. Architecture stays off.';
     if (full.length >= 1) {
       const first = full.sort((a, b) => (rows[a].priority ?? 99) - (rows[b].priority ?? 99))[0];
-      lesson = `FULL PASS: ${rows[first].label}. Schematic architecture may unlock after confirmation. Bay depth + FS-SUV 25′ / clear polygonal sweep closed.`;
+      lesson = `FULL PASS: ${rows[first].label}. Replaces R6.1 as public lead. Deterministic schematic architecture may begin. R6.4A/B remain secondary four-enclosed repair.`;
       if (full.length > 1) lesson += ` Also FULL PASS: ${full.filter((id) => id !== first).map((id) => rows[id].label).join(', ')}.`;
     } else if (conditional.length >= 1) {
       const leadId = rows.reset_r6_1?.verdict === 'CONDITIONAL' ? 'reset_r6_1'
         : conditional.sort((a, b) => (rows[a].priority ?? 99) - (rows[b].priority ?? 99))[0];
       const r = rows[leadId];
       const opens = (r.openIssues || []).slice(0, 2).join(' · ') || 'named hard checks still open';
-      lesson = `Public hierarchy: R6.1 leading CONDITIONAL · R5 practical under repair · R1–R4 audit-only · architecture OFF. ${r.label}: four enclosed lift spaces + two credible plates. Open: ${opens}. Active: R6.2A (25′ arc + corner flare) → R6.4 straight-spine → R6.3 dual curb.`;
+      lesson = `Repair-before-close. Hierarchy: R5 active practical · R6.4A/B repair · R6.4 REPAIR — DAILY POOR · R6.1 public reference · R6.2A closed · R6.3 AHJ hold. Open: ${opens}. Architecture OFF until FULL PASS.`;
     } else {
-      lesson = 'Integrated track active. Hierarchy: R6.1 lead → R6.2A arc → R6.4 straight-spine → R5 repair → R6.3 fallback. Detached R1–R4 audit-only. Architecture OFF.';
+      lesson = 'Repair-before-close active. Prefer R5 daily path or R6.4A/B fixes. Architecture OFF.';
     }
     return {
       order: ORDER,
@@ -245,9 +282,29 @@ const Lot2ParkingReset = (() => {
     };
   }
 
+  /** Regression: no FULL PASS with plate outside setback, structural plate cross, bad axle model, or unresolved in/out. */
+  function assertValidationClosure(ids) {
+    const list = ids || L.PARKING_RESETS_ACTIVE || ['reset_r5', 'reset_r6_4a', 'reset_r6_4b'];
+    const report = [];
+    list.forEach((id) => {
+      const r = analyzeReset(id);
+      const fails = [];
+      if (r.verdict === 'PASS') {
+        if (!r.checks.containment.ok) fails.push('PASS with plate outside setback');
+        if (!r.checks.plateIntegrity.ok) fails.push('PASS with drive crossing structural plate');
+        if (!r.checks.axleModel.ok) fails.push('PASS with invalid axle/body sweep');
+        if (!r.checks.outbound.ok) fails.push('PASS with unresolved outbound');
+        if (r.physical !== 'PASS') fails.push('PASS without inbound technical PASS');
+      }
+      report.push({ id, verdict: r.verdict, ok: fails.length === 0, fails, checks: r.checks });
+    });
+    return { ok: report.every((x) => x.ok), report };
+  }
+
   return {
     analyzeReset,
     analyzeAll,
+    assertValidationClosure,
     ORDER,
     bayDepthReport,
     renderArchitectureOverlay: Sk ? Sk.renderArchitectureOverlay.bind(Sk) : () => '',

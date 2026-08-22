@@ -40,10 +40,42 @@ const Lot2Access = (() => {
     (concept.garages || []).forEach((g) => {
       if (g.integrated) return;
       /** Open covered bays are roof structure only — not solid swept-path / staging obstacles. */
-      if (g.covered) return;
+      if (g.covered) {
+        /** Carport posts (corner columns) remain obstacles even when roof is open. */
+        const post = 0.5;
+        const inset = 0.25;
+        const corners = [
+          [g.x + inset, g.y + inset],
+          [g.x + g.w - inset - post, g.y + inset],
+          [g.x + inset, g.y + g.h - inset - post],
+          [g.x + g.w - inset - post, g.y + g.h - inset - post],
+        ];
+        corners.forEach((c, i) => {
+          out.push({
+            label: `${g.name} post ${i + 1}`,
+            id: g.id,
+            kind: 'post',
+            poly: [
+              [c[0], c[1]],
+              [c[0] + post, c[1]],
+              [c[0] + post, c[1] + post],
+              [c[0], c[1] + post],
+            ],
+          });
+        });
+        return;
+      }
       if (skipGarageName && g.name === skipGarageName) return;
       if (g.id && ignore.has(g.id)) return;
       out.push({ label: g.name, id: g.id, poly: garagePoly(g), kind: 'garage' });
+    });
+    /** Concept-declared site edges: curbs, snow windrows. */
+    (concept.siteObstacles || []).forEach((o) => {
+      out.push({
+        label: o.label || o.id || 'site',
+        kind: o.kind || 'site',
+        poly: o.poly.map((p) => [...p]),
+      });
     });
     return out;
   }
@@ -64,9 +96,14 @@ const Lot2Access = (() => {
     return [(b[0] - a[0]) / d, (b[1] - a[1]) / d];
   }
 
-  function vehiclePoly(cx, cy, th) {
+  /** Path poses are rear-axle centerline. Body geometric center is ~6.25′ ahead (L/2 − rear overhang). */
+  const AXLE_TO_BODY = (V.length / 2) - (V.rearOverhang != null ? V.rearOverhang : 4.0);
+
+  function vehiclePoly(axleX, axleY, th) {
     const hx = Math.cos(th);
     const hy = Math.sin(th);
+    const cx = axleX + hx * AXLE_TO_BODY;
+    const cy = axleY + hy * AXLE_TO_BODY;
     const wx = -hy;
     const wy = hx;
     const hl = V.length / 2;
@@ -129,17 +166,28 @@ const Lot2Access = (() => {
     return maxY;
   }
 
-  function poseHits(poly, obs, label) {
+  function poseHits(poly, obs, label, margin) {
+    const m = margin != null ? margin : 0.2;
     const issues = [];
     poly.forEach(([x, y]) => {
       if (x >= 147.8) return;
       if (x < -0.2 || y < -0.2) issues.push(`${label}: body (${x.toFixed(1)}, ${y.toFixed(1)}) off survey`);
-      else if (!L.pointInPoly(x, y, SURVEY, 0.2)) issues.push(`${label}: body (${x.toFixed(1)}, ${y.toFixed(1)}) off survey`);
+      else if (!L.pointInPoly(x, y, SURVEY, m)) issues.push(`${label}: body (${x.toFixed(1)}, ${y.toFixed(1)}) off survey`);
     });
     obs.forEach((o) => {
       if (polysIntersect(poly, o.poly)) issues.push(`${label}: swept body hits ${o.label}`);
     });
     return issues;
+  }
+
+  /** Positive south-boundary clearance for a body poly (ft). Negative = beyond survey. */
+  function southClearance(poly) {
+    let min = Infinity;
+    poly.forEach(([x, y]) => {
+      if (x >= 147.8 || x < 0) return;
+      min = Math.min(min, surveyYAtX(x) - y);
+    });
+    return min === Infinity ? null : min;
   }
 
   /** Fillet polyline corners at min rear-axle radius; record short-tangent failures. */
@@ -232,7 +280,12 @@ const Lot2Access = (() => {
     if (concept.accessPaths && concept.accessPaths.length) {
       return concept.accessPaths.map((ap, i) => {
         const g = garages.find((x) => x.id === ap.garage || (x.name || '').includes(`GARAGE ${ap.garage}`)) || garages[i];
-        return { garage: g, path: (ap.path || []).map((p) => [...p]) };
+        return {
+          garage: g,
+          path: (ap.path || []).map((p) => [...p]),
+          outbound: ap.outbound ? ap.outbound.map((p) => [...p]) : null,
+          forwardExit: !!ap.forwardExit,
+        };
       }).filter((b) => b.garage && b.path.length >= 2);
     }
     const path = (concept.drive || []).map((p) => [...p]);
@@ -320,11 +373,14 @@ const Lot2Access = (() => {
       notes.push(`Both gate doors face ${faces[0]} — a vehicle staged at one bay occupies the shared approach`);
     }
     doorRows.forEach((r) => {
+      if (r.garage && r.garage.covered) return;
       if (r.gate.clearDepth < 12) notes.push(`${r.garage.name}: gate face ${r.gate.face} only ${r.gate.clearDepth}′ clear staging (< 12′ parked-vehicle envelope)`);
     });
-    const independent = doorRows.every((r) => r.gate.clearDepth >= 12)
+    const enclosedRows = doorRows.filter((r) => !(r.garage && r.garage.covered));
+    const independent = enclosedRows.length >= 2
+      && enclosedRows.every((r) => r.gate.clearDepth >= 12)
       && !attached
-      && !(shareWall && faces[0] === faces[1] && doorRows[0].gate.clearDepth < V.apronDepth);
+      && !(shareWall && faces[0] === faces[1] && enclosedRows[0] && enclosedRows[0].gate.clearDepth < V.apronDepth);
     return { independent, shareWall, attached, faces, notes };
   }
 
@@ -367,6 +423,14 @@ const Lot2Access = (() => {
     const sweepIssues = [];
     const allNotes = [];
     const allPoses = [];
+    let outboundOff = 0;
+    let outboundHits = [];
+    /** Concept-stage positive boundary clearance (ft). Parking resets require ~0.75′. */
+    const boundaryMargin = concept.boundaryClearanceFt != null
+      ? concept.boundaryClearanceFt
+      : (concept.parkingReset ? 0.75 : 0.2);
+    let minSouthClear = Infinity;
+    const outboundFailPoses = [];
     branches.forEach((br) => {
       const obs = obstacles(concept, br.garage && br.garage.name);
       const fil = filletPath(br.path);
@@ -374,10 +438,46 @@ const Lot2Access = (() => {
       allPoses.push(...fil.poses);
       fil.poses.forEach((p, i) => {
         const poly = vehiclePoly(p.x, p.y, p.th);
-        const hits = poseHits(poly, obs, `${br.garage ? br.garage.name : 'path'} ${i}`);
+        const sc = southClearance(poly);
+        if (sc != null) minSouthClear = Math.min(minSouthClear, sc);
+        const hits = poseHits(poly, obs, `${br.garage ? br.garage.name : 'path'} ${i}`, boundaryMargin);
         hits.forEach((h) => sweepIssues.push(h));
       });
+      /** Outbound: custom forward-exit / turn-pocket path when declared; else reverse of inbound. */
+      const outPath = (br.outbound && br.outbound.length >= 2)
+        ? br.outbound
+        : (br.path || []).slice().reverse();
+      if (outPath.length >= 2) {
+        const outFil = filletPath(outPath);
+        outFil.poses.forEach((p, i) => {
+          const poly = vehiclePoly(p.x, p.y, p.th);
+          const sc = southClearance(poly);
+          if (sc != null) minSouthClear = Math.min(minSouthClear, sc);
+          const hits = poseHits(poly, obs, `outbound ${br.garage ? br.garage.name : 'path'} ${i}`, boundaryMargin);
+          hits.forEach((h) => {
+            if (h.includes('off survey')) {
+              outboundOff++;
+              const m = h.match(/body \(([-\d.]+), ([-\d.]+)\)/);
+              outboundFailPoses.push({
+                i,
+                axleX: +p.x.toFixed(2),
+                axleY: +p.y.toFixed(2),
+                thDeg: +((p.th * 180) / Math.PI).toFixed(1),
+                cornerX: m ? +m[1] : null,
+                cornerY: m ? +m[2] : null,
+                surveyY: m ? +surveyYAtX(+m[1]).toFixed(2) : null,
+                beyondFt: m ? +(m[2] - surveyYAtX(+m[1])).toFixed(2) : null,
+                southClear: sc != null ? +sc.toFixed(2) : null,
+                garage: br.garage && br.garage.id,
+              });
+            } else if (h.includes('swept body hits')) outboundHits.push(h);
+          });
+        });
+      }
     });
+    if (Number.isFinite(minSouthClear) && minSouthClear < boundaryMargin) {
+      reasons.push(`Boundary clearance ${minSouthClear.toFixed(2)}′ < required ${boundaryMargin.toFixed(2)}′ (concept-stage margin)`);
+    }
     const fil = { poses: allPoses, notes: allNotes };
     const offLotN = sweepIssues.filter((h) => h.includes('off survey')).length;
     const bldgNames = [...new Set(sweepIssues.filter((h) => h.includes('swept body hits')).map((h) => h.replace(/^.*hits /, '')))];
@@ -387,6 +487,13 @@ const Lot2Access = (() => {
       reasons.push(`Inbound FS-SUV (8′ wide) leaves the lot — ${offLotN} samples. South lot line is ~43′ along the 40.33′ run; centerline near y=${yMed.toFixed(0)} cannot carry an 8′ vehicle.`);
     }
     if (bldgNames.length) reasons.push(`Swept envelope clips: ${bldgNames.join('; ')}`);
+    if (outboundOff) {
+      const custom = branches.some((b) => b.outbound);
+      reasons.push(`Outbound FS-SUV leaves the lot — ${outboundOff} samples${custom ? ' (custom outbound / turn pocket)' : ' (reverse of inbound)'}`);
+    }
+    const outBldg = [...new Set(outboundHits.map((h) => h.replace(/^.*hits /, '')))];
+    if (outBldg.length) reasons.push(`Outbound swept envelope clips: ${outBldg.join('; ')}`);
+    const outboundClear = outboundOff === 0 && outBldg.length === 0;
 
     fil.notes.forEach((n) => {
       if (n.kind === 'short-tangent') {
@@ -424,7 +531,11 @@ const Lot2Access = (() => {
     block.notes.forEach((n) => reasons.push(n));
 
     const pinch = minPinch(fil.poses, obstacles(concept).filter((o) => o.kind === 'unit'));
-    const reverseIn = doors.some((d) => d.gate.face === 'N' || d.gate.clearDepth < V.apronDepth);
+    const hasForwardExit = branches.some((b) => b.forwardExit && b.outbound);
+    /** Reverse-in burden: N door or staging shorter than vehicle length (not the 24′ apron target). */
+    const reverseIn = doors.some((d) =>
+      !(d.garage && d.garage.covered)
+      && (d.gate.face === 'N' || d.gate.clearDepth < V.length - 0.5));
     /** Polygonal swept-path concepts: dense polylines create many small-angle short-tangent notes — score envelope first; only sharp corners (<12′) count as three-point burden. */
     const polySweep = !!concept.polygonalSweep;
     const shortTanNotes = fil.notes.filter((n) => n.kind === 'short-tangent');
@@ -432,31 +543,40 @@ const Lot2Access = (() => {
     const threePoint = polySweep
       ? shortTanNotes.some((n) => n.have < 12)
       : shortTanNotes.length > 0;
-    const offLot = offLotN > 0 || reasons.some((r) => r.includes('off survey') || r.includes('beyond survey'));
+    const clearanceFail = Number.isFinite(minSouthClear) && minSouthClear < boundaryMargin;
+    const offLot = offLotN > 0 || clearanceFail || reasons.some((r) => r.includes('off survey') || r.includes('beyond survey') || r.includes('Boundary clearance'));
     const hitBldg = bldgNames.length > 0 || reasons.some((r) => r.includes('swept body hits') || r.includes('Swept envelope clips'));
-    const noDoor = doors.some((d) => d.gate.clearDepth < 8);
-    /** Hard physical: declared (or best) face must clear full-size staging depth. */
-    const stagingFail = doors.some((d) => d.gate.clearDepth < V.length - 0.5 || d.gate.apron < V.length - 0.5);
-    doors.forEach((row) => {
+    const noDoor = doors.some((d) => !(d.garage && d.garage.covered) && d.gate.clearDepth < 8);
+    /** Hard physical: declared (or best) face must clear full-size staging depth. Covered open bays are soft. */
+    const stagingRows = doors.filter((d) => !(d.garage && d.garage.covered));
+    const stagingFail = stagingRows.some((d) => d.gate.clearDepth < V.length - 0.5 || d.gate.apron < V.length - 0.5);
+    stagingRows.forEach((row) => {
       if (row.gate.clearDepth < V.length - 0.5 || row.gate.apron < V.length - 0.5) {
         reasons.push(`${row.garage.name}: gate face ${row.gate.face} staging ${row.gate.clearDepth}′ / apron ${row.gate.apron.toFixed(1)}′ < ${V.length}′ FS-SUV (hard physical FAIL)`);
       }
     });
+    doors.filter((d) => d.garage && d.garage.covered).forEach((row) => {
+      if (row.gate.clearDepth < 8) {
+        reasons.push(`${row.garage.name}: covered bay staging only ${row.gate.clearDepth}′ (soft REVIEW)`);
+      }
+    });
 
     const envelopeClear = !offLot && !hitBldg && !stagingFail && pennOk && !noDoor;
+    const apronTarget = concept.parkingReset ? V.length : V.apronDepth;
     let technical = 'PASS';
     if (!pennOk || offLot || noDoor || hitBldg || stagingFail) technical = 'FAIL';
     else if (sharpFail || !block.independent || pinch.min !== null && pinch.min < 2 || threePoint) technical = 'REVIEW';
-    else if (!polySweep && (fil.notes.length || doors.some((d) => d.gate.apron < V.apronDepth))) technical = 'REVIEW';
+    else if (!polySweep && (fil.notes.length || doors.some((d) => d.gate.apron < apronTarget))) technical = 'REVIEW';
     else if (polySweep && shortTanNotes.some((n) => n.have < 25 - 0.5) && shortTanNotes.length) technical = 'REVIEW';
-    else if (doors.some((d) => d.gate.apron < V.apronDepth)) technical = 'REVIEW';
+    else if (stagingRows.some((d) => d.gate.apron < apronTarget)) technical = 'REVIEW';
+    else if (!outboundClear) technical = 'REVIEW';
 
     if (polySweep && envelopeClear && technical !== 'FAIL') {
       const minHave = shortTanNotes.reduce((m, n) => Math.min(m, n.have), Infinity);
       if (Number.isFinite(minHave) && minHave < 25 - 0.5) {
         reasons.push(`Polygonal swept-path envelope on-lot · min corner run ${minHave.toFixed(1)}′ < 25′ FS-SUV design radius (CONDITIONAL — not FULL PASS)`);
       } else if (!shortTanNotes.length) {
-        reasons.push('Polygonal swept-path envelope on-lot · no sharp corner shortfall recorded');
+        reasons.push(`Polygonal swept-path envelope on-lot · no sharp corner shortfall · min south clearance ${Number.isFinite(minSouthClear) ? minSouthClear.toFixed(2) : '—'}′`);
       }
     }
 
@@ -465,13 +585,16 @@ const Lot2Access = (() => {
     if (technical === 'FAIL') {
       daily = 'N/A — physically blocked';
       burden = 'Severe';
-    } else if (threePoint || reverseIn || (pinch.min !== null && pinch.min < 2.5)) {
+    } else if (threePoint || (reverseIn && !hasForwardExit) || (pinch.min !== null && pinch.min < 2.5)) {
       daily = 'Poor — daily three-point / reverse / pinch';
       burden = 'High';
       if (technical === 'PASS') technical = 'REVIEW';
     } else if (!block.independent) {
       daily = 'Fair — shared apron / stacked dependence';
       burden = 'High';
+    } else if (hasForwardExit && outboundClear) {
+      daily = 'Good — pocket turnaround · forward Pennsylvania exit';
+      burden = 'Low';
     } else if (doors.every((d) => d.gate.face === 'S' || d.gate.face === 'W') && doors.every((d) => d.gate.clearDepth >= V.apronDepth)) {
       daily = 'Good — obvious approach, reverse-out typical';
       burden = 'Low';
@@ -537,7 +660,13 @@ const Lot2Access = (() => {
       pennAccess: pennOk,
       inbound,
       outbound,
-      reverse: reverseIn || true,
+      outboundClear,
+      outboundFailPoses,
+      minSouthClear: Number.isFinite(minSouthClear) ? +minSouthClear.toFixed(2) : null,
+      boundaryMargin,
+      axleToBody: AXLE_TO_BODY,
+      reverse: hasForwardExit ? false : (reverseIn || true),
+      forwardExit: hasForwardExit,
       threePoint,
       independent: block.independent,
       blocking: !block.independent,
@@ -669,6 +798,7 @@ const Lot2Access = (() => {
 
   return {
     VEHICLE: V,
+    AXLE_TO_BODY,
     analyzeConcept,
     analyzeFinalThree,
     analyzeChallengers,

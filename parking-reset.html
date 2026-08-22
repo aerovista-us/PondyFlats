@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pondy Flats · Parking Reset Matrix</title>
-<meta name="description" content="Lot 2 Parking Reset Gate — integrated track R6–R8 + detached R1–R4 audit. R6 is the first geometry-validated working option.">
+<meta name="description" content="Lot 2 Parking Reset Gate — R5 FULL PASS public lead · schematic CONDITIONAL · R6.4A/B dormant.">
 <style>
 :root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--ok:#416145;--warn:#7b5721;--bad:#9a3b2e;--garage:#aec0d2;--shadow:0 18px 54px #0f1a2b1a}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:Inter,system-ui,sans-serif}
@@ -45,38 +45,38 @@ th{background:#f6f3ee;color:var(--navy);font-weight:900}
 <div class="brand"><small>Pondy Flats · Lot 2</small><strong>Parking Reset Matrix</strong></div>
 <nav class="nav">
 <a href="index.html">Hub</a>
-<a href="access-geometry.html">Skeleton A–F</a>
-<a href="docs/lot2-parking-reset.md">Docs</a>
+<a href="r5-schematic.html">R5 schematic</a>
+<a href="r64-daily.html">Daily</a>
+<a href="docs/lot2-r5-full-pass.md">Docs</a>
 <a href="study.html">Workflow</a>
 </nav>
 </div></header>
 <main class="wrap">
 <section class="panel">
 <h1>Parking Reset Gate</h1>
-<p class="lede">J1 and Skeletons A–F remain <strong>closed</strong>. Active search: <strong>R6.2A</strong> (25′ arc) → <strong>R6.4</strong> → <strong>R6.3</strong>. R6.1 remains the show lead. <strong>CONDITIONAL ≠ approval.</strong></p>
+<p class="lede"><strong>R5 FULL PASS</strong> is the public lead. Parking frozen. Schematic at <a href="r5-schematic.html">r5-schematic.html</a> (CONDITIONAL · ownership). R6.4A/B dormant. R6.1 reference. R6.2A closed.</p>
 <div class="callout win" id="working"></div>
-<div class="callout"><strong>Integrated plate math:</strong> home plate = envelope − drive corridors; garage SF = ground program inside the plate. <strong>Full PASS</strong> also requires bay depth ≥22′ and FS-SUV tangents ≥25′ — no fillet waivers. Widen the <em>corner</em>, not the whole driveway.</div>
+<div class="callout"><strong>R5 outbound repair:</strong> north-of-spine pocket (south 90° illegal for axle-body) · ≥0.75′ clearance · posts/snow/curb throat · S1–S6 daily PASS.</div>
 <ul class="criteria">
-<li><strong>R6.1 — Lift Bay Hardening</strong> · <em>leading CONDITIONAL</em> · 16×24 bays · show today</li>
-<li><strong>R6.2A — 25′ Arc + Corner Flare</strong> · active · spine ~12′ · flare 16–18′ at arc only</li>
-<li><strong>R6.4 — Straight-Spine Doors</strong> · experiment · both E · no B 90°</li>
-<li><strong>R5</strong> · CONDITIONAL under repair · <strong>R6.3</strong> dual curb fallback · <em>Audit:</em> R1–R4 · Architecture OFF</li>
+<li><strong>R5 — Practical Pair</strong> · <em>FULL PASS · public lead</em> · two enclosed + two covered</li>
+<li><strong>R5 schematic</strong> · floor-plan sanity CONDITIONAL · <a href="r5-schematic.html">plans</a></li>
+<li><strong>R6.4A / R6.4B</strong> · dormant four-enclosed repair</li>
+<li><strong>R6.1</strong> · reference · <strong>R6.4</strong> REPAIR — DAILY POOR · <em>Closed:</em> R6.2A</li>
 </ul>
 <div class="lesson" id="lesson"></div>
 <div class="jump">
 <a href="#matrix">Matrix</a>
-<a href="#reset_r6_1">R6.1</a>
-<a href="#reset_r6_2a">R6.2A</a>
-<a href="#reset_r6_4">R6.4</a>
 <a href="#reset_r5">R5</a>
-<a href="#reset_r6_3">R6.3</a>
-<a href="docs/lot2-parking-reset.md">Docs</a>
+<a href="r5-schematic.html">Schematic</a>
+<a href="r64-daily.html">Daily</a>
+<a href="docs/lot2-r5-full-pass.md">FULL PASS doc</a>
+<a href="#reset_r6_4a">R6.4A</a>
 </div>
 </section>
 
 <section class="panel" id="matrix">
 <h2>Parking Reset Matrix</h2>
-<p class="lede">R6.1 first. Same named gate; plate scoring differs by track. Architecture unlocks only on <strong>PASS</strong>.</p>
+<p class="lede">R5 first. Same named gate; plate scoring differs by track. Schematic may begin on <strong>PASS</strong>; massing waits on schematic ownership YES.</p>
 <div class="summary"><table>
 <thead><tr>
 <th>Reset</th><th>Track</th><th>Program</th><th>Physical</th><th>Bay</th><th>Staging</th><th>≥18′ plates</th><th>Gate</th>
@@ -100,9 +100,9 @@ document.getElementById('lesson').innerHTML=`<strong>Lesson.</strong> ${report.l
 const full=report.fullPasses&&report.fullPasses[0];
 const cond=report.conditionalPasses&&report.conditionalPasses[0];
 document.getElementById('working').innerHTML=full
-  ? `<strong>FULL PASS — ${report.rows[full].label}</strong><br>Bay depth + FS-SUV 25′ fillet closed. Schematic architecture may unlock after confirmation.`
+  ? `<strong>FULL PASS — ${report.rows[full].label}</strong><br>Public lead · parking frozen. Schematic floor plans: <a href="r5-schematic.html">r5-schematic.html</a> · <a href="docs/lot2-r5-full-pass.md">lot2-r5-full-pass.md</a>.`
   : cond
-  ? `<strong>Public hierarchy — R6.1 leading CONDITIONAL</strong><br>Show R6.1 today. Active engineering: <strong>R6.2A</strong> (25′ arc closed on-lot · daily/apron REVIEW) → <strong>R6.4</strong> straight-spine → <strong>R6.3</strong> dual curb. R5 under repair · R1–R4 audit · <em>Architecture OFF until FULL PASS.</em>`
+  ? `<strong>CONDITIONAL hierarchy</strong><br>No FULL PASS yet. R6.1 reference · R6.4A/B repair. <a href="r64-daily.html">Daily results</a> · <em>Massing OFF until FULL PASS + schematic ownership.</em>`
   : `<strong>No complete PASS yet.</strong> Integrated track is active; detached R1–R4 are audit-only.`;
 
 const tbody=document.getElementById('tbl');
