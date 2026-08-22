@@ -76,7 +76,7 @@
 | -- | ---- | ----- |
 | `reset_r5` | **CURRENT** (FULL PASS · public lead) | Parking frozen · schematic CONDITIONAL *(FLAG: architecture later DESIGN COMPLETE)* |
 | `js/lot2-r5-freeze.js` | **CURRENT** | R5 geometry freeze assert |
-| `js/lot2-r51e-lock.js` | **CURRENT** | R5.1e plate / SF lock |
+| `js/lot2-r51e-lock.js` | **CURRENT** | R5.1e plates + restored living gate (1,600–1,900 · Δ≤120) |
 | `js/lot2-r51e-massing-truth.js` | **CURRENT** | Massing extrusion + geometric gate |
 | `js/lot2-r51e-architectural-massing.js` | **CURRENT** | Architectural massing + freeze gate |
 | `js/lot2-r51e-plan-closure.js` | **CURRENT** | Floor-plan closure inside frozen shells |
@@ -111,18 +111,18 @@ Architecture unlocks only on **FULL PASS** of the Parking Reset Gate — never o
 | File | Role |
 | ---- | ---- |
 | `index.html` | Hub |
-| `r51e.html` | **CURRENT** · R5.1e visual demo |
-| `r51e-architectural-massing.html` | **CURRENT** · architectural massing + gate |
-| `r51e-plan-closure.html` | **CURRENT** · floor-plan closure |
-| `r51e-site-plan.html` | **CURRENT** · site plan freeze |
-| `r51e-penn-elev.html` | **CURRENT** · Pennsylvania elevation |
-| `r51e-rear-elev.html` | **CURRENT** · rear / west elevation |
-| `r51e-side-elevs.html` | **CURRENT** · north + south elevations |
-| `r51e-sections.html` | **CURRENT** · sections A-A / B-B |
-| `r51e-deliverable.html` | **CURRENT** | **v1.0 front door** · Design Complete package |
-| `r51e-axon-lock.html` | **CURRENT** · same-camera axon lock |
+| `r51e.html` | **CURRENT** · R5.1e visual demo (Path A freeze + Path B repair copy both on page) |
+| `r51e-architectural-massing.html` | **CURRENT** · Path A architectural massing + gate |
+| `r51e-plan-closure.html` | **CURRENT** · Path A floor-plan closure |
+| `r51e-site-plan.html` | **CURRENT** · Path A site plan freeze |
+| `r51e-penn-elev.html` | **CURRENT** · Path A Pennsylvania elevation |
+| `r51e-rear-elev.html` | **CURRENT** · Path A rear / west elevation |
+| `r51e-side-elevs.html` | **CURRENT** · Path A north + south elevations |
+| `r51e-sections.html` | **CURRENT** · Path A sections A-A / B-B |
+| `r51e-deliverable.html` | **CURRENT** · Path A v1.0 front door |
+| `r51e-axon-lock.html` | **CURRENT** · Path A same-camera axon lock |
 | `r51e-massing-truth.html` | **CURRENT** · massing axon + gate |
-| `r51e-plans.html` | **CURRENT** · R5.1e exact plans gate |
+| `r51e-plans.html` | **CURRENT** · exact plans · Path A PASS / Path B CONDITIONAL |
 | `r51-rebalance.html` | CURRENT · R5.1 plate reopen evidence *(chose R5.1e)* |
 | `r5-schematic.html` | CURRENT · R5 floor plans · CONDITIONAL *(FLAG: superseded cottage path)* |
 | `r5-cottage-alternate.html` | PRESERVED ALTERNATE · ~920 / ~1,882 |

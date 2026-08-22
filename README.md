@@ -1,11 +1,14 @@
 # Pondy Flats · Lot 2
 
-**Status:** **R5.1e DESIGN COMPLETE / Deliverable v1.0** (`R5.1e-v1.0` · 2026-08-22)  
-**Geometry:** **IMMUTABLE**  
-**Professional validation pending:** zoning · fire · structural · civil/survey  
-**Not a permit / construction set.**
+> **FLAG — two current-status claims in this repo (not deleted).**  
+> **Path A:** R5.1e DESIGN COMPLETE / Deliverable v1.0 (`1,556 / 1,806` locked).  
+> **Path B:** restored living gate `1,600–1,900 SF each · ≤120 SF difference` · exact plans CONDITIONAL · x=69 / x=68 repair.  
+> Review which path to take: [`docs/lot2-status-conflicts.md`](docs/lot2-status-conflicts.md) · [`docs/lot2-r51e-gate-restoration.md`](docs/lot2-r51e-gate-restoration.md).
 
-This GitHub repo is the canonical copy of the Lot 2 study. There is no separate running host. Open the HTML files here (or enable GitHub Pages on `main` / root so [`index.html`](index.html) is the public hub).
+**Geometry in the v1.0 sheets:** frozen as drawn. **Engine living gate (Path B):** `js/lot2-r51e-lock.js` currently requires 1,600–1,900.  
+**Professional validation pending** if Path A is kept. **Not a permit / construction set.**
+
+This GitHub repo is the canonical copy. There is no separate running host. Hub: [`index.html`](index.html).
 
 ## Start here
 
@@ -16,7 +19,8 @@ This GitHub repo is the canonical copy of the Lot 2 study. There is no separate 
 | **[r51e.html](r51e.html)** | Live geometric demo |
 | **[docs/lot2-r51e-v1-baseline.md](docs/lot2-r51e-v1-baseline.md)** | Frozen baseline identity |
 | **[docs/lot2-r51e-validation-readiness.md](docs/lot2-r51e-validation-readiness.md)** | Next phase — reviewer tracker |
-| **[docs/lot2-status-conflicts.md](docs/lot2-status-conflicts.md)** | Flagged contradictions (not deleted) |
+| [docs/lot2-status-conflicts.md](docs/lot2-status-conflicts.md) | Flagged contradictions (not deleted) |
+| [docs/lot2-r51e-gate-restoration.md](docs/lot2-r51e-gate-restoration.md) | Path B — restored living / sweep rules |
 
 Honest program: **R5 — two enclosed garage spaces plus two covered spaces, independently accessible.**
 

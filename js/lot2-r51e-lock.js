@@ -13,7 +13,8 @@ const Lot2R51eLock = (() => {
   /** Locked residential envelope (parking boxes unchanged) */
   const LOCK = Object.freeze({
     demisingX: 70,
-    targetSf: Object.freeze({ A: 1556, B: 1806, tol: 120 }),
+    approvedStudySf: Object.freeze({ A: 1761, B: 1806 }),
+    livingGate: Object.freeze({ min: 1600, max: 1900, maxDelta: 120 }),
     plates: Object.freeze([
       Object.freeze({ id: 'B', role: 'rear', x: 28, y: 5, w: 42, h: 28 }),
       Object.freeze({ id: 'A', role: 'penn', x: 70, y: 5, w: 56, h: 22.5 }),
@@ -45,11 +46,13 @@ const Lot2R51eLock = (() => {
   }
 
   function assertSf(livingA, livingB) {
-    const t = LOCK.targetSf;
+    const g = LOCK.livingGate;
     const fails = [];
-    if (Math.abs(livingA - t.A) > t.tol) fails.push(`A SF ${livingA} outside ${t.A}±${t.tol}`);
-    if (Math.abs(livingB - t.B) > t.tol) fails.push(`B SF ${livingB} outside ${t.B}±${t.tol}`);
-    return { ok: fails.length === 0, fails, target: t };
+    if (livingA < g.min || livingA > g.max) fails.push(`A SF ${livingA} outside ${g.min}–${g.max}`);
+    if (livingB < g.min || livingB > g.max) fails.push(`B SF ${livingB} outside ${g.min}–${g.max}`);
+    const delta = Math.abs(livingA - livingB);
+    if (delta > g.maxDelta) fails.push(`Living delta ${delta} exceeds ${g.maxDelta}`);
+    return { ok: fails.length === 0, fails, gate: g, delta };
   }
 
   return { ID, PARENT, PROGRAM, LABEL, LOCK, assertPlates, assertSf };

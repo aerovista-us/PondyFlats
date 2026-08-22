@@ -3,11 +3,11 @@
 **Status:** **PASS** (geometric extrusion gate)  
 **Duplex base:** R5.1e APPROVED  
 **Parking:** FULL PASS / frozen  
-**Exact plans:** PASS · A **1,556** / B **1,806** SF (post core repair)  
-**Architectural massing:** **PASS / FROZEN** · [`../r51e-architectural-massing.html`](../r51e-architectural-massing.html)  
-**Photoreal / materials:** **UNLOCKED** on frozen architecture  
+**Exact plans:** Path A **PASS** (1,556 / 1,806 lock) · Path B **CONDITIONAL** (living gate 1,600–1,900 / ≤120)  
+**Architectural massing:** Path A **PASS / FROZEN** · [`../r51e-architectural-massing.html`](../r51e-architectural-massing.html) · Path B **WAIT**  
+**Photoreal:** Path A representation-only / “UNLOCKED on freeze” (flagged) · Path B still locked  
 
-> **FLAG (2026-08-22 — not deleted):** “Photoreal UNLOCKED” below vs v1.0 **representation-only** (a photoreal that moves a volume fails visualization). Original line kept. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).  
+> **FLAG (2026-08-22 merge — not deleted):** Path A vs Path B. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md) §H.
 
 **Demo:** [`../r51e.html`](../r51e.html)  
 **Massing page:** [`../r51e-massing-truth.html`](../r51e-massing-truth.html)  
@@ -17,7 +17,7 @@
 
 > **R5 — two enclosed garage spaces plus two covered spaces, independently accessible.**
 
-First option that clears both: vehicle FULL PASS **and** two comparable homes.
+Parking and geometric extrusion pass. The current living program does **not** yet clear the restored comparable-home gate.
 
 ## Declared heights
 
@@ -55,7 +55,7 @@ Toggles: plan projection · parking/path underlay · swept-path underlay.
 
 All geometric checks PASS (plan align · covered open · 8 posts · x=70 demising · sweep-clear opaque volumes · over-covered upper · heights).
 
-**Freeze this extrusion** — done. Architectural massing is frozen on it. Zoning, fire engineering, and structural design remain pending.
+**Freeze this extrusion** — Path A: done; architectural massing frozen on it. Path B (kept): keep as the x=70 geometric reference; test x=69 / x=68 before architectural massing. Zoning, fire engineering, and structural design remain pending.
 
 ## Related
 

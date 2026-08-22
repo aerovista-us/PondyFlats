@@ -8,15 +8,13 @@
 
 | Item | Status |
 | ---- | ------ |
-| **R5.1e duplex** | **DESIGN COMPLETE / Deliverable v1.0** · [`../r51e-deliverable.html`](../r51e-deliverable.html) |
-| **Professional validation** | **Pending** — zoning · fire · structural · civil/survey |
-| **Exact plans** | **PASS** · [`lot2-r51e-core-repair.md`](lot2-r51e-core-repair.md) |
-| **Massing truth** | **PASS / frozen** · [`../r51e-massing-truth.html`](../r51e-massing-truth.html) |
-| **Architectural massing** | **PASS / frozen** · [`../r51e-architectural-massing.html`](../r51e-architectural-massing.html) |
-| **Floor-plan closure** | **PASS** · [`../r51e-plan-closure.html`](../r51e-plan-closure.html) |
-| **Site plan** | **PASS / FROZEN** · [`../r51e-site-plan.html`](../r51e-site-plan.html) |
-| **Penn elevation** | **PASS / FROZEN** · [`../r51e-penn-elev.html`](../r51e-penn-elev.html) |
-| **Axon lock** | **PASS** · representation-only · [`../r51e-axon-lock.html`](../r51e-axon-lock.html) |
+| **FLAG** | Two live claims — [`lot2-status-conflicts.md`](lot2-status-conflicts.md) §H |
+| **Path A · R5.1e duplex** | **DESIGN COMPLETE / Deliverable v1.0** · [`../r51e-deliverable.html`](../r51e-deliverable.html) |
+| **Path A · Professional validation** | **Pending** — zoning · fire · structural · civil/survey |
+| **Path A · Exact plans / arch / closure / site / elevs / axon** | **PASS / frozen** |
+| **Path B · R5.1e repair** | Parking FULL PASS · core sweep-clear · living rebalance active · [`../r51e.html`](../r51e.html) |
+| **Path B · Exact plans** | **CONDITIONAL** · restored program gate · [`lot2-r51e-gate-restoration.md`](lot2-r51e-gate-restoration.md) |
+| **Path B · Architectural massing / photoreal** | WAIT / Locked |
 | **R5 parking** | **FULL PASS / frozen** |
 | **R6.4A / R6.4B** | Dormant |
 
@@ -27,10 +25,10 @@ Live: [`../r51e.html`](../r51e.html) · [`lot2-r51e-architectural-massing.md`](l
 | Doc | Topic |
 | --- | ----- |
 | [lot2-status-conflicts.md](lot2-status-conflicts.md) | **FLAGGED** contradictions kept for path review |
-| [lot2-r51e-deliverable-v1.md](lot2-r51e-deliverable-v1.md) | **Deliverable v1.0** · DESIGN COMPLETE |
+| [lot2-r51e-deliverable-v1.md](lot2-r51e-deliverable-v1.md) | **Path A** · Deliverable v1.0 · DESIGN COMPLETE |
 | [lot2-r51e-v1-baseline.md](lot2-r51e-v1-baseline.md) | Immutable baseline identity **R5.1e-v1.0** |
 | [lot2-r51e-sheet-legibility.md](lot2-r51e-sheet-legibility.md) | Presentation pass · geometry untouched |
-| [lot2-r51e-validation-readiness.md](lot2-r51e-validation-readiness.md) | Next phase · zoning / fire / structural / survey |
+| [lot2-r51e-validation-readiness.md](lot2-r51e-validation-readiness.md) | Path A next · zoning / fire / structural / survey |
 | [lot2-r51e-site-plan.md](lot2-r51e-site-plan.md) | Site plan · PASS / frozen |
 | [lot2-r51e-penn-elev.md](lot2-r51e-penn-elev.md) | Pennsylvania elevation |
 | [lot2-r51e-elevations.md](lot2-r51e-elevations.md) | Rear + north + south elevations |
@@ -38,7 +36,9 @@ Live: [`../r51e.html`](../r51e.html) · [`lot2-r51e-architectural-massing.md`](l
 | [lot2-r51e-plan-closure.md](lot2-r51e-plan-closure.md) | Floor-plan closure PASS |
 | [lot2-r51e-axon-lock.md](lot2-r51e-axon-lock.md) | Same-camera axon lock · representation-only |
 | [lot2-r51e-architectural-massing.md](lot2-r51e-architectural-massing.md) | **R5.1e architectural massing** · roofs · freeze |
-| [lot2-r51e-core-repair.md](lot2-r51e-core-repair.md) | **R5.1e Unit A core repair** · sweep-clear · exact plans PASS |
+| [lot2-r51e-core-repair.md](lot2-r51e-core-repair.md) | **R5.1e Unit A core repair** · sweep-clear · Path A PASS / Path B living fail |
+| [lot2-r51e-gate-restoration.md](lot2-r51e-gate-restoration.md) | **Path B** · original living and sweep rules restored |
+| [lot2-circulation-optimization.md](lot2-circulation-optimization.md) | Circulation optimization workflow |
 | [lot2-r51e-massing-truth.md](lot2-r51e-massing-truth.md) | **R5.1e massing truth** · extrusion freeze |
 | [lot2-r51e-plans.md](lot2-r51e-plans.md) | R5.1e exact plans · approved duplex base |
 | [lot2-r51-rebalance.md](lot2-r51-rebalance.md) | R5.1 plate reopen · chose R5.1e |

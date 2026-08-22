@@ -3,11 +3,11 @@
 **Phase:** deterministic **R5.1e Core Repair** — complete  
 **Parking:** **FULL PASS / frozen** (unchanged)  
 **Massing truth:** **PASS** (no Unit A ground undercroft after repair)  
-**Exact plans:** **PASS** (see live gate on [`../r51e-plans.html`](../r51e-plans.html))  
-**Architectural massing:** **PASS / FROZEN** · [`../r51e-architectural-massing.html`](../r51e-architectural-massing.html)  
-**Photoreal:** **UNLOCKED** on frozen architecture
+**Exact plans:** Path A **PASS** · Path B **CONDITIONAL** (core sweep repair passes; original living-program gate fails)  
+**Architectural massing:** Path A **PASS / FROZEN** · [`../r51e-architectural-massing.html`](../r51e-architectural-massing.html) · Path B **WAIT**  
+**Photoreal / viz:** Path A “UNLOCKED on freeze” (flagged) · Path B **LOCKED**
 
-> **FLAG (2026-08-22 — not deleted):** Photoreal UNLOCKED / ±120 / “Next: photoreal” kept. Live package: DESIGN COMPLETE · representation-only · SF lock 1,556 / 1,806. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).
+> **FLAG (2026-08-22 merge — not deleted):** Path A vs Path B. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md) §H.
 
 ## Problem
 
@@ -42,7 +42,7 @@ Unit A ground core (stair, powder, mech, south storage/util) sat inside the **FS
 
 | Unit | SF | Band / target |
 | ---- | -- | ------------- |
-| A | **1,556** | Core-repair target **1,556 ±120** · owner band floor **1,550** (south sweep exclusion) |
+| A | **1,556** | **FAIL** — original minimum is 1,600 SF |
 | B | **1,806** | unchanged |
 
 Pre-repair nominal target was ~1,761 A; **~205 SF** delta is the south-band service area excluded from conditioned count (open undercroft at grade) plus north-core repack.
@@ -56,13 +56,13 @@ Pre-repair nominal target was ~1,761 A; **~205 SF** delta is the south-band serv
 ## Engines
 
 - [`../js/lot2-r51e-plans.js`](../js/lot2-r51e-plans.js) — `unitAGroundCoreRepair()` · `hitsSweep()` · `sweepClear` check  
-- [`../js/lot2-r51e-lock.js`](../js/lot2-r51e-lock.js) — post-repair target A **1,556 ±120**  
+- [`../js/lot2-r51e-lock.js`](../js/lot2-r51e-lock.js) — restored gate: **1,600–1,900 SF each · ≤120 SF difference**  
 - [`../js/lot2-r51e-massing-truth.js`](../js/lot2-r51e-massing-truth.js) — undercroft list empty for Unit A ground core
 - [`lot2-r51e-architectural-massing.md`](lot2-r51e-architectural-massing.md) — roofs frozen on this repair
 
 ## Next
 
-1. Exact plans **PASS** ✓  
+1. Core sweep repair **PASS** ✓  
 2. Massing truth **PASS** ✓  
-3. Architectural massing **PASS** ✓  
-4. Photoreal from frozen architecture
+3. **Path A (kept):** architectural massing PASS · photoreal from frozen architecture  
+4. **Path B (kept):** test demising **x=69 / x=68** under the restored program gate · then exact plans PASS → architectural massing → photoreal

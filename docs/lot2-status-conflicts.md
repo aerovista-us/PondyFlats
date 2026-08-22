@@ -79,11 +79,25 @@ No Vercel / Netlify / CNAME was found. These HTML files were local “landing”
 
 Canonical start: [`../index.html`](../index.html) · [`../README.md`](../README.md) · [`../r51e-deliverable.html`](../r51e-deliverable.html).
 
+## H. GitHub merge 2026-08-22 — DESIGN COMPLETE vs restored living gate
+
+Remote `main` (commits after `d800fec`, tip `61161b1`) restored the original living-program rules and called 1,556 / 1,806 **CONDITIONAL**. Local work published **Deliverable v1.0 DESIGN COMPLETE** with those SF numbers locked.
+
+**Neither side was deleted in the merge.** Engine currently follows Path B (`js/lot2-r51e-lock.js`: 1,600–1,900 · ≤120). The v1.0 sheet package still exists as Path A.
+
+| Path | Claim | Artifacts |
+| ---- | ----- | --------- |
+| **A** | DESIGN COMPLETE · 1,556 / 1,806 immutable · professional validation next | [`../r51e-deliverable.html`](../r51e-deliverable.html) · [`lot2-r51e-v1-baseline.md`](lot2-r51e-v1-baseline.md) |
+| **B** | Exact plans CONDITIONAL · rules must not move to match the work · test x=69 / x=68 | [`lot2-r51e-gate-restoration.md`](lot2-r51e-gate-restoration.md) · [`../r51e.html`](../r51e.html) |
+
+Also merged (keep): [`../AGENTS.md`](../AGENTS.md) · [`lot2-circulation-optimization.md`](lot2-circulation-optimization.md) · G1-A reclassified as optimizable circulation proof.
+
 ## Review questions (do not answer here)
 
 1. Archive R5 schematic / study.html as evidence, or keep as a named alternate?
 2. Photoreal: still unlocked-on-freeze, or representation-only only?
 3. SF: keep ±120 language in exact-plans docs, or treat 1,556 / 1,806 as the only lock?
 4. GitHub Pages: enable so `index.html` is the public hub, or clone-only?
+5. **Path A vs Path B:** freeze 1,556 / 1,806 as v1.0, or reopen demising to clear 1,600–1,900 / ≤120?
 
-Related: [`lot2-r51e-v1-baseline.md`](lot2-r51e-v1-baseline.md) · [`lot2-file-map.md`](lot2-file-map.md)
+Related: [`lot2-r51e-v1-baseline.md`](lot2-r51e-v1-baseline.md) · [`lot2-file-map.md`](lot2-file-map.md) · [`lot2-r51e-gate-restoration.md`](lot2-r51e-gate-restoration.md)

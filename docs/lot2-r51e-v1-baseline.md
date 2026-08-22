@@ -6,6 +6,8 @@
 
 This is the first complete Pondy Flats design. Tag/archive this revision as the baseline against which professional-validation findings are recorded. Do not reopen alternatives unless a named defect in this frozen design requires it.
 
+> **FLAG (2026-08-22 merge — not deleted):** Path B restored the 1,600–1,900 / ≤120 living gate and treats this SF lock as CONDITIONAL. Both paths remain. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md) §H.
+
 **Front door:** [`../r51e-deliverable.html`](../r51e-deliverable.html)  
 **Hub:** [`../index.html`](../index.html)  
 **Canonical host:** GitHub [aerovista-us/PondyFlats](https://github.com/aerovista-us/PondyFlats) — no separate running landing. Older HTML landings stay in-tree; see [`lot2-status-conflicts.md`](lot2-status-conflicts.md).  

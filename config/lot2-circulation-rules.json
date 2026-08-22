@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "site": "PondyFlats Lot 2",
+  "drawingConvention": {
+    "street": "Pennsylvania Street",
+    "streetSide": "right/east",
+    "streetXApproxFt": 148
+  },
+  "invariants": {
+    "vehicleAccessOrigin": "Pennsylvania Street",
+    "allowRearAccess": false,
+    "allowWestAccess": false,
+    "allowNeighborParcelAccess": false,
+    "allowOffSurveyManeuvering": false,
+    "offSurveyException": "normal transition into Pennsylvania right-of-way at street edge only",
+    "dwellingUnits": 2
+  },
+  "originalProgramGate": {
+    "designVehicle": "FS-SUV",
+    "garageCount": 2,
+    "enclosedSpaces": 4,
+    "garageWidthFt": 22,
+    "garageDepthFt": 22,
+    "garageShrinkAllowed": false,
+    "independentApproachesRequired": true,
+    "inboundAndOutboundRequired": true
+  },
+  "constraintClasses": {
+    "locked": [
+      "surveyPolygon",
+      "pennsylvaniaAccessOrigin",
+      "designVehicle",
+      "vehicleDimensions",
+      "turningRadius",
+      "dwellingUnitCount",
+      "originalProgramGarageCapacity",
+      "originalProgramGarageDimensions",
+      "currentPlanningSetbackEnvelope",
+      "historicalLockedSourceConcepts"
+    ],
+    "movable": [
+      "drivewayCenterline",
+      "drivewayCurveControlPoints",
+      "localDrivewayWidth",
+      "drivewayFlare",
+      "drivewayTaper",
+      "turningBulb",
+      "maneuverPad",
+      "garageApron",
+      "garageDoorPosition",
+      "garageDoorFace",
+      "garageLocationMicroShift",
+      "unitLocationMicroShift",
+      "buildingSeparation"
+    ],
+    "conditional": [
+      "garageOrientation",
+      "garageUnitAttachment",
+      "unitFootprintProportions",
+      "primaryHomeMassOrientation",
+      "largeBuildingTranslation",
+      "majorFirstFloorRedistribution"
+    ]
+  },
+  "optimizationOrder": [
+    "drivewayCenterline",
+    "localPavementGeometry",
+    "garageApronAndStaging",
+    "garageDoorPositionOrFace",
+    "garageMicroShift",
+    "unitMicroShiftOrFootprintRefinement",
+    "majorArchitecturalRelayout"
+  ],
+  "searchStepsFt": [0.5, 1.0, 1.5, 2.0, 3.0],
+  "clearanceScoringFt": {
+    "collisionMax": 0,
+    "marginalBelow": 1.0,
+    "preferredPassAtOrAbove": 1.0,
+    "strongPassAtOrAbove": 2.0
+  },
+  "terminalFailRule": "Close only when a locked constraint fails or the bounded optimization sequence has been exhausted without a pass.",
+  "nearPassRule": "If the only conflict is with movable or conditional geometry and Pennsylvania-origin FS-SUV access remains viable without reducing program requirements, classify as NEAR-PASS / ITERATE.",
+  "g1a": {
+    "sourceConcept": "g1",
+    "sourceConceptLocked": true,
+    "variantMayBeOptimized": true,
+    "preferredAdjustmentSequence": [
+      "southLaneCenterline",
+      "garageBApproachCurve",
+      "localFlareAtUnitBPinch",
+      "garageBApproachOrDoor",
+      "garageBMicroShift",
+      "unitBMicroShiftOrRefinement"
+    ]
+  }
+}
