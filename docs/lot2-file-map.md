@@ -68,7 +68,7 @@
 | -- | ---- | ----- |
 | `reset_r5` | **CURRENT** (FULL PASS · public lead) | Parking frozen · schematic CONDITIONAL |
 | `js/lot2-r5-freeze.js` | **CURRENT** | R5 geometry freeze assert |
-| `js/lot2-r51e-lock.js` | **CURRENT** | R5.1e plate / SF lock |
+| `js/lot2-r51e-lock.js` | **CURRENT** | R5.1e plates + restored living gate (1,600–1,900 · Δ≤120) |
 | `js/lot2-r51e-massing-truth.js` | **CURRENT** | Massing extrusion + geometric gate |
 | `js/lot2-r51e-plans.js` | **CURRENT** | Exact rooms + hard sanity gate · Unit A core repair |
 | `js/lot2-r51-rebalance.js` | CURRENT | Plate reopen study |
@@ -94,9 +94,9 @@ Architecture unlocks only on **FULL PASS** of the Parking Reset Gate — never o
 | File | Role |
 | ---- | ---- |
 | `index.html` | Hub |
-| `r51e.html` | **CURRENT** · R5.1e visual demo |
+| `r51e.html` | **CURRENT** · R5.1e parking/massing demo · program repair active |
 | `r51e-massing-truth.html` | **CURRENT** · massing axon + gate |
-| `r51e-plans.html` | **CURRENT** · R5.1e exact plans gate |
+| `r51e-plans.html` | **CURRENT** · R5.1e exact plans · CONDITIONAL under restored gate |
 | `r51-rebalance.html` | CURRENT · R5.1 plate reopen evidence |
 | `r5-schematic.html` | CURRENT · R5 floor plans · CONDITIONAL |
 | `parking-reset.html` | Gate matrix |
