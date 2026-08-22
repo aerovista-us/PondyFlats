@@ -8,13 +8,16 @@ const Lot2R5Freeze = (() => {
   const PROGRAM =
     'R5 — two enclosed garage spaces plus two covered spaces, independently accessible.';
 
-  /** Frozen snapshot — must match Lot2.CONCEPTS.reset_r5 */
+  /**
+   * Parking freeze — bays / paths / clearance (FULL PASS).
+   * Residential plates amended to R5.1e by ownership (demising x=70) — see Lot2R51eLock.
+   */
   const FREEZE = Object.freeze({
     id: ID,
     boundaryClearanceFt: 0.75,
     reservedPlates: Object.freeze([
-      Object.freeze({ id: 'B', role: 'rear', x: 28, y: 5, w: 48, h: 28 }),
-      Object.freeze({ id: 'A', role: 'penn', x: 80, y: 5, w: 46, h: 20 }),
+      Object.freeze({ id: 'B', role: 'rear', x: 28, y: 5, w: 42, h: 28 }),
+      Object.freeze({ id: 'A', role: 'penn', x: 70, y: 5, w: 56, h: 22.5 }),
     ]),
     garages: Object.freeze([
       Object.freeze({ id: 'CB', x: 28, y: 20, w: 12, h: 14, doorFace: 'S', covered: true, enclosed: false, spaces: 1 }),

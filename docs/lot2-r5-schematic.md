@@ -1,6 +1,8 @@
 # Lot 2 — R5 schematic floor-plan sanity
 
-**Status:** **CONDITIONAL** (hard geometry clear · Penn living SF ownership trade)  
+**Status:** **CONDITIONAL** (hard geometry clear · **920 vs ~1,882 SF rejected as comparable duplex**)  
+**Ownership:** **WAIT** — see [`lot2-r51-rebalance.md`](lot2-r51-rebalance.md)  
+**Visualization:** **LOCKED**  
 **Program (honest):** **R5 — two enclosed garage spaces plus two covered spaces, independently accessible.**  
 **Not:** four enclosed spaces (that remains the lift / R6.4A+B branch).  
 **Artifact:** [`../r5-schematic.html`](../r5-schematic.html) · engine [`../js/lot2-r5-schematic.js`](../js/lot2-r5-schematic.js)  
@@ -37,13 +39,13 @@
 | Living SF | **CONDITIONAL** — A ~920 (plate-limited cottage) · B ~1,880 |
 | Fire marking | Assumed / marked — AHJ later |
 
-**Verdict:** CONDITIONAL — ownership must accept asymmetric living (Penn cottage under the shared 1,600–1,900 band) **or** reopen the plate freeze. Hard geometry is clear; massing / visualization wait on ownership YES.
+**Verdict:** CONDITIONAL — ownership rejected asymmetric duplex. Next study: [`lot2-r51-rebalance.md`](lot2-r51-rebalance.md). Massing / visualization **LOCKED**.
 
 ## Next gates
 
-1. Ownership YES on cottage trade (or plate reopen)  
-2. Deterministic massing on frozen R5  
-3. Architectural visualization (not before massing)  
+1. Ownership WAIT on R5.1 product fork  
+2. Only after YES → deterministic massing  
+3. Architectural visualization last  
 
 R6.4A+B stays dormant unless ownership restores **four enclosed** as a hard requirement.
 

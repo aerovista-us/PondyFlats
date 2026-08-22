@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pondy Flats · R5.1e Massing Truth</title>
+<meta name="description" content="R5.1e massing truth — deterministic extrusion of exact plans. No roofs, materials, or beautification.">
+<style>
+:root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--ok:#416145;--warn:#7b5721;--bad:#9a3b2e;--shadow:0 18px 54px #0f1a2b1a}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:ui-sans-serif,system-ui,sans-serif}
+.top{background:#0d1b33f4;color:#fff}.topin{max-width:1480px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand small{display:block;color:#efb34d;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.nav a{color:#fff;text-decoration:none;border:1px solid #ffffff28;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;margin-left:6px}
+.nav a.primary{background:#efb34d;color:#0d1b33;border-color:#efb34d}
+.wrap{max-width:1480px;margin:auto;padding:22px 18px 80px}
+.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow);padding:24px;margin-top:18px}
+h1{font:500 clamp(28px,4vw,48px)/1 Georgia,serif;color:var(--navy);margin:0 0 8px}h2{color:var(--navy);margin:0 0 10px}
+.lede,p,li{color:var(--muted);line-height:1.55;font-size:14px}
+.ok{margin-top:12px;padding:12px 14px;border-left:4px solid var(--ok);background:#edf5e9;color:#2d4a32;font-size:13px;border-radius:0 12px 12px 0}
+.callout{margin-top:12px;padding:12px 14px;border-left:4px solid var(--gold);background:#fff8eb;color:#6c5429;font-size:13px;border-radius:0 12px 12px 0}
+.lock{margin-top:12px;padding:12px 14px;border-left:4px solid var(--navy);background:#eef3fa;color:#2a4a7a;font-size:13px;border-radius:0 12px 12px 0}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:900}
+.badge.ok{background:#edf5e9;color:var(--ok)}.badge.fail{background:#fdecea;color:var(--bad)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.toolbar label{font-size:12px;font-weight:800;color:var(--navy);display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;padding:7px 12px;border-radius:999px;cursor:pointer}
+.plan{border:1px solid var(--line);border-radius:16px;background:#f7f4ef;padding:8px;margin-top:10px}
+.plan svg{width:100%;height:auto;display:block}
+.check{font-size:12px;padding:7px 0;border-bottom:1px solid #ece7e0}
+.check .ok{color:var(--ok);font-weight:900}.check .fail{color:var(--bad);font-weight:900}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-top:10px;background:#fff}
+th,td{padding:8px 10px;border-bottom:1px solid #ece7e0;text-align:left;vertical-align:top}
+th{background:#f6f3ee;color:var(--navy)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;font-size:12px;color:var(--muted)}
+.legend i{width:14px;height:14px;border:1px solid #666;display:inline-block;border-radius:2px;margin-right:4px;vertical-align:middle}
+@media(max-width:980px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand"><small>Pondy Flats · Lot 2</small><strong>R5.1e Massing Truth</strong></div>
+<nav class="nav">
+<a href="index.html">Hub</a>
+<a href="r51e.html">R5.1e demo</a>
+<a href="r51e-plans.html">Exact plans</a>
+<a class="primary" href="r51e-massing-truth.html">Massing</a>
+<a href="docs/lot2-r51e-massing-truth.md">Docs</a>
+</nav>
+</div></header>
+<main class="wrap">
+<section class="panel">
+<div style="font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#956d29">Geometric extrusion · no architecture</div>
+<h1>R5.1e — massing truth</h1>
+<p class="lede">First option that clears both FULL PASS parking and two comparable homes (1,770 / 1,806 SF). Volumes are exact approved plan polygons only.</p>
+<div id="banner"></div>
+<div class="ok" id="verdict"></div>
+<div class="callout"><strong>Excluded:</strong> roofs, materials, porches, landscaping, windows, photoreal. Zoning, fire engineering, and structural design remain pending.</div>
+<div class="legend">
+<span><i style="background:#b7c2d0"></i> Enclosed garage</span>
+<span><i style="background:#d9d4cb"></i> Ground</span>
+<span><i style="background:#e8e6e1"></i> Upper</span>
+<span><i style="background:#c8d0d6"></i> Slab / undercroft</span>
+<span><i style="background:transparent;border-style:dashed"></i> Plan projection</span>
+</div>
+</section>
+
+<section class="panel">
+<h2>Axon · Pennsylvania near</h2>
+<p class="lede">Stand on Pennsylvania / right looking west. North / rear is deep-left. Demising at x=70.</p>
+<div class="toolbar">
+<label><input type="checkbox" id="togProj" checked> Plan projection</label>
+<label><input type="checkbox" id="togUnder" checked> Parking / path underlay</label>
+<label><input type="checkbox" id="togSweep"> Swept-path underlay</label>
+</div>
+<div class="plan" id="axon"></div>
+<div class="lock" id="heights"></div>
+</section>
+
+<section class="panel">
+<h2>Massing gate</h2>
+<div id="checks"></div>
+<div class="callout" id="undercroft"></div>
+</section>
+
+<section class="panel">
+<h2>Extrusion schedule</h2>
+<div style="overflow:auto">
+<table>
+<thead><tr><th>Kind</th><th>Name</th><th>Plan</th><th>Z</th><th>Opaque</th></tr></thead>
+<tbody id="tbl"></tbody>
+</table>
+</div>
+</section>
+</main>
+<script src="js/lot2-sot.js"></script>
+<script src="js/lot2-geometry.js"></script>
+<script src="js/lot2-access.js"></script>
+<script src="js/lot2-access-skeleton.js"></script>
+<script src="js/lot2-r5-freeze.js"></script>
+<script src="js/lot2-r51e-lock.js"></script>
+<script src="js/lot2-r51e-plans.js"></script>
+<script src="js/lot2-r51e-massing-truth.js"></script>
+<script>
+const gate = Lot2R51eMassingTruth.analyze();
+const H = Lot2R51eMassingTruth.H;
+const badge = gate.verdict === 'PASS' ? 'ok' : 'fail';
+document.getElementById('banner').innerHTML = `<span class="badge ${badge}">${gate.verdict}</span>
+  <strong style="margin-left:8px">${gate.program}</strong>`;
+document.getElementById('verdict').innerHTML = `<strong>Massing truth ${gate.verdict}.</strong> ${gate.next} Living A ${gate.living.A} / B ${gate.living.B} SF.`;
+document.getElementById('heights').innerHTML = `<strong>Declared heights:</strong> carport clear ${H.carportClear}′ · floor structure ${H.structure}′ · ground FTF ${H.ground}′ · upper ${H.upper}′ · top of mass z=${H.ground+H.upper}′. Posts carry slab at ${H.ground}′.`;
+document.getElementById('checks').innerHTML = Object.entries(gate.checks).map(([k,v]) =>
+  `<div class="check"><span class="${v.ok?'ok':'fail'}">${v.ok?'PASS':'FAIL'}</span> · <strong>${k}</strong> — ${v.detail}</div>`
+).join('');
+document.getElementById('undercroft').innerHTML = gate.undercroft.length
+  ? `<strong>Undercroft (open below slab):</strong> ${gate.undercroft.join(', ')}. These approved ground polygons sit in the frozen FS-SUV envelope — they are not enclosed at grade so parking FULL PASS is preserved. Architectural massing must keep an enclosed stair north of the sweep.`
+  : 'No undercroft rooms.';
+
+function paint(){
+  const out = Lot2R51eMassingTruth.renderAxonSvg({
+    showProjection: document.getElementById('togProj').checked,
+    showUnderlay: document.getElementById('togUnder').checked,
+    showSweep: document.getElementById('togSweep').checked,
+  });
+  document.getElementById('axon').innerHTML = out.svg;
+  document.getElementById('tbl').innerHTML = out.volumes.filter(v=>v.kind!=='post'||true).map(v =>
+    `<tr><td>${v.kind}</td><td>${v.name}</td><td>(${v.rect.x}, ${v.rect.y}) ${v.rect.w}×${v.rect.h}</td><td>${v.z0}–${v.z1}′</td><td>${v.opaque?'yes':'open'}</td></tr>`
+  ).join('');
+}
+['togProj','togUnder','togSweep'].forEach(id => document.getElementById(id).addEventListener('change', paint));
+paint();
+</script>
+</body>
+</html>

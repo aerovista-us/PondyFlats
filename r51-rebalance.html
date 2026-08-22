@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pondy Flats · R5.1 Program Rebalance</title>
+<meta name="description" content="R5.1 plate/upper rebalance — parking frozen · ownership WAIT · visualization locked.">
+<style>
+:root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--ok:#416145;--warn:#7b5721;--bad:#9a3b2e;--shadow:0 18px 54px #0f1a2b1a}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:ui-sans-serif,system-ui,sans-serif}
+.top{background:#0d1b33f4;color:#fff}.topin{max-width:1200px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand small{display:block;color:#efb34d;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.nav a{color:#fff;text-decoration:none;border:1px solid #ffffff28;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;margin-left:6px}
+.wrap{max-width:1200px;margin:auto;padding:22px 18px 80px}
+.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow);padding:24px;margin-top:18px}
+h1{font:500 clamp(28px,4vw,48px)/1 Georgia,serif;color:var(--navy);margin:0 0 8px}h2{color:var(--navy);margin:0 0 10px}
+.lede,p,li{color:var(--muted);line-height:1.55;font-size:14px}
+.status{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.metric{border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff}
+.metric small{display:block;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#92702e}
+.metric strong{color:var(--navy);font-size:13px}
+.callout{margin-top:12px;padding:12px 14px;border-left:4px solid var(--gold);background:#fff8eb;color:#6c5429;font-size:13px;line-height:1.5;border-radius:0 12px 12px 0}
+.lock{margin-top:12px;padding:12px 14px;border-left:4px solid var(--navy);background:#eef3fa;color:#2a4a7a;font-size:13px;line-height:1.5;border-radius:0 12px 12px 0}
+.okbox{margin-top:12px;padding:12px 14px;border-left:4px solid var(--ok);background:#edf5e9;color:#2d4a32;font-size:13px;line-height:1.5;border-radius:0 12px 12px 0}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:900}
+.badge.ok{background:#edf5e9;color:var(--ok)}.badge.conditional{background:#fff4e5;color:var(--warn)}.badge.fail{background:#fdecea;color:var(--bad)}.badge.wait{background:#eef3fa;color:#2a4a7a}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-top:10px;background:#fff}
+th,td{padding:8px 10px;border-bottom:1px solid #ece7e0;text-align:left;vertical-align:top}
+th{background:#f6f3ee;color:var(--navy)}
+.ok{color:var(--ok);font-weight:800}.fail{color:var(--bad);font-weight:800}.review{color:var(--warn);font-weight:800}
+@media(max-width:900px){.status{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand"><small>Pondy Flats · Lot 2</small><strong>R5.1 Program Rebalance</strong></div>
+<nav class="nav">
+<a href="index.html">Hub</a>
+<a href="r5-schematic.html">R5 schematic</a>
+<a href="parking-reset.html#reset_r5">Parking</a>
+<a href="docs/lot2-r51-rebalance.md">Docs</a>
+</nav>
+</div></header>
+<main class="wrap">
+<section class="panel">
+<div style="font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#956d29">Plate reopen only · parking frozen</div>
+<h1>R5.1 — program rebalance</h1>
+<p class="lede">R5 solved parking. 920 vs 1,882 SF is too asymmetric for two comparable homes. This study reopens <strong>only</strong> residential plates / upper envelopes.</p>
+<div class="status" id="status"></div>
+<div class="callout" id="product"></div>
+<div class="lock" id="prompt"></div>
+</section>
+
+<section class="panel">
+<h2>Maximum legitimate two-story conditioned area</h2>
+<p class="lede">Among gate-clear variants (parking freeze intact). Theoretical envelope = plate − parking-in-plate, times two stories (covered void removed when conditioned-over-posts is allowed).</p>
+<div class="status" id="max"></div>
+</section>
+
+<section class="panel">
+<h2>Scenario matrix</h2>
+<div style="overflow:auto">
+<table>
+<thead><tr>
+<th>Scenario</th><th>Demising</th><th>A live / theo</th><th>B live / theo</th><th>Asym</th><th>Gate</th><th>Notes</th>
+</tr></thead>
+<tbody id="tbl"></tbody>
+</table>
+</div>
+</section>
+
+<section class="panel">
+<h2>What cleared vs what did not</h2>
+<ul id="findings"></ul>
+<div class="okbox"><strong>Frozen unchanged:</strong> bays · paths · posts positions · snow zone · ≥0.75′ swept clearance · freeze assert.</div>
+<div class="callout"><strong>Do not mass / visualize yet.</strong> Ownership must choose: approve R5.1 plate shift as duplex base, accept large+cottage product, or reopen parking.</div>
+</section>
+</main>
+<script src="js/lot2-sot.js"></script>
+<script src="js/lot2-geometry.js"></script>
+<script src="js/lot2-access-skeleton.js"></script>
+<script src="js/lot2-r5-freeze.js"></script>
+<script src="js/lot2-r51-rebalance.js"></script>
+<script>
+const r = Lot2R51Rebalance.analyze();
+const st = r.status;
+document.getElementById('status').innerHTML = `
+  <div class="metric"><small>Parking</small><strong><span class="badge ok">${st.parking}</span></strong></div>
+  <div class="metric"><small>Schematic</small><strong><span class="badge conditional">${st.schematic}</span></strong></div>
+  <div class="metric"><small>Ownership</small><strong><span class="badge wait">${st.ownership}</span></strong></div>
+  <div class="metric"><small>Visualization</small><strong><span class="badge fail">${st.visualization}</span></strong></div>`;
+document.getElementById('product').innerHTML = `<strong>Product verdict:</strong> ${r.productVerdict.replace(/_/g,' ')} · duplex reachable via R5.1 plate shift: <strong>${r.duplexReachable ? 'YES' : 'NO'}</strong>`;
+document.getElementById('prompt').textContent = r.ownershipPrompt;
+document.getElementById('max').innerHTML = `
+  <div class="metric"><small>Max A (gate-clear)</small><strong>~${r.maxLegit.A} SF</strong></div>
+  <div class="metric"><small>Max B (gate-clear)</small><strong>~${r.maxLegit.B} SF</strong></div>
+  <div class="metric"><small>Living target</small><strong>${r.livingTarget.min}–${r.livingTarget.max} SF</strong></div>
+  <div class="metric"><small>Freeze assert</small><strong>${r.freeze.ok ? 'PASS' : 'FAIL'}</strong></div>`;
+document.getElementById('tbl').innerHTML = r.rows.map(row => {
+  const e = row.eval;
+  const cls = e.verdict === 'PASS' ? 'ok' : e.verdict === 'CONDITIONAL' ? 'review' : 'fail';
+  return `<tr>
+    <td><strong>${row.label}</strong></td>
+    <td>x=${row.demisingX} · A h=${row.plateAH}</td>
+    <td>${row.plan.livingA} / ${row.plan.theoA.totalMax}</td>
+    <td>${row.plan.livingB} / ${row.plan.theoB.totalMax}</td>
+    <td>${e.asymmetry}</td>
+    <td class="${cls}">${e.verdict}</td>
+    <td>${(e.fails[0]||e.notes[0]||e.fire||'—')}</td>
+  </tr>`;
+}).join('');
+document.getElementById('findings').innerHTML = `
+  <li><strong>Baseline R5:</strong> A theoretical max ~1,120 SF — cannot approach duplex band without plate growth.</li>
+  <li><strong>Deck→conditioned over CA alone:</strong> A ~1,288 SF — still short; posts must carry floor.</li>
+  <li><strong>Absorb 4′ gap:</strong> A ~1,448 SF — still under 1,600.</li>
+  <li><strong>Transfer ~6–10′ from B (demising x=70→66) + conditioned over covered:</strong> both units can land in/near the living band with asymmetry ≤~100–300 SF.</li>
+  <li><strong>Best balance:</strong> R5.1e (D=70 · deepen A to 27.5′ · both over-covered) — A ~1,761 / B ~1,806 packed.</li>
+  <li><strong>Without plate transfer:</strong> honest product is large home + cottage/ADU, or reopen parking.</li>`;
+</script>
+</body>
+</html>

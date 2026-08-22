@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pondy Flats · R5.1e Exact Plans</title>
+<meta name="description" content="R5.1e approved duplex base — exact room sanity. Massing unlocked only on PASS; visualization locked.">
+<style>
+:root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--ok:#416145;--warn:#7b5721;--bad:#9a3b2e;--shadow:0 18px 54px #0f1a2b1a}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:ui-sans-serif,system-ui,sans-serif}
+.top{background:#0d1b33f4;color:#fff}.topin{max-width:1400px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand small{display:block;color:#efb34d;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.nav a{color:#fff;text-decoration:none;border:1px solid #ffffff28;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;margin-left:6px}
+.nav a.primary{background:#efb34d;color:#0d1b33;border-color:#efb34d}
+.wrap{max-width:1400px;margin:auto;padding:22px 18px 80px}
+.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow);padding:24px;margin-top:18px}
+h1{font:500 clamp(28px,4vw,48px)/1 Georgia,serif;color:var(--navy);margin:0 0 8px}h2{color:var(--navy);margin:0 0 10px}
+.lede,p,li{color:var(--muted);line-height:1.55;font-size:14px}
+.program{margin-top:12px;padding:12px 14px;border-left:4px solid var(--navy);background:#eef3fa;color:#2a4a7a;font-size:14px;border-radius:0 12px 12px 0;font-weight:650}
+.callout{margin-top:12px;padding:12px 14px;border-left:4px solid var(--gold);background:#fff8eb;color:#6c5429;font-size:13px;border-radius:0 12px 12px 0}
+.lock{margin-top:12px;padding:12px 14px;border-left:4px solid var(--ok);background:#edf5e9;color:#2d4a32;font-size:13px;border-radius:0 12px 12px 0}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:900}
+.badge.ok{background:#edf5e9;color:var(--ok)}.badge.fail{background:#fdecea;color:var(--bad)}.badge.wait{background:#eef3fa;color:#2a4a7a}
+.grid2{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.metric{border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff;margin-bottom:8px}
+.metric small{display:block;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#92702e}
+.metric strong{color:var(--navy);font-size:14px}
+.check{font-size:12px;padding:7px 0;border-bottom:1px solid #ece7e0}
+.check .ok{color:var(--ok);font-weight:900}.check .fail{color:var(--bad);font-weight:900}
+.plan{border:1px solid var(--line);border-radius:16px;background:#fbfaf7;padding:6px;margin-top:10px}
+.plan svg{width:100%;height:auto;display:block}
+.card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:14px}
+.card b{color:var(--gold);font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+.meta{font-size:12px;color:var(--muted);margin:4px 0 0;line-height:1.45}
+@media(max-width:980px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand"><small>Pondy Flats · Lot 2</small><strong>R5.1e Exact Plans</strong></div>
+<nav class="nav">
+<a href="index.html">Hub</a>
+<a href="r51e.html">Demo</a>
+<a class="primary" href="r51e-plans.html">Exact plans</a>
+<a href="r51e-massing-truth.html">Massing</a>
+<a href="parking-reset.html#reset_r5">Parking</a>
+<a href="docs/lot2-r51e-plans.md">Docs</a>
+</nav>
+</div></header>
+<main class="wrap">
+<section class="panel">
+<div style="font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#956d29">Approved duplex base · exact room sanity</div>
+<h1>R5.1e — exact floor plans</h1>
+<p class="lede">Demising x=70 · conditioned over covered · parking FULL PASS frozen. Every gate item must PASS before massing.</p>
+<div class="program" id="program"></div>
+<div id="verdictBar" style="margin-top:14px"></div>
+</section>
+
+<section class="panel">
+<h2>Exact plan sanity gate</h2>
+<div class="grid2">
+<div id="checks"></div>
+<div>
+<div class="metric"><small>Verdict</small><strong id="verdict">—</strong></div>
+<div class="metric"><small>Unit A conditioned</small><strong id="sfA">—</strong></div>
+<div class="metric"><small>Unit B conditioned</small><strong id="sfB">—</strong></div>
+<div class="metric"><small>Demising</small><strong id="dem">—</strong></div>
+<div class="metric"><small>Next</small><strong id="next" style="font-size:13px;font-weight:650">—</strong></div>
+</div>
+</div>
+</section>
+
+<section class="panel">
+<h2>Ground floor</h2>
+<div class="plan" id="plan-ground"></div>
+<div class="grid2" style="margin-top:12px">
+<div class="card" id="metaA"></div>
+<div class="card" id="metaB"></div>
+</div>
+</section>
+
+<section class="panel">
+<h2>Upper floor</h2>
+<div class="plan" id="plan-upper"></div>
+</section>
+
+<section class="panel">
+<h2>Locks</h2>
+<div class="lock" id="locks"></div>
+<div class="callout">Visualization remains locked until deterministic massing is complete and locked. Do not skip to photoreal.</div>
+</section>
+</main>
+<script src="js/lot2-sot.js"></script>
+<script src="js/lot2-geometry.js"></script>
+<script src="js/lot2-access.js"></script>
+<script src="js/lot2-access-skeleton.js"></script>
+<script src="js/lot2-r5-freeze.js"></script>
+<script src="js/lot2-r51e-lock.js"></script>
+<script src="js/lot2-r51e-plans.js"></script>
+<script>
+const r = Lot2R51ePlans.analyze();
+const badge = r.verdict === 'PASS' ? 'ok' : 'fail';
+document.getElementById('program').textContent = r.program + ' · ' + r.label;
+document.getElementById('verdictBar').innerHTML = `<span class="badge ${badge}">${r.verdict}</span>
+  <span class="badge ok" style="margin-left:6px">Massing truth PASS</span>
+  <span class="badge wait" style="margin-left:6px">${r.status.architecturalMassing || r.status.massing}</span>
+  <span class="badge fail" style="margin-left:6px">Viz ${r.status.visualization}</span>`;
+document.getElementById('verdict').innerHTML = `<span class="badge ${badge}">${r.verdict}</span>`;
+document.getElementById('sfA').textContent = `${r.unitA.livingSf} SF (post core repair · target ~1556±120)`;
+document.getElementById('sfB').textContent = `${r.unitB.livingSf} SF (target ~1806)`;
+document.getElementById('dem').textContent = `x=${r.demisingX} · 1-hr shared wall`;
+document.getElementById('next').textContent = r.next;
+document.getElementById('checks').innerHTML = Object.entries(r.checks).map(([k,v]) =>
+  `<div class="check"><span class="${v.ok?'ok':'fail'}">${v.ok?'PASS':'FAIL'}</span> · <strong>${k}</strong> — ${v.detail}</div>`
+).join('');
+document.getElementById('plan-ground').innerHTML = Lot2R51ePlans.renderFloor('ground');
+document.getElementById('plan-upper').innerHTML = Lot2R51ePlans.renderFloor('upper');
+document.getElementById('metaA').innerHTML = `<b>Unit A</b><h3 style="margin:6px 0;color:#0d1b33">${r.unitA.label}</h3>
+  <p class="meta">${r.unitA.meta.egress}</p><p class="meta">${r.unitA.meta.bearing}</p><p class="meta">${r.unitA.meta.privacy}</p>`;
+document.getElementById('metaB').innerHTML = `<b>Unit B</b><h3 style="margin:6px 0;color:#0d1b33">${r.unitB.label}</h3>
+  <p class="meta">${r.unitB.meta.egress}</p><p class="meta">${r.unitB.meta.bearing}</p><p class="meta">${r.unitB.meta.privacy}</p>`;
+document.getElementById('locks').innerHTML = `
+  <strong>Parking:</strong> ${r.status.parking}<br>
+  <strong>Massing truth:</strong> ${r.status.massingTruth || 'PASS'}<br>
+  <strong>Duplex base:</strong> ${r.status.duplexBase}<br>
+  <strong>Exact plans:</strong> ${r.status.exactPlans}<br>
+  <strong>Architectural massing:</strong> ${r.status.architecturalMassing || r.status.massing}<br>
+  <strong>Visualization:</strong> ${r.status.visualization}`;
+</script>
+</body>
+</html>

@@ -1114,9 +1114,10 @@ ${extra}`;
     reset_r5: {
       id: 'reset_r5',
       label: 'Parking Reset R5 — Integrated Practical Pair',
-      role: 'FULL PASS · public lead · one enclosed + one covered · schematic architecture unlocked',
+      role: 'FULL PASS parking · R5.1e approved duplex base · exact plans',
       workingOption: true,
       fullPass: true,
+      r51eDuplexBase: true,
       group: 'parking-reset-integrated',
       parkingReset: true,
       parkingIntegrated: true,
@@ -1136,8 +1137,8 @@ ${extra}`;
       designConcern: 'Outbound centerline repair: north-of-spine pocket (south 90° illegal for axle-body). Posts + snow edge as obstacles. FULL PASS → public lead + architecture.',
       units: [],
       reservedPlates: [
-        { id: 'B', role: 'rear', name: 'HOME PLATE B · rear', x: 28, y: 5, w: 48, h: 28 },
-        { id: 'A', role: 'penn', name: 'HOME PLATE A · Penn', x: 80, y: 5, w: 46, h: 20 },
+        { id: 'B', role: 'rear', name: 'HOME PLATE B · rear', x: 28, y: 5, w: 42, h: 28 },
+        { id: 'A', role: 'penn', name: 'HOME PLATE A · Penn', x: 70, y: 5, w: 56, h: 22.5 },
       ],
       garages: [
         { name: 'COVERED B · 12×14', id: 'CB', x: 28, y: 20, w: 12, h: 14, doorFace: 'S', covered: true, enclosed: false, spaces: 1, apronIgnoreIds: ['B'] },

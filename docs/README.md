@@ -8,21 +8,25 @@
 
 | Item | Status |
 | ---- | ------ |
-| **R5** Practical Pair | **FULL PASS · public lead** · parking frozen |
-| **R5 schematic** | **CONDITIONAL** · ownership cottage trade · [`../r5-schematic.html`](../r5-schematic.html) |
-| **R6.4A / R6.4B** | Dormant (four enclosed) |
-| **R6.4** | REPAIR — DAILY POOR |
-| **R6.1** | Public reference |
-| **R6.2A** | Closed FAIL |
-| **Massing / viz** | Held until schematic ownership YES |
+| **R5.1e duplex** | **Show today** — parking FULL PASS + 1,556 / 1,806 SF · core repair PASS · [`../r51e.html`](../r51e.html) |
+| **Exact plans** | **PASS** · [`lot2-r51e-core-repair.md`](lot2-r51e-core-repair.md) |
+| **Massing truth** | **PASS / frozen** · [`../r51e-massing-truth.html`](../r51e-massing-truth.html) |
+| **Architectural massing** | Next |
+| **Photoreal** | Locked |
+| **R5 parking** | **FULL PASS / frozen** |
+| **R6.4A / R6.4B** | Dormant |
 
-Live: [`../r5-schematic.html`](../r5-schematic.html) · [`../parking-reset.html`](../parking-reset.html) · [`lot2-r5-schematic.md`](lot2-r5-schematic.md) · [`lot2-r5-full-pass.md`](lot2-r5-full-pass.md)
+Live: [`../r51e.html`](../r51e.html) · [`lot2-r51e-massing-truth.md`](lot2-r51e-massing-truth.md) · [`lot2-r51e-plans.md`](lot2-r51e-plans.md)
 
 ## Active docs
 
 | Doc | Topic |
 | --- | ----- |
-| [lot2-r5-schematic.md](lot2-r5-schematic.md) | **R5 schematic** · floor-plan sanity CONDITIONAL |
+| [lot2-r51e-core-repair.md](lot2-r51e-core-repair.md) | **R5.1e Unit A core repair** · sweep-clear · exact plans PASS |
+| [lot2-r51e-massing-truth.md](lot2-r51e-massing-truth.md) | **R5.1e massing truth** · extrusion freeze |
+| [lot2-r51e-plans.md](lot2-r51e-plans.md) | R5.1e exact plans · approved duplex base |
+| [lot2-r51-rebalance.md](lot2-r51-rebalance.md) | R5.1 plate reopen · chose R5.1e |
+| [lot2-r5-schematic.md](lot2-r5-schematic.md) | R5 schematic CONDITIONAL |
 | [lot2-r5-full-pass.md](lot2-r5-full-pass.md) | **R5 FULL PASS** · outbound pocket repair |
 | [lot2-repair-before-close.md](lot2-repair-before-close.md) | Repair rule · R6.4A/B |
 | [lot2-parking-reset.md](lot2-parking-reset.md) | Gate · hierarchy |
