@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pondy Flats · R5.1e Exact Plans</title>
-<meta name="description" content="R5.1e approved duplex base — exact room sanity. Massing unlocked only on PASS; visualization locked.">
+<meta name="description" content="R5.1e exact room sanity under the restored 1,600–1,900 SF and ≤120 SF difference gate.">
 <style>
 :root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--ok:#416145;--warn:#7b5721;--bad:#9a3b2e;--shadow:0 18px 54px #0f1a2b1a}
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:ui-sans-serif,system-ui,sans-serif}
@@ -106,7 +106,7 @@ document.getElementById('verdictBar').innerHTML = `<span class="badge ${badge}">
   <span class="badge wait" style="margin-left:6px">${r.status.architecturalMassing || r.status.massing}</span>
   <span class="badge fail" style="margin-left:6px">Viz ${r.status.visualization}</span>`;
 document.getElementById('verdict').innerHTML = `<span class="badge ${badge}">${r.verdict}</span>`;
-document.getElementById('sfA').textContent = `${r.unitA.livingSf} SF (post core repair · target ~1556±120)`;
+document.getElementById('sfA').textContent = `${r.unitA.livingSf} SF · required 1,600–1,900`;
 document.getElementById('sfB').textContent = `${r.unitB.livingSf} SF (target ~1806)`;
 document.getElementById('dem').textContent = `x=${r.demisingX} · 1-hr shared wall`;
 document.getElementById('next').textContent = r.next;
