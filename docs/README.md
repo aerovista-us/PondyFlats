@@ -8,10 +8,10 @@
 
 | Item | Status |
 | ---- | ------ |
-| **R5.1e duplex** | **Show today** — parking FULL PASS + 1,556 / 1,806 SF · core repair PASS · [`../r51e.html`](../r51e.html) |
-| **Exact plans** | **PASS** · [`lot2-r51e-core-repair.md`](lot2-r51e-core-repair.md) |
+| **R5.1e repair** | Parking FULL PASS · core sweep-clear · living rebalance active · [`../r51e.html`](../r51e.html) |
+| **Exact plans** | **CONDITIONAL** · restored program gate · [`lot2-r51e-gate-restoration.md`](lot2-r51e-gate-restoration.md) |
 | **Massing truth** | **PASS / frozen** · [`../r51e-massing-truth.html`](../r51e-massing-truth.html) |
-| **Architectural massing** | Next |
+| **Architectural massing** | WAIT — after exact plans PASS |
 | **Photoreal** | Locked |
 | **R5 parking** | **FULL PASS / frozen** |
 | **R6.4A / R6.4B** | Dormant |
@@ -22,7 +22,8 @@ Live: [`../r51e.html`](../r51e.html) · [`lot2-r51e-massing-truth.md`](lot2-r51e
 
 | Doc | Topic |
 | --- | ----- |
-| [lot2-r51e-core-repair.md](lot2-r51e-core-repair.md) | **R5.1e Unit A core repair** · sweep-clear · exact plans PASS |
+| [lot2-r51e-core-repair.md](lot2-r51e-core-repair.md) | **R5.1e Unit A core repair** · sweep-clear · program repair open |
+| [lot2-r51e-gate-restoration.md](lot2-r51e-gate-restoration.md) | **Gate restoration** · original living and sweep rules restored |
 | [lot2-r51e-massing-truth.md](lot2-r51e-massing-truth.md) | **R5.1e massing truth** · extrusion freeze |
 | [lot2-r51e-plans.md](lot2-r51e-plans.md) | R5.1e exact plans · approved duplex base |
 | [lot2-r51-rebalance.md](lot2-r51-rebalance.md) | R5.1 plate reopen · chose R5.1e |
