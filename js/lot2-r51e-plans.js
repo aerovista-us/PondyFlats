@@ -12,7 +12,7 @@ const Lot2R51ePlans = (() => {
   const ArchLock = typeof Lot2R51eLock !== 'undefined' ? Lot2R51eLock : null;
   const Acc = typeof Lot2Access !== 'undefined' ? Lot2Access : null;
   const PARENT = 'reset_r5';
-  const SWEEP_OVERLAP_TOL = 4;
+  const SWEEP_OVERLAP_TOL = 0.05;
   const MIN_ROOM = 8;
   const MIN_STAIR = 3.5;
   const MIN_CORRIDOR = 4;
@@ -284,16 +284,22 @@ const Lot2R51ePlans = (() => {
     const undercroftOk = unitA.ground.some((r) => r.name.includes('OPEN UNDERCROFT') && r.kind === 'void');
     const coreRepairOk = sweepHits.length === 0 && undercroftOk;
 
-    const unitAMin = coreRepairOk ? 1550 : LIVING.min;
-    const coreRepairBand = unitA.livingSf >= unitAMin && unitA.livingSf <= LIVING.max;
-    const livingBand = coreRepairBand
-      && unitB.livingSf >= LIVING.min && unitB.livingSf <= LIVING.max + 200;
-    const comparable = Math.abs(unitA.livingSf - unitB.livingSf) <= 120;
-    const tgt = ArchLock ? ArchLock.LOCK.targetSf : { A: 1761, B: 1806, tol: 80 };
+    const unitAMin = LIVING.min;
+    const livingBand = unitA.livingSf >= LIVING.min && unitA.livingSf <= LIVING.max
+      && unitB.livingSf >= LIVING.min && unitB.livingSf <= LIVING.max;
+    const gate = ArchLock && ArchLock.LOCK.livingGate
+      ? ArchLock.LOCK.livingGate
+      : { min: LIVING.min, max: LIVING.max, maxDelta: 120 };
+    const comparable = Math.abs(unitA.livingSf - unitB.livingSf) <= gate.maxDelta;
     const sfAssert = ArchLock
       ? ArchLock.assertSf(unitA.livingSf, unitB.livingSf)
-      : { ok: true, fails: [] };
-    const sfOk = sfAssert.ok || (coreRepairOk && coreRepairBand);
+      : {
+        ok: livingBand && comparable,
+        fails: livingBand && comparable ? [] : ['Living program gate failed'],
+        gate,
+        delta: Math.abs(unitA.livingSf - unitB.livingSf),
+      };
+    const sfOk = sfAssert.ok;
 
     const checks = {
       parkingFreeze: {
@@ -331,10 +337,8 @@ const Lot2R51ePlans = (() => {
         detail: arch ? arch.summary : 'n/a',
       },
       livingTarget: {
-        ok: livingBand && (comparable || (coreRepairOk && Math.abs(unitA.livingSf - unitB.livingSf) <= 260)) && sfOk,
-        detail: sfAssert.ok
-          ? `A ${unitA.livingSf} SF · B ${unitB.livingSf} SF · targets ${tgt.A}/${tgt.B} (±${tgt.tol}) · band ${unitAMin}–${LIVING.max}`
-          : `A ${unitA.livingSf} SF · B ${unitB.livingSf} SF · core-repair band ${unitAMin}–${LIVING.max} (target ${tgt.A}±${tgt.tol})`,
+        ok: livingBand && comparable && sfOk,
+        detail: `A ${unitA.livingSf} SF · B ${unitB.livingSf} SF · required ${gate.min}–${gate.max} each · Δ ${Math.abs(unitA.livingSf - unitB.livingSf)} / ${gate.maxDelta}`,
       },
       parkingClearance: {
         ok: parkingOnly.ok,
