@@ -21,7 +21,7 @@ This lock:
 1. Reads the frozen architectural-massing SVG (and checks it still matches the engine).
 2. Remaps fills only — polygon points stay identical.
 3. Overlays east garage door planes from frozen garage rects (`east-plane-svg-locked`).
-4. Callouts: ridges 27.0′ / 26.5′, demising x=70 blank, eight posts, covered open, canopy/eyebrow caps.
+4. Callouts: ridges 27.0′ / 26.5′, demising x=68 blank, eight posts, covered open, canopy/eyebrow caps.
 
 ## Gate
 

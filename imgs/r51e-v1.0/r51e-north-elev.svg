@@ -5,7 +5,7 @@
   <text x="18" y="28" font-size="14" font-weight="800" fill="#0d1b33">NORTH ELEVATION</text>
   <text x="18" y="44" font-size="10" fill="#5a6570">Looking south · Pennsylvania RIGHT · plan-closure N-wall openings only</text>
   <text x="926" y="26" text-anchor="end" font-size="12" font-weight="900" fill="#0d1b33">A-203</text>
-  <text x="926" y="42" text-anchor="end" font-size="9" font-weight="800" fill="#416145">PASS · R5.1e-v1.1</text>
+  <text x="926" y="42" text-anchor="end" font-size="9" font-weight="800" fill="#416145">PASS · R5.1e-v1.0</text>
   
   <line x1="78" y1="360" x2="884.6" y2="360" stroke="#2a333c" stroke-width="2"/>
   <rect x="231.9625" y="273.9" width="2.725" height="86.1" fill="#c8d0d6" stroke="#5a6570" stroke-width="1.05" stroke-dasharray="4 3"/>
@@ -14,11 +14,11 @@
 <rect x="291.9125" y="273.9" width="2.725" height="86.1" fill="#c8d0d6" stroke="#5a6570" stroke-width="1.05" stroke-dasharray="4 3"/>
 <rect x="306.9" y="273.9" width="130.8" height="86.1" fill="#6e7a88" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
 <rect x="230.6" y="273.9" width="65.4" height="86.1" fill="#c8d0d6" stroke="#5a6570" stroke-width="1.05" stroke-dasharray=""/>
-<rect x="306.9" y="191.9" width="141.70000000000002" height="82" fill="#e6e0d4" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
+<rect x="306.9" y="191.9" width="152.6" height="82" fill="#e6e0d4" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
 <rect x="230.6" y="191.9" width="76.3" height="82" fill="#e6e0d4" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
 <rect x="548.0625" y="273.9" width="2.725" height="86.1" fill="#c8d0d6" stroke="#5a6570" stroke-width="1.05" stroke-dasharray="4 3"/>
 <rect x="608.0125" y="273.9" width="2.725" height="86.1" fill="#c8d0d6" stroke="#5a6570" stroke-width="1.05" stroke-dasharray="4 3"/>
-<rect x="448.6" y="273.9" width="98.10000000000001" height="86.1" fill="#cfc6b6" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
+<rect x="459.5" y="273.9" width="87.2" height="86.1" fill="#cfc6b6" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
 <rect x="492.2" y="191.9" width="76.3" height="82" fill="#e6e0d4" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
 <rect x="568.5" y="191.9" width="43.6" height="82" fill="#e6e0d4" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
 <rect x="612.1" y="191.9" width="65.4" height="82" fill="#e6e0d4" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
@@ -29,22 +29,22 @@
 <rect x="608.0125" y="273.9" width="2.725" height="86.1" fill="#c8d0d6" stroke="#5a6570" stroke-width="1.05" stroke-dasharray="4 3"/>
 <rect x="623" y="273.9" width="130.8" height="86.1" fill="#6e7a88" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
 <rect x="546.7" y="273.9" width="65.4" height="86.1" fill="#c8d0d6" stroke="#5a6570" stroke-width="1.05" stroke-dasharray=""/>
-<rect x="448.6" y="273.9" width="54.5" height="86.1" fill="#cfc6b6" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
+<rect x="459.5" y="273.9" width="43.6" height="86.1" fill="#cfc6b6" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
 <rect x="503.1" y="273.9" width="43.6" height="86.1" fill="#cfc6b6" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
-<rect x="448.6" y="191.9" width="43.6" height="82" fill="#e6e0d4" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
+<rect x="459.5" y="191.9" width="32.7" height="82" fill="#e6e0d4" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
 <rect x="492.2" y="191.9" width="76.3" height="82" fill="#e6e0d4" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
 <rect x="568.5" y="191.9" width="196.20000000000002" height="82" fill="#e6e0d4" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
 <rect x="230.6" y="273.9" width="65.4" height="86.1" fill="#cfc6b6" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
 <rect x="296" y="273.9" width="130.8" height="86.1" fill="#cfc6b6" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
-<rect x="426.8" y="273.9" width="21.8" height="86.1" fill="#cfc6b6" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
+<rect x="426.8" y="273.9" width="32.7" height="86.1" fill="#cfc6b6" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
 <rect x="230.6" y="191.9" width="196.20000000000002" height="82" fill="#e6e0d4" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/>
-<rect x="426.8" y="191.9" width="21.8" height="82" fill="#e6e0d4" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/><line x1="230.6" y1="191.9" x2="448.6" y2="191.9" stroke="#4a5058" stroke-width="1.2"/><line x1="448.6" y1="191.9" x2="764.7" y2="191.9" stroke="#4a5058" stroke-width="1.2"/><line x1="230.6" y1="142.70000000000002" x2="448.6" y2="142.70000000000002" stroke="#1a1d22" stroke-width="1.6"/><line x1="448.6" y1="138.60000000000002" x2="764.7" y2="138.60000000000002" stroke="#1a1d22" stroke-width="1.6"/><rect x="503.1" y="286.2" width="43.6" height="73.8" fill="none" stroke="#8b6b3e" stroke-width="1.3" stroke-dasharray="4 2"/>
+<rect x="426.8" y="191.9" width="32.7" height="82" fill="#e6e0d4" stroke="#2a333c" stroke-width="1.05" stroke-dasharray=""/><line x1="230.6" y1="191.9" x2="459.5" y2="191.9" stroke="#4a5058" stroke-width="1.2"/><line x1="459.5" y1="191.9" x2="764.7" y2="191.9" stroke="#4a5058" stroke-width="1.2"/><line x1="230.6" y1="142.70000000000002" x2="459.5" y2="142.70000000000002" stroke="#1a1d22" stroke-width="1.6"/><line x1="459.5" y1="138.60000000000002" x2="764.7" y2="138.60000000000002" stroke="#1a1d22" stroke-width="1.6"/><rect x="503.1" y="286.2" width="43.6" height="73.8" fill="none" stroke="#8b6b3e" stroke-width="1.3" stroke-dasharray="4 2"/>
          <text x="524.9000000000001" y="282.2" text-anchor="middle" font-size="8" font-weight="800" fill="#7b5721">CANOPY A</text><rect x="516.1800000000001" y="298.5" width="17.44" height="58.21999999999999" fill="#f7ead3" stroke="#5c4030" stroke-width="1.4"/>
         <text x="524.9000000000001" y="330.48" text-anchor="middle" font-size="7.5" font-weight="800" fill="#7b5721">ENTRY A</text><rect x="677.5" y="298.5" width="16.35" height="58.21999999999999" fill="#f7ead3" stroke="#5c4030" stroke-width="1.4"/>
         <text x="685.6750000000001" y="330.48" text-anchor="middle" font-size="7.5" font-weight="800" fill="#7b5721">PERS. A</text><rect x="317.8" y="298.5" width="54.5" height="41" fill="#dce8f5" stroke="#2a6496" stroke-width="1.2"/>
         <text x="345.05" y="294.5" text-anchor="middle" font-size="7" font-weight="800" fill="#2a6496">LIVING B</text><rect x="263.3" y="216.5" width="130.8" height="32.8" fill="#dce8f5" stroke="#2a6496" stroke-width="1.2"/>
-        <text x="328.70000000000005" y="212.5" text-anchor="middle" font-size="7" font-weight="800" fill="#2a6496">LIVING B</text><line x1="448.6" y1="360" x2="448.6" y2="191.9" stroke="#9a3b2e" stroke-width="1.4" stroke-dasharray="6 3"/>
-      <text x="452.6" y="212.4" font-size="8" font-weight="800" fill="#9a3b2e">x=68 BLANK</text>
+        <text x="328.70000000000005" y="212.5" text-anchor="middle" font-size="7" font-weight="800" fill="#2a6496">LIVING B</text><line x1="459.5" y1="360" x2="459.5" y2="191.9" stroke="#9a3b2e" stroke-width="1.4" stroke-dasharray="6 3"/>
+      <text x="463.5" y="212.4" font-size="8" font-weight="800" fill="#9a3b2e">x=70 BLANK</text>
   <text x="78" y="374" font-size="9" font-weight="800">REAR / N</text>
   <text x="884.6" y="374" text-anchor="end" font-size="9" font-weight="800">PENN</text>
   <text x="345.05" y="136.70000000000002" text-anchor="middle" font-size="8" font-weight="800">RIDGE B 26.5′</text>
@@ -63,10 +63,10 @@
     </g>
   <rect x="8" y="400" width="928" height="56" fill="#efe8dc" stroke="#cfc8be" stroke-width="1"/>
   <line x1="708" y1="400" x2="708" y2="456" stroke="#cfc8be"/>
-  <text x="18" y="418" font-size="9" fill="#5a6570">ENTRY A · PERSONNEL A · canopy A · Unit B north living glass. Demising x=68 blank.</text>
+  <text x="18" y="418" font-size="9" fill="#5a6570">ENTRY A · PERSONNEL A · canopy A · Unit B north living glass. Demising x=70 blank.</text>
   <text x="18" y="434" font-size="8" fill="#5a6570">Professional validation pending: zoning · fire · structural · civil/survey</text>
-  <text x="18" y="448" font-size="8" fill="#5a6570">Geometry IMMUTABLE except recorded v1.1 demising correction from v1.0 · presentation only on this pass · Not a permit / construction set</text>
+  <text x="18" y="448" font-size="8" fill="#5a6570">Geometry IMMUTABLE · presentation only on this pass · Not a permit / construction set</text>
   <text x="926" y="416" text-anchor="end" font-size="9" font-weight="800" fill="#0d1b33">Pondy Flats · Lot 2</text>
-  <text x="926" y="432" text-anchor="end" font-size="12" font-weight="900" fill="#0d1b33">DESIGN COMPLETE / PROGRAM GATE PASS</text>
-  <text x="926" y="446" text-anchor="end" font-size="8" fill="#5a6570">R5.1e-v1.1 · 2026-08-22</text>
+  <text x="926" y="432" text-anchor="end" font-size="12" font-weight="900" fill="#0d1b33">DESIGN COMPLETE</text>
+  <text x="926" y="446" text-anchor="end" font-size="8" fill="#5a6570">R5.1e-v1.0 · 2026-08-22</text>
 </svg>

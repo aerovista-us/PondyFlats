@@ -1,9 +1,10 @@
 # Lot 2 — Status conflicts (flagged, not deleted)
 
 **Date:** 2026-08-22  
-**Current path (this repo):** **R5.1e DESIGN COMPLETE / Deliverable v1.0** · geometry immutable · professional validation pending.
+**Current path (this repo):** **R5.1e-v1.1 DESIGN COMPLETE / PROGRAM GATE PASS** · demising **x=68** · SF **1,639 / 1,720**.  
+**v1.0:** **COMPLETE BASELINE / PROGRAM GATE NOT CLEARED** — [`lot2-r51e-v1-baseline.md`](lot2-r51e-v1-baseline.md) · [`../imgs/r51e-v1.0/`](../imgs/r51e-v1.0/).
 
-This catalog lists documents and pages that **still say something else**. Nothing below was removed. Review these when choosing the path forward. Until that review, treat [`lot2-r51e-v1-baseline.md`](lot2-r51e-v1-baseline.md) + [`../r51e-deliverable.html`](../r51e-deliverable.html) as live.
+This catalog lists documents and pages that **still say something else**. Nothing below was removed. Treat [`lot2-r51e-v11.md`](lot2-r51e-v11.md) + [`../r51e-deliverable.html`](../r51e-deliverable.html) as live. The engine (`js/lot2-r51e-lock.js`) is authoritative when presentation copy disagrees.
 
 ## A. Architecture “still CONDITIONAL / massing held”
 
@@ -79,25 +80,23 @@ No Vercel / Netlify / CNAME was found. These HTML files were local “landing”
 
 Canonical start: [`../index.html`](../index.html) · [`../README.md`](../README.md) · [`../r51e-deliverable.html`](../r51e-deliverable.html).
 
-## H. GitHub merge 2026-08-22 — DESIGN COMPLETE vs restored living gate
+## H. GitHub merge 2026-08-22 — DESIGN COMPLETE vs restored living gate — **RESOLVED**
 
-Remote `main` (commits after `d800fec`, tip `61161b1`) restored the original living-program rules and called 1,556 / 1,806 **CONDITIONAL**. Local work published **Deliverable v1.0 DESIGN COMPLETE** with those SF numbers locked.
+Remote `main` restored the original living-program rules and called 1,556 / 1,806 **CONDITIONAL**. Local work had published **Deliverable v1.0 DESIGN COMPLETE** with those SF numbers locked.
 
-**Neither side was deleted in the merge.** Engine currently follows Path B (`js/lot2-r51e-lock.js`: 1,600–1,900 · ≤120). The v1.0 sheet package still exists as Path A.
+**Resolution (Path B):** preserve v1.0 as an immutable completed reference; reopen only the demising line as **R5.1e-v1.1**. Engine stays authoritative.
 
-| Path | Claim | Artifacts |
-| ---- | ----- | --------- |
-| **A** | DESIGN COMPLETE · 1,556 / 1,806 immutable · professional validation next | [`../r51e-deliverable.html`](../r51e-deliverable.html) · [`lot2-r51e-v1-baseline.md`](lot2-r51e-v1-baseline.md) |
-| **B** | Exact plans CONDITIONAL · rules must not move to match the work · test x=69 / x=68 | [`lot2-r51e-gate-restoration.md`](lot2-r51e-gate-restoration.md) · [`../r51e.html`](../r51e.html) |
+| Path | Claim | Disposition |
+| ---- | ----- | ----------- |
+| **A / v1.0** | First reconciled package at 1,556 / 1,806 / x=70 | **COMPLETE BASELINE / PROGRAM GATE NOT CLEARED** · [`lot2-r51e-v1-baseline.md`](lot2-r51e-v1-baseline.md) · [`../imgs/r51e-v1.0/`](../imgs/r51e-v1.0/) |
+| **B / v1.1** | Restored 1,600–1,900 / ≤120 · demising x=68 · 1,639 / 1,720 | **DESIGN COMPLETE / PROGRAM GATE PASS** · [`lot2-r51e-v11.md`](lot2-r51e-v11.md) |
 
-Also merged (keep): [`../AGENTS.md`](../AGENTS.md) · [`lot2-circulation-optimization.md`](lot2-circulation-optimization.md) · G1-A reclassified as optimizable circulation proof.
+Also kept: [`../AGENTS.md`](../AGENTS.md) · [`lot2-circulation-optimization.md`](lot2-circulation-optimization.md) · G1-A as optimizable circulation proof.
 
 ## Review questions (do not answer here)
 
 1. Archive R5 schematic / study.html as evidence, or keep as a named alternate?
 2. Photoreal: still unlocked-on-freeze, or representation-only only?
-3. SF: keep ±120 language in exact-plans docs, or treat 1,556 / 1,806 as the only lock?
-4. GitHub Pages: enable so `index.html` is the public hub, or clone-only?
-5. **Path A vs Path B:** freeze 1,556 / 1,806 as v1.0, or reopen demising to clear 1,600–1,900 / ≤120?
+3. GitHub Pages: enable so `index.html` is the public hub, or clone-only?
 
-Related: [`lot2-r51e-v1-baseline.md`](lot2-r51e-v1-baseline.md) · [`lot2-file-map.md`](lot2-file-map.md) · [`lot2-r51e-gate-restoration.md`](lot2-r51e-gate-restoration.md)
+Related: [`lot2-r51e-v11.md`](lot2-r51e-v11.md) · [`lot2-r51e-v1-baseline.md`](lot2-r51e-v1-baseline.md) · [`lot2-file-map.md`](lot2-file-map.md) · [`lot2-r51e-gate-restoration.md`](lot2-r51e-gate-restoration.md)

@@ -2,10 +2,10 @@
 
 **Purpose:** Declare what each major path is for. Generations of site studies, access tests, J1 visuals, failed renders, and Parking Reset co-exist in one tree — this map prevents treating an archive page as live design authority.
 
-**Status authority (where we are):** [`../index.html`](../index.html) + [`../r51e-deliverable.html`](../r51e-deliverable.html) + [`lot2-r51e-v1-baseline.md`](lot2-r51e-v1-baseline.md)  
+**Status authority (where we are):** [`../index.html`](../index.html) + [`../r51e-deliverable.html`](../r51e-deliverable.html) + [`lot2-r51e-v11.md`](lot2-r51e-v11.md)  
 **Parking-gate matrix (still valid scores):** [`../parking-reset.html`](../parking-reset.html) · **Daily-use:** [`../r64-daily.html`](../r64-daily.html)
 
-> **FLAG (2026-08-22 — not deleted):** The previous authority line was hub + `lot2-r64-daily.md` + `lot2-parking-reset.md`. That pairing still describes **parking**. It contradicts architecture DESIGN COMPLETE. Original CURRENT labels on `study.html` / `r5-schematic.html` / `reset_r5` “schematic CONDITIONAL” are kept below. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).
+> **FLAG (2026-08-22 — not deleted):** The previous authority line was hub + `lot2-r64-daily.md` + `lot2-parking-reset.md`. That pairing still describes **parking**. Live architecture is **R5.1e-v1.1**. Original CURRENT labels on `study.html` / `r5-schematic.html` / `reset_r5` “schematic CONDITIONAL” are kept below. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).
 
 ---
 
@@ -28,7 +28,7 @@
 | ---- | ---- | ----- |
 | [`index.html`](../index.html) | **CURRENT** | Study hub — locked hierarchy |
 | [`r51e.html`](../r51e.html) | **CURRENT** | R5.1e visual demo |
-| [`r51e-deliverable.html`](../r51e-deliverable.html) | **CURRENT** | **v1.0 front door** · Design Complete package |
+| [`r51e-deliverable.html`](../r51e-deliverable.html) | **CURRENT** | **v1.1 front door** · Design Complete / program gate PASS |
 | [`r51e-site-plan.html`](../r51e-site-plan.html) | **CURRENT** | Site plan freeze |
 | [`r51e-penn-elev.html`](../r51e-penn-elev.html) | **CURRENT** | Pennsylvania elevation |
 | [`r51e-architectural-massing.html`](../r51e-architectural-massing.html) | **CURRENT** | Architectural massing freeze |
@@ -38,7 +38,9 @@
 | [`study.html`](../study.html) | **CURRENT** *(FLAG: body still schematic CONDITIONAL — historical landing)* | Stage timeline |
 | [`docs/lot2-r64-daily.md`](lot2-r64-daily.md) | **CURRENT** | Daily-use closure write-up |
 | [`docs/lot2-parking-reset.md`](lot2-parking-reset.md) | **CURRENT** *(parking only)* | Reset write-up · FULL PASS rules |
-| [`docs/lot2-status-conflicts.md`](lot2-status-conflicts.md) | **CURRENT** | Flagged contradictions for path review |
+| [`docs/lot2-r51e-v11.md`](lot2-r51e-v11.md) | **CURRENT** | v1.1 demising correction · program gate PASS |
+| [`docs/lot2-shift-handoff-2026-08-23.md`](lot2-shift-handoff-2026-08-23.md) | **CURRENT** | End-of-shift handoff · 2026-08-23 |
+| [`docs/lot2-status-conflicts.md`](lot2-status-conflicts.md) | **CURRENT** | Flagged contradictions (not deleted) · §H resolved |
 | [`docs/README.md`](README.md) | **CURRENT** | Docs index |
 | [`docs/lot2-file-map.md`](lot2-file-map.md) | **CURRENT** | This map |
 

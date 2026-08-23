@@ -29,19 +29,19 @@
 - Roofs only on existing upper envelopes (plates A and B)
 - Porches labeled **APPENDAGE · not core footprint**
 - No stretch / shrink / slide / rotate / merge of core volumes
-- No openings on the 1-hr demising wall at **x=70**
+- No openings on the 1-hr demising wall at **x=68**
 - Covered stalls remain open
 
 ## Architecture added (not core)
 
 | Item | Spec |
 | ---- | ---- |
-| Roof A | Gable on plate `70,5 56×22.5` · pitch **+6.5′** · ridge **27.0′** |
-| Roof B | Gable on plate `28,5 42×28` · pitch **+6.0′** · ridge **26.5′** |
+| Roof A | Gable on plate `68,5 58×22.5` · pitch **+6.5′** · ridge **27.0′** |
+| Roof B | Gable on plate `28,5 40×28` · pitch **+6.0′** · ridge **26.5′** |
 | Entry canopy A | `78,1.5 8×3.5` · z 0–9 · north setback · **APPENDAGE** |
 | Entry eyebrow B | `66,20 4×2` · z 8.5–9.5 · cantilever · **APPENDAGE** |
 | Materials | Garage masonry · stone base 3′ · warm upper siding · charcoal roofs |
-| Openings | Recessed east garage doors · Entry A north · Entry B south from spine · no x=70 glass |
+| Openings | Recessed east garage doors · Entry A north · Entry B south from spine · no x=68 glass |
 
 ## Page controls
 

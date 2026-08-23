@@ -1,16 +1,15 @@
 # Lot 2 — R5.1e exact plans (approved duplex base)
 
-**Duplex base:** **R5.1e APPROVED**  
+**Duplex base:** **R5.1e-v1.1 APPROVED**  
 **Parking:** **FULL PASS / frozen**  
-**Exact plans:** **CONDITIONAL** — core sweep repair passes; living-program gate fails · live gate [`../r51e-plans.html`](../r51e-plans.html)  
+**Exact plans:** **PASS** — living-program gate 1,639 / 1,720 · live [`../r51e-plans.html`](../r51e-plans.html)  
 **Massing truth:** **PASS** — [`../r51e-massing-truth.html`](../r51e-massing-truth.html) · [`lot2-r51e-massing-truth.md`](lot2-r51e-massing-truth.md)  
-**Architectural massing:** **PASS / FROZEN** (Path A sheets) · **WAIT** pending x=69 / x=68 rebalance (Path B)  
+**Architectural massing:** **PASS / FROZEN** (v1.1 plates)
 
-> **FLAG:** Path A vs Path B — both kept. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md) §H · [`lot2-r51e-gate-restoration.md`](lot2-r51e-gate-restoration.md).
+v1.0 (x=70 · 1,556 / 1,806) is [`lot2-r51e-v1-baseline.md`](lot2-r51e-v1-baseline.md). Decision: [`lot2-r51e-v11.md`](lot2-r51e-v11.md).
+
 **Demo:** [`../r51e.html`](../r51e.html)  
-**Photoreal:** unlocked on frozen architecture  
-
-> **FLAG (2026-08-22 — not deleted):** ±120 target language and “photoreal unlocked” below contradict the v1.0 lock (**1,556 / 1,806** exact) and representation-only photoreal rule. Original lines kept. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).  
+**Photoreal:** representation-only on frozen architecture  
 
 **Program:** R5 — two enclosed garage spaces plus two covered spaces, independently accessible.
 
@@ -18,11 +17,12 @@
 
 | Item | Value |
 | ---- | ----- |
-| Demising | **x=70** · 1-hr shared wall |
-| Plate A | **70, 5 · 56×22.5** |
-| Plate B | **28, 5 · 42×28** |
+| Demising | **x=68** · 1-hr shared wall |
+| Plate A | **68, 5 · 58×22.5** |
+| Plate B | **28, 5 · 40×28** |
 | Over covered | Conditioned · posts floor-rated |
 | Required living gate | **1,600–1,900 SF each · ≤120 SF difference** |
+| Live SF | **1,639 / 1,720** (Δ 81) |
 | Parking | Unchanged from R5 FULL PASS freeze |
 
 Engines: [`../js/lot2-r51e-lock.js`](../js/lot2-r51e-lock.js) · [`../js/lot2-r51e-plans.js`](../js/lot2-r51e-plans.js)

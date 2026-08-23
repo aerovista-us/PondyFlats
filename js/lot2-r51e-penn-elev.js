@@ -92,15 +92,16 @@ const Lot2R51ePennElev = (() => {
     const faces = eastFaces(mass.items || []);
     const gars = garages();
     const ops = eOpenings();
-    const plateA = ArchLock ? ArchLock.LOCK.plates.find((p) => p.id === 'A') : { x: 70, y: 5, w: 56, h: 22.5 };
-    const plateB = ArchLock ? ArchLock.LOCK.plates.find((p) => p.id === 'B') : { x: 28, y: 5, w: 42, h: 28 };
+    const plateA = ArchLock ? ArchLock.LOCK.plates.find((p) => p.id === 'A') : { x: 68, y: 5, w: 58, h: 22.5 };
+    const plateB = ArchLock ? ArchLock.LOCK.plates.find((p) => p.id === 'B') : { x: 28, y: 5, w: 40, h: 28 };
     const plateAok = plateA && Math.abs((plateA.x + plateA.w) - 126) < EPS;
     const doorsOk = gars.length === 2
       && gars.every((g) => Math.abs(g.h - 16) < EPS)
       && ops.doors.length === 2
       && ops.doors.every((d) => Math.abs(d.w - 16) < 0.05);
 
-    const demisingHit = (ops.doors.concat(ops.windows)).some((o) => Math.abs(o.x - 70) < 0.2);
+    const D = ArchLock && ArchLock.LOCK.demisingX != null ? ArchLock.LOCK.demisingX : 68;
+    const demisingHit = (ops.doors.concat(ops.windows)).some((o) => Math.abs(o.x - D) < 0.2);
     const pennWin = ops.windows.filter((w) => w.unit === 'A');
     const heightsOk = Math.abs(zTop - Z_TOP) < EPS
       && Math.abs(ridgeA - RIDGE_A) < EPS
@@ -132,12 +133,12 @@ const Lot2R51ePennElev = (() => {
       },
       roofsOnPlates: {
         ok: !!roofOk && plateAok,
-        detail: roofOk ? 'Gables on frozen plate envelopes A 56×22.5 · B 42×28' : 'Roof envelope drift',
+        detail: roofOk ? `Gables on frozen plate envelopes A ${plateA.w}×${plateA.h} · B ${plateB.w}×${plateB.h}` : 'Roof envelope drift',
       },
       pennOpeningsOnly: {
         ok: pennWin.length === 1 && pennWin[0].w === 6 && !demisingHit,
         detail: !demisingHit && pennWin.length === 1
-          ? 'Limited Penn glass on Unit A upper · no openings on x=70'
+          ? `Limited Penn glass on Unit A upper · no openings on x=${D}`
           : 'Penn / demising opening drift',
       },
       faceCount: {

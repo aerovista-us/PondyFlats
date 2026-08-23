@@ -38,7 +38,7 @@ h1{font:500 clamp(28px,4vw,48px)/1 Georgia,serif;color:var(--navy);margin:0 0 8p
 <nav class="nav">
 <a href="index.html">Hub</a>
 <a href="r51e.html">Demo</a>
-<a href="r51e-deliverable.html">v1.0</a>
+<a href="r51e-deliverable.html">v1.1</a>
 <a href="r51e-site-plan.html">Site plan</a>
 <a class="primary" href="r51e-penn-elev.html">Penn elev</a>
 <a href="r51e-rear-elev.html">Rear</a>
@@ -86,7 +86,7 @@ h1{font:500 clamp(28px,4vw,48px)/1 Georgia,serif;color:var(--navy);margin:0 0 8p
 const gate = Lot2R51ePennElev.analyze();
 const badge = gate.verdict === 'PASS' ? 'ok' : 'fail';
 document.getElementById('banner').innerHTML = `<span class="badge ${badge}">${gate.verdict}</span>
-  <strong style="margin-left:8px">Pennsylvania elevation · Design Deliverable v1.0</strong>`;
+  <strong style="margin-left:8px">Pennsylvania elevation · Design Deliverable v1.1</strong>`;
 document.getElementById('verdict').innerHTML = `<strong>${gate.verdict}.</strong> ${gate.next}`;
 document.getElementById('checks').innerHTML = Object.entries(gate.checks).map(([k,v]) =>
   `<div class="check"><span class="${v.ok?'ok':'fail'}">${v.ok?'PASS':'FAIL'}</span> · <strong>${k}</strong> — ${v.detail}</div>`

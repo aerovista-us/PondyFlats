@@ -1137,8 +1137,8 @@ ${extra}`;
       designConcern: 'Outbound centerline repair: north-of-spine pocket (south 90° illegal for axle-body). Posts + snow edge as obstacles. FULL PASS → public lead + architecture.',
       units: [],
       reservedPlates: [
-        { id: 'B', role: 'rear', name: 'HOME PLATE B · rear', x: 28, y: 5, w: 42, h: 28 },
-        { id: 'A', role: 'penn', name: 'HOME PLATE A · Penn', x: 70, y: 5, w: 56, h: 22.5 },
+        { id: 'B', role: 'rear', name: 'HOME PLATE B · rear', x: 28, y: 5, w: 40, h: 28 },
+        { id: 'A', role: 'penn', name: 'HOME PLATE A · Penn', x: 68, y: 5, w: 58, h: 22.5 },
       ],
       garages: [
         { name: 'COVERED B · 12×14', id: 'CB', x: 28, y: 20, w: 12, h: 14, doorFace: 'S', covered: true, enclosed: false, spaces: 1, apronIgnoreIds: ['B'] },

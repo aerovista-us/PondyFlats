@@ -1,12 +1,11 @@
 # Lot 2 — R5.1e gate restoration
 
-**Status:** validation corrected · repair active  
+**Status:** **cleared by R5.1e-v1.1**  
 **Parking:** FULL PASS / frozen  
-**Massing geometry:** PASS  
-**Exact plans:** CONDITIONAL  
-**Architectural massing / visualization:** LOCKED
+**Live design:** [`lot2-r51e-v11.md`](lot2-r51e-v11.md) · **DESIGN COMPLETE / PROGRAM GATE PASS**  
+**v1.0 baseline:** [`lot2-r51e-v1-baseline.md`](lot2-r51e-v1-baseline.md) · **COMPLETE BASELINE / PROGRAM GATE NOT CLEARED**
 
-> **FLAG (2026-08-22 merge — not deleted):** This is **Path B**. Path A (Deliverable v1.0) treats 1,556 / 1,806 as DESIGN COMPLETE. Both remain in the tree. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md) §H.
+> Path B was chosen. v1.0 is preserved. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md) §H (resolved).
 
 ## Why this correction was required
 
@@ -19,32 +18,25 @@ The Unit A core repair correctly removed enclosed rooms from the FS-SUV swept en
 
 Those exceptions are removed. The work must satisfy the approved rules; the rules do not move to satisfy the work.
 
-## Restored gate
+## Restored gate (now passing at v1.1)
 
-| Check | Requirement |
-| --- | --- |
-| Unit A living | 1,600–1,900 SF |
-| Unit B living | 1,600–1,900 SF |
-| Maximum difference | 120 SF |
-| Opaque room / swept-body overlap | ≤0.05 SF numerical epsilon |
-| Parking, paths and exterior mass | Frozen |
+| Check | Requirement | v1.1 |
+| --- | --- | --- |
+| Unit A living | 1,600–1,900 SF | **1,639** |
+| Unit B living | 1,600–1,900 SF | **1,720** |
+| Maximum difference | 120 SF | **81** |
+| Opaque room / swept-body overlap | ≤0.05 SF numerical epsilon | PASS |
+| Parking, paths and exterior mass | Frozen | held |
 
-Current x=70 core-repair result: **1,556 / 1,806 SF** — core sweep repair passes, living gate fails.
+v1.0 at x=70: **1,556 / 1,806 SF** — core sweep repair passes, living gate fails.
 
-## Active repair
+## Repair that was run
 
-Test demising **x=69** and **x=68** while preserving:
-
-- R5 FULL PASS parking geometry
-- repaired Unit A ground core
-- exterior mass envelope
-- covered stalls and floor-rated posts
-- vehicle sweep and positive clearance
-
-Promote only a result that clears every restored requirement. Otherwise return to ownership for an explicit product change.
+Tested demising **x=69** then **x=68** with parking frozen. x=69 failed (A 1,598 / Δ 165). **x=68 promoted** (1,639 / 1,720 / Δ 81). Wall was not crept past the smallest pass.
 
 ## Source
 
 - [`../js/lot2-r51e-lock.js`](../js/lot2-r51e-lock.js)
 - [`../js/lot2-r51e-plans.js`](../js/lot2-r51e-plans.js)
+- [`lot2-r51e-v11.md`](lot2-r51e-v11.md)
 - [`lot2-r51e-core-repair.md`](lot2-r51e-core-repair.md)

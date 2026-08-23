@@ -3,11 +3,11 @@
 **Phase:** deterministic **R5.1e Core Repair** — complete  
 **Parking:** **FULL PASS / frozen** (unchanged)  
 **Massing truth:** **PASS** (no Unit A ground undercroft after repair)  
-**Exact plans:** Path A **PASS** · Path B **CONDITIONAL** (core sweep repair passes; original living-program gate fails)  
-**Architectural massing:** Path A **PASS / FROZEN** · [`../r51e-architectural-massing.html`](../r51e-architectural-massing.html) · Path B **WAIT**  
-**Photoreal / viz:** Path A “UNLOCKED on freeze” (flagged) · Path B **LOCKED**
+**Exact plans:** **PASS at v1.1** (living gate 1,639 / 1,720). v1.0 after this core repair was 1,556 / 1,806 — program gate not cleared.  
+**Architectural massing:** **PASS / FROZEN** · [`../r51e-architectural-massing.html`](../r51e-architectural-massing.html)  
+**Photoreal / viz:** representation-only on frozen architecture
 
-> **FLAG (2026-08-22 merge — not deleted):** Path A vs Path B. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md) §H.
+> Core repair itself is unchanged. Living-program recovery is [`lot2-r51e-v11.md`](lot2-r51e-v11.md). Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md) §H.
 
 ## Problem
 

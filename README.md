@@ -1,12 +1,11 @@
 # Pondy Flats · Lot 2
 
-> **FLAG — two current-status claims in this repo (not deleted).**  
-> **Path A:** R5.1e DESIGN COMPLETE / Deliverable v1.0 (`1,556 / 1,806` locked).  
-> **Path B:** restored living gate `1,600–1,900 SF each · ≤120 SF difference` · exact plans CONDITIONAL · x=69 / x=68 repair.  
-> Review which path to take: [`docs/lot2-status-conflicts.md`](docs/lot2-status-conflicts.md) · [`docs/lot2-r51e-gate-restoration.md`](docs/lot2-r51e-gate-restoration.md).
+**R5.1e-v1.1 — DESIGN COMPLETE / PROGRAM GATE PASS.**  
+**R5.1e-v1.0 — COMPLETE BASELINE / PROGRAM GATE NOT CLEARED** (preserved; not the live design).
 
-**Geometry in the v1.0 sheets:** frozen as drawn. **Engine living gate (Path B):** `js/lot2-r51e-lock.js` currently requires 1,600–1,900.  
-**Professional validation pending** if Path A is kept. **Not a permit / construction set.**
+Demising **x=68** · conditioned SF **1,639 / 1,720** (1,600–1,900 each, Δ 81 ≤ 120). Parking FULL PASS frozen. Professional validation pending. Not a permit / construction set.
+
+The engine (`js/lot2-r51e-lock.js`) is authoritative when a presentation page disagrees. v1.0 sheets: [`imgs/r51e-v1.0/`](imgs/r51e-v1.0/). Decision: [`docs/lot2-r51e-v11.md`](docs/lot2-r51e-v11.md) · catalog: [`docs/lot2-status-conflicts.md`](docs/lot2-status-conflicts.md).
 
 This GitHub repo is the canonical copy. There is no separate running host. Hub: [`index.html`](index.html).
 
@@ -14,17 +13,18 @@ This GitHub repo is the canonical copy. There is no separate running host. Hub: 
 
 | Page | What it is |
 | ---- | ---------- |
-| **[r51e-deliverable.html](r51e-deliverable.html)** | **v1.0 front door** — facts, sheet index, consistency gate |
+| **[docs/lot2-shift-handoff-2026-08-23.md](docs/lot2-shift-handoff-2026-08-23.md)** | End-of-shift handoff — start next session here |
+| **[r51e-deliverable.html](r51e-deliverable.html)** | **v1.1 front door** — facts, sheet index, consistency gate |
 | **[index.html](index.html)** | Study hub |
 | **[r51e.html](r51e.html)** | Live geometric demo |
-| **[docs/lot2-r51e-v1-baseline.md](docs/lot2-r51e-v1-baseline.md)** | Frozen baseline identity |
+| **[docs/lot2-r51e-v11.md](docs/lot2-r51e-v11.md)** | v1.1 demising correction |
+| **[docs/lot2-r51e-v1-baseline.md](docs/lot2-r51e-v1-baseline.md)** | v1.0 immutable baseline |
 | **[docs/lot2-r51e-validation-readiness.md](docs/lot2-r51e-validation-readiness.md)** | Next phase — reviewer tracker |
 | [docs/lot2-status-conflicts.md](docs/lot2-status-conflicts.md) | Flagged contradictions (not deleted) |
-| [docs/lot2-r51e-gate-restoration.md](docs/lot2-r51e-gate-restoration.md) | Path B — restored living / sweep rules |
 
 Honest program: **R5 — two enclosed garage spaces plus two covered spaces, independently accessible.**
 
-Conditioned SF **1,556 / 1,806** · ridges **27.0′ / 26.5′** · demising **x=70** blank · Pennsylvania = SOUTH / FRONT at the **right** of every plan.
+Conditioned SF **1,639 / 1,720** · ridges **27.0′ / 26.5′** · demising **x=68** blank · Pennsylvania = SOUTH / FRONT at the **right** of every plan.
 
 ## Sheet index
 

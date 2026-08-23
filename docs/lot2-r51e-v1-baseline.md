@@ -2,11 +2,12 @@
 
 **Revision:** `R5.1e-v1.0`  
 **Date:** 2026-08-22  
-**Status:** **DESIGN COMPLETE** · geometry **IMMUTABLE**
+**Status:** **COMPLETE BASELINE / PROGRAM GATE NOT CLEARED**  
+**Superseded for program compliance by:** [`lot2-r51e-v11.md`](lot2-r51e-v11.md) (`R5.1e-v1.1` · DESIGN COMPLETE / PROGRAM GATE PASS)
 
-This is the first complete Pondy Flats design. Tag/archive this revision as the baseline against which professional-validation findings are recorded. Do not reopen alternatives unless a named defect in this frozen design requires it.
+This is the first complete Pondy Flats drawing package (massing, plans, site, elevations, sections, cross-document consistency). It is an immutable reference. It does **not** clear the original living-program gate (1,600–1,900 SF each, ≤120 SF difference). Live design is v1.1.
 
-> **FLAG (2026-08-22 merge — not deleted):** Path B restored the 1,600–1,900 / ≤120 living gate and treats this SF lock as CONDITIONAL. Both paths remain. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md) §H.
+> **Resolved (2026-08-22):** Path B was chosen. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md) §H.
 
 **Front door:** [`../r51e-deliverable.html`](../r51e-deliverable.html)  
 **Hub:** [`../index.html`](../index.html)  

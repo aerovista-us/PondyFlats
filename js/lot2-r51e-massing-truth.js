@@ -308,13 +308,13 @@ const Lot2R51eMassingTruth = (() => {
   }
 
   function demisingLine() {
-    const x = 70;
+    const x = ArchLock && ArchLock.LOCK.demisingX != null ? ArchLock.LOCK.demisingX : 68;
     const a = proj(x, 5, 0);
     const b = proj(x, 33, 0);
     const c = proj(x, 5, H.ground + H.upper);
     const d = proj(x, 33, H.ground + H.upper);
     return `<polyline points="${a.sx},${a.sy} ${b.sx},${b.sy} ${d.sx},${d.sy} ${c.sx},${c.sy}" fill="none" stroke="#9a3b2e" stroke-width="2.2" stroke-dasharray="7 4"/>
-      <text x="${b.sx + 8}" y="${b.sy - 8}" fill="#9a3b2e" font-size="11" font-weight="800">1-HR DEMISING x=70</text>`;
+      <text x="${b.sx + 8}" y="${b.sy - 8}" fill="#9a3b2e" font-size="11" font-weight="800">1-HR DEMISING x=${x}</text>`;
   }
 
   function orientationLabels() {
@@ -438,11 +438,11 @@ const Lot2R51eMassingTruth = (() => {
         if (vol.kind === 'undercroft') return;
         if (vol.kind === 'garage' || vol.kind === 'post') return;
         const o = overlapArea(vol.rect, br);
-        if (o > 4) sweepHits.push(`${vol.name} ∩ pose ${i}`);
+        if (o > 0.05) sweepHits.push(`${vol.name} ∩ pose ${i}`);
       });
     });
 
-    const demising = ArchLock ? ArchLock.LOCK.demisingX : 70;
+    const demising = ArchLock ? ArchLock.LOCK.demisingX : 68;
     const demisingOk = massRects.every((m) => {
       if (!m.unit) return true;
       if (m.unit === 'A') return m.rect.x >= demising - 0.05;
@@ -473,7 +473,7 @@ const Lot2R51eMassingTruth = (() => {
       },
       demising: {
         ok: demisingOk,
-        detail: demisingOk ? 'Volumes respect x=70 demising' : 'Volume crosses demising',
+        detail: demisingOk ? `Volumes respect x=${demising} demising` : 'Volume crosses demising',
       },
       sweepClear: {
         ok: sweepHits.length === 0,

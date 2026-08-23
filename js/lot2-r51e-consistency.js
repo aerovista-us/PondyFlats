@@ -1,8 +1,9 @@
 /**
- * Lot 2 — R5.1e Deliverable v1.0 cross-document consistency
+ * Lot 2 — R5.1e Deliverable v1.1 cross-document consistency
  *
  * Compares site, plans, four elevations, sections, and frozen massing.
- * PASS here is DESIGN COMPLETE (professional validation still pending).
+ * PASS here is DESIGN COMPLETE / PROGRAM GATE PASS.
+ * v1.0 is COMPLETE BASELINE / PROGRAM GATE NOT CLEARED (Lot2R51eV10Baseline).
  */
 const Lot2R51eConsistency = (() => {
   const ParkFreeze = typeof Lot2R5Freeze !== 'undefined' ? Lot2R5Freeze : null;
@@ -34,10 +35,18 @@ const Lot2R51eConsistency = (() => {
     const sections = Sec && Sec.analyze ? Sec.analyze() : { verdict: 'FAIL', heights: {}, cuts: {} };
     const mass = M && M.analyze ? M.analyze() : { verdict: 'FAIL' };
     const arch = Arch && Arch.analyze ? Arch.analyze() : { verdict: 'FAIL' };
-    const lock = ArchLock ? ArchLock.LOCK : { plates: [], demisingX: 70, targetSf: { A: 1556, B: 1806 } };
+    const lock = ArchLock ? ArchLock.LOCK : {
+      plates: [
+        { id: 'B', x: 28, y: 5, w: 40, h: 28 },
+        { id: 'A', x: 68, y: 5, w: 58, h: 22.5 },
+      ],
+      demisingX: 68,
+      livingSf: { A: 1639, B: 1720 },
+    };
+    const D = lock.demisingX;
 
-    const plateA = lock.plates.find((p) => p.id === 'A') || { x: 70, y: 5, w: 56, h: 22.5 };
-    const plateB = lock.plates.find((p) => p.id === 'B') || { x: 28, y: 5, w: 42, h: 28 };
+    const plateA = lock.plates.find((p) => p.id === 'A') || { x: 68, y: 5, w: 58, h: 22.5 };
+    const plateB = lock.plates.find((p) => p.id === 'B') || { x: 28, y: 5, w: 40, h: 28 };
     const siteA = site.site && site.site.plates && site.site.plates.A;
     const siteB = site.site && site.site.plates && site.site.plates.B;
     const rearA = rear.plates && rear.plates.A;
@@ -70,7 +79,9 @@ const Lot2R51eConsistency = (() => {
     ];
     const ridgeOk = ridges.every((n) => Math.abs(n - 27) < EPS) && ridgeB.every((n) => Math.abs(n - 26.5) < EPS);
 
-    const sfOk = plans.living && plans.living.A === 1556 && plans.living.B === 1806;
+    const sfOk = plans.living && ArchLock
+      ? ArchLock.assertSf(plans.living.A, plans.living.B).ok
+      : plans.living && plans.living.A === 1639 && plans.living.B === 1720;
     const platesOk = sameRect(siteA, plateA) && sameRect(siteB, plateB)
       && sameRect(rearA, plateA) && sameRect(rearB, plateB);
     const gars = ParkFreeze ? ParkFreeze.FREEZE.garages : [];
@@ -81,8 +92,8 @@ const Lot2R51eConsistency = (() => {
     });
     const postsOk = site.site && site.site.posts && site.site.posts.length === 8;
     const demising = (plans.openings || []).concat(plans.windows || []).every((o) => {
-      if (o.wall === 'E' && Math.abs(o.x - 70) < 0.2) return false;
-      if (o.wall === 'W' && Math.abs(o.x - 70) < 0.2) return false;
+      if (o.wall === 'E' && Math.abs(o.x - D) < 0.2) return false;
+      if (o.wall === 'W' && Math.abs(o.x - D) < 0.2) return false;
       return true;
     });
     const pennDoor = (plans.openings || []).filter((o) => o.kind === 'garage' && o.wall === 'E' && o.w === 16).length === 2;
@@ -99,7 +110,9 @@ const Lot2R51eConsistency = (() => {
       },
       footprints: {
         ok: platesOk,
-        detail: platesOk ? 'Plates A 70,5 56×22.5 · B 28,5 42×28 on site, rear, lock' : 'Plate mismatch across drawings',
+        detail: platesOk
+          ? `Plates A ${plateA.x},${plateA.y} ${plateA.w}×${plateA.h} · B ${plateB.x},${plateB.y} ${plateB.w}×${plateB.h} on site, rear, lock`
+          : 'Plate mismatch across drawings',
       },
       garageGeometry: {
         ok: !!stallsOk,
@@ -123,7 +136,9 @@ const Lot2R51eConsistency = (() => {
       },
       sf: {
         ok: !!sfOk,
-        detail: sfOk ? 'Conditioned SF 1,556 / 1,806' : 'SF drift',
+        detail: sfOk
+          ? `Conditioned SF ${plans.living.A} / ${plans.living.B} · 1,600–1,900 / ≤120`
+          : `SF drift ${plans.living && plans.living.A} / ${plans.living && plans.living.B}`,
       },
       pennAccess: {
         ok: site.checks && site.checks.pennOnlyAccess && site.checks.pennOnlyAccess.ok,
@@ -133,7 +148,7 @@ const Lot2R51eConsistency = (() => {
 
     const hard = Object.keys(checks).every((k) => checks[k].ok);
     return {
-      id: 'r5_1e_deliverable_v1',
+      id: 'r5_1e_deliverable_v1_1',
       verdict: hard ? 'PASS' : 'FAIL',
       designComplete: hard,
       checks,
@@ -141,15 +156,15 @@ const Lot2R51eConsistency = (() => {
       living: plans.living,
       pending: [
         'Zoning interpretation of working setbacks 20 / 25 / 5 / 10',
-        'Fire / 1-hr demising at x=70',
+        `Fire / 1-hr demising at x=${D}`,
         'Structural (posts carrying conditioned floor, gables)',
         'Civil / survey confirmation of parcel and curb cuts',
       ],
       next: hard
-        ? 'R5.1e DESIGN COMPLETE / Deliverable v1.0. Professional validation pending: zoning · fire · structural · civil/survey.'
+        ? 'R5.1e-v1.1 DESIGN COMPLETE / PROGRAM GATE PASS. v1.0 remains COMPLETE BASELINE / PROGRAM GATE NOT CLEARED. Professional validation pending: zoning · fire · structural · civil/survey.'
         : 'Named consistency failures — repair the drawing that drifted, do not redesign.',
       freezeNote: hard
-        ? 'Deliverable v1.0 frozen. Geometry immutable. Presentation / sheet-legibility is a separate pass.'
+        ? 'Deliverable v1.1 frozen except recorded demising correction from v1.0. Presentation / sheet-legibility is a separate pass.'
         : '',
     };
   }

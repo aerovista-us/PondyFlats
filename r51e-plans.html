@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pondy Flats · R5.1e Exact Plans</title>
-<meta name="description" content="R5.1e exact room sanity. Path A: DESIGN COMPLETE v1.0. Path B: restored 1,600–1,900 SF / ≤120 difference gate. Flagged, not deleted.">
+<meta name="description" content="R5.1e-v1.1 exact room sanity. Living gate 1,600–1,900 / ≤120. SF 1,639 / 1,720 · demising x=68.">
 <style>
 :root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--ok:#416145;--warn:#7b5721;--bad:#9a3b2e;--shadow:0 18px 54px #0f1a2b1a}
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:ui-sans-serif,system-ui,sans-serif}
@@ -40,7 +40,7 @@ h1{font:500 clamp(28px,4vw,48px)/1 Georgia,serif;color:var(--navy);margin:0 0 8p
 <div class="brand"><small>Pondy Flats · Lot 2</small><strong>R5.1e Exact Plans</strong></div>
 <nav class="nav">
 <a href="index.html">Hub</a>
-<a href="r51e-deliverable.html">v1.0</a>
+<a href="r51e-deliverable.html">v1.1</a>
 <a href="r51e.html">Demo</a>
 <a class="primary" href="r51e-plans.html">Exact plans</a>
 <a href="r51e-massing-truth.html">Massing</a>
@@ -53,8 +53,8 @@ h1{font:500 clamp(28px,4vw,48px)/1 Georgia,serif;color:var(--navy);margin:0 0 8p
 <section class="panel">
 <div style="font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#956d29">Approved duplex base · exact room sanity</div>
 <h1>R5.1e — exact floor plans</h1>
-<p class="lede">Demising x=70 · conditioned over covered · parking FULL PASS frozen. Every gate item must PASS before massing.</p>
-<p class="callout"><strong>FLAG:</strong> Path A — massing frozen · Deliverable v1.0 DESIGN COMPLETE. Path B — living gate 1,600–1,900 / ≤120 still CONDITIONAL at 1,556 / 1,806. Original “must PASS before massing” kept. Catalog: <a href="docs/lot2-status-conflicts.md">lot2-status-conflicts.md</a> §H.</p>
+<p class="lede">Demising x=68 · conditioned over covered · parking FULL PASS frozen. Living-program gate 1,600–1,900 SF each, ≤120 SF difference.</p>
+<p class="callout"><strong>R5.1e-v1.1</strong> DESIGN COMPLETE / PROGRAM GATE PASS. v1.0 (x=70 · 1,556 / 1,806) is COMPLETE BASELINE / PROGRAM GATE NOT CLEARED. Catalog: <a href="docs/lot2-status-conflicts.md">lot2-status-conflicts.md</a> §H.</p>
 <div class="program" id="program"></div>
 <div id="verdictBar" style="margin-top:14px"></div>
 </section>
@@ -110,7 +110,7 @@ document.getElementById('verdictBar').innerHTML = `<span class="badge ${badge}">
   <span class="badge fail" style="margin-left:6px">Viz ${r.status.visualization}</span>`;
 document.getElementById('verdict').innerHTML = `<span class="badge ${badge}">${r.verdict}</span>`;
 document.getElementById('sfA').textContent = `${r.unitA.livingSf} SF · required 1,600–1,900`;
-document.getElementById('sfB').textContent = `${r.unitB.livingSf} SF (target ~1806)`;
+document.getElementById('sfB').textContent = `${r.unitB.livingSf} SF · required 1,600–1,900`;
 document.getElementById('dem').textContent = `x=${r.demisingX} · 1-hr shared wall`;
 document.getElementById('next').textContent = r.next;
 document.getElementById('checks').innerHTML = Object.entries(r.checks).map(([k,v]) =>

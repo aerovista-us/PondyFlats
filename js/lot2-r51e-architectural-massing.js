@@ -13,9 +13,11 @@ const Lot2R51eArchitecturalMassing = (() => {
   const Acc = typeof Lot2Access !== 'undefined' ? Lot2Access : null;
   const PARENT = 'reset_r5';
 
+  const plateA = ArchLock && ArchLock.LOCK.plates ? ArchLock.LOCK.plates.find((p) => p.id === 'A') : { x: 68, y: 5, w: 58, h: 22.5 };
+  const plateB = ArchLock && ArchLock.LOCK.plates ? ArchLock.LOCK.plates.find((p) => p.id === 'B') : { x: 28, y: 5, w: 40, h: 28 };
   const ROOF = Object.freeze({
-    A: Object.freeze({ pitch: 6.5, rect: Object.freeze({ x: 70, y: 5, w: 56, h: 22.5 }) }),
-    B: Object.freeze({ pitch: 6.0, rect: Object.freeze({ x: 28, y: 5, w: 42, h: 28 }) }),
+    A: Object.freeze({ pitch: 6.5, rect: Object.freeze({ x: plateA.x, y: plateA.y, w: plateA.w, h: plateA.h }) }),
+    B: Object.freeze({ pitch: 6.0, rect: Object.freeze({ x: plateB.x, y: plateB.y, w: plateB.w, h: plateB.h }) }),
   });
   const STONE_Z = 3;
   const CANOPY_A = Object.freeze({
@@ -33,7 +35,7 @@ const Lot2R51eArchitecturalMassing = (() => {
     label: 'APPENDAGE · entry eyebrow B (not core footprint)',
   });
   const VOID_A = Object.freeze({ x: 86, y: 19, w: 40, h: 8.5 });
-  const DEMISING_X = 70;
+  const DEMISING_X = ArchLock && ArchLock.LOCK.demisingX != null ? ArchLock.LOCK.demisingX : 68;
   const EPS = 0.05;
 
   function requireMassing() {
@@ -244,7 +246,7 @@ const Lot2R51eArchitecturalMassing = (() => {
     return `
       <text x="${Mref.OX + 8}" y="26" font-size="13" font-weight="900" fill="#0d1b33">R5.1e ARCHITECTURAL MASSING · SAME CAMERA AS MASSING TRUTH</text>
       <text x="${Mref.OX + 8}" y="44" font-size="11" fill="#59636d">Core footprints/heights locked · gables on upper envelopes only · porches labeled APPENDAGE · no photoreal</text>
-      <text x="${Mref.OX + 8}" y="60" font-size="10" fill="#7b5721">Ridge A +${ROOF.A.pitch}′ / B +${ROOF.B.pitch}′ above z=${H.ground + H.upper}′ · demising x=70 blank</text>
+      <text x="${Mref.OX + 8}" y="60" font-size="10" fill="#7b5721">Ridge A +${ROOF.A.pitch}′ / B +${ROOF.B.pitch}′ above z=${H.ground + H.upper}′ · demising x=${DEMISING_X} blank</text>
     `;
   }
 
@@ -541,7 +543,7 @@ const Lot2R51eArchitecturalMassing = (() => {
       },
       demisingBlank: {
         ok: demisingBlank,
-        detail: 'No openings programmed on x=70 party wall',
+        detail: `No openings programmed on x=${DEMISING_X} party wall`,
       },
       sweepClear: {
         ok: sweepHits.length === 0,

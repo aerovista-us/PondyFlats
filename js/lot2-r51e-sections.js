@@ -29,8 +29,8 @@ const Lot2R51eSections = (() => {
 
   function plates() {
     const lock = ArchLock ? ArchLock.LOCK.plates : null;
-    const A = lock ? lock.find((p) => p.id === 'A') : { x: 70, y: 5, w: 56, h: 22.5 };
-    const B = lock ? lock.find((p) => p.id === 'B') : { x: 28, y: 5, w: 42, h: 28 };
+    const A = lock ? lock.find((p) => p.id === 'A') : { x: 68, y: 5, w: 58, h: 22.5 };
+    const B = lock ? lock.find((p) => p.id === 'B') : { x: 28, y: 5, w: 40, h: 28 };
     return { A: { ...A }, B: { ...B } };
   }
 
@@ -121,7 +121,8 @@ const Lot2R51eSections = (() => {
         detail: 'Covered-stall posts already proven on rear elev + site plan · no third cut required',
       },
       sfHeld: {
-        ok: R.living.A === 1556 && R.living.B === 1806,
+        ok: R.living.A === (ArchLock && ArchLock.LOCK.livingSf ? ArchLock.LOCK.livingSf.A : 1639)
+          && R.living.B === (ArchLock && ArchLock.LOCK.livingSf ? ArchLock.LOCK.livingSf.B : 1720),
         detail: `SF ${R.living.A} / ${R.living.B}`,
       },
     };

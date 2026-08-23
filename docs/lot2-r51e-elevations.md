@@ -14,9 +14,9 @@ Looking east from the rear. North LEFT.
 Proves what Penn cannot:
 
 - Unit B full west face **28′** (not the Penn sliver)
-- A behind B at **x=70**; overlap/depth unchanged (A 56′ / B 42′)
+- A behind B at **x=68**; overlap/depth (A 58′ / B 40′)
 - Ridge A **27.0′** peeks over B **26.5′**
-- No openings on demising x=70
+- No openings on demising x=68
 - No west glass invented (plan-closure has none). B living glass is on the **north** wall
 - COVERED B inherited open with 4 posts
 

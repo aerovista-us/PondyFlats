@@ -1,17 +1,20 @@
-# Lot 2 — Design Deliverable v1.0
+# Lot 2 — Design Deliverable v1.0 / v1.1
 
-**Status:** **DESIGN COMPLETE**  
+**Live status:** **R5.1e-v1.1 DESIGN COMPLETE / PROGRAM GATE PASS**  
+**v1.0 status:** **COMPLETE BASELINE / PROGRAM GATE NOT CLEARED**  
 **Banner (keep separate):** Professional validation pending — zoning · fire · structural · civil/survey confirmation.
 
 **Package page:** [`../r51e-deliverable.html`](../r51e-deliverable.html)  
+**v1.1 write-up:** [`lot2-r51e-v11.md`](lot2-r51e-v11.md)  
+**v1.0 identity:** [`lot2-r51e-v1-baseline.md`](lot2-r51e-v1-baseline.md)  
 **Hub:** [`../index.html`](../index.html)  
 **Canonical host:** GitHub [aerovista-us/PondyFlats](https://github.com/aerovista-us/PondyFlats)  
 **Conflicts (flagged, not deleted):** [`lot2-status-conflicts.md`](lot2-status-conflicts.md)  
 **Gate:** `node scripts/r51e-deliverable-gates.js`
 
-**Revision identity:** `R5.1e-v1.0` · 2026-08-22 · geometry **IMMUTABLE**
+**Revision identity:** `R5.1e-v1.1` · 2026-08-22 · geometry **IMMUTABLE except recorded demising correction from v1.0**
 
-This is one frozen R5.1e duplex someone can open, evaluate, price, discuss, and hand to the next professional stage. It is **not** a permit set.
+v1.1 is one frozen R5.1e duplex that also clears the original living-program gate. It is **not** a permit set. v1.0 remains the first reconciled package, archived at [`../imgs/r51e-v1.0/`](../imgs/r51e-v1.0/).
 
 ## Package checklist
 

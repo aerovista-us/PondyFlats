@@ -28,9 +28,9 @@ Unions, areas, and non-overlap are gated. Massing still extrudes the frozen pare
 
 ## Invariants held
 
-- SF A **1,556** · B **1,806**
-- Plates A `70,5 56×22.5` · B `28,5 42×28`
-- Demising x=70 · no openings
+- SF A **1,639** · B **1,720**
+- Plates A `68,5 58×22.5` · B `28,5 40×28`
+- Demising x=68 · no openings
 - Parking FULL PASS frozen
 - Garage doors 16′ east · Entry A north · Entry B from spine
 

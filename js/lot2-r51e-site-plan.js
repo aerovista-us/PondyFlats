@@ -93,12 +93,12 @@ const Lot2R51eSitePlan = (() => {
 
   function plates() {
     const lock = ArchLock ? ArchLock.LOCK.plates : null;
-    const A = lock ? lock.find((p) => p.id === 'A') : { x: 70, y: 5, w: 56, h: 22.5 };
-    const B = lock ? lock.find((p) => p.id === 'B') : { x: 28, y: 5, w: 42, h: 28 };
+    const A = lock ? lock.find((p) => p.id === 'A') : { x: 68, y: 5, w: 58, h: 22.5 };
+    const B = lock ? lock.find((p) => p.id === 'B') : { x: 28, y: 5, w: 40, h: 28 };
     return {
       A: { id: 'A', x: A.x, y: A.y, w: A.w, h: A.h },
       B: { id: 'B', x: B.x, y: B.y, w: B.w, h: B.h },
-      demisingX: ArchLock ? ArchLock.LOCK.demisingX : 70,
+      demisingX: ArchLock ? ArchLock.LOCK.demisingX : 68,
     };
   }
 
@@ -146,7 +146,7 @@ const Lot2R51eSitePlan = (() => {
     }
     return [
       { id: 'entry-a', unit: 'A', kind: 'entry', wall: 'N', x: 80.4, y: 5, w: 3.2, label: 'ENTRY A' },
-      { id: 'entry-b', unit: 'B', kind: 'entry', wall: 'S', x: 65.4, y: 20, w: 3.2, label: 'ENTRY B' },
+      { id: 'entry-b', unit: 'B', kind: 'entry', wall: 'S', x: 64.4, y: 20, w: 3.2, label: 'ENTRY B' },
       { id: 'gar-a', unit: 'A', kind: 'garage', wall: 'E', x: 124, y: 5, w: 16, label: 'GARAGE DOOR A 16′' },
       { id: 'gar-b', unit: 'B', kind: 'garage', wall: 'E', x: 66, y: 20, w: 16, label: 'GARAGE DOOR B 16′' },
       { id: 'pers-a', unit: 'A', kind: 'personnel', wall: 'N', x: 110, y: 5, w: 3, label: 'PERSONNEL A' },
@@ -158,7 +158,7 @@ const Lot2R51eSitePlan = (() => {
     const a = ops.find((o) => o.id === 'entry-a');
     const b = ops.find((o) => o.id === 'entry-b');
     const ax = a ? a.x + a.w / 2 : 82;
-    const bx = 68;
+    const bx = b ? b.x + b.w / 2 : 66;
     return [
       {
         id: 'walk-a',
@@ -377,7 +377,7 @@ const Lot2R51eSitePlan = (() => {
 
     const dimsOk = dims.pennToPlateA === 22 && dims.rearToPlateB === 28
       && dims.northToPlates === 5 && dims.apronA === 24 && dims.doorAToPenn === 24
-      && dims.driveWidth === 12 && dims.demisingX === 70
+      && dims.driveWidth === 12 && dims.demisingX === (ArchLock ? ArchLock.LOCK.demisingX : 68)
       && dims.plateAInsideFrontSb === 2 && dims.plateBInsideRearSb === 3;
 
     const checks = {
@@ -568,10 +568,10 @@ const Lot2R51eSitePlan = (() => {
   ${appSvg}
 
   <line x1="${sx(site.plates.demisingX)}" y1="${sy(5)}" x2="${sx(site.plates.demisingX)}" y2="${sy(33)}" stroke="#9a3b2e" stroke-width="1.6" stroke-dasharray="6 3"/>
-  <text x="${sx(site.plates.demisingX) + 6}" y="${sy(8)}" font-size="8" font-weight="800" fill="#9a3b2e">DEMISING x=70</text>
+  <text x="${sx(site.plates.demisingX) + 6}" y="${sy(8)}" font-size="8" font-weight="800" fill="#9a3b2e">DEMISING x=${site.plates.demisingX}</text>
 
-  <text x="${sx(A.x + A.w / 2)}" y="${sy(A.y + 3.2)}" text-anchor="middle" font-size="10" font-weight="800" fill="#0d1b33">UNIT A · 70,5 56×22.5</text>
-  <text x="${sx(B.x + B.w / 2)}" y="${sy(B.y + 3.2)}" text-anchor="middle" font-size="10" font-weight="800" fill="#0d1b33">UNIT B · 28,5 42×28</text>
+  <text x="${sx(A.x + A.w / 2)}" y="${sy(A.y + 3.2)}" text-anchor="middle" font-size="10" font-weight="800" fill="#0d1b33">UNIT A · ${A.x},${A.y} ${A.w}×${A.h}</text>
+  <text x="${sx(B.x + B.w / 2)}" y="${sy(B.y + 3.2)}" text-anchor="middle" font-size="10" font-weight="800" fill="#0d1b33">UNIT B · ${B.x},${B.y} ${B.w}×${B.h}</text>
 
   ${walkSvg}
   ${doorSvg}

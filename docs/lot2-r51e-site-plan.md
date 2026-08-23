@@ -40,10 +40,10 @@ Run: `node scripts/r51e-deliverable-gates.js`
 | Penn frontage | 50.00′ |
 | Rear | 57.01′ |
 | Working setbacks | 20′ front · 25′ rear · 5′ north · 10′ south |
-| Plate A | `70,5 56×22.5` · 22′ to Penn · 2′ inside 20′ front setback |
-| Plate B | `28,5 42×28` · 28′ to rear · 3′ inside 25′ rear setback |
+| Plate A | `68,5 58×22.5` · 22′ to Penn · 2′ inside 20′ front setback |
+| Plate B | `28,5 40×28` · 28′ to rear · 3′ inside 25′ rear setback |
 | North | plates on the 5′ setback line |
-| Demising | x=70 |
+| Demising | x=68 |
 | Drive | 12′ · Penn origin |
 | Garage A apron | 24′ (door at x=124 → Penn at 148) |
 | Doors | 16′ east · ENTRY A north · ENTRY B from spine |

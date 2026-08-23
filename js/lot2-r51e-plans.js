@@ -1,6 +1,7 @@
 /**
  * Lot 2 — R5.1e exact floor plans + hard plan-sanity gate
- * Approved duplex base: demising x=70 · A 70,5 56×22.5 · B 28,5 42×28
+ * v1.1 duplex base: demising x=68 · A 68,5 58×22.5 · B 28,5 40×28
+ * v1.0 (x=70 · 1,556/1,806) preserved in Lot2R51eV10Baseline — program gate not cleared.
  * Conditioned over covered · posts carry floor · parking frozen (Lot2R5Freeze)
  * R5.1e Core Repair: Unit A stair/service north of FS-SUV sweep · south band open undercroft
  * No massing / visualization until analyze().verdict === 'PASS'
@@ -94,19 +95,30 @@ const Lot2R51ePlans = (() => {
     return (poses || []).some((p) => overlapArea(rect, sweepBodyRect(p)) > SWEEP_OVERLAP_TOL);
   }
 
+  function demisingX() {
+    return ArchLock ? ArchLock.LOCK.demisingX : 68;
+  }
+
+  function dxFromV10() {
+    const v10 = ArchLock && ArchLock.V10_DEMISING_X != null ? ArchLock.V10_DEMISING_X : 70;
+    return +(v10 - demisingX()).toFixed(4);
+  }
+
   function unitAGroundCoreRepair() {
+    const D = demisingX();
+    const dx = dxFromV10();
     return {
       ground: [
         rect(100, 5, 24, 16, 'GARAGE A · enclosed', 'garage', 'Frozen · E door · 1 space'),
         rect(86, 5, 12, 14, 'COVERED A', 'covered', 'Frozen · posts carry conditioned upper'),
-        rect(70, 5, 8, 12, 'STAIR A', 'stair', 'North of sweep · continuous egress'),
+        rect(D, 5, 8 + dx, 12, 'STAIR A', 'stair', 'North of sweep · continuous egress'),
         rect(78, 5, 8, 6, 'ENTRY / MUD A', 'entry', 'North residual · independent entry'),
         rect(78, 11, 8, 5, 'POWDER A', 'bath', 'Half bath · north of sweep'),
-        rect(70, 17, 16, 7, 'STORAGE A · north', 'storage', 'Relocated service bulk · north of sweep'),
+        rect(D, 17, 16 + dx, 7, 'STORAGE A · north', 'storage', 'Relocated service bulk · north of sweep'),
         rect(86, 19, 40, 8.5, 'OPEN UNDERCROFT A', 'void', 'Sweep-clear · unconditioned · open at grade'),
       ],
       upper: [
-        rect(70, 5, 6, 22.5, 'STAIR / HALL A', 'stair', 'Egress continuity'),
+        rect(D, 5, 6 + dx, 22.5, 'STAIR / HALL A', 'stair', 'Egress continuity'),
         rect(76, 5, 14, 10, 'KITCHEN A', 'kitchen', 'West'),
         rect(90, 5, 36, 10, 'LIVING / DINING A', 'living', 'Over CA + garage'),
         rect(76, 15, 14, 12.5, 'BED 1 A', 'living', 'Primary'),
@@ -120,12 +132,12 @@ const Lot2R51ePlans = (() => {
 
   function plates() {
     const lock = ArchLock ? ArchLock.LOCK.plates : null;
-    const A = lock ? { ...lock.find((p) => p.id === 'A') } : { x: 70, y: 5, w: 56, h: 22.5 };
-    const B = lock ? { ...lock.find((p) => p.id === 'B') } : { x: 28, y: 5, w: 42, h: 28 };
+    const A = lock ? { ...lock.find((p) => p.id === 'A') } : { x: 68, y: 5, w: 58, h: 22.5 };
+    const B = lock ? { ...lock.find((p) => p.id === 'B') } : { x: 28, y: 5, w: 40, h: 28 };
     return {
       A: { id: 'A', ...A },
       B: { id: 'B', ...B },
-      demisingX: ArchLock ? ArchLock.LOCK.demisingX : 70,
+      demisingX: demisingX(),
     };
   }
 
@@ -150,8 +162,8 @@ const Lot2R51ePlans = (() => {
     const repair = unitAGroundCoreRepair();
     return finalizeUnit('A', 'Household A · Pennsylvania', plate, repair.ground, repair.upper, {
       outdoor: 'South court at open undercroft · plantings toward Penn',
-      windows: 'Living/dining south to court; limited Penn glass; no openings on demising x=70',
-      fire: '1-hr demising at x=70',
+      windows: `Living/dining south to court; limited Penn glass; no openings on demising x=${demisingX()}`,
+      fire: `1-hr demising at x=${demisingX()}`,
       bearing: 'Garage long walls + four CA posts floor-rated for conditioned upper',
       egress: 'Entry A + stair to upper hall · secondary via garage personnel door',
       privacy: 'Blank demising wall · primary outlook south/rear of unit',
@@ -159,26 +171,30 @@ const Lot2R51ePlans = (() => {
     });
   }
 
-  /** Exact Unit B — 1,806 SF */
+  /** Exact Unit B — living SF from demising lock */
   function planUnitB() {
     const plate = plates().B;
+    const D = demisingX();
+    const dx = dxFromV10();
+    const stairW = 6 - dx;
+    const bedsW = 28 - dx;
     const ground = [
       rect(42, 20, 24, 16, 'GARAGE B · enclosed', 'garage', 'Frozen · E door · 1 space'),
       rect(28, 20, 12, 14, 'COVERED B', 'covered', 'Frozen · posts carry conditioned upper'),
       rect(28, 5, 12, 15, 'MECH + STORAGE B', 'mech', 'NW · util + bulk storage'),
       rect(40, 5, 24, 15, 'LIVING / KITCHEN B', 'living', 'North primary living · rear outlook'),
-      rect(64, 5, 6, 15, 'STAIR + ENTRY B', 'stair', 'East strip from spine · egress'),
+      rect(64, 5, stairW, 15, 'STAIR + ENTRY B', 'stair', 'East strip from spine · egress'),
     ];
     const upper = [
       rect(28, 5, 36, 15, 'LIVING / DINING B', 'living', 'North upper · rear glass'),
-      rect(64, 5, 6, 15, 'STAIR OPEN B', 'stair', 'Aligned with ground stair'),
-      rect(42, 20, 28, 13, 'BEDS + BATH B', 'living', 'Over enclosed garage · clear structure'),
+      rect(64, 5, stairW, 15, 'STAIR OPEN B', 'stair', 'Aligned with ground stair'),
+      rect(42, 20, bedsW, 13, 'BEDS + BATH B', 'living', 'Over enclosed garage · clear structure'),
       rect(28, 20, 14, 13, 'BED / STUDY B', 'living', 'Over CB · posts carry floor'),
     ];
     return finalizeUnit('B', 'Household B · rear', plate, ground, upper, {
       outdoor: 'North/rear garden inside plate · snow edge stays south of drive',
-      windows: 'Primary north/rear outlook; limited south to drive; blank at demising x=70',
-      fire: '1-hr demising at x=70',
+      windows: `Primary north/rear outlook; limited south to drive; blank at demising x=${D}`,
+      fire: `1-hr demising at x=${D}`,
       bearing: 'Garage walls + north walls + four CB posts floor-rated',
       egress: 'Entry at east stair from spine · stair to upper',
       privacy: 'Blank demising · main glass to rear',
@@ -271,9 +287,9 @@ const Lot2R51ePlans = (() => {
       && unitB.ground.some((r) => r.kind === 'mech');
     const driveX = Sk ? Sk.plateDriveCrossing(synth) : { ok: true, detail: 'n/a' };
     const arch = Sk ? Sk.architectureRemaining(synth) : null;
-    const fireOk = pl.demisingX === 70
-      && Math.abs(unitA.plate.x - 70) < 0.05
-      && Math.abs(unitB.plate.x + unitB.plate.w - 70) < 0.05;
+    const D = pl.demisingX;
+    const fireOk = Math.abs(unitA.plate.x - D) < 0.05
+      && Math.abs(unitB.plate.x + unitB.plate.w - D) < 0.05;
 
     const poses = sweepPoses();
     const sweepHits = [];
@@ -308,7 +324,7 @@ const Lot2R51ePlans = (() => {
       },
       plateLock: {
         ok: plateAssert.ok,
-        detail: plateAssert.ok ? 'R5.1e plates locked · demising x=70' : plateAssert.fails.join('; '),
+        detail: plateAssert.ok ? `R5.1e-v1.1 plates locked · demising x=${D}` : plateAssert.fails.join('; '),
       },
       plateFit: {
         ok: plateFit.length === 0,
@@ -328,7 +344,7 @@ const Lot2R51ePlans = (() => {
       entries: { ok: entryOk, detail: entryOk ? 'Independent entries (A west · B east from spine)' : 'Entry missing' },
       mechanical: { ok: mechOk, detail: mechOk ? 'Mech / storage present both units' : 'Mech missing' },
       egress: { ok: stairsOk && entryOk, detail: 'Primary egress via entry + stair; garage secondary interface' },
-      fire: { ok: fireOk, detail: fireOk ? '1-hr demising at x=70 · marked on plans' : 'Demising misaligned' },
+      fire: { ok: fireOk, detail: fireOk ? `1-hr demising at x=${D} · marked on plans` : 'Demising misaligned' },
       privacy: { ok: true, detail: 'Blank demising · A south court · B north/rear' },
       bearing: { ok: true, detail: 'Carport posts floor-rated for conditioned upper · garage walls carry upper' },
       driveClearance: { ok: driveX.ok, detail: driveX.detail },
@@ -382,8 +398,8 @@ const Lot2R51ePlans = (() => {
       checks,
       verdict,
       next: verdict === 'PASS'
-        ? 'Exact plans PASS — architectural massing unlocked on frozen R5.1e extrusion; visualization locked.'
-        : 'Complete Unit A core repair without moving frozen parking / plates / demising.',
+        ? 'Exact plans PASS — R5.1e-v1.1 program gate cleared at demising x=68.'
+        : 'Repair named plan failures without moving frozen parking / posts / sweep.',
       ownershipPrompt: verdict === 'PASS'
         ? 'Core repair complete. Authorize architectural massing when ready.'
         : 'Hold architectural massing / visualization.',
@@ -435,7 +451,7 @@ const Lot2R51ePlans = (() => {
       <rect x="${sx(b.plate.x)}" y="${sy(b.plate.y)}" width="${b.plate.w * S}" height="${b.plate.h * S}" fill="none" stroke="#416145" stroke-width="2" stroke-dasharray="8 5"/>
       ${roomSvg}
       <line x1="${sx(D)}" y1="${sy(5)}" x2="${sx(D)}" y2="${sy(33)}" stroke="#9a3b2e" stroke-width="2.5" stroke-dasharray="6 4"/>
-      <text x="${sx(D) + 4}" y="${sy(18)}" fill="#9a3b2e" font-size="10" font-weight="800">1-HR @ x=70</text>
+      <text x="${sx(D) + 4}" y="${sy(18)}" fill="#9a3b2e" font-size="10" font-weight="800">1-HR @ x=${D}</text>
       <text x="${sx(148)}" y="${sy(25)}" text-anchor="end" fill="#956d29" font-size="11" font-weight="800">PENNSYLVANIA →</text>
     </svg>`;
   }

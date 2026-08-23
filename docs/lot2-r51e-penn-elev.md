@@ -23,7 +23,7 @@ Unit B’s east face sits behind Unit A. Only the sliver south of plate A (`y > 
 | Ground FTF / carport | 10.5′ / 9.0′ clear |
 | Garage doors | 16′ on freeze east faces |
 | Penn glass | plan-closure `LIVING A PENN limited` 6′ · upper band |
-| Demising x=70 | blank |
+| Demising x=68 | blank |
 
 Window head/sill **13.5–17.5′** is a typical upper-band cut; the **plan y-span is frozen**. Sections prove floors and ridges.
 

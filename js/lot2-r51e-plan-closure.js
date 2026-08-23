@@ -13,8 +13,24 @@ const Lot2R51ePlanClosure = (() => {
   const PARENT = 'reset_r5';
   const CONDITIONED = new Set(['living', 'stair', 'corridor', 'mech', 'storage', 'bath', 'kitchen', 'entry']);
   const EPS = 0.05;
-  const TARGET = Object.freeze({ A: 1556, B: 1806 });
+  const TARGET = livingTarget();
   const Sheet = typeof Lot2R51eSheet !== 'undefined' ? Lot2R51eSheet : null;
+
+  function demisingX() {
+    return ArchLock ? ArchLock.LOCK.demisingX : 68;
+  }
+
+  function livingTarget() {
+    return ArchLock && ArchLock.LOCK.livingSf
+      ? ArchLock.LOCK.livingSf
+      : { A: 1639, B: 1720 };
+  }
+
+  function livingGate() {
+    return ArchLock && ArchLock.LOCK.livingGate
+      ? ArchLock.LOCK.livingGate
+      : { min: 1600, max: 1900, maxDelta: 120 };
+  }
 
   function requirePlans() {
     if (!Plans) throw new Error('Lot2R51ePlans required');
@@ -80,6 +96,9 @@ const Lot2R51ePlanClosure = (() => {
    */
   function unitBRooms() {
     const P = requirePlans().planUnitB();
+    const D = demisingX();
+    const stairW = +(D - 64).toFixed(2);
+    const bed2W = +(D - 60).toFixed(2);
     const keep = (name) => cloneFrozen(P.ground.concat(P.upper).find((r) => r.name === name));
     const ground = [
       keep('GARAGE B · enclosed'),
@@ -88,8 +107,8 @@ const Lot2R51ePlanClosure = (() => {
       room(33, 5, 7, 15, 'STORAGE B', 'storage', 'Split of MECH + STORAGE B', 'MECH + STORAGE B'),
       room(40, 5, 16, 15, 'LIVING B', 'living', 'Rear outlook · split of LIVING / KITCHEN B', 'LIVING / KITCHEN B'),
       room(56, 5, 8, 15, 'KITCHEN B', 'kitchen', 'Galley toward stair', 'LIVING / KITCHEN B'),
-      room(64, 5, 6, 12, 'STAIR B', 'stair', 'Aligned with upper stair well', 'STAIR + ENTRY B'),
-      room(64, 17, 6, 3, 'ENTRY B', 'entry', 'From drive spine · south of stair', 'STAIR + ENTRY B'),
+      room(64, 5, stairW, 12, 'STAIR B', 'stair', 'Aligned with upper stair well', 'STAIR + ENTRY B'),
+      room(64, 17, stairW, 3, 'ENTRY B', 'entry', 'From drive spine · south of stair', 'STAIR + ENTRY B'),
     ];
     const upper = [
       keep('LIVING / DINING B'),
@@ -97,22 +116,25 @@ const Lot2R51ePlanClosure = (() => {
       keep('BED / STUDY B'),
       room(42, 20, 8, 13, 'BATH B', 'bath', 'Over garage · split of BEDS + BATH B', 'BEDS + BATH B'),
       room(50, 20, 10, 13, 'BED 1 B', 'living', 'Primary · 10×13', 'BEDS + BATH B'),
-      room(60, 20, 10, 13, 'BED 2 B', 'living', 'Secondary · 10×13', 'BEDS + BATH B'),
+      room(60, 20, bed2W, 13, 'BED 2 B', 'living', `Secondary · ${bed2W}×13`, 'BEDS + BATH B'),
     ];
     return { ground, upper };
   }
 
-  const PARENTS = Object.freeze([
-    { unit: 'B', name: 'MECH + STORAGE B', rect: { x: 28, y: 5, w: 12, h: 15 } },
-    { unit: 'B', name: 'LIVING / KITCHEN B', rect: { x: 40, y: 5, w: 24, h: 15 } },
-    { unit: 'B', name: 'STAIR + ENTRY B', rect: { x: 64, y: 5, w: 6, h: 15 } },
-    { unit: 'B', name: 'BEDS + BATH B', rect: { x: 42, y: 20, w: 28, h: 13 } },
-  ]);
+  function parents() {
+    const D = demisingX();
+    return [
+      { unit: 'B', name: 'MECH + STORAGE B', rect: { x: 28, y: 5, w: 12, h: 15 } },
+      { unit: 'B', name: 'LIVING / KITCHEN B', rect: { x: 40, y: 5, w: 24, h: 15 } },
+      { unit: 'B', name: 'STAIR + ENTRY B', rect: { x: 64, y: 5, w: +(D - 64).toFixed(2), h: 15 } },
+      { unit: 'B', name: 'BEDS + BATH B', rect: { x: 42, y: 20, w: +(D - 42).toFixed(2), h: 13 } },
+    ];
+  }
 
   function openings() {
     return [
       { id: 'entry-a', unit: 'A', level: 'ground', kind: 'entry', wall: 'N', x: 80.4, y: 5, w: 3.2, label: 'ENTRY A' },
-      { id: 'entry-b', unit: 'B', level: 'ground', kind: 'entry', wall: 'S', x: 65.4, y: 20, w: 3.2, label: 'ENTRY B' },
+      { id: 'entry-b', unit: 'B', level: 'ground', kind: 'entry', wall: 'S', x: 64.4, y: 20, w: 3.2, label: 'ENTRY B' },
       { id: 'gar-a', unit: 'A', level: 'ground', kind: 'garage', wall: 'E', x: 124, y: 5, w: 16, label: 'GARAGE DOOR A 16′' },
       { id: 'gar-b', unit: 'B', level: 'ground', kind: 'garage', wall: 'E', x: 66, y: 20, w: 16, label: 'GARAGE DOOR B 16′' },
       { id: 'pers-a', unit: 'A', level: 'ground', kind: 'personnel', wall: 'N', x: 110, y: 5, w: 3, label: 'PERSONNEL A' },
@@ -176,9 +198,10 @@ const Lot2R51ePlanClosure = (() => {
   }
 
   function demisingHit(list) {
+    const D = demisingX();
     return list.filter((o) => {
-      if (o.wall === 'E' && Math.abs(o.x - 70) < 0.2) return true;
-      if (o.wall === 'W' && Math.abs(o.x - 70) < 0.2) return true;
+      if (o.wall === 'E' && Math.abs(o.x - D) < 0.2) return true;
+      if (o.wall === 'W' && Math.abs(o.x - D) < 0.2) return true;
       return false;
     });
   }
@@ -193,7 +216,7 @@ const Lot2R51ePlanClosure = (() => {
     const frozenA = P.planUnitA();
     const frozenB = P.planUnitB();
 
-    const parentChecks = PARENTS.map((parent) => {
+    const parentChecks = parents().map((parent) => {
       const kids = B.ground.concat(B.upper).filter((r) => r.parent === parent.name);
       return { parent: parent.name, ...coversParent(kids, parent) };
     });
@@ -210,6 +233,9 @@ const Lot2R51ePlanClosure = (() => {
       return fr && hit && sameRect(hit, fr);
     });
 
+    const tgt = livingTarget();
+    const g = livingGate();
+    const D = demisingX();
     const demising = demisingHit(openings().concat(windows()));
     const minFails = B.ground.concat(B.upper).filter((r) => {
       if (r.kind === 'stair') return r.minDim < 3.5 - EPS;
@@ -239,7 +265,7 @@ const Lot2R51ePlanClosure = (() => {
       },
       plates: {
         ok: plates.ok,
-        detail: plates.ok ? 'Plates A/B + demising x=70 unchanged' : (plates.fails || []).join('; '),
+        detail: plates.ok ? `Plates A/B + demising x=${D}` : (plates.fails || []).join('; '),
       },
       unitAUnchanged: {
         ok: aUnchanged,
@@ -256,8 +282,8 @@ const Lot2R51ePlanClosure = (() => {
         detail: bKeepOk ? 'Unsplit B rooms still match freeze' : 'Unsplit B room drift',
       },
       sfReconcile: {
-        ok: sfA === TARGET.A && sfB === TARGET.B,
-        detail: `A ${sfA} (target ${TARGET.A}) · B ${sfB} (target ${TARGET.B})`,
+        ok: sfA === tgt.A && sfB === tgt.B,
+        detail: `A ${sfA} (target ${tgt.A}) · B ${sfB} (target ${tgt.B})`,
       },
       sfMatchesFrozen: {
         ok: sfA === frozenA.livingSf && sfB === frozenB.livingSf,
@@ -273,11 +299,11 @@ const Lot2R51ePlanClosure = (() => {
       },
       demisingBlank: {
         ok: demising.length === 0,
-        detail: demising.length ? demising.map((d) => d.label || d.id).join('; ') : 'No openings on x=70',
+        detail: demising.length ? demising.map((d) => d.label || d.id).join('; ') : `No openings on x=${D}`,
       },
       comparableHomes: {
-        ok: Math.abs(sfA - sfB) <= 260 && sfA >= 1550 && sfB >= 1600,
-        detail: `Two homes ${sfA} / ${sfB} SF inside frozen shells`,
+        ok: Math.abs(sfA - sfB) <= g.maxDelta && sfA >= g.min && sfB >= g.min && sfA <= g.max && sfB <= g.max,
+        detail: `Two homes ${sfA} / ${sfB} SF · gate ${g.min}–${g.max} · Δ≤${g.maxDelta}`,
       },
     };
 
@@ -399,8 +425,8 @@ const Lot2R51ePlanClosure = (() => {
       <rect x="${sx(pa.x)}" y="${sy(pa.y)}" width="${pa.w * S}" height="${pa.h * S}" fill="none" stroke="#416145" stroke-width="2.2" stroke-dasharray="8 5"/>
       <rect x="${sx(pb.x)}" y="${sy(pb.y)}" width="${pb.w * S}" height="${pb.h * S}" fill="none" stroke="#416145" stroke-width="2.2" stroke-dasharray="8 5"/>
       ${roomSvg}${ops}${wins}${dims}
-      <line x1="${sx(70)}" y1="${sy(5)}" x2="${sx(70)}" y2="${sy(33)}" stroke="#9a3b2e" stroke-width="3" stroke-dasharray="7 4"/>
-      <text x="${sx(70) + 6}" y="${sy(12)}" fill="#9a3b2e" font-size="10" font-weight="800">1-HR DEMISING x=70</text>
+      <line x1="${sx(demisingX())}" y1="${sy(5)}" x2="${sx(demisingX())}" y2="${sy(33)}" stroke="#9a3b2e" stroke-width="3" stroke-dasharray="7 4"/>
+      <text x="${sx(demisingX()) + 6}" y="${sy(12)}" fill="#9a3b2e" font-size="10" font-weight="800">1-HR DEMISING x=${demisingX()}</text>
       <text x="${sx(148)}" y="${sy(26)}" text-anchor="end" fill="#c34232" font-size="11" font-weight="900">PENNSYLVANIA →</text>
       <text x="${sx(4)}" y="${sy(8)}" fill="#2a6496" font-size="11" font-weight="800">N / REAR</text>`;
     const no = level === 'upper' ? 'A-102' : 'A-101';
@@ -414,7 +440,7 @@ const Lot2R51ePlanClosure = (() => {
       no,
       title,
       subtitle: 'Plan closure inside frozen shells · Pennsylvania RIGHT · north LEFT',
-      note: `Conditioned SF 1,556 / 1,806 · plates A 70,5 56×22.5 · B 28,5 42×28 · demising x=70 blank`,
+      note: `Conditioned SF ${livingTarget().A} / ${livingTarget().B} · plates A ${pa.x},${pa.y} ${pa.w}×${pa.h} · B ${pb.x},${pb.y} ${pb.w}×${pb.h} · demising x=${demisingX()} blank`,
       verdict: 'PASS',
       aria: `R5.1e ${level} plan closure`,
       body,
@@ -424,7 +450,7 @@ const Lot2R51ePlanClosure = (() => {
   return {
     PARENT,
     TARGET,
-    PARENTS,
+    parents,
     analyze,
     renderFloor,
     unitARooms,

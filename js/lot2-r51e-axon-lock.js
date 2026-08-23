@@ -9,6 +9,7 @@ const Lot2R51eAxonLock = (() => {
   const M = typeof Lot2R51eMassingTruth !== 'undefined' ? Lot2R51eMassingTruth : null;
   const Arch = typeof Lot2R51eArchitecturalMassing !== 'undefined' ? Lot2R51eArchitecturalMassing : null;
   const ParkFreeze = typeof Lot2R5Freeze !== 'undefined' ? Lot2R5Freeze : null;
+  const ArchLock = typeof Lot2R51eLock !== 'undefined' ? Lot2R51eLock : null;
   const L = typeof Lot2 !== 'undefined' ? Lot2 : {};
   const PARENT = 'reset_r5';
 
@@ -124,14 +125,15 @@ const Lot2R51eAxonLock = (() => {
 
   function invariantCallouts() {
     const { proj } = M;
+    const D = ArchLock && ArchLock.LOCK.demisingX != null ? ArchLock.LOCK.demisingX : 68;
     const ridgeA = proj(126, 16.25, 27);
-    const ridgeB = proj(70, 19, 26.5);
-    const dem = proj(70, 18, 0);
+    const ridgeB = proj(D, 19, 26.5);
+    const dem = proj(D, 18, 0);
     const posts = proj(86, 12, 1);
     return `
       <text x="${ridgeA.sx}" y="${ridgeA.sy - 8}" font-size="10" font-weight="900" fill="#0d1b33">RIDGE A 27.0′ LOCKED</text>
       <text x="${ridgeB.sx + 6}" y="${ridgeB.sy - 6}" font-size="10" font-weight="900" fill="#0d1b33">RIDGE B 26.5′ LOCKED</text>
-      <text x="${dem.sx + 8}" y="${dem.sy}" font-size="10" font-weight="900" fill="#9a3b2e">DEMISING x=70 BLANK</text>
+      <text x="${dem.sx + 8}" y="${dem.sy}" font-size="10" font-weight="900" fill="#9a3b2e">DEMISING x=${D} BLANK</text>
       <text x="${posts.sx}" y="${posts.sy}" font-size="9" font-weight="800" fill="#416145">8 POSTS · COVERED OPEN</text>
       <text x="${M.OX + 8}" y="${M.VB_H - 28}" font-size="11" font-weight="800" fill="#9a3b2e">DOORS ARE SVG GEOMETRY ON EAST FACES — a prettier picture must not move them</text>`;
   }
@@ -240,7 +242,9 @@ const Lot2R51eAxonLock = (() => {
         detail: freeze.ok ? 'Parking / paths frozen' : (freeze.fails || []).join('; '),
       },
       sfInvariant: {
-        ok: archGate.living && archGate.living.A === 1556 && archGate.living.B === 1806,
+        ok: archGate.living && ArchLock
+          ? ArchLock.assertSf(archGate.living.A, archGate.living.B).ok
+          : !!(archGate.living && archGate.living.A === 1639 && archGate.living.B === 1720),
         detail: archGate.living ? `A ${archGate.living.A} / B ${archGate.living.B} SF` : 'SF missing',
       },
     };

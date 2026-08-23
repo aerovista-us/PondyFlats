@@ -6,14 +6,15 @@
  */
 const Lot2R51eSheet = (() => {
   const REV = Object.freeze({
-    id: 'R5.1e-v1.0',
-    name: 'Deliverable v1.0',
-    status: 'DESIGN COMPLETE',
+    id: 'R5.1e-v1.1',
+    name: 'Deliverable v1.1',
+    status: 'DESIGN COMPLETE / PROGRAM GATE PASS',
     date: '2026-08-22',
     project: 'Pondy Flats · Lot 2',
     pending: 'Professional validation pending: zoning · fire · structural · civil/survey',
-    geometry: 'IMMUTABLE',
+    geometry: 'IMMUTABLE except recorded v1.1 demising correction from v1.0',
     notPermit: 'Not a permit / construction set',
+    baseline: 'R5.1e-v1.0 COMPLETE BASELINE / PROGRAM GATE NOT CLEARED',
   });
 
   const SHEETS = Object.freeze([

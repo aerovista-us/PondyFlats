@@ -42,11 +42,15 @@ const Lot2R51eElevations = (() => {
     return { face: '#ddd5c5', stroke: '#2a333c' };
   }
 
+  function D() {
+    return ArchLock && ArchLock.LOCK.demisingX != null ? ArchLock.LOCK.demisingX : 68;
+  }
+
   function plates() {
     const lock = ArchLock ? ArchLock.LOCK.plates : null;
-    const A = lock ? lock.find((p) => p.id === 'A') : { x: 70, y: 5, w: 56, h: 22.5 };
-    const B = lock ? lock.find((p) => p.id === 'B') : { x: 28, y: 5, w: 42, h: 28 };
-    return { A: { ...A }, B: { ...B }, demisingX: 70 };
+    const A = lock ? lock.find((p) => p.id === 'A') : { x: 68, y: 5, w: 58, h: 22.5 };
+    const B = lock ? lock.find((p) => p.id === 'B') : { x: 28, y: 5, w: 40, h: 28 };
+    return { A: { ...A }, B: { ...B }, demisingX: D() };
   }
 
   function planOps() {
@@ -54,7 +58,7 @@ const Lot2R51eElevations = (() => {
     return {
       openings: (g.openings || []).slice(),
       windows: (g.windows || []).slice(),
-      living: g.living || { A: 1556, B: 1806 },
+      living: g.living || (ArchLock && ArchLock.LOCK.livingSf) || { A: 1639, B: 1720 },
       verdict: g.verdict,
     };
   }
@@ -163,12 +167,12 @@ const Lot2R51eElevations = (() => {
     const westWin = ops.windows.filter((w) => w.wall === 'W');
     const westDoors = ops.openings.filter((o) => o.wall === 'W');
     const demisingHit = ops.openings.concat(ops.windows).some((o) => {
-      if (o.wall === 'W' && Math.abs(o.x - 70) < 0.2) return true;
-      if (o.wall === 'E' && Math.abs(o.x - 70) < 0.2) return true;
+      if (o.wall === 'W' && Math.abs(o.x - D()) < 0.2) return true;
+      if (o.wall === 'E' && Math.abs(o.x - D()) < 0.2) return true;
       return false;
     });
     const meet = Math.abs((base.pl.B.x + base.pl.B.w) - base.pl.A.x) < EPS
-      && Math.abs(base.pl.A.x - 70) < EPS;
+      && Math.abs(base.pl.A.x - D()) < EPS;
     const bSpan = Math.abs(base.pl.B.h - 28) < EPS;
     const aHiddenY = base.pl.A.h;
     const peekY = 16.25;
@@ -188,7 +192,7 @@ const Lot2R51eElevations = (() => {
         detail: `Unit B west face full ${base.pl.B.h}′ (y=${base.pl.B.y}–${base.pl.B.y + base.pl.B.h}) · not the Penn sliver`,
       },
       abDepthUnchanged: {
-        ok: meet && Math.abs(base.pl.A.w - 56) < EPS && Math.abs(base.pl.B.w - 42) < EPS,
+        ok: meet && Math.abs(base.pl.A.w - 58) < EPS && Math.abs(base.pl.B.w - 40) < EPS,
         detail: meet
           ? `B east ${base.pl.B.x + base.pl.B.w} meets A west ${base.pl.A.x} at demising · A ${aHiddenY}′ of 22.5′ occluded in Y`
           : 'A/B depth or demising drifted',
@@ -205,7 +209,7 @@ const Lot2R51eElevations = (() => {
       },
       demisingBlank: {
         ok: !demisingHit,
-        detail: !demisingHit ? 'No openings on x=70' : 'Opening on demising',
+        detail: !demisingHit ? `No openings on x=${D()}` : 'Opening on demising',
       },
       openingsFromPlan: {
         ok: westWin.length === 0 && westDoors.length === 0 && !stairOnWest,
@@ -238,7 +242,7 @@ const Lot2R51eElevations = (() => {
         ? 'Rear/west elevation PASS — freeze this SVG. North + south elevations next (mechanical).'
         : 'Repair named rear-elevation failures without moving frozen volumes.',
       freezeNote: hard
-        ? `Rear elevation frozen: B full west face 28′ · A behind at x=70 · ridges ${base.H.ridgeA.toFixed(1)}/${base.H.ridgeB.toFixed(1)} · no west glass invented.`
+        ? `Rear elevation frozen: B full west face 28′ · A behind at x=${D()} · ridges ${base.H.ridgeA.toFixed(1)}/${base.H.ridgeB.toFixed(1)} · no west glass invented.`
         : '',
     };
   }
@@ -254,7 +258,7 @@ const Lot2R51eElevations = (() => {
     const bGlass = nWin.filter((w) => w.unit === 'B');
     const canopy = Arch && Arch.CANOPY_A;
     const canopyOk = canopy && sameRect(canopy.rect, { x: 78, y: 1.5, w: 8, h: 3.5 });
-    const demisingHit = nOpen.concat(nWin).some((o) => Math.abs((o.x || 0) - 70) < 0.2 && o.w > 10);
+    const demisingHit = nOpen.concat(nWin).some((o) => Math.abs((o.x || 0) - D()) < 0.2 && o.w > 10);
     const checks = {
       architectureFrozen: {
         ok: base.freeze.ok && base.mass.verdict === 'PASS' && base.arch.verdict === 'PASS',
@@ -276,7 +280,7 @@ const Lot2R51eElevations = (() => {
       },
       demisingBlank: {
         ok: !demisingHit,
-        detail: 'No opening invented on x=70',
+        detail: `No opening invented on x=${D()}`,
       },
       pennRight: {
         ok: true,
@@ -335,7 +339,7 @@ const Lot2R51eElevations = (() => {
         detail: 'Covered A/B open to south · not enclosed',
       },
       demisingBlank: {
-        ok: !sOpen.concat(sWin).some((o) => Math.abs(o.x - 70) < 0.2 && o.wall === 'S' && o.w > 8),
+        ok: !sOpen.concat(sWin).some((o) => Math.abs(o.x - D()) < 0.2 && o.wall === 'S' && o.w > 8),
         detail: 'No demising opening on south',
       },
     };
@@ -440,8 +444,8 @@ const Lot2R51eElevations = (() => {
       h: VB_H,
       no: 'A-202',
       title: 'REAR / WEST ELEVATION',
-      subtitle: 'Looking east from the rear · north LEFT · Unit B full west face · A dashed beyond x=70',
-      note: 'No west-wall windows in plan-closure. Covered stall inherited open. Demising x=70 blank.',
+      subtitle: `Looking east from the rear · north LEFT · Unit B full west face · A dashed beyond x=${D()}`,
+      note: `No west-wall windows in plan-closure. Covered stall inherited open. Demising x=${D()} blank.`,
       verdict: g.verdict,
       aria: 'R5.1e rear west elevation',
       body,
@@ -486,8 +490,8 @@ const Lot2R51eElevations = (() => {
       return `<rect x="${sx(w.x)}" y="${sz(b.head)}" width="${w.w * SCALE_X}" height="${(b.head - b.sill) * SCALE_Z}" fill="#dce8f5" stroke="#2a6496" stroke-width="1.2"/>
         <text x="${sx(w.x + w.w / 2)}" y="${sz(b.head) - 4}" text-anchor="middle" font-size="7" font-weight="800" fill="#2a6496">${short(w.label)}</text>`;
     }).join('');
-    const dem = `<line x1="${sx(70)}" y1="${sz(0)}" x2="${sx(70)}" y2="${sz(H.zTop)}" stroke="#9a3b2e" stroke-width="1.4" stroke-dasharray="6 3"/>
-      <text x="${sx(70) + 4}" y="${sz(18)}" font-size="8" font-weight="800" fill="#9a3b2e">x=70 BLANK</text>`;
+    const dem = `<line x1="${sx(D())}" y1="${sz(0)}" x2="${sx(D())}" y2="${sz(H.zTop)}" stroke="#9a3b2e" stroke-width="1.4" stroke-dasharray="6 3"/>
+      <text x="${sx(D()) + 4}" y="${sz(18)}" font-size="8" font-weight="800" fill="#9a3b2e">x=${D()} BLANK</text>`;
 
     const body = `
   <line x1="${sx(0)}" y1="${sz(0)}" x2="${sx(148)}" y2="${sz(0)}" stroke="#2a333c" stroke-width="2"/>
@@ -506,7 +510,7 @@ const Lot2R51eElevations = (() => {
       no: 'A-203',
       title: 'NORTH ELEVATION',
       subtitle: 'Looking south · Pennsylvania RIGHT · plan-closure N-wall openings only',
-      note: 'ENTRY A · PERSONNEL A · canopy A · Unit B north living glass. Demising x=70 blank.',
+      note: `ENTRY A · PERSONNEL A · canopy A · Unit B north living glass. Demising x=${D()} blank.`,
       verdict: g.verdict,
       aria: 'R5.1e north elevation',
       body,
@@ -546,7 +550,7 @@ const Lot2R51eElevations = (() => {
       return `<rect x="${sx(w.x)}" y="${sz(b.head)}" width="${w.w * SCALE_X}" height="${(b.head - b.sill) * SCALE_Z}" fill="#dce8f5" stroke="#2a6496" stroke-width="1.2"/>
         <text x="${sx(w.x + w.w / 2)}" y="${sz(b.head) - 4}" text-anchor="middle" font-size="7" font-weight="800" fill="#2a6496">${short(w.label)}</text>`;
     }).join('');
-    const dem = `<line x1="${sx(70)}" y1="${sz(0)}" x2="${sx(70)}" y2="${sz(H.zTop)}" stroke="#9a3b2e" stroke-width="1.4" stroke-dasharray="6 3"/>`;
+    const dem = `<line x1="${sx(D())}" y1="${sz(0)}" x2="${sx(D())}" y2="${sz(H.zTop)}" stroke="#9a3b2e" stroke-width="1.4" stroke-dasharray="6 3"/>`;
 
     const body = `
   <line x1="${sx(0)}" y1="${sz(0)}" x2="${sx(148)}" y2="${sz(0)}" stroke="#2a333c" stroke-width="2"/>
@@ -565,7 +569,7 @@ const Lot2R51eElevations = (() => {
       no: 'A-204',
       title: 'SOUTH ELEVATION',
       subtitle: 'Looking north · Pennsylvania RIGHT · plan-closure S-wall openings only · covered stalls open',
-      note: 'ENTRY B · eyebrow B · A/B south glass. Covered stalls remain open. Demising x=70 blank.',
+      note: `ENTRY B · eyebrow B · A/B south glass. Covered stalls remain open. Demising x=${D()} blank.`,
       verdict: g.verdict,
       aria: 'R5.1e south elevation',
       body,

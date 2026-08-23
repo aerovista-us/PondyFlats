@@ -53,9 +53,9 @@ Toggles: plan projection · parking/path underlay · swept-path underlay.
 
 ## Gate
 
-All geometric checks PASS (plan align · covered open · 8 posts · x=70 demising · sweep-clear opaque volumes · over-covered upper · heights).
+All geometric checks PASS (plan align · covered open · 8 posts · x=68 demising · sweep-clear opaque volumes · over-covered upper · heights).
 
-**Freeze this extrusion** — Path A: done; architectural massing frozen on it. Path B (kept): keep as the x=70 geometric reference; test x=69 / x=68 before architectural massing. Zoning, fire engineering, and structural design remain pending.
+**Freeze this extrusion** — v1.1 plates A `68,5 58×22.5` · B `28,5 40×28`. v1.0 x=70 package remains the program-gate-not-cleared baseline. Zoning, fire engineering, and structural design remain pending.
 
 ## Related
 

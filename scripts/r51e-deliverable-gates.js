@@ -1,5 +1,5 @@
 /**
- * R5.1e deliverable gates (Node): all v1.0 drawing layers + consistency.
+ * R5.1e deliverable gates (Node): all v1.1 drawing layers + consistency.
  */
 const fs = require('fs');
 const path = require('path');
@@ -87,5 +87,5 @@ if (sections.verdict === 'PASS') {
 }
 
 const ok = [axon, plans, site, penn, rear, sides, sections, pack].every((g) => g.verdict === 'PASS');
-console.log(ok ? 'DESIGN COMPLETE / Deliverable v1.0' : 'DELIVERABLE INCOMPLETE');
+console.log(ok ? 'DESIGN COMPLETE / PROGRAM GATE PASS · R5.1e-v1.1' : 'DELIVERABLE INCOMPLETE');
 process.exit(ok ? 0 : 1);

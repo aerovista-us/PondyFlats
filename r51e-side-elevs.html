@@ -33,7 +33,7 @@ h1{font:500 clamp(28px,4vw,48px)/1 Georgia,serif;color:var(--navy);margin:0 0 8p
 <div class="brand"><small>Pondy Flats · Lot 2</small><strong>R5.1e Side Elevations</strong></div>
 <nav class="nav">
 <a href="index.html">Hub</a>
-<a href="r51e-deliverable.html">v1.0</a>
+<a href="r51e-deliverable.html">v1.1</a>
 <a href="r51e-penn-elev.html">Penn</a>
 <a href="r51e-rear-elev.html">Rear</a>
 <a class="primary" href="r51e-side-elevs.html">Sides</a>
@@ -76,7 +76,7 @@ h1{font:500 clamp(28px,4vw,48px)/1 Georgia,serif;color:var(--navy);margin:0 0 8p
 const sides = Lot2R51eElevations.analyzeSides();
 const badge = sides.verdict === 'PASS' ? 'ok' : 'fail';
 document.getElementById('banner').innerHTML = `<span class="badge ${badge}">${sides.verdict}</span>
-  <strong style="margin-left:8px">North + south · Design Deliverable v1.0</strong>`;
+  <strong style="margin-left:8px">North + south · Design Deliverable v1.1</strong>`;
 document.getElementById('verdict').innerHTML = `<strong>${sides.verdict}.</strong> ${sides.next}`;
 function checks(el, gate) {
   el.innerHTML = Object.entries(gate.checks).map(([k,v]) =>
