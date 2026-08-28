@@ -1,6 +1,6 @@
 # Docs index — Pondy Flats Lot 2
 
-**Hub:** [`../index.html`](../index.html) · **v1.1:** [`../r51e-deliverable.html`](../r51e-deliverable.html) · **Repo:** [aerovista-us/PondyFlats](https://github.com/aerovista-us/PondyFlats) · **Conflicts (flagged, not deleted):** [`lot2-status-conflicts.md`](lot2-status-conflicts.md)
+**Landing:** [`../index.html`](../index.html) · **Design 1:** [`../r51e-deliverable.html`](../r51e-deliverable.html) · **Design 2:** [`../design-2.html`](../design-2.html) · **Repo:** [aerovista-us/PondyFlats](https://github.com/aerovista-us/PondyFlats) · **Conflicts (flagged, not deleted):** [`lot2-status-conflicts.md`](lot2-status-conflicts.md)
 
 **File roles:** [`lot2-file-map.md`](lot2-file-map.md) — **TRUTH · CURRENT · EXPERIMENT · DERIVATIVE · ARCHIVE · TEMP**
 
@@ -16,6 +16,7 @@
 | **R5 parking** | **FULL PASS / frozen** |
 | **R6.4A / R6.4B** | Dormant |
 | **Engine vs presentation** | Engine (`js/lot2-r51e-lock.js`) is authoritative |
+| **Design #2 (parallel)** | **CONDITIONAL** · accessory rear-garage stack · workbench: [`lot2-design-pipeline.md`](lot2-design-pipeline.md) · instance: [`lot2-design-2-pipeline.md`](lot2-design-2-pipeline.md) · does not move R5.1e |
 
 Live: [`../r51e.html`](../r51e.html) · [`lot2-r51e-architectural-massing.md`](lot2-r51e-architectural-massing.md) · [`lot2-r51e-massing-truth.md`](lot2-r51e-massing-truth.md) · [`lot2-r51e-plans.md`](lot2-r51e-plans.md)
 
@@ -30,6 +31,11 @@ Live: [`../r51e.html`](../r51e.html) · [`lot2-r51e-architectural-massing.md`](l
 | [lot2-r51e-v1-baseline.md](lot2-r51e-v1-baseline.md) | Immutable baseline identity **R5.1e-v1.0** · program gate not cleared |
 | [lot2-r51e-sheet-legibility.md](lot2-r51e-sheet-legibility.md) | Presentation pass · geometry untouched |
 | [lot2-r51e-validation-readiness.md](lot2-r51e-validation-readiness.md) | Next · zoning / fire / structural / survey tracker |
+| [lot2-design-pipeline.md](lot2-design-pipeline.md) | **Workbench** · Lot first, then per-project brief, then fit (not D2-only) |
+| [lot2-pipeline-gaps.md](lot2-pipeline-gaps.md) | Gaps from Design 1, Design 2, and J — fill-steps now in the pipeline |
+| [lot2-delivery.md](lot2-delivery.md) | Polish · export standalone packages · presenter kits |
+| [lot2-design-2-pipeline.md](lot2-design-2-pipeline.md) | Design 2 instance of that path (D2-v0.9 CONDITIONAL) |
+| [lot2-design-2-accessory-rear.md](lot2-design-2-accessory-rear.md) | Design #2 5′ accessory rear-yard hypothesis (does not move R5.1e) |
 | [lot2-r51e-site-plan.md](lot2-r51e-site-plan.md) | Site plan · PASS / frozen |
 | [lot2-r51e-penn-elev.md](lot2-r51e-penn-elev.md) | Pennsylvania elevation |
 | [lot2-r51e-elevations.md](lot2-r51e-elevations.md) | Rear + north + south elevations |

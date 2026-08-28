@@ -18,19 +18,32 @@ const Lot2R51eSheet = (() => {
   });
 
   const SHEETS = Object.freeze([
-    { no: 'G-001', id: 'cover', title: 'Cover / package', href: 'r51e-deliverable.html', svg: null },
-    { no: 'A-001', id: 'site', title: 'Site plan', href: 'r51e-site-plan.html', svg: 'imgs/r51e-site-plan.svg' },
-    { no: 'A-101', id: 'ground', title: 'Ground floor plan', href: 'r51e-plan-closure.html', svg: 'imgs/r51e-plan-ground.svg' },
-    { no: 'A-102', id: 'upper', title: 'Upper floor plan', href: 'r51e-plan-closure.html', svg: 'imgs/r51e-plan-upper.svg' },
-    { no: 'A-201', id: 'penn', title: 'Pennsylvania elevation', href: 'r51e-penn-elev.html', svg: 'imgs/r51e-penn-elev.svg' },
-    { no: 'A-202', id: 'rear', title: 'Rear / west elevation', href: 'r51e-rear-elev.html', svg: 'imgs/r51e-rear-elev.svg' },
-    { no: 'A-203', id: 'north', title: 'North elevation', href: 'r51e-side-elevs.html', svg: 'imgs/r51e-north-elev.svg' },
-    { no: 'A-204', id: 'south', title: 'South elevation', href: 'r51e-side-elevs.html', svg: 'imgs/r51e-south-elev.svg' },
-    { no: 'A-301', id: 'aa', title: 'Section A-A', href: 'r51e-sections.html', svg: 'imgs/r51e-section-aa.svg' },
-    { no: 'A-302', id: 'bb', title: 'Section B-B', href: 'r51e-sections.html', svg: 'imgs/r51e-section-bb.svg' },
-    { no: 'A-401', id: 'massing', title: 'Architectural massing', href: 'r51e-architectural-massing.html', svg: 'imgs/r51e-architectural-massing.svg' },
-    { no: 'A-402', id: 'axon', title: 'Same-camera axon lock', href: 'r51e-axon-lock.html', svg: 'imgs/r51e-axon-lock-clean.svg' },
+    { no: 'G-001', id: 'cover', title: 'Cover / package', href: 'r51e-deliverable.html', svg: null, blurb: 'The idea in plain language — this package page.' },
+    { no: 'A-001', id: 'site', title: 'Site plan', href: 'r51e-site-plan.html', svg: 'imgs/r51e-site-plan.svg', blurb: 'Lot, setbacks, homes, parking, and the Pennsylvania driveway.' },
+    { no: 'A-101', id: 'ground', title: 'Ground floor plan', href: 'r51e-plans.html', svg: 'imgs/r51e-plan-ground.svg', blurb: 'Exact rooms on the frozen plates.' },
+    { no: 'A-102', id: 'upper', title: 'Upper floor plan', href: 'r51e-plans.html', svg: 'imgs/r51e-plan-upper.svg', blurb: 'Bedrooms over the same outlines.' },
+    { no: 'A-201', id: 'penn', title: 'Pennsylvania elevation', href: 'r51e-elevs.html', svg: 'imgs/r51e-penn-elev.svg', blurb: 'What you see from the street.' },
+    { no: 'A-202', id: 'rear', title: 'Rear / west elevation', href: 'r51e-elevs.html', svg: 'imgs/r51e-rear-elev.svg', blurb: 'Looking back toward Pennsylvania.' },
+    { no: 'A-203', id: 'north', title: 'North elevation', href: 'r51e-elevs.html', svg: 'imgs/r51e-north-elev.svg', blurb: 'Long north side — rear left, Pennsylvania right.' },
+    { no: 'A-204', id: 'south', title: 'South elevation', href: 'r51e-elevs.html', svg: 'imgs/r51e-south-elev.svg', blurb: 'Private-yard side — not a street.' },
+    { no: 'A-301', id: 'aa', title: 'Section A-A', href: 'r51e-elevs.html', svg: 'imgs/r51e-section-aa.svg', blurb: 'Cut through the party wall.' },
+    { no: 'A-302', id: 'bb', title: 'Section B-B', href: 'r51e-elevs.html', svg: 'imgs/r51e-section-bb.svg', blurb: 'Cut through the garage doors.' },
+    { no: 'A-401', id: 'massing', title: 'Architectural massing', href: 'r51e-axon.html', svg: 'imgs/r51e-architectural-massing.svg', blurb: 'Same camera — Pennsylvania near, rear deep.' },
+    { no: 'A-402', id: 'axon', title: 'Same-camera axon lock', href: 'r51e-axon.html', svg: 'imgs/r51e-axon-lock-clean.svg', blurb: 'Same volumes. Doors are drawing geometry, not decoration.' },
   ]);
+
+  /** Presentation-only. Do not use these strings as geometry authority. */
+  const CLIENT_CHECKS = Object.freeze({
+    allLayersPass: { title: 'Drawings agree', client: 'Site, plans, four elevations, two sections, and massing all describe the same building.' },
+    footprints: { title: 'Building outlines', client: 'Home A is 58×22.5′ and Home B is 40×28′. Those outlines match on every drawing.' },
+    garageGeometry: { title: 'Parking stalls', client: 'Two enclosed garage stalls and two covered stalls sit where the parking freeze put them.' },
+    posts: { title: 'Covered-stall posts', client: 'Eight posts carry the covered parking. The stalls stay open.' },
+    doorsWindows: { title: 'Doors and entries', client: 'Each garage has a 16′ door to Pennsylvania. Both homes have a pedestrian entry. The party wall stays blank.' },
+    roofsRidges: { title: 'Roof heights', client: 'Ridge A is 27.0′ and ridge B is 26.5′ on every elevation and section.' },
+    floorLevels: { title: 'Floor heights', client: 'First floor is 10.5′; the main mass stops at 20.5′.' },
+    sf: { title: 'Living area', client: 'Conditioned area is 1,639 SF and 1,720 SF — inside the 1,600–1,900 band, 81 SF apart.' },
+    pennAccess: { title: 'Street access', client: 'Cars enter only from Pennsylvania. No alley, no neighbor driveway.' },
+  });
 
   const C = Object.freeze({
     paper: '#f4f1ea',
@@ -152,6 +165,7 @@ const Lot2R51eSheet = (() => {
   return {
     REV,
     SHEETS,
+    CLIENT_CHECKS,
     C,
     W,
     TITLE_H,

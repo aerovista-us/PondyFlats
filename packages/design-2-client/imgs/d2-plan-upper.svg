@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -14 192 96" font-family="ui-sans-serif,system-ui,sans-serif">
+      <rect x="-16" y="-14" width="192" height="96" fill="#f4f1ea"/>
+      <polygon points="0,0 148,0 148,50 125.143,43.016 84.813,43.016 0,57.01" fill="#fbfaf6" stroke="#0d1b33" stroke-width=".6"/>
+      <rect x="5" y="6" width="20" height="20" fill="#d7e3d6" stroke="#416145" stroke-width=".35"/>
+      <rect x="5" y="28" width="20" height="20" fill="#d7e3d6" stroke="#416145" stroke-width=".35"/>
+      <text x="15" y="16.2" font-size="2.1" font-weight="800" text-anchor="middle" fill="#284426">GAR. A</text>
+      <text x="15" y="38.4" font-size="2.1" font-weight="800" text-anchor="middle" fill="#284426">GAR. B</text>
+      
+      <rect x="92" y="5" width="8" height="12" fill="#cfc8bc" stroke="#0d1b33" stroke-width=".32"/>
+      <text x="96" y="10.65" font-size="1.85" font-weight="800" text-anchor="middle">STAIR</text>
+      <text x="96" y="13.05" font-size="1.4" text-anchor="middle" fill="#5a6570">8×12</text>
+      <rect x="100" y="5" width="16" height="12" fill="#e4ae78" stroke="#0d1b33" stroke-width=".32"/>
+      <text x="108" y="10.65" font-size="1.85" font-weight="800" text-anchor="middle">BED 1</text>
+      <text x="108" y="13.05" font-size="1.4" text-anchor="middle" fill="#5a6570">16×12</text>
+      <rect x="116" y="5" width="12" height="12" fill="#e4ae78" stroke="#0d1b33" stroke-width=".32"/>
+      <text x="122" y="10.65" font-size="1.85" font-weight="800" text-anchor="middle">BED 2</text>
+      <text x="122" y="13.05" font-size="1.4" text-anchor="middle" fill="#5a6570">12×12</text>
+      <rect x="92" y="17" width="10" height="6" fill="#ece6dc" stroke="#0d1b33" stroke-width=".32"/>
+      <text x="97" y="19.65" font-size="1.85" font-weight="800" text-anchor="middle">HALL</text>
+      <text x="97" y="22.05" font-size="1.4" text-anchor="middle" fill="#5a6570">10×6</text>
+      <rect x="102" y="17" width="10" height="14" fill="#7eb6d2" stroke="#0d1b33" stroke-width=".32"/>
+      <text x="107" y="23.65" font-size="1.85" font-weight="800" text-anchor="middle">BATH</text>
+      <text x="107" y="26.05" font-size="1.4" text-anchor="middle" fill="#5a6570">10×14</text>
+      <rect x="112" y="17" width="16" height="14" fill="#e4ae78" stroke="#0d1b33" stroke-width=".32"/>
+      <text x="120" y="23.65" font-size="1.85" font-weight="800" text-anchor="middle">BED 3</text>
+      <text x="120" y="26.05" font-size="1.4" text-anchor="middle" fill="#5a6570">16×14</text>
+      <rect x="52" y="5" width="8" height="12" fill="#cfc8bc" stroke="#0d1b33" stroke-width=".32"/>
+      <text x="56" y="10.65" font-size="1.85" font-weight="800" text-anchor="middle">STAIR</text>
+      <text x="56" y="13.05" font-size="1.4" text-anchor="middle" fill="#5a6570">8×12</text>
+      <rect x="60" y="5" width="16" height="14" fill="#e4ae78" stroke="#0d1b33" stroke-width=".32"/>
+      <text x="68" y="11.65" font-size="1.85" font-weight="800" text-anchor="middle">BED 1</text>
+      <text x="68" y="14.05" font-size="1.4" text-anchor="middle" fill="#5a6570">16×14</text>
+      <rect x="76" y="5" width="16" height="14" fill="#e4ae78" stroke="#0d1b33" stroke-width=".32"/>
+      <text x="84" y="11.65" font-size="1.85" font-weight="800" text-anchor="middle">BED 2</text>
+      <text x="84" y="14.05" font-size="1.4" text-anchor="middle" fill="#5a6570">16×14</text>
+      <rect x="52" y="17" width="20" height="10" fill="#7eb6d2" stroke="#0d1b33" stroke-width=".32"/>
+      <text x="62" y="21.65" font-size="1.85" font-weight="800" text-anchor="middle">BATH</text>
+      <text x="62" y="24.05" font-size="1.4" text-anchor="middle" fill="#5a6570">20×10</text>
+      <rect x="72" y="19" width="20" height="8" fill="#e4ae78" stroke="#0d1b33" stroke-width=".32"/>
+      <text x="82" y="22.65" font-size="1.85" font-weight="800" text-anchor="middle">BED 3</text>
+      <text x="82" y="25.05" font-size="1.4" text-anchor="middle" fill="#5a6570">20×8</text>
+      <rect x="71.96" y="27" width="20" height="4" fill="#c4c0b8" stroke="#0d1b33" stroke-width=".32"/>
+      <text x="81.96" y="29.55" font-size="1.35" font-weight="800" text-anchor="middle">LAUNDRY</text>
+      <rect x="99.58" y="9.7" width="0.84" height="2.6" fill="#fff"/><rect x="94.7" y="16.58" width="2.6" height="0.84" fill="#fff"/><rect x="115.58" y="9.7" width="0.84" height="2.6" fill="#fff"/><rect x="105.7" y="16.58" width="2.6" height="0.84" fill="#fff"/><rect x="112.7" y="16.58" width="2.6" height="0.84" fill="#fff"/><rect x="120.7" y="16.58" width="2.6" height="0.84" fill="#fff"/><rect x="101.58" y="18.7" width="0.84" height="2.6" fill="#fff"/><rect x="111.58" y="22.7" width="0.84" height="2.6" fill="#fff"/><rect x="59.58" y="9.7" width="0.84" height="2.6" fill="#fff"/><rect x="54.7" y="16.58" width="2.6" height="0.84" fill="#fff"/><rect x="75.58" y="10.7" width="0.84" height="2.6" fill="#fff"/><rect x="72.7" y="18.58" width="2.6" height="0.84" fill="#fff"/><rect x="82.7" y="18.58" width="2.6" height="0.84" fill="#fff"/><rect x="71.58" y="21.7" width="0.84" height="2.6" fill="#fff"/><rect x="80.67999999999999" y="26.58" width="2.6" height="0.84" fill="#fff"/>
+      <line x1="92" y1="5" x2="92" y2="31" stroke="#a43c30" stroke-width=".8"/>
+      <text x="142" y="26" font-size="2" font-weight="800" fill="#0d1b33" text-anchor="middle" transform="rotate(90 142 26)">PENN →</text>
+      <g transform="translate(-7.5,28)" aria-label="North points left">
+      <circle r="5.2" fill="#fff" stroke="#0d1b33" stroke-width=".4"/>
+      <polygon points="-4.264,0 1.6640000000000001,-2.2880000000000003 0.41600000000000004,0 1.6640000000000001,2.2880000000000003" fill="#0d1b33"/>
+      <text x="3.7439999999999998" y="1.1440000000000001" font-size="2.3920000000000003" font-weight="800" fill="#0d1b33">N</text>
+    </g>
+      <rect x="-12" y="66.2" width="3" height="3" fill="#f3d36a" stroke="#0d1b33" stroke-width=".18"/>
+          <text x="-8.4" y="68.7" font-size="1.65" fill="#0d1b33">Liv</text><rect x="6.600000000000001" y="66.2" width="3" height="3" fill="#e8c04a" stroke="#0d1b33" stroke-width=".18"/>
+          <text x="10.200000000000001" y="68.7" font-size="1.65" fill="#0d1b33">Din</text><rect x="25.200000000000003" y="66.2" width="3" height="3" fill="#e59aaa" stroke="#0d1b33" stroke-width=".18"/>
+          <text x="28.800000000000004" y="68.7" font-size="1.65" fill="#0d1b33">Kit</text><rect x="43.800000000000004" y="66.2" width="3" height="3" fill="#e4ae78" stroke="#0d1b33" stroke-width=".18"/>
+          <text x="47.400000000000006" y="68.7" font-size="1.65" fill="#0d1b33">Bed</text><rect x="62.400000000000006" y="66.2" width="3" height="3" fill="#7eb6d2" stroke="#0d1b33" stroke-width=".18"/>
+          <text x="66" y="68.7" font-size="1.65" fill="#0d1b33">Bath</text><rect x="81" y="66.2" width="3" height="3" fill="#d8d2c6" stroke="#0d1b33" stroke-width=".18"/>
+          <text x="84.6" y="68.7" font-size="1.65" fill="#0d1b33">Entry</text><rect x="99.60000000000001" y="66.2" width="3" height="3" fill="#cfc8bc" stroke="#0d1b33" stroke-width=".18"/>
+          <text x="103.2" y="68.7" font-size="1.65" fill="#0d1b33">Stair</text><rect x="118.20000000000002" y="66.2" width="3" height="3" fill="#c4c0b8" stroke="#0d1b33" stroke-width=".18"/>
+          <text x="121.80000000000001" y="68.7" font-size="1.65" fill="#0d1b33">Mech</text><rect x="136.8" y="66.2" width="3" height="3" fill="#b7c6b0" stroke="#0d1b33" stroke-width=".18"/>
+          <text x="140.4" y="68.7" font-size="1.65" fill="#0d1b33">Stor</text>
+      <g>
+      <rect x="-16" y="74" width="192" height="8" fill="#efe8dc" stroke="#cfc8be" stroke-width=".28"/>
+      <text x="-12.8" y="79.44" font-size="2.7" font-weight="800" fill="#0d1b33">A-102</text>
+      <text x="80" y="79.44" font-size="2.7" font-weight="800" text-anchor="middle" fill="#0d1b33">Upper floor · conceptual rooms on the solved plates</text>
+      <text x="172.8" y="79.44" font-size="2.2" text-anchor="end" fill="#92702e">CONCEPTUAL · D2-v0.9</text>
+    </g>
+    </svg>

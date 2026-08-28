@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pondy Flats Lot 2 — Technical archive</title>
+<meta name="description" content="Older Lot 2 study pages: J1, skeletons A–F, parking reset, flags, and doc dump. Customer landing is index.html.">
+<style>
+:root{--navy:#0d1b33;--ink:#18212b;--muted:#64707c;--gold:#d79b36;--line:#ddd7cf;--green:#edf4e7;--warn:#fff5e6;--ok:#416145;--bad:#9a3b2e;--shadow:0 18px 50px rgba(13,27,51,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e1);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+.top{position:sticky;top:0;z-index:40;background:rgba(13,27,51,.97);color:#fff;border-bottom:1px solid #ffffff18;backdrop-filter:blur(12px)}
+.topin{max-width:1400px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 18px;flex-wrap:wrap}
+.brand small{display:block;color:#efb34d;font-weight:900;letter-spacing:.14em;text-transform:uppercase;font-size:10px}.brand strong{font-size:15px}
+.nav{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.nav a{font-size:11px;font-weight:800;text-decoration:none;color:#fff;border:1px solid #ffffff26;padding:7px 10px;border-radius:999px;background:#ffffff0b}
+.nav a.primary{background:#efb34d;color:#0d1b33;border-color:#efb34d}
+.nav .sep{width:1px;height:18px;background:#ffffff30;margin:0 2px}
+.wrap{max-width:1400px;margin:auto;padding:22px 18px 70px}
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}
+.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow)}
+.hero-main,.hero-side{padding:clamp(22px,3.5vw,40px)}
+.eyebrow{font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#956d29}
+h1{font:500 clamp(36px,5vw,62px)/.95 Georgia,serif;color:var(--navy);letter-spacing:-.04em;margin:12px 0}
+h2{color:var(--navy);font-size:clamp(24px,3.2vw,36px);margin:0 0 10px}
+h3{color:var(--navy);margin:0 0 6px;font-size:16px}
+.lede{font-size:clamp(15px,1.8vw,18px);line-height:1.55;color:var(--muted)}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.pill{border:1px solid #e5d7bd;background:#fff8ea;color:#6c5429;border-radius:999px;padding:7px 11px;font-size:11px;font-weight:850}
+.pill.ok{border-color:#c5d6bc;background:#edf5e9;color:#2d4a32}
+.pill.warn{border-color:#e5d7bd;background:#fff8ea;color:#6c5429}
+.pill.bad{border-color:#e8c4be;background:#fdecea;color:#6b3a32}
+.hero-side{background:linear-gradient(145deg,#0d1b33,#17355f);color:#fff}.hero-side h2,.hero-side .eyebrow{color:#fff}.hero-side .eyebrow{color:#efb34d}
+.hero-side p{color:#dce5f2;line-height:1.5;font-size:14px}
+.callout{margin-top:12px;border:1px solid #ffffff22;background:#ffffff0d;border-radius:14px;padding:12px;line-height:1.5;color:#e7edf5;font-size:13px}
+.cta{display:inline-block;margin-top:12px;background:#efb34d;color:#0d1b33;font-weight:900;text-decoration:none;padding:11px 16px;border-radius:999px;margin-right:6px;font-size:13px}
+.cta.secondary{background:transparent;color:#efb34d;border:1px solid #efb34d}
+.cta.ghost{background:transparent;color:var(--navy);border:1px solid var(--line)}
+.funnel{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}
+.fstep{font-size:10px;font-weight:850;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--navy)}
+.fstep.on{background:var(--navy);color:#fff;border-color:var(--navy)}.fstep.done{background:var(--green);border-color:#cbdcc3;color:#416145}
+.section{margin-top:18px;padding:22px}.section p{color:var(--muted);line-height:1.55;font-size:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:14px}
+.card b{color:var(--gold);font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+.card p{font-size:13px;margin:6px 0 0;color:var(--muted)}
+.card a{color:var(--navy);font-weight:800;text-decoration:none}.card a:hover{text-decoration:underline}
+.card.next{border-color:#d79b36;background:#fffaf0}
+.status{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.status .card strong{display:block;color:var(--navy);font-size:15px;margin-top:4px}
+.good{background:var(--green)}.warn{background:var(--warn)}.hold{background:#f0f2f5}
+.note{margin-top:12px;padding:12px 14px;border-left:4px solid #d79b36;background:#fff8eb;color:#6c5429;font-size:13px;line-height:1.5;border-radius:0 12px 12px 0}
+.lock{margin-top:12px;padding:12px 14px;border-left:4px solid var(--navy);background:#eef3fa;color:#2a4a7a;font-size:13px;line-height:1.5;border-radius:0 12px 12px 0}
+.steps{counter-reset:n;display:grid;gap:10px;margin-top:12px}
+.steps li{list-style:none;display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.steps li::before{counter-increment:n;content:counter(n);width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:900}
+.steps li b{color:var(--navy);font-size:14px}.steps li p{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff;margin-top:10px}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{padding:10px 12px;border-bottom:1px solid #ece7e0;text-align:left;vertical-align:top;font-size:13px}
+th{background:#f4f1eb;color:var(--navy);font-weight:900}td:first-child{font-weight:800;color:var(--navy)}
+.code{background:#0c1422;color:#e7edf4;border-radius:14px;padding:16px;overflow:auto;font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;margin-top:10px}
+.footer{text-align:center;color:#7b838b;font-size:12px;line-height:1.6;margin-top:22px}
+.footer a{color:var(--navy);font-weight:700}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.quick a{font-size:12px;font-weight:800;text-decoration:none;color:var(--navy);border:1px solid var(--line);background:#fff;padding:8px 12px;border-radius:999px}
+@media(max-width:1100px){.grid4,.status{grid-template-columns:1fr 1fr}}
+@media(max-width:980px){.hero,.grid2,.grid3,.grid4,.status{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand"><small>Pondy Flats · Lot 2</small><strong>Technical archive</strong></div>
+<nav class="nav" aria-label="Primary">
+<a href="index.html">Home</a>
+<a href="r51e-deliverable.html">Design 1</a>
+<a href="design-2.html">Design 2</a>
+<a class="primary" href="study-archive.html">Archive</a>
+<a href="r51e.html">R5.1e Demo</a>
+<a href="r51e-site-plan.html">Site plan</a>
+<a href="r51e-penn-elev.html">Penn elev</a>
+<a href="r51e-plan-closure.html">Plan closure</a>
+<a href="r51e-axon-lock.html">Axon lock</a>
+<a href="r51e-architectural-massing.html">Arch. massing</a>
+<a href="r51e-massing-truth.html">Massing</a>
+<a href="r51e-plans.html">Plans</a>
+<a href="parking-reset.html">Parking Reset</a>
+<a href="r64-daily.html">Daily / repair</a>
+<span class="sep" aria-hidden="true"></span>
+<a href="access-geometry.html">Skeletons A–F</a>
+<a href="access.html">SUV audit</a>
+<span class="sep" aria-hidden="true"></span>
+<a href="study.html">Workflow</a>
+<a href="guide.html">Guide</a>
+<a href="lab.html">Lab</a>
+<span class="sep" aria-hidden="true"></span>
+<a href="docs/lot2-r51e-v1-baseline.md">Baseline</a>
+<a href="docs/lot2-status-conflicts.md">Conflicts</a>
+<a href="docs/lot2-file-map.md">File map</a>
+<a href="docs/README.md">Docs index</a>
+<a href="https://github.com/aerovista-us/PondyFlats" target="_blank" rel="noopener">GitHub</a>
+</nav>
+</div></header>
+
+<main class="wrap">
+<section class="panel" style="padding:18px 22px;margin-bottom:16px;border-left:6px solid #d79b36">
+<p style="margin:0;font-size:14px;line-height:1.55;color:#6c5429"><strong>This is the technical archive, not the customer landing.</strong> Start at <a href="index.html">Home</a> — Design 1 is the frozen R5.1e-v1.1 package; Design 2 is the accessory rear-garage proof. Pages below (J1, A–F, parking-reset matrix, flags) stay as evidence.</p>
+</section>
+<section class="hero">
+<div class="panel hero-main">
+<div class="eyebrow">R5.1e-v1.1 live · v1.0 preserved as baseline</div>
+<h1>Lot 2 concept study</h1>
+<div class="note"><strong>Path B chosen.</strong> <strong>R5.1e-v1.0</strong> is COMPLETE BASELINE / PROGRAM GATE NOT CLEARED (1,556 / 1,806 · x=70). <strong>R5.1e-v1.1</strong> is DESIGN COMPLETE / PROGRAM GATE PASS (1,639 / 1,720 · x=68). Engine is authoritative. Write-up: <a href="docs/lot2-r51e-v11.md">lot2-r51e-v11.md</a> · catalog: <a href="docs/lot2-status-conflicts.md">lot2-status-conflicts.md</a> §H.</div>
+<p class="lede"><strong>Live:</strong> R5.1e-v1.1 clears the original living-program gate without moving parking, sweep, exterior envelope, ridges, or the repaired Unit A core. Only the demising / ownership line moved 2′ west. Professional validation pending. Do not hunt a cooler duplex.</p>
+<div class="funnel" aria-label="v1.1 funnel">
+<span class="fstep done">SOT</span>
+<span class="fstep done">R5 FULL PASS</span>
+<span class="fstep done">v1.0 baseline</span>
+<span class="fstep done">x=68 demising</span>
+<span class="fstep done">Plans + closure</span>
+<span class="fstep done">Massing freeze</span>
+<span class="fstep done">Site · elevs · sections</span>
+<span class="fstep on">v1.1 · program gate PASS</span>
+</div>
+<div class="stats">
+<span class="pill ok">Parking frozen</span>
+<span class="pill ok">1,639 / 1,720 · Δ 81</span>
+<span class="pill ok">Massing truth PASS</span>
+<span class="pill ok">DESIGN COMPLETE / PROGRAM GATE PASS</span>
+<span class="pill warn">Validation pending</span>
+</div>
+<div class="quick">
+<a href="r51e-deliverable.html">Deliverable v1.1</a>
+<a href="r51e-site-plan.html">Site plan</a>
+<a href="r51e-penn-elev.html">Penn elev</a>
+<a href="r51e-rear-elev.html">Rear elev</a>
+<a href="r51e-sections.html">Sections</a>
+</div>
+</div>
+<aside class="panel hero-side">
+<div class="eyebrow">Show today</div>
+<h2>R5.1e duplex</h2>
+<p>Two enclosed + two covered, independently accessible. Pennsylvania at right. Zoning, fire, and structure still pending.</p>
+<div class="callout">
+<strong>R5.1e-v1.1</strong> DESIGN COMPLETE / PROGRAM GATE PASS · SF 1,639 / 1,720 · demising x=68 · ridges 27.0′ / 26.5′ · pending zoning / fire / structural / survey<br>
+<strong>R5.1e-v1.0</strong> COMPLETE BASELINE / PROGRAM GATE NOT CLEARED · archived at imgs/r51e-v1.0/
+</div>
+<a class="cta" href="r51e-deliverable.html">Deliverable v1.1 →</a>
+<a class="cta secondary" href="r51e-site-plan.html">Site plan →</a>
+</aside>
+</section>
+
+<section class="panel section" id="start">
+<h2>How to use this hub</h2>
+<p>One path for daily work. Closed trails stay linked for evidence — they are not the active design surface.</p>
+<div class="grid3">
+<div class="card next"><b>Start here</b><h3><a href="r51e-deliverable.html">Deliverable v1.1</a> · <a href="docs/lot2-r51e-v11.md">v1.1 write-up</a></h3>
+<p>Live design. v1.0 remains the completed baseline that did not clear the living-program gate.</p></div>
+<div class="card"><b>Rules</b><h3><a href="docs/lot2-r51e-v1-baseline.md">v1.0 baseline</a> · <a href="r51e-axon-lock.html">Axon lock</a></h3>
+<p>Parking and exterior envelope frozen. Demising correction recorded. Photoreal is representation-only.</p></div>
+<div class="card"><b>Orient</b><h3><a href="guide.html">Study guide</a> · <a href="study.html">Workflow</a></h3>
+<p>Guide is current. Workflow / study.html is a historical landing — flagged, not deleted. <a href="docs/lot2-status-conflicts.md">Conflict catalog</a>.</p></div>
+</div>
+</section>
+
+<section class="panel section" id="next">
+<h2>Next steps</h2>
+<ol class="steps">
+<li><b>v1.1 is live</b><p>Demising x=68 · 1,639 / 1,720 · program gate PASS. Do not creep the wall. <a href="docs/lot2-r51e-v11.md">v1.1 write-up</a></p></li>
+<li><b>Professional validation next</b><p>Package what zoning, fire, structural, and civil/survey reviewers need. Geometry in the v1.1 sheets stays as drawn. <a href="docs/lot2-r51e-validation-readiness.md">tracker</a></p></li>
+<li><b>v1.0 stays on the shelf</b><p>COMPLETE BASELINE / PROGRAM GATE NOT CLEARED. Do not treat 1,556 / 1,806 as the accepted design. <a href="docs/lot2-r51e-v1-baseline.md">baseline</a></p></li>
+<li><b>Design 2 is the four-enclosed track</b><p>R6.4A/B stay dormant on Design 1. Accessory rear garages live on <a href="design-2.html">design-2.html</a> — do not mix plates.</p></li>
+</ol>
+<div class="lock"><strong>Canonical host:</strong> this GitHub repo — no separate running landing. Older HTML landings stay in-tree. Engine (`js/lot2-r51e-lock.js`) is authoritative over presentation.</div>
+</section>
+
+<section class="panel section" id="now">
+<h2>Where we are</h2>
+<div class="grid2">
+<div class="card next"><b>Live</b><h3><a href="r51e-deliverable.html">Deliverable v1.1</a></h3>
+<p>DESIGN COMPLETE / PROGRAM GATE PASS. Hand off for professional validation.</p></div>
+<div class="card"><b>Baseline</b><h3><a href="docs/lot2-r51e-v1-baseline.md">R5.1e-v1.0</a></h3>
+<p>COMPLETE BASELINE / PROGRAM GATE NOT CLEARED. First reconciled package, superseded for program compliance.</p></div>
+<div class="card"><b>Closed</b><h3><a href="access-geometry.html">Skeleton A–F</a> · <a href="j1b-image4-2-views.html">J1 / 4.2</a></h3>
+<p>Original Program Gate FAIL (D/F staging; E rear ribbon). J1 LAYER MATCH · ownership NO. Keep E’s W+E recipe as circulation reference only.</p></div>
+</div>
+<div class="note"><strong>Headline:</strong> vehicle paths can be repaired; twin 22×22 left no credible rear home plate. Integrated plates attack home width without subtracting garage SF from the house footprint.</div>
+</section>
+
+<section class="panel section" id="status">
+<h2>Status board</h2>
+<div class="status">
+<div class="card good"><b>Closed</b><strong>J1 family</strong><p>Ownership NO · floor plans cancelled</p></div>
+<div class="card good"><b>Closed</b><strong>Skeleton A–F</strong><p>Original Program Gate FAIL</p></div>
+<div class="card good"><b>Reference</b><strong>Skeleton E</strong><p>W+E · court · clear-south</p></div>
+<div class="card good"><b>Live</b><strong>R5.1e-v1.1</strong><p>1,639 / 1,720 · x=68</p></div>
+<div class="card good"><b>Parking</b><strong>FULL PASS / frozen</strong><p>Paths · posts · clearance</p></div>
+<div class="card good"><b>Exact plans</b><strong>PASS</strong><p>Living gate 1,600–1,900 / ≤120</p></div>
+<div class="card good"><b>Massing truth</b><strong>PASS</strong><p>Extrusion frozen</p></div>
+<div class="card good"><b>Arch. massing</b><strong>PASS / frozen</strong><p>Roofs · openings · plates v1.1</p></div>
+<div class="card good"><b>Plan closure</b><strong>PASS</strong><p>1,639 / 1,720 inside shells</p></div>
+<div class="card good"><b>Site + elevs + sect</b><strong>PASS</strong><p>Penn · rear · sides · A-A · B-B</p></div>
+<div class="card next"><b>v1.1</b><strong>DESIGN COMPLETE</strong><p>PROGRAM GATE PASS · validation pending</p></div>
+<div class="card hold"><b>v1.0</b><strong>BASELINE</strong><p>Program gate not cleared</p></div>
+<div class="card hold"><b>Photoreal</b><strong>Representation-only</strong><p>Must not move volumes</p></div>
+<div class="card"><b>Fallback</b><strong>R6.3 dual curb</strong><p>AHJ-dependent</p></div>
+<div class="card"><b>Audit</b><strong>R1–R4 detached</strong><p>Dual-corridor trail only</p></div>
+</div>
+</section>
+
+<section class="panel section" id="links">
+<h2>Navigation map</h2>
+
+<h3 style="margin-top:4px">Active — Parking Reset</h3>
+<div class="grid4">
+<div class="card next"><b>1 · Package</b><h3><a href="r51e-deliverable.html">r51e-deliverable.html</a></h3><p>v1.1 DESIGN COMPLETE</p></div>
+<div class="card"><b>2 · Site</b><h3><a href="r51e-site-plan.html">r51e-site-plan.html</a></h3><p>Frozen · Penn access</p></div>
+<div class="card"><b>3 · Elevs</b><h3><a href="r51e-penn-elev.html">four elevations</a></h3><p>Penn · rear · sides</p></div>
+<div class="card"><b>4 · Sections</b><h3><a href="r51e-sections.html">r51e-sections.html</a></h3><p>A-A · B-B</p></div>
+</div>
+
+<h3 style="margin-top:20px">File roles</h3>
+<p>Multiple generations share this folder. Roles are declared in <a href="docs/lot2-file-map.md"><strong>docs/lot2-file-map.md</strong></a>:</p>
+<div class="status" style="margin-top:10px">
+<div class="card good"><b>TRUTH</b><strong>js/lot2-sot.js</strong><p>Survey · SUV · compass</p></div>
+<div class="card next"><b>CURRENT</b><strong>r51e-deliverable.html</strong><p>v1.1 · DESIGN COMPLETE / PROGRAM GATE PASS</p></div>
+<div class="card next"><b>CURRENT</b><strong>r51e.html</strong><p>Live geometric demo</p></div>
+<div class="card hold"><b>BASELINE</b><strong>R5.1e-v1.0</strong><p>Program gate not cleared · imgs/r51e-v1.0/</p></div>
+<div class="card hold"><b>ARCHIVE</b><strong>J1 · A–F · R6.2A</strong><p>Evidence · do not resume curves</p></div>
+</div>
+<div class="note"><strong>TEMP:</strong> <code>_push-temp/</code> (gitignored) · <code>imgs/_*.html</code> export helpers · never cite as truth. Failed photoreal → <a href="reference/failed-visualization-drift/">reference/failed-visualization-drift/</a> (style only).</div>
+
+<h3 style="margin-top:20px">Closed evidence trails</h3>
+<div class="grid4">
+<div class="card"><b>Skeletons</b><h3><a href="access-geometry.html">A–F audit</a></h3><p>E = circulation ref</p></div>
+<div class="card"><b>SUV</b><h3><a href="access.html">Access audit</a></h3><p>Locked five + G1-A</p></div>
+<div class="card"><b>4.2</b><h3><a href="j1b-image4-2-views.html">Ownership gate</a></h3><p>LAYER MATCH · NO</p></div>
+<div class="card"><b>Lab</b><h3><a href="lab.html">Geometry Lab</a></h3><p>Pass 1.5 matrix</p></div>
+</div>
+
+<h3 style="margin-top:20px">Orientation</h3>
+<div class="grid4">
+<div class="card"><b>Guide</b><h3><a href="guide.html">Study guide</a></h3><p>What / why / next</p></div>
+<div class="card"><b>Workflow</b><h3><a href="study.html">Stage timeline</a></h3><p>Pass 1.5 funnel</p></div>
+<div class="card"><b>Docs index</b><h3><a href="docs/README.md">docs/README.md</a></h3><p>All memos</p></div>
+<div class="card"><b>Repo</b><h3><a href="https://github.com/aerovista-us/PondyFlats">GitHub</a></h3><p>aerovista-us/PondyFlats</p></div>
+</div>
+
+<h3 style="margin-top:20px">J1-B visual chain (closed)</h3>
+<div class="grid4">
+<div class="card"><b>Image 1</b><h3><a href="j1b-geometry-truth.html">Geometry truth</a></h3><p>Frozen footprints</p></div>
+<div class="card"><b>Image 2</b><h3><a href="j1b-massing-truth.html">Massing truth</a></h3><p>Deterministic axon</p></div>
+<div class="card"><b>Image 3</b><h3><a href="j1b-architectural-massing.html">Architectural massing</a></h3><p>Same camera</p></div>
+<div class="card"><b>4.1 / 4.2</b><h3><a href="j1b-image4-1-axon.html">4.1</a> · <a href="j1b-image4-2-views.html">4.2</a></h3><p>Lock · ownership NO</p></div>
+</div>
+
+<h3 style="margin-top:20px">Documentation</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Doc</th><th>Topic</th></tr></thead>
+<tbody>
+<tr><td><a href="docs/lot2-shift-handoff-2026-08-23.md">lot2-shift-handoff-2026-08-23.md</a></td><td><strong>Handoff</strong> — end of shift 2026-08-23 · start next session here</td></tr>
+<tr><td><a href="docs/lot2-r51e-v11.md">lot2-r51e-v11.md</a></td><td><strong>Live</strong> — R5.1e-v1.1 demising correction · program gate PASS</td></tr>
+<tr><td><a href="docs/lot2-status-conflicts.md">lot2-status-conflicts.md</a></td><td><strong>FLAGGED</strong> — contradictions kept (do not delete) · §H resolved</td></tr>
+<tr><td><a href="docs/lot2-r51e-v1-baseline.md">lot2-r51e-v1-baseline.md</a></td><td><strong>Baseline</strong> — R5.1e-v1.0 · program gate not cleared</td></tr>
+<tr><td><a href="docs/lot2-r51e-sheet-legibility.md">lot2-r51e-sheet-legibility.md</a></td><td><strong>Current</strong> — presentation pass · geometry untouched</td></tr>
+<tr><td><a href="docs/lot2-r51e-validation-readiness.md">lot2-r51e-validation-readiness.md</a></td><td><strong>Next</strong> — zoning / fire / structural / survey tracker</td></tr>
+<tr><td><a href="docs/lot2-r51e-penn-elev.md">lot2-r51e-penn-elev.md</a></td><td><strong>Current</strong> — Pennsylvania elevation</td></tr>
+<tr><td><a href="docs/lot2-validation-closure.md">lot2-validation-closure.md</a></td><td><strong>Validator</strong> — plates · notches · rear-axle · freeze</td></tr>
+<tr><td><a href="docs/lot2-file-map.md">lot2-file-map.md</a></td><td><strong>File roles</strong> — TRUTH · CURRENT · EXPERIMENT · ARCHIVE · TEMP</td></tr>
+<tr><td><a href="docs/lot2-r51e-gate-restoration.md">lot2-r51e-gate-restoration.md</a></td><td>Original living gate restored · cleared at v1.1</td></tr>
+<tr><td><a href="docs/lot2-r51e-site-plan.md">lot2-r51e-site-plan.md</a></td><td>Site plan PASS / frozen</td></tr>
+<tr><td><a href="docs/lot2-r51e-elevations.md">lot2-r51e-elevations.md</a></td><td>Rear + north + south elevations</td></tr>
+<tr><td><a href="docs/lot2-r51e-sections.md">lot2-r51e-sections.md</a></td><td>Sections A-A / B-B</td></tr>
+<tr><td><a href="docs/lot2-r51e-deliverable-v1.md">lot2-r51e-deliverable-v1.md</a></td><td>Deliverable tracker · v1.1 live</td></tr>
+<tr><td><a href="docs/lot2-r51e-plan-closure.md">lot2-r51e-plan-closure.md</a></td><td>Floor-plan closure PASS</td></tr>
+<tr><td><a href="docs/lot2-r51e-axon-lock.md">lot2-r51e-axon-lock.md</a></td><td>Same-camera axon lock PASS</td></tr>
+<tr><td><a href="docs/lot2-r51e-architectural-massing.md">lot2-r51e-architectural-massing.md</a></td><td>Architectural massing freeze</td></tr>
+<tr><td><a href="docs/lot2-r51e-core-repair.md">lot2-r51e-core-repair.md</a></td><td>Unit A core repair · sweep-clear · living restored at v1.1</td></tr>
+<tr><td><a href="docs/lot2-r51e-massing-truth.md">lot2-r51e-massing-truth.md</a></td><td><strong>Current</strong> — R5.1e massing truth · heights</td></tr>
+<tr><td><a href="docs/lot2-r51e-plans.md">lot2-r51e-plans.md</a></td><td>R5.1e exact plans · duplex base</td></tr>
+<tr><td><a href="docs/lot2-r51-rebalance.md">lot2-r51-rebalance.md</a></td><td>R5.1 plate reopen · chose R5.1e</td></tr>
+<tr><td><a href="docs/lot2-r5-full-pass.md">lot2-r5-full-pass.md</a></td><td><strong>R5 FULL PASS</strong> — outbound repair · freeze</td></tr>
+<tr><td><a href="docs/lot2-parking-reset.md">lot2-parking-reset.md</a></td><td>Gate · hierarchy · FULL PASS rules</td></tr>
+<tr><td><a href="docs/lot2-def-closure.md">lot2-def-closure.md</a></td><td>D/E/F close · E W+E · named gates</td></tr>
+<tr><td><a href="docs/lot2-access-geometry.md">lot2-access-geometry.md</a></td><td>Parking Skeleton A–F (closed)</td></tr>
+<tr><td><a href="docs/lot2-geometry-validation.md">lot2-geometry-validation.md</a></td><td>Pass 1.5 geometry rules</td></tr>
+<tr><td><a href="docs/lot2-visual-chain.md">lot2-visual-chain.md</a></td><td>Anti-drift image chain</td></tr>
+<tr><td><a href="docs/lot2-j1b-image4.md">lot2-j1b-image4.md</a></td><td>Image 4 / 4.1 / 4.2 · ownership NO</td></tr>
+<tr><td><a href="docs/README.md">docs/README.md</a></td><td>Full docs index</td></tr>
+<tr><td><a href="reference/failed-visualization-drift/">failed-visualization-drift/</a></td><td>Style-only drift archive</td></tr>
+</tbody>
+</table></div>
+</section>
+
+<section class="panel section">
+<h2>Proof chain</h2>
+<div class="note"><strong>Proof chain:</strong> live (2026-08-22): <strong>R5.1e-v1.1 DESIGN COMPLETE / PROGRAM GATE PASS</strong>. v1.0 remains COMPLETE BASELINE / PROGRAM GATE NOT CLEARED. See <a href="docs/lot2-status-conflicts.md">lot2-status-conflicts.md</a>.</div>
+<div class="code">SOT survey (frozen) → Pass 1.5 → Access / Skeletons
+→ J1-B on Access A → Images 1–3 → 4.1 PASS → 4.2 ownership NO → J1 STOP
+→ D/E/F Original Program Gate FAIL · E = W+E circulation reference
+→ R5.1e approved duplex base (conditioned over covered)
+→ Unit A core repair · massing truth PASS
+→ v1.0 COMPLETE BASELINE · 1,556 / 1,806 · x=70 · program gate not cleared
+→ v1.1 demising x=68 · 1,639 / 1,720 · DESIGN COMPLETE / PROGRAM GATE PASS
+→ Next: professional validation (zoning · fire · structural · survey)
+→ File roles: docs/lot2-file-map.md
+→ Conflicts (flagged, not deleted): docs/lot2-status-conflicts.md
+</div>
+</section>
+
+<div class="footer">
+<a href="r51e-deliverable.html">Deliverable v1.1</a> ·
+<a href="r51e.html">R5.1e demo</a> ·
+<a href="docs/lot2-status-conflicts.md">Conflicts</a> ·
+<a href="https://github.com/aerovista-us/PondyFlats">GitHub</a><br>
+Canonical host: GitHub <code>aerovista-us/PondyFlats</code> · concept study · not permit drawings
+</div>
+</main>
+</body>
+</html>

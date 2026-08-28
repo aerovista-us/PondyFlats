@@ -93,6 +93,17 @@ Remote `main` restored the original living-program rules and called 1,556 / 1,80
 
 Also kept: [`../AGENTS.md`](../AGENTS.md) · [`lot2-circulation-optimization.md`](lot2-circulation-optimization.md) · G1-A as optimizable circulation proof.
 
+## I. Design #2 accessory rear garages — parallel track, not live here
+
+A later Workbench concept (lot-assessment, `PONDY-RGS-230`) places two detached 20×20 garages in the **principal rear yard** under a **5′ accessory** target. Code finding: [`lot2-design-2-accessory-rear.md`](lot2-design-2-accessory-rear.md). Hub package: [`../design-2.html`](../design-2.html) (D2-v0.8 CONDITIONAL). Pipeline: [`lot2-design-2-pipeline.md`](lot2-design-2-pipeline.md). Does **not** unfreeze R5.1e.
+
+| Artifact | What it still says | How to read it |
+| -------- | ------------------ | -------------- |
+| [`lot2-r51e-site-plan.md`](lot2-r51e-site-plan.md) | Working setbacks 20 / 25 / 5 / 10 · Plate B 3′ inside 25′ rear | True for **R5.1e principal duplex**. Not the accessory-garage envelope. |
+| R5.1e plates | Garages on the house plates | Integrated 2 enclosed + 2 covered. Design #2 is four enclosed detached. |
+
+Do not treat Design #2 as a freeze-break of v1.1. Do not apply 5′ rear to the duplex mass.
+
 ## Review questions (do not answer here)
 
 1. Archive R5 schematic / study.html as evidence, or keep as a named alternate?

@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pondy Flats · Your lot</title>
+<meta name="description" content="Free Lot step: draw a custom parcel, pick the street edge, and group the brief you will ask of it. Not a design. Not the workbench.">
+<link rel="stylesheet" href="css/lot2-studio.css">
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand"><small>Pondy Flats · public</small><strong>Your lot</strong></div>
+<nav class="nav" aria-label="Primary">
+<a href="index.html">Home</a>
+<a class="primary" href="lot.html">Your lot</a>
+<a href="r51e-deliverable.html">Design 1</a>
+<a href="design-2.html">Design 2</a>
+</nav>
+</div></header>
+<main class="wrap">
+<section class="panel">
+<p class="kicker">Free Lot step · not a design · not the workbench</p>
+<h1>Start with the parcel, not the house.</h1>
+<p class="lede">Paste or draw a custom lot. Mark which edge is the street. Pick the grouped brief you will ask of it. This page does not place buildings or turn a truck. The workbench does that later, on an internal machine.</p>
+<div class="warn"><strong>Lot 2 is already locked.</strong> Do not redraw Pondy Flats Lot 2 here. Use a preset only to compare, or start a <em>different</em> property.</div>
+<div class="lock"><strong>Drawing convention.</strong> Do not rotate the parcel so north points up. The street frontage is the edge you declare. On Lot 2, Pennsylvania is the right / front edge and the compass points left.</div>
+</section>
+
+<section class="panel">
+<h2>1 · The lot</h2>
+<p>Click the map to add corners in order, or paste <code>x, y</code> points. Then click a red edge to mark the street frontage.</p>
+<div class="picks" id="presets"></div>
+<div class="grid">
+  <div>
+    <div class="canvas" id="map"></div>
+    <div class="actions" style="margin-top:10px">
+      <button type="button" class="btn ghost" id="undo">Undo last corner</button>
+      <button type="button" class="btn ghost" id="clear">Clear</button>
+    </div>
+  </div>
+  <div>
+    <label class="kicker" for="polyText">Vertices (feet)</label>
+    <textarea id="polyText" rows="8" spellcheck="false"></textarea>
+    <label class="kicker" for="street" style="display:block;margin-top:12px">Frontage street name</label>
+    <input id="street" type="text" value="Front street">
+    <div class="facts" id="facts"></div>
+  </div>
+</div>
+</section>
+
+<section class="panel">
+<h2>2 · Grouped brief</h2>
+<p>These are the questions the workbench will fit onto <em>this</em> lot. Pick one in each group. You can change them later; you cannot skip saying them.</p>
+<div id="cats"></div>
+</section>
+
+<section class="panel">
+<h2>3 · How results get grouped later</h2>
+<p>After Possible / Fit / Travel, every concept lands in one of these buckets. This free page does not score them.</p>
+<div class="cards" id="groups"></div>
+<div class="ok" id="audit"></div>
+<pre class="lock" id="json" style="white-space:pre-wrap;font:12px/1.45 ui-monospace,Menlo,monospace;overflow:auto"></pre>
+</section>
+<p class="footer">Public Lot step only. Open <a href="index.html">the two Pondy Flats packages</a> for Lot 2 designs. Internal studio is not on this page.</p>
+</main>
+<script src="js/lot2-pipeline-contract.js"></script>
+<script src="js/lot2-public-lot.js"></script>
+<script>
+const P = Lot2PublicLot;
+const state = { poly: [], frontageEdge: 0, street: 'Front street', picks: {}, preset: 'custom', locked: false };
+
+function current() {
+  return P.lotRecord(state);
+}
+
+function draw() {
+  const poly = state.poly;
+  const box = poly.length ? P.bbox(poly) : { minX: 0, minY: 0, w: 160, h: 80 };
+  const pad = 12;
+  const w = 640;
+  const h = 360;
+  const sx = (w - pad * 2) / Math.max(box.w, 1);
+  const sy = (h - pad * 2) / Math.max(box.h, 1);
+  const s = Math.min(sx, sy);
+  const ox = pad - box.minX * s;
+  const oy = pad - box.minY * s;
+  const pt = (p) => `${(p[0] * s + ox).toFixed(1)},${(p[1] * s + oy).toFixed(1)}`;
+  let edges = '';
+  for (let i = 0; i < poly.length; i++) {
+    const a = poly[i];
+    const b = poly[(i + 1) % poly.length];
+    if (poly.length < 2) break;
+    const street = i === state.frontageEdge && poly.length >= 2;
+    edges += `<line data-edge="${i}" x1="${(a[0]*s+ox).toFixed(1)}" y1="${(a[1]*s+oy).toFixed(1)}" x2="${(b[0]*s+ox).toFixed(1)}" y2="${(b[1]*s+oy).toFixed(1)}" stroke="${street ? '#c34232' : '#0d1b33'}" stroke-width="${street ? 5 : 2.2}"/>`;
+  }
+  const dots = poly.map((p, i) => `<circle cx="${(p[0]*s+ox).toFixed(1)}" cy="${(p[1]*s+oy).toFixed(1)}" r="5" fill="#0d1b33"><title>pt ${i}</title></circle>`).join('');
+  const fill = poly.length >= 3 ? `<polygon points="${poly.map(pt).join(' ')}" fill="#e5bd7888" stroke="none"/>` : '';
+  document.getElementById('map').innerHTML = `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Lot polygon">
+    <rect width="${w}" height="${h}" fill="#fbfaf7"/>
+    <text x="12" y="20" font-size="11" fill="#92702e" font-weight="800">Click to add a corner · click an edge to set the street</text>
+    ${fill}${edges}${dots}
+  </svg>`;
+  document.getElementById('map').querySelectorAll('line[data-edge]').forEach((el) => {
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      if (state.locked) return;
+      state.frontageEdge = Number(el.getAttribute('data-edge'));
+      render();
+    });
+  });
+  document.getElementById('map').querySelector('svg').addEventListener('click', (ev) => {
+    if (state.locked) return;
+    if (ev.target && ev.target.tagName === 'line') return;
+    const svg = ev.currentTarget;
+    const r = svg.getBoundingClientRect();
+    const x = (ev.clientX - r.left) / r.width * w;
+    const y = (ev.clientY - r.top) / r.height * h;
+    const lx = (x - ox) / s;
+    const ly = (y - oy) / s;
+    state.poly.push([Math.round(lx * 10) / 10, Math.round(ly * 10) / 10]);
+    state.preset = 'custom';
+    render();
+  });
+}
+
+function facts() {
+  const rec = current();
+  const a = P.audit(rec);
+  document.getElementById('facts').innerHTML = `
+    <div class="fact"><small>Area</small><strong>${rec.area.toLocaleString()} SF</strong></div>
+    <div class="fact"><small>Frontage</small><strong>${rec.frontageLength}′ · ${rec.frontageStreet}</strong></div>
+    <div class="fact"><small>Depth (bbox)</small><strong>${rec.depth}′</strong></div>
+    <div class="fact"><small>Corners</small><strong>${state.poly.length}</strong></div>`;
+  document.getElementById('audit').innerHTML = a.ok
+    ? '<strong>Lot record is complete enough to hand to Brief.</strong> The workbench still has to prove Possible, Fit, Travel, and Setbacks.'
+    : `<strong>Still needed:</strong> ${a.missing.join(', ')}`;
+  document.getElementById('json').textContent = JSON.stringify(rec, null, 2);
+}
+
+function render() {
+  const ta = document.getElementById('polyText');
+  if (document.activeElement !== ta) ta.value = P.formatPoly(state.poly);
+  document.getElementById('street').value = state.street;
+  draw();
+  facts();
+}
+
+document.getElementById('presets').innerHTML = P.PRESETS.map((p) =>
+  `<label><input type="radio" name="preset" value="${p.id}" ${p.id === 'rect' ? 'checked' : ''}><span>${p.label}</span></label>`
+).join('');
+document.getElementById('presets').addEventListener('change', (e) => {
+  const id = e.target.value;
+  const p = P.PRESETS.find((x) => x.id === id);
+  if (!p) return;
+  state.poly = p.poly.map((pt) => pt.slice());
+  state.frontageEdge = p.frontageEdge;
+  state.street = p.street;
+  state.preset = p.id;
+  state.locked = !!p.locked;
+  render();
+});
+document.getElementById('polyText').addEventListener('input', (e) => {
+  if (state.locked) return;
+  state.poly = P.parsePoly(e.target.value);
+  state.preset = 'custom';
+  render();
+});
+document.getElementById('street').addEventListener('input', (e) => {
+  state.street = e.target.value;
+  facts();
+});
+document.getElementById('undo').onclick = () => {
+  if (state.locked) return;
+  state.poly.pop();
+  state.preset = 'custom';
+  render();
+};
+document.getElementById('clear').onclick = () => {
+  if (state.locked) return;
+  state.poly = [];
+  state.preset = 'custom';
+  render();
+};
+
+const cats = document.getElementById('cats');
+P.CATEGORIES.forEach((g) => {
+  const wrap = document.createElement('div');
+  wrap.style.marginTop = '14px';
+  wrap.innerHTML = `<h3>${g.label}</h3><p>${g.hint}</p><div class="picks" data-cat="${g.id}"></div>`;
+  const row = wrap.querySelector('.picks');
+  g.items.forEach((item, i) => {
+    const lab = document.createElement('label');
+    if (i === 0) { lab.classList.add('on'); state.picks[g.id] = item.id; }
+    lab.innerHTML = `<input type="radio" name="${g.id}" value="${item.id}" ${i === 0 ? 'checked' : ''}><span>${item.label}</span>`;
+    lab.querySelector('input').addEventListener('change', () => {
+      state.picks[g.id] = item.id;
+      row.querySelectorAll('label').forEach((el) => el.classList.toggle('on', el.querySelector('input').value === item.id));
+      facts();
+    });
+    row.appendChild(lab);
+  });
+  cats.appendChild(wrap);
+});
+
+document.getElementById('groups').innerHTML = P.RESULT_GROUPS.map((g) =>
+  `<article class="card"><b>${g.id}</b><h3>${g.label}</h3><p>${g.detail}</p></article>`
+).join('');
+
+const rect = P.PRESETS.find((p) => p.id === 'rect');
+state.poly = rect.poly.map((pt) => pt.slice());
+state.frontageEdge = rect.frontageEdge;
+state.street = rect.street;
+state.preset = 'rect';
+render();
+</script>
+</body>
+</html>

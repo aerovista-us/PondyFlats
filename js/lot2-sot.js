@@ -1,6 +1,8 @@
 /**
- * Lot 2 — Source of Truth (SOT)
+ * Lot 2 — Source of Truth (SOT) = the live Lot stage of the workbench.
  * FROZEN — no concept may alter parcel geometry, compass, Pennsylvania frontage, or boundary.
+ * New designs on this parcel start at Brief, not by redrawing the survey.
+ * A different property would be a new lot file, not an edit here.
  *
  * Pennsylvania = RIGHT (x = 148), vertical 50.00′ frontage, SOUTH / FRONT.
  * North / Rear = LEFT. Compass points LEFT. Do not rotate north-up.

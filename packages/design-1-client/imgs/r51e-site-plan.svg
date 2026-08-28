@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1199 553" width="1199" height="553" role="img" aria-label="R5.1e site plan">
+  <rect width="1199" height="553" fill="#f4f1ea"/>
+  <rect x="8" y="8" width="1183" height="537" fill="none" stroke="#cfc8be" stroke-width="1.05"/>
+  <text x="18" y="28" font-size="14" font-weight="800" fill="#0d1b33">SITE PLAN</text>
+  <text x="18" y="44" font-size="10" fill="#5a6570">Frozen footprints · Pennsylvania access · no landscaping · working setbacks 20 / 25 / 5 / 10 (planning, not survey)</text>
+  <text x="1181" y="26" text-anchor="end" font-size="12" font-weight="900" fill="#0d1b33">A-001</text>
+  <text x="1181" y="42" text-anchor="end" font-size="9" font-weight="800" fill="#416145">PASS · R5.1e-v1.1</text>
+  
+  <rect x="1067.8" y="108" width="50.8" height="317.5" fill="#2a333c"/>
+  <text x="1093.1999999999998" y="266.75" text-anchor="middle" font-size="11" font-weight="800" fill="#efb34d" transform="rotate(90 1093.1999999999998 266.75)">PENNSYLVANIA AVENUE · SOUTH / FRONT</text>
+
+  <polygon points="128.0,108.0 1067.8,108.0 1067.8,425.5 922.7,381.2 666.6,381.2 128.0,470.0" fill="#e7efdc" stroke="#c45c4a" stroke-width="2.2"/>
+  <polygon points="286.8,139.8 940.8,139.8 940.8,320.3 932.1,317.7 661.4,317.7 286.8,379.5" fill="none" stroke="#568057" stroke-width="1.5" stroke-dasharray="7 5"/>
+
+  <polygon points="1067.8,247.7 921.8,247.7 801.1,247.7 769.3,241.9 728.1,238.3 671.7,241.4 629.7,248.2 642.3,323.4 676.5,317.5 721.7,314.2 756.7,317.0 801.1,323.9 921.8,323.9 1067.8,323.9" fill="#c5cdd4" fill-opacity="0.92" stroke="#6a7682" stroke-width="1"/>
+  <polygon points="1067.8,152.4 1017.0,152.4 953.5,152.4 928.1,152.4 928.1,228.6 953.5,228.6 1017.0,228.6 1067.8,228.6" fill="#c5cdd4" fill-opacity="0.85" stroke="none"/>
+  <rect x="915.4" y="139.75" width="152.39999999999998" height="101.6" fill="#c5cdd4" fill-opacity="0.9" stroke="#6a7682" stroke-width="1"/>
+
+  <rect x="559.8" y="139.75" width="368.29999999999995" height="142.875" fill="#efe8dc" stroke="#2a333c" stroke-width="2"/>
+  <rect x="305.79999999999995" y="139.75" width="254" height="177.79999999999998" fill="#e8efe4" stroke="#2a333c" stroke-width="2"/>
+  <rect x="674.1" y="228.64999999999998" width="254" height="53.974999999999994" fill="#f7f3ea" stroke="#7a8794" stroke-width="1.2" stroke-dasharray="5 3"/>
+  <text x="801.0999999999999" y="255.6375" text-anchor="middle" font-size="8" font-weight="800" fill="#5a6570">OPEN UNDERCROFT A · SWEEP-CLEAR</text>
+
+  <rect x="305.79999999999995" y="235" width="76.19999999999999" height="88.89999999999999" fill="#c5d0da" stroke="#2a333c" stroke-width="1.5" stroke-dasharray="5 3"/>
+        <text x="343.9" y="275.45" text-anchor="middle" font-size="9" font-weight="800">COVERED B · 12×14</text>
+        <text x="343.9" y="287.45" text-anchor="middle" font-size="8">door S · 1 space</text><rect x="394.7" y="235" width="152.39999999999998" height="101.6" fill="#9aadc0" stroke="#2a333c" stroke-width="1.5" stroke-dasharray=""/>
+        <text x="470.9" y="281.79999999999995" text-anchor="middle" font-size="9" font-weight="800">GARAGE B · 24×16</text>
+        <text x="470.9" y="293.79999999999995" text-anchor="middle" font-size="8">door E · 1 space</text><rect x="674.1" y="139.75" width="76.19999999999999" height="88.89999999999999" fill="#c5d0da" stroke="#2a333c" stroke-width="1.5" stroke-dasharray="5 3"/>
+        <text x="712.1999999999999" y="180.2" text-anchor="middle" font-size="9" font-weight="800">COVERED A · 12×14</text>
+        <text x="712.1999999999999" y="192.2" text-anchor="middle" font-size="8">door S · 1 space</text><rect x="763" y="139.75" width="152.39999999999998" height="101.6" fill="#9aadc0" stroke="#2a333c" stroke-width="1.5" stroke-dasharray=""/>
+        <text x="839.1999999999999" y="186.55" text-anchor="middle" font-size="9" font-weight="800">GARAGE A · 24×16</text>
+        <text x="839.1999999999999" y="198.55" text-anchor="middle" font-size="8">door E · 1 space</text>
+  <rect x="307.3875" y="236.5875" width="3.175" height="3.175" fill="#3d4550" stroke="#111317" stroke-width="0.6"/><rect x="377.23749999999995" y="236.5875" width="3.175" height="3.175" fill="#3d4550" stroke="#111317" stroke-width="0.6"/><rect x="307.3875" y="319.1375" width="3.175" height="3.175" fill="#3d4550" stroke="#111317" stroke-width="0.6"/><rect x="377.23749999999995" y="319.1375" width="3.175" height="3.175" fill="#3d4550" stroke="#111317" stroke-width="0.6"/><rect x="675.6875" y="141.3375" width="3.175" height="3.175" fill="#3d4550" stroke="#111317" stroke-width="0.6"/><rect x="745.5374999999999" y="141.3375" width="3.175" height="3.175" fill="#3d4550" stroke="#111317" stroke-width="0.6"/><rect x="675.6875" y="223.8875" width="3.175" height="3.175" fill="#3d4550" stroke="#111317" stroke-width="0.6"/><rect x="745.5374999999999" y="223.8875" width="3.175" height="3.175" fill="#3d4550" stroke="#111317" stroke-width="0.6"/>
+  <rect x="623.3" y="117.525" width="50.8" height="22.224999999999998" fill="none" stroke="#8b6b3e" stroke-width="1.4" stroke-dasharray="4 2"/>
+       <text x="648.6999999999999" y="114.525" text-anchor="middle" font-size="7.5" font-weight="800" fill="#7b5721">APPENDAGE · CANOPY A</text><rect x="547.0999999999999" y="235" width="25.4" height="12.7" fill="none" stroke="#8b6b3e" stroke-width="1.4" stroke-dasharray="4 2"/>
+       <text x="559.8" y="232" text-anchor="middle" font-size="7.5" font-weight="800" fill="#7b5721">APPENDAGE · EYEBROW B</text>
+
+  <line x1="559.8" y1="139.75" x2="559.8" y2="317.54999999999995" stroke="#9a3b2e" stroke-width="1.6" stroke-dasharray="6 3"/>
+  <text x="565.8" y="158.8" font-size="8" font-weight="800" fill="#9a3b2e">DEMISING x=68</text>
+
+  <text x="743.9499999999999" y="160.07" text-anchor="middle" font-size="10" font-weight="800" fill="#0d1b33">UNIT A · 68,5 58×22.5</text>
+  <text x="432.79999999999995" y="160.07" text-anchor="middle" font-size="10" font-weight="800" fill="#0d1b33">UNIT B · 28,5 40×28</text>
+
+  <polyline points="1067.8,128.6 648.7,128.6 648.7,139.8" fill="none" stroke="#c4a574" stroke-width="3.2" stroke-linecap="square"/>
+       <text x="879.205" y="120.63749999999999" font-size="7.5" font-weight="800" fill="#7b5721">WALK A · Penn → north entry</text><polyline points="547.1,285.8 547.1,235.0" fill="none" stroke="#c4a574" stroke-width="3.2" stroke-linecap="square"/>
+       <text x="547.0999999999999" y="277.79999999999995" font-size="7.5" font-weight="800" fill="#7b5721">WALK B · spine → entry</text>
+  <line x1="638.54" y1="139.75" x2="658.86" y2="139.75" stroke="#5c4030" stroke-width="2.6"/>
+        <text x="648.6999999999999" y="151.75" text-anchor="middle" font-size="8" font-weight="800" fill="#7b5721">ENTRY A</text><line x1="536.94" y1="235" x2="557.26" y2="235" stroke="#5c4030" stroke-width="2.6"/>
+        <text x="547.0999999999999" y="230" text-anchor="middle" font-size="8" font-weight="800" fill="#7b5721">ENTRY B</text><rect x="912.9" y="139.75" width="5" height="101.6" fill="#111317" stroke="#c45c4a" stroke-width="1.2"/>
+        <text x="923.4" y="190.55" font-size="8" font-weight="800" fill="#9a3b2e">16′ DOOR A</text><rect x="544.5999999999999" y="235" width="5" height="101.6" fill="#111317" stroke="#c45c4a" stroke-width="1.2"/>
+        <text x="555.0999999999999" y="285.79999999999995" font-size="8" font-weight="800" fill="#9a3b2e">16′ DOOR B</text><line x1="826.5" y1="139.75" x2="845.55" y2="139.75" stroke="#5c4030" stroke-width="2.6"/>
+        <text x="836.025" y="151.75" text-anchor="middle" font-size="8" font-weight="800" fill="#7b5721">PERSONNEL A</text>
+  <polygon points="509.0,371.5 890.0,371.5 890.0,381.1 509.0,381.1" fill="none" stroke="#7a8794" stroke-width="1.1" stroke-dasharray="3 3"/>
+         <text x="699.5" y="377.23999999999995" font-size="8" fill="#5a6570" font-weight="700">SNOW EDGE (freeze obstacle)</text>
+
+  <polyline points="1067.8,285.8 921.8,285.8 801.1,285.8 763.0,279.4 724.9,276.3 674.1,279.4 636.0,285.8" fill="none" stroke="#3568b8" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <polyline points="1067.8,190.6 1017.0,190.6 953.5,190.6 928.1,190.6" fill="none" stroke="#2d6a4f" stroke-width="1.6" stroke-dasharray="5 3"/>
+  <polyline points="1067.8,285.8 921.8,285.8 763.0,285.8 636.0,285.8 559.8,285.8" fill="none" stroke="#3568b8" stroke-width="1.35"/>
+  <polyline points="559.8,285.8 636.0,285.8 674.1,279.4 724.9,276.3 763.0,279.4 801.1,285.8 921.8,285.8 1067.8,285.8" fill="none" stroke="#9a3b2e" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <text x="1017" y="179.12" font-size="8" font-weight="800" fill="#2d6a4f">ACCESS A</text>
+  <text x="966.1999999999999" y="274.37" font-size="8" font-weight="800" fill="#3568b8">DRIVE / ACCESS B · 12′</text>
+  <text x="712.1999999999999" y="269.28999999999996" font-size="8" font-weight="800" fill="#9a3b2e">OUTBOUND B</text>
+
+  <g class="dim">
+      <line x1="128.0" y1="90.0" x2="1067.8" y2="90.0" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="128.0" y1="86.0" x2="128.0" y2="94.0" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="1067.8" y1="86.0" x2="1067.8" y2="94.0" stroke="#3a4550" stroke-width="0.9"/>
+      <text x="597.9" y="85.0" text-anchor="middle" font-size="9" font-weight="800" fill="#0d1b33">148.00′ DEPTH</text>
+    </g>
+  <g class="dim">
+      <line x1="1123.8" y1="108.0" x2="1123.8" y2="425.5" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="1119.8" y1="108.0" x2="1127.8" y2="108.0" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="1119.8" y1="425.5" x2="1127.8" y2="425.5" stroke="#3a4550" stroke-width="0.9"/>
+      <text transform="rotate(-90 1130.8 266.8)" x="1130.8" y="266.8" text-anchor="middle" dominant-baseline="central" font-size="9" font-weight="800" fill="#0d1b33">50.00′</text>
+    </g>
+  <g class="dim">
+      <line x1="110.0" y1="108.0" x2="110.0" y2="470.0" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="106.0" y1="108.0" x2="114.0" y2="108.0" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="106.0" y1="470.0" x2="114.0" y2="470.0" stroke="#3a4550" stroke-width="0.9"/>
+      <text transform="rotate(-90 103.0 289.0)" x="103.0" y="289.0" text-anchor="middle" dominant-baseline="central" font-size="9" font-weight="800" fill="#0d1b33">57.01′ REAR</text>
+    </g>
+  <g class="dim">
+      <line x1="928.1" y1="121.8" x2="1067.8" y2="121.8" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="928.1" y1="117.8" x2="928.1" y2="125.8" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="1067.8" y1="117.8" x2="1067.8" y2="125.8" stroke="#3a4550" stroke-width="0.9"/>
+      <text x="997.9" y="116.8" text-anchor="middle" font-size="9" font-weight="800" fill="#0d1b33">22′ TO PENN</text>
+    </g>
+  <g class="dim">
+      <line x1="915.4" y1="259.4" x2="1067.8" y2="259.4" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="915.4" y1="255.4" x2="915.4" y2="263.4" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="1067.8" y1="255.4" x2="1067.8" y2="263.4" stroke="#3a4550" stroke-width="0.9"/>
+      <text x="991.6" y="271.4" text-anchor="middle" font-size="9" font-weight="800" fill="#0d1b33">24′ APRON A</text>
+    </g>
+  <g class="dim">
+      <line x1="128.0" y1="121.8" x2="305.8" y2="121.8" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="128.0" y1="117.8" x2="128.0" y2="125.8" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="305.8" y1="117.8" x2="305.8" y2="125.8" stroke="#3a4550" stroke-width="0.9"/>
+      <text x="216.9" y="116.8" text-anchor="middle" font-size="9" font-weight="800" fill="#0d1b33">28′ TO REAR</text>
+    </g>
+  <g class="dim">
+      <line x1="128.0" y1="335.5" x2="286.8" y2="335.5" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="128.0" y1="331.5" x2="128.0" y2="339.5" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="286.8" y1="331.5" x2="286.8" y2="339.5" stroke="#3a4550" stroke-width="0.9"/>
+      <text x="207.4" y="347.5" text-anchor="middle" font-size="9" font-weight="800" fill="#0d1b33">25′ REAR SETBACK</text>
+    </g>
+  <g class="dim">
+      <line x1="940.8" y1="380.0" x2="1067.8" y2="380.0" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="940.8" y1="376.0" x2="940.8" y2="384.0" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="1067.8" y1="376.0" x2="1067.8" y2="384.0" stroke="#3a4550" stroke-width="0.9"/>
+      <text x="1004.3" y="392.0" text-anchor="middle" font-size="9" font-weight="800" fill="#0d1b33">20′ FRONT SETBACK</text>
+    </g>
+  <g class="dim">
+      <line x1="554.5" y1="108.0" x2="554.5" y2="139.8" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="550.5" y1="108.0" x2="558.5" y2="108.0" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="550.5" y1="139.8" x2="558.5" y2="139.8" stroke="#3a4550" stroke-width="0.9"/>
+      <text transform="rotate(-90 547.5 123.9)" x="547.5" y="123.9" text-anchor="middle" dominant-baseline="central" font-size="9" font-weight="800" fill="#0d1b33">5′ N</text>
+    </g>
+  <g class="dim">
+      <line x1="559.8" y1="300.6" x2="928.1" y2="300.6" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="559.8" y1="296.6" x2="559.8" y2="304.6" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="928.1" y1="296.6" x2="928.1" y2="304.6" stroke="#3a4550" stroke-width="0.9"/>
+      <text x="743.9" y="312.6" text-anchor="middle" font-size="9" font-weight="800" fill="#0d1b33">56.00′ PLATE A</text>
+    </g>
+  <g class="dim">
+      <line x1="287.8" y1="139.8" x2="287.8" y2="317.5" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="283.8" y1="139.8" x2="291.8" y2="139.8" stroke="#3a4550" stroke-width="0.9"/>
+      <line x1="283.8" y1="317.5" x2="291.8" y2="317.5" stroke="#3a4550" stroke-width="0.9"/>
+      <text transform="rotate(-90 280.8 228.6)" x="280.8" y="228.6" text-anchor="middle" dominant-baseline="central" font-size="9" font-weight="800" fill="#0d1b33">28.00′ PLATE B</text>
+    </g>
+
+  <text x="204.2" y="222.3" font-size="9" font-weight="800" fill="#416145">REAR YARD</text>
+  <text x="204.2" y="241.35" font-size="8" fill="#416145">1528 SF usable (mostly 25′ setback)</text>
+  <text x="686.8" y="123.24" font-size="8" font-weight="800" fill="#416145">NORTH SETBACK / WALK A · 480 SF</text>
+  <text x="972.55" y="311.2" font-size="8" font-weight="800" fill="#416145">PENN YARD</text>
+  <text x="972.55" y="326.43999999999994" font-size="8" fill="#416145">280 SF</text>
+  <text x="737.5999999999999" y="353.11" font-size="8" font-weight="800" fill="#416145">SOUTH YARD · 1152 SF</text>
+  <text x="737.5999999999999" y="367.08" font-size="8" fill="#5a6570">10′ working setback from irregular boundary</text>
+
+  <polygon points="115.3,133.4 77.2,152.45 115.3,171.5" fill="#0d1b33"/>
+  <line x1="115.3" y1="152.45" x2="166.1" y2="152.45" stroke="#0d1b33" stroke-width="1.6"/>
+  <text x="77.2" y="124.50999999999999" font-size="9" font-weight="800" fill="#0d1b33">N / REAR</text>
+
+  <text x="666.4799999999999" y="396.28999999999996" font-size="8" fill="#5a6570">85.98′</text>
+  <text x="794.75" y="391.21" font-size="8" fill="#5a6570">40.33′</text>
+  <text x="991.5999999999999" y="412.79999999999995" font-size="8" fill="#5a6570">23.90′</text>
+  <rect x="8" y="489" width="1183" height="56" fill="#efe8dc" stroke="#cfc8be" stroke-width="1"/>
+  <line x1="963" y1="489" x2="963" y2="545" stroke="#cfc8be"/>
+  <text x="18" y="507" font-size="9" fill="#5a6570">Paved = 12′ drive + Access A + Garage A 24′ apron + stall slabs + undercroft sweep. 8 posts. Covered stalls stay open.</text>
+  <text x="18" y="523" font-size="8" fill="#5a6570">Professional validation pending: zoning · fire · structural · civil/survey</text>
+  <text x="18" y="537" font-size="8" fill="#5a6570">Geometry IMMUTABLE except recorded v1.1 demising correction from v1.0 · presentation only on this pass · Not a permit / construction set</text>
+  <text x="1181" y="505" text-anchor="end" font-size="9" font-weight="800" fill="#0d1b33">Pondy Flats · Lot 2</text>
+  <text x="1181" y="521" text-anchor="end" font-size="12" font-weight="900" fill="#0d1b33">DESIGN COMPLETE / PROGRAM GATE PASS</text>
+  <text x="1181" y="535" text-anchor="end" font-size="8" fill="#5a6570">R5.1e-v1.1 · 2026-08-22</text>
+</svg>

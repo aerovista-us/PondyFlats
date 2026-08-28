@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 148" font-family="ui-sans-serif,system-ui,sans-serif">
+      <rect width="300" height="148" fill="#f4f1ea"/>
+      
+      <text x="150" y="14" font-size="4.2" text-anchor="middle" fill="#5a6570">Private-yard face · not a street · Home A and the south garage</text>
+      <line x1="18" y1="108" x2="291.8" y2="108" stroke="#0d1b33" stroke-width="1.1"/>
+      <rect x="55" y="70.07499999999999" width="66.60000000000001" height="37.92500000000001" fill="#dca766" stroke="#5c4a32" stroke-width=".7"/>
+      <polygon points="55,70.07499999999999 88.30000000000001,58.05 121.60000000000001,70.07499999999999" fill="#6a5340" stroke="#3d2a1c" stroke-width=".7"/>
+      <rect x="121.67400000000002" y="88.575" width="36.999999999999986" height="19.424999999999997" fill="#e5bd78" stroke="#5c4a32" stroke-width=".7"/>
+      <rect x="245.55" y="78.4" width="37" height="29.599999999999994" fill="#8fba88" stroke="#284426" stroke-width=".7"/>
+      <polygon points="245.55,78.4 264.05,74.69999999999999 282.55,78.4" fill="#4a5c45" stroke="#1e2e1c" stroke-width=".7"/>
+      <rect x="77.20000000000002" y="93.2" width="22.200000000000003" height="9.620000000000001" fill="#c5d6e8" stroke="#3a5068" stroke-width=".55"/>
+      <line x1="88.30000000000001" y1="93.2" x2="88.30000000000001" y2="102.82000000000001" stroke="#3a5068" stroke-width=".35"/>
+      <line x1="77.20000000000002" y1="98.01" x2="99.40000000000002" y2="98.01" stroke="#3a5068" stroke-width=".28"/>
+      <rect x="79.05000000000001" y="75.625" width="18.5" height="8.14" fill="#c5d6e8" stroke="#3a5068" stroke-width=".55"/>
+      <line x1="88.30000000000001" y1="75.625" x2="88.30000000000001" y2="83.765" stroke="#3a5068" stroke-width=".35"/>
+      <line x1="79.05000000000001" y1="79.695" x2="97.55000000000001" y2="79.695" stroke="#3a5068" stroke-width=".28"/>
+      <text x="88.30000000000001" y="56.05" font-size="3.8" font-weight="800" text-anchor="middle">HOME A</text>
+      <text x="20" y="116" font-size="3.8" font-weight="800">← PENN</text>
+      <text x="289.8" y="116" font-size="3.8" font-weight="800" text-anchor="end">W / REAR</text>
+    
+      <rect x="0" y="132" width="300" height="16" fill="#efe8dc" stroke="#cfc8be" stroke-width=".5"/>
+      <text x="8" y="142.6" font-size="5.1" font-weight="800" fill="#0d1b33">A-204</text>
+      <text x="150" y="142.6" font-size="5.1" font-weight="800" text-anchor="middle" fill="#0d1b33">South · looking north · Pennsylvania at left</text>
+      <text x="292" y="142.6" font-size="4.1" text-anchor="end" fill="#92702e">CONCEPTUAL · D2-v0.9</text>
+    </svg>

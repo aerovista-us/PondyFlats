@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 148" font-family="ui-sans-serif,system-ui,sans-serif">
+      <rect width="300" height="148" fill="#f4f1ea"/>
+      
+        <text x="150" y="14" font-size="4.2" text-anchor="middle" fill="#5a6570">Cut through the apron · 16′ doors on the east garage faces · homes 27′ beyond</text>
+        <line x1="22" y1="122" x2="144.55" y2="122" stroke="#0d1b33" stroke-width="1.2"/>
+        <rect x="32.75" y="77.92500000000001" width="47.3" height="44.07499999999999" fill="#e5bd78" stroke="#5c4a32" stroke-width=".7"/>
+      <polygon points="32.75,77.92500000000001 56.4,65.025 80.05,77.92500000000001" fill="#6a5340" stroke="#3d2a1c" stroke-width=".7"/>
+        <rect x="34.9" y="87.6" width="43.00000000000001" height="34.400000000000006" fill="#8fba88" stroke="#284426" stroke-width=".7"/>
+      <polygon points="34.9,87.6 56.400000000000006,83.30000000000001 77.9,87.6" fill="#4a5c45" stroke="#1e2e1c" stroke-width=".7"/>
+        <rect x="82.19999999999999" y="87.6" width="43" height="34.400000000000006" fill="#7eaa78" stroke="#284426" stroke-width=".7"/>
+      <polygon points="82.19999999999999,87.6 103.69999999999999,83.30000000000001 125.19999999999999,87.6" fill="#4a5c45" stroke="#1e2e1c" stroke-width=".7"/>
+        <rect x="39.2" y="104.8" width="34.4" height="17.200000000000003" fill="#1c2228" stroke="#c45c4a" stroke-width=".8"/>
+        <rect x="86.5" y="104.8" width="34.4" height="17.200000000000003" fill="#1c2228" stroke="#c45c4a" stroke-width=".8"/>
+        <text x="56.4" y="113.4" font-size="3.4" font-weight="800" fill="#efb34d" text-anchor="middle">16′ DOOR A</text>
+        <text x="103.7" y="113.4" font-size="3.4" font-weight="800" fill="#efb34d" text-anchor="middle">16′ DOOR B</text>
+      
+      <rect x="0" y="132" width="300" height="16" fill="#efe8dc" stroke="#cfc8be" stroke-width=".5"/>
+      <text x="8" y="142.6" font-size="5.1" font-weight="800" fill="#0d1b33">A-302</text>
+      <text x="150" y="142.6" font-size="5.1" font-weight="800" text-anchor="middle" fill="#0d1b33">Section B-B · looking west at the garage doors</text>
+      <text x="292" y="142.6" font-size="4.1" text-anchor="end" fill="#92702e">CONCEPTUAL · D2-v0.9</text>
+    </svg>

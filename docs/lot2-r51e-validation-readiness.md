@@ -13,7 +13,7 @@ Findings here are comments on the frozen design. A FAIL from a professional is a
 
 | Discipline | Question for the reviewer | Working assumption in v1.0 | Finding | Date |
 | ---------- | ------------------------- | -------------------------- | ------- | ---- |
-| **Zoning** | Do working setbacks 20 / 25 / 5 / 10 hold on this parcel and frontage? | Planning, not survey fact | *open* | |
+| **Zoning** | Do working setbacks 20 / 25 / 5 / 10 hold on this parcel and frontage? | Planning, not survey fact. Diagram source: [`setbacks-without-alley.pdf`](setbacks-without-alley.pdf). **R5.1e** uses that principal envelope on the duplex plates. A **separate** Design #2 hypothesis (detached garage drawn *in* the 25′ rear yard, 5′ accessory target) is [`lot2-design-2-accessory-rear.md`](lot2-design-2-accessory-rear.md) — it does not move v1.1 geometry. | *open* | |
 | **Fire** | 1-hr demising at **x=68** with no openings; egress from ENTRY A (north) and ENTRY B (south) | Blank demising · plan-closure entries | *open* | |
 | **Structural** | Posts carrying conditioned floor over covered stalls; gables to 27.0′ / 26.5′ | Eight posts inherited from freeze | *open* | |
 | **Civil / survey** | Parcel, Pennsylvania curb cuts, 50.00′ frontage, irregular south boundary | SOT polygon + Penn-only access | *open* | |

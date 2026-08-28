@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pondy Flats · Workbench (internal)</title>
+<meta name="description" content="Internal Lot 2 workbench: pipeline stages, lot lock, briefs, packages, export, present. Clients do not use this page.">
+<link rel="stylesheet" href="css/lot2-studio.css">
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand"><small>Internal · not for clients</small><strong>Workbench</strong></div>
+<nav class="nav" aria-label="Studio">
+<a class="primary" href="workbench.html">Workbench</a>
+<a href="lot.html">Public lot</a>
+<a href="packages/README.md">Packages</a>
+<a href="index.html">Public home</a>
+</nav>
+</div></header>
+<main class="wrap">
+<section class="panel">
+<p class="kicker">Studio · clients never land here</p>
+<h1>Fit a brief onto a lot. Then export a package they can open.</h1>
+<p class="lede">This is the workbench. The two Pondy Flats designs are instances. A client receives a standalone folder from <code>npm run export</code> — not this page, not the archive, not the solver.</p>
+<div class="warn"><strong>Do not send this URL.</strong> Delivery is <code>packages/design-1-client</code> or <code>packages/design-2-client</code>. Presenter kits are sibling folders.</div>
+<div class="stage" id="stages"></div>
+</section>
+
+<section class="panel">
+<h2>Lot (locked on this repo)</h2>
+<p>Pondy Flats Lot 2 is already created in <code>js/lot2-sot.js</code>. New Lot 2 designs start at Brief. A different property starts at <a href="lot.html">Your lot</a>, then a new lock file — never a second Lot 2 in SOT.</p>
+<div class="grid">
+  <div class="canvas" id="lotmap"></div>
+  <div class="facts" id="lotfacts"></div>
+</div>
+</section>
+
+<section class="panel">
+<h2>Live briefs on this lot</h2>
+<div class="cards">
+  <article class="card">
+    <b>Design 1 · frozen</b>
+    <h3>Integrated parking duplex</h3>
+    <p>R5.1e-v1.1 · 1,639 / 1,720 SF · 2 enclosed + 2 covered · parking FULL PASS. Do not mutate plates.</p>
+    <p><a href="r51e-deliverable.html">Hub</a> · <a href="presenter-design-1.html">Presenter</a> · <a href="packages/design-1-client/index.html">Client export</a></p>
+  </article>
+  <article class="card">
+    <b>Design 2 · concept</b>
+    <h3>Accessory rear-garage stack</h3>
+    <p>D2-v0.9 · four enclosed · SUV REVIEW · 5′ rear is a hypothesis. Do not mix with Design 1 plates.</p>
+    <p><a href="design-2.html">Hub</a> · <a href="presenter-design-2.html">Presenter</a> · <a href="packages/design-2-client/index.html">Client export</a></p>
+  </article>
+</div>
+</section>
+
+<section class="panel">
+<h2>Quality + delivery</h2>
+<div class="cards" id="quality"></div>
+<div class="lock" style="margin-top:14px">
+  <strong>Commands.</strong> Prove: <code>npm run d1</code> · <code>npm run d2</code> · <code>npm run gates</code>.
+  Polish is on the hubs. Then <code>npm run export</code> writes standalone client + presenter folders under <code>packages/</code>.
+  Freeze only if someone asks.
+</div>
+</section>
+
+<section class="panel">
+<h2>Keep off the client zip</h2>
+<p>Workbench, lab, archive, parking-reset, study guide, GitHub conflict catalog. The export gate fails if those files leak into a client folder.</p>
+<p class="footer"><a href="guide.html">Study guide</a> · <a href="study-archive.html">Archive</a> · <a href="docs/lot2-design-pipeline.md">Pipeline</a> · <a href="docs/lot2-pipeline-gaps.md">Gaps</a></p>
+</section>
+</main>
+<script src="js/lot2-sot.js"></script>
+<script src="js/lot2-pipeline-contract.js"></script>
+<script src="js/lot2-public-lot.js"></script>
+<script>
+const C = Lot2PipelineContract;
+const S = Lot2SOT;
+document.getElementById('stages').innerHTML = C.STAGES.map((st, i) =>
+  `<span class="${st.id === 'export' || st.id === 'present' ? 'on' : (i < 9 ? 'done' : '')}">${i} ${st.name}</span>`
+).join('');
+const poly = S.SURVEY;
+const box = Lot2PublicLot.bbox(poly);
+const w = 640, h = 280, pad = 18;
+const s = Math.min((w - pad * 2) / box.w, (h - pad * 2) / box.h);
+const ox = pad - box.minX * s, oy = pad - box.minY * s;
+const pts = poly.map((p) => `${(p[0]*s+ox).toFixed(1)},${(p[1]*s+oy).toFixed(1)}`).join(' ');
+document.getElementById('lotmap').innerHTML = `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Lot 2 survey">
+  <rect width="${w}" height="${h}" fill="#fbfaf7"/>
+  <polygon points="${pts}" fill="#e5bd7888" stroke="#0d1b33" stroke-width="2"/>
+  <text x="${w-14}" y="${h-14}" text-anchor="end" font-size="11" font-weight="800" fill="#c34232">Pennsylvania →</text>
+</svg>`;
+document.getElementById('lotfacts').innerHTML = `
+  <div class="fact"><small>Area</small><strong>${S.SURVEY_AREA.toLocaleString()} SF calc</strong></div>
+  <div class="fact"><small>Frontage</small><strong>${S.FRONTAGE}′ Pennsylvania</strong></div>
+  <div class="fact"><small>Depth</small><strong>${S.DEPTH}′</strong></div>
+  <div class="fact"><small>Convention</small><strong>Penn right / south / front</strong></div>`;
+document.getElementById('quality').innerHTML = C.QUALITY.map((q) =>
+  `<article class="card"><b>${q.now ? 'now' : 'Design 3+'}</b><h3>${q.id}</h3><p>${q.prove} · stage ${q.stage}</p></article>`
+).join('') + `<article class="card"><b>now</b><h3>export + present</h3><p>Standalone client folder. Separate presenter guide. No workbench in the zip.</p></article>`;
+</script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+{
+  "rev": "D2-v0.9",
+  "geom": "d2-rgs-geom-1",
+  "verdict": "CONDITIONAL",
+  "client": {
+    "badge": "Concept package",
+    "klass": "cond",
+    "headline": "A complete concept you can read. Not construction drawings.",
+    "blurb": "Two homes face Pennsylvania Street. Two detached two-car garages sit in the rear yard. A full-size SUV can reach each garage from the street and stay on the lot. About 1.54′ remains at the south lot edge — workable, not generous. Architecture is still conceptual — materials and window patterns may change. The 5′ rear garage setback is a reading of the city’s lots-without-alley sheet, not a permit."
+  },
+  "living": {
+    "A": 1792,
+    "B": 1944
+  },
+  "capacity": {
+    "A": 1872,
+    "B": 1918,
+    "livingA": 1685,
+    "livingB": 1726
+  },
+  "gap": 27,
+  "access": {
+    "technical": "REVIEW",
+    "reasons": [
+      "Polygonal swept-path envelope on-lot · no sharp corner shortfall · min south clearance 1.54′"
+    ],
+    "minSouthClear": 1.54
+  },
+  "fingerprint": {
+    "ok": true,
+    "misses": []
+  },
+  "sheets": [
+    {
+      "no": "A-001",
+      "file": "d2-site-plan.svg",
+      "bytes": 4731,
+      "ok": true,
+      "missing": []
+    },
+    {
+      "no": "A-101",
+      "file": "d2-plan-ground.svg",
+      "bytes": 8170,
+      "ok": true,
+      "missing": []
+    },
+    {
+      "no": "A-102",
+      "file": "d2-plan-upper.svg",
+      "bytes": 8040,
+      "ok": true,
+      "missing": []
+    },
+    {
+      "no": "A-103",
+      "file": "d2-plan-bubble.svg",
+      "bytes": 19024,
+      "ok": true,
+      "missing": []
+    },
+    {
+      "no": "A-201",
+      "file": "d2-elev-penn.svg",
+      "bytes": 3665,
+      "ok": true,
+      "missing": []
+    },
+    {
+      "no": "A-202",
+      "file": "d2-elev-rear.svg",
+      "bytes": 2786,
+      "ok": true,
+      "missing": []
+    },
+    {
+      "no": "A-203",
+      "file": "d2-elev-north.svg",
+      "bytes": 3712,
+      "ok": true,
+      "missing": []
+    },
+    {
+      "no": "A-204",
+      "file": "d2-elev-south.svg",
+      "bytes": 2636,
+      "ok": true,
+      "missing": []
+    },
+    {
+      "no": "A-301",
+      "file": "d2-section-aa.svg",
+      "bytes": 2280,
+      "ok": true,
+      "missing": []
+    },
+    {
+      "no": "A-302",
+      "file": "d2-section-bb.svg",
+      "bytes": 2247,
+      "ok": true,
+      "missing": []
+    },
+    {
+      "no": "A-401",
+      "file": "d2-massing.svg",
+      "bytes": 10719,
+      "ok": true,
+      "missing": []
+    },
+    {
+      "no": "A-402",
+      "file": "d2-axon-lock-clean.svg",
+      "bytes": 10432,
+      "ok": true,
+      "missing": []
+    }
+  ],
+  "packageContract": {
+    "ok": true,
+    "missing": [],
+    "axon": true,
+    "massing": true
+  },
+  "pages": {
+    "ok": true,
+    "expected": [
+      "design-2.html",
+      "d2-site.html",
+      "d2-plans.html",
+      "d2-elevs.html",
+      "d2-axon.html"
+    ],
+    "missing": [],
+    "written": [
+      "d2-site.html",
+      "d2-plans.html",
+      "d2-elevs.html",
+      "d2-axon.html"
+    ],
+    "checks": [
+      {
+        "file": "d2-site.html",
+        "ok": true,
+        "missing": []
+      },
+      {
+        "file": "d2-plans.html",
+        "ok": true,
+        "missing": []
+      },
+      {
+        "file": "d2-elevs.html",
+        "ok": true,
+        "missing": []
+      },
+      {
+        "file": "d2-axon.html",
+        "ok": true,
+        "missing": []
+      }
+    ]
+  },
+  "axonOpenings": {
+    "axon": {
+      "ok": true,
+      "doors": 4,
+      "windows": 12,
+      "missing": []
+    },
+    "massing": {
+      "ok": true,
+      "doors": 4,
+      "windows": 12,
+      "missing": []
+    }
+  },
+  "html": {
+    "ok": true,
+    "missing": []
+  },
+  "checks": {
+    "pennOrigin": {
+      "ok": true,
+      "detail": "Both garage paths start at Pennsylvania (x ≈ 148)"
+    },
+    "accessoryRear": {
+      "ok": true,
+      "detail": "Garage west face x=5 · 5′ accessory rear from setbacks-without-alley.pdf"
+    },
+    "southBuffer": {
+      "ok": true,
+      "detail": "Garage A y=6 · held at 6′ actual side buffer, not 3′ exception"
+    },
+    "separation": {
+      "ok": true,
+      "detail": "Garage-to-duplex 27′ ≥ 6′ accessory separation"
+    },
+    "surveyFit": {
+      "ok": true,
+      "detail": "Homes and garages inside Lot 2 survey"
+    },
+    "noVariance": {
+      "ok": true,
+      "detail": "Garage stack occupies the 25′ principal rear yard (accessory), not a variance"
+    },
+    "fourEnclosed": {
+      "ok": true,
+      "detail": "Two 20×20 two-car detached garages · four enclosed"
+    },
+    "livingTarget": {
+      "ok": true,
+      "detail": "Conceptual rooms A 1792 / B 1944 · target ~1800 · reserve ~1944"
+    },
+    "capacityReserve": {
+      "ok": true,
+      "detail": "Two-story plate capacity A 1872 / B 1918 · 26′ A depth is the south-lane correction from 28′"
+    },
+    "sweptPath": {
+      "ok": true,
+      "detail": "FS-SUV REVIEW · Polygonal swept-path envelope on-lot · no sharp corner shortfall · min south clearance 1.54′"
+    },
+    "independentDoors": {
+      "ok": true,
+      "detail": "Each 20′ east face carries a 16′ door to the local apron"
+    }
+  },
+  "next": "Architecture in development · conceptual plans/elevs derived from this lock."
+}

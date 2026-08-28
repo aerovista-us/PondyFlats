@@ -2,7 +2,7 @@
 
 **Purpose:** Declare what each major path is for. Generations of site studies, access tests, J1 visuals, failed renders, and Parking Reset co-exist in one tree — this map prevents treating an archive page as live design authority.
 
-**Status authority (where we are):** [`../index.html`](../index.html) + [`../r51e-deliverable.html`](../r51e-deliverable.html) + [`lot2-r51e-v11.md`](lot2-r51e-v11.md)  
+**Status authority (where we are):** [`../index.html`](../index.html) (customer landing) + [`../r51e-deliverable.html`](../r51e-deliverable.html) (Design 1) + [`../design-2.html`](../design-2.html) (Design 2) + [`lot2-r51e-v11.md`](lot2-r51e-v11.md)  
 **Parking-gate matrix (still valid scores):** [`../parking-reset.html`](../parking-reset.html) · **Daily-use:** [`../r64-daily.html`](../r64-daily.html)
 
 > **FLAG (2026-08-22 — not deleted):** The previous authority line was hub + `lot2-r64-daily.md` + `lot2-parking-reset.md`. That pairing still describes **parking**. Live architecture is **R5.1e-v1.1**. Original CURRENT labels on `study.html` / `r5-schematic.html` / `reset_r5` “schematic CONDITIONAL” are kept below. Catalog: [`lot2-status-conflicts.md`](lot2-status-conflicts.md).
@@ -26,9 +26,23 @@
 
 | Path | Role | Notes |
 | ---- | ---- | ----- |
-| [`index.html`](../index.html) | **CURRENT** | Study hub — locked hierarchy |
+| [`index.html`](../index.html) | **CURRENT** | Customer landing — New here · Design 1 · Design 2 |
+| [`design-2.html`](../design-2.html) | **EXPERIMENT** | Design 2 hub · D2-v0.9 CONDITIONAL · client-readable concept set |
+| [`r51e-elevs.html`](../r51e-elevs.html) | **CURRENT** | Design 1 grouped elevations + sections |
+| [`r51e-axon.html`](../r51e-axon.html) | **CURRENT** | Design 1 grouped massing + axon |
+| [`presenter-design-1.html`](../presenter-design-1.html) | **CURRENT** | Internal presenter guide · Design 1 · not for client zip |
+| [`presenter-design-2.html`](../presenter-design-2.html) | **EXPERIMENT** | Internal presenter guide · Design 2 · not for client zip |
+| [`workbench.html`](../workbench.html) | **CURRENT** | Internal studio UI · do not send to clients |
+| [`lot.html`](../lot.html) | **CURRENT** | Public Lot step · custom polygon + grouped brief categories |
+| [`docs/lot2-delivery.md`](lot2-delivery.md) | **CURRENT** | Polish → Export → Present |
+| [`packages/`](../packages/) | **DERIVATIVE** | Standalone client + presenter folders from `npm run export` |
+| [`d2-site.html`](../d2-site.html) | **DERIVATIVE** | Generated focus page · A-001 · analog of r51e-site-plan.html |
+| [`d2-plans.html`](../d2-plans.html) | **DERIVATIVE** | Generated · A-103 / A-101 / A-102 |
+| [`d2-elevs.html`](../d2-elevs.html) | **DERIVATIVE** | Generated · four elevs + two sections |
+| [`d2-axon.html`](../d2-axon.html) | **DERIVATIVE** | Generated · A-401 / A-402 |
+| [`study-archive.html`](../study-archive.html) | **ARCHIVE** | Former noisy hub (J1, A–F, flags) |
 | [`r51e.html`](../r51e.html) | **CURRENT** | R5.1e visual demo |
-| [`r51e-deliverable.html`](../r51e-deliverable.html) | **CURRENT** | **v1.1 front door** · Design Complete / program gate PASS |
+| [`r51e-deliverable.html`](../r51e-deliverable.html) | **CURRENT** | **Design 1 front door** · Design Complete / program gate PASS |
 | [`r51e-site-plan.html`](../r51e-site-plan.html) | **CURRENT** | Site plan freeze |
 | [`r51e-penn-elev.html`](../r51e-penn-elev.html) | **CURRENT** | Pennsylvania elevation |
 | [`r51e-architectural-massing.html`](../r51e-architectural-massing.html) | **CURRENT** | Architectural massing freeze |
@@ -40,7 +54,18 @@
 | [`docs/lot2-parking-reset.md`](lot2-parking-reset.md) | **CURRENT** *(parking only)* | Reset write-up · FULL PASS rules |
 | [`docs/lot2-r51e-v11.md`](lot2-r51e-v11.md) | **CURRENT** | v1.1 demising correction · program gate PASS |
 | [`docs/lot2-shift-handoff-2026-08-23.md`](lot2-shift-handoff-2026-08-23.md) | **CURRENT** | End-of-shift handoff · 2026-08-23 |
-| [`docs/lot2-status-conflicts.md`](lot2-status-conflicts.md) | **CURRENT** | Flagged contradictions (not deleted) · §H resolved |
+| [`docs/lot2-status-conflicts.md`](lot2-status-conflicts.md) | **CURRENT** | Flagged contradictions (not deleted) · §H resolved · §I Design #2 parallel |
+| [`docs/lot2-design-2-accessory-rear.md`](lot2-design-2-accessory-rear.md) | **EXPERIMENT** | Design #2 5′ accessory rear-yard hypothesis · does not move R5.1e |
+| [`docs/lot2-design-pipeline.md`](lot2-design-pipeline.md) | **CURRENT** | Workbench: Lot → … → Package → Polish → Export → Present |
+| [`docs/lot2-pipeline-gaps.md`](lot2-pipeline-gaps.md) | **CURRENT** | Gaps from D1 / D2 / J — what to fill, when, and Design 3+ enforcement |
+| [`js/lot2-pipeline-contract.js`](../js/lot2-pipeline-contract.js) | **CURRENT** | Lot + Brief keys · sheets · PACKAGE_PAGES · AXON_OPENINGS · QUALITY · DELIVERABLE |
+| [`js/lot2-package-shell.js`](../js/lot2-package-shell.js) | **DERIVATIVE** | Mounts engine SVGs on generated focus pages |
+| [`docs/lot2-design-2-pipeline.md`](lot2-design-2-pipeline.md) | **EXPERIMENT** | Design #2 instance of the workbench · D2-v0.9 |
+| [`js/lot2-design-2.js`](../js/lot2-design-2.js) | **EXPERIMENT** | Design 2 lock, rooms, SVG, access injection (`d2_rgs`) |
+| [`scripts/d2-deliverable-gates.js`](../scripts/d2-deliverable-gates.js) | **EXPERIMENT** | Design 2 pipeline · fingerprint + SVG freeze + JSON report |
+| [`css/lot2-client.css`](../css/lot2-client.css) | **DERIVATIVE** | Design 2 client package chrome |
+| [`docs/lot2-design-2-gate.json`](lot2-design-2-gate.json) | **DERIVATIVE** | Last `npm run d2` report |
+| [`docs/setbacks-without-alley.pdf`](setbacks-without-alley.pdf) | **TRUTH** | CDA *Setbacks – Lots without Alley* · accessory garage in 25′ rear yard |
 | [`docs/README.md`](README.md) | **CURRENT** | Docs index |
 | [`docs/lot2-file-map.md`](lot2-file-map.md) | **CURRENT** | This map |
 
@@ -50,7 +75,7 @@
 
 | Path | Role | Notes |
 | ---- | ---- | ----- |
-| [`js/lot2-sot.js`](../js/lot2-sot.js) | **TRUTH** | Survey polygon, Pennsylvania, SUV_FS — **do not edit casually** |
+| [`js/lot2-sot.js`](../js/lot2-sot.js) | **TRUTH** | Live Lot 2 parcel (survey, Penn, SUV_FS) — workbench **Lot** stage; already created; **do not edit casually** |
 | [`js/lot2-geometry.js`](../js/lot2-geometry.js) | **TRUTH** + **CURRENT** | Concept footprints including Parking Resets R5–R8 / R6.x |
 | [`js/lot2-access.js`](../js/lot2-access.js) | **TRUTH** | FS-SUV swept-path engine |
 | [`js/lot2-access-skeleton.js`](../js/lot2-access-skeleton.js) | **TRUTH** | Integrated plate / architecture-remaining scoring |
@@ -176,7 +201,8 @@ Supporting docs: `docs/lot2-visual-chain.md`, `docs/lot2-j1*.md`, `docs/lot2-j1b
 | Path | Role | Notes |
 | ---- | ---- | ----- |
 | `imgs/r51e-architectural-massing.svg` | **CURRENT** / **DERIVATIVE** | Frozen R5.1e architectural axon |
-| `imgs/r51e-axon-lock-audit.svg` / `r51e-axon-lock-clean.svg` | **CURRENT** / **DERIVATIVE** | Axon lock |
+| `imgs/r51e-axon-lock-audit.svg` / `r51e-axon-lock-clean.svg` | **CURRENT** / **DERIVATIVE** | Design 1 axon lock |
+| `imgs/d2-massing.svg` / `d2-axon-lock-clean.svg` | **EXPERIMENT** / **DERIVATIVE** | Design 2 same-camera massing + clean axon · from `npm run d2` |
 | `imgs/r51e-plan-ground.svg` / `r51e-plan-upper.svg` | **CURRENT** / **DERIVATIVE** | Plan closure sheets |
 | `imgs/r51e-site-plan.svg` | **CURRENT** / **DERIVATIVE** | Frozen site plan |
 | `imgs/r51e-penn-elev.svg` | **CURRENT** / **DERIVATIVE** | Pennsylvania elevation |

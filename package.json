@@ -1,0 +1,11 @@
+{
+  "name": "pondy-flats-lot2",
+  "private": true,
+  "description": "Pondy Flats Lot 2 concept studies. No build — static HTML + JS.",
+  "scripts": {
+    "d1": "node scripts/r51e-deliverable-gates.js",
+    "d2": "node scripts/d2-deliverable-gates.js",
+    "gates": "node scripts/r51e-deliverable-gates.js && node scripts/d2-deliverable-gates.js",
+    "export": "node scripts/export-packages.js"
+  }
+}

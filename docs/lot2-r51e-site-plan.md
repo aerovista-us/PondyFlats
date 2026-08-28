@@ -48,7 +48,7 @@ Run: `node scripts/r51e-deliverable-gates.js`
 | Garage A apron | 24′ (door at x=124 → Penn at 148) |
 | Doors | 16′ east · ENTRY A north · ENTRY B from spine |
 
-Working setbacks are **planning assumptions — not survey fact**. Zoning remains PROFESSIONAL VALIDATION PENDING.
+Working setbacks are **planning assumptions — not survey fact**. Diagram source: [`setbacks-without-alley.pdf`](setbacks-without-alley.pdf). Zoning remains PROFESSIONAL VALIDATION PENDING.
 
 ## Yards (2′ grid sample)
 

@@ -3,98 +3,126 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pondy Flats · R5.1e Deliverable v1.1</title>
-<meta name="description" content="R5.1e-v1.1 Design Complete / Program Gate Pass. v1.0 is complete baseline / program gate not cleared.">
-<style>
-:root{--navy:#0d1b33;--ink:#1a2430;--muted:#68737e;--gold:#d79b36;--line:#ddd7cf;--ok:#416145;--bad:#9a3b2e;--shadow:0 18px 54px #0f1a2b1a}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(#f8f5ef,#eee9e2);color:var(--ink);font-family:ui-sans-serif,system-ui,sans-serif}
-.top{background:#0d1b33f4;color:#fff}.topin{max-width:1480px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.brand small{display:block;color:#efb34d;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
-.nav a{color:#fff;text-decoration:none;border:1px solid #ffffff28;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;margin-left:6px}
-.nav a.primary{background:#efb34d;color:#0d1b33;border-color:#efb34d}
-.wrap{max-width:1240px;margin:auto;padding:22px 18px 80px}
-.panel{background:#ffffffef;border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow);padding:24px;margin-top:18px}
-h1{font:500 clamp(28px,4vw,52px)/.95 Georgia,serif;color:var(--navy);margin:0 0 8px}h2{color:var(--navy);margin:0 0 10px}h3{color:var(--navy);margin:0 0 6px;font-size:15px}
-.lede,p,li{color:var(--muted);line-height:1.55;font-size:14px}
-.ok{margin-top:12px;padding:12px 14px;border-left:4px solid var(--ok);background:#edf5e9;color:#2d4a32;font-size:13px;border-radius:0 12px 12px 0}
-.warn{margin-top:12px;padding:12px 14px;border-left:4px solid var(--gold);background:#fff8eb;color:#6c5429;font-size:13px;border-radius:0 12px 12px 0}
-.lock{margin-top:12px;padding:12px 14px;border-left:4px solid var(--navy);background:#eef3fa;color:#2a4a7a;font-size:13px;border-radius:0 12px 12px 0}
-.badge{display:inline-block;padding:5px 11px;border-radius:999px;font-size:11px;font-weight:900}
-.badge.ok{background:#edf5e9;color:var(--ok)}.badge.fail{background:#fdecea;color:var(--bad)}
-.hero-banners{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0 4px}
-.rev{font-size:12px;font-weight:800;color:var(--navy);letter-spacing:.04em}
-.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
-.fact{border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff}
-.fact small{display:block;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#92702e}
-.fact strong{color:var(--navy);font-size:15px}
-.sheet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.sheet{border:1px solid var(--line);background:#fff;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:6px}
-.sheet .no{font-size:11px;font-weight:900;letter-spacing:.08em;color:#956d29}
-.sheet a{color:var(--navy);font-weight:800;text-decoration:none}
-.sheet a:hover{text-decoration:underline}
-.sheet p{margin:0;font-size:12px}
-.sheet .svg{font-size:11px;font-weight:800}
-.check{font-size:12px;padding:7px 0;border-bottom:1px solid #ece7e0}
-.check .ok{color:var(--ok);font-weight:900}.check .fail{color:var(--bad);font-weight:900}
-details{margin-top:8px}
-details summary{cursor:pointer;font-weight:800;color:var(--navy);font-size:13px}
-@media(max-width:980px){.facts,.sheet-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.facts,.sheet-grid{grid-template-columns:1fr}}
-</style>
+<title>Pondy Flats · Design 1 — Connected duplex, integrated parking</title>
+<meta name="description" content="Pondy Flats Lot 2 Design 1 (R5.1e-v1.1): two homes with two enclosed stalls and two covered stalls. Design complete package, not a permit set.">
+<link rel="stylesheet" href="css/lot2-client.css">
 </head>
 <body>
 <header class="top"><div class="topin">
-<div class="brand"><small>Pondy Flats · Lot 2</small><strong>Deliverable v1.1</strong></div>
-<nav class="nav">
-<a href="index.html">Hub</a>
-<a href="r51e.html">Demo</a>
-<a class="primary" href="r51e-deliverable.html">v1.1</a>
+<div class="brand"><small>Pondy Flats · 1907 E Pennsylvania</small><strong>Design 1</strong></div>
+<nav class="nav" aria-label="Primary">
+<a href="index.html">Home</a>
+<a class="primary" href="r51e-deliverable.html">Design 1</a>
 <a href="r51e-site-plan.html">Site</a>
-<a href="r51e-plan-closure.html">Plans</a>
-<a href="r51e-penn-elev.html">Elevs</a>
-<a href="r51e-sections.html">Sections</a>
-<a href="https://github.com/aerovista-us/PondyFlats" target="_blank" rel="noopener">GitHub</a>
+<a href="r51e-plans.html">Plans</a>
+<a href="r51e-elevs.html">Elevs</a>
+<a href="r51e-axon.html">Axon</a>
 </nav>
 </div></header>
 <main class="wrap">
-<section class="panel">
-<div style="font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#956d29">Package front door · not a permit set</div>
-<h1>R5.1e — Design Complete</h1>
-<p class="lede">R5.1e-v1.1 is the live duplex. Only the demising / ownership line was reopened from v1.0. Parking, sweep, exterior envelope, ridges, and the repaired core stay frozen. Professional validation pending.</p>
+<p class="print-only" id="printHead">Pondy Flats · 1907 E Pennsylvania · Design 1 · R5.1e-v1.1 · not a permit set</p>
+<section class="panel" id="top" data-beat="open">
+<p class="kicker">Complete package · Design 1 · not a permit set</p>
+<h1>Two homes on Lot 2, with parking that already works.</h1>
+<p class="lede">A connected duplex faces Pennsylvania Street. Two enclosed garage stalls and two covered stalls sit in the house plates. This page is the drawing set a client can read without a tour — what the idea is, how to look at the drawings, and what still needs the city.</p>
 <div class="hero-banners">
-  <span class="badge ok" id="statusBadge">DESIGN COMPLETE / PROGRAM GATE PASS</span>
-  <span class="rev" id="revLine">R5.1e-v1.1 · 2026-08-22</span>
+  <span class="badge ok" id="statusBadge">Design complete</span>
+  <span class="rev" id="revLine">R5.1e-v1.1</span>
 </div>
-<div class="ok" id="verdict"></div>
-<div class="warn" id="pending"></div>
-<div class="lock">Honest program: <strong>R5 — two enclosed garage spaces plus two covered spaces, independently accessible.</strong> Pennsylvania is SOUTH / FRONT at the right of every plan. Compass points left. <strong>v1.0</strong> remains COMPLETE BASELINE / PROGRAM GATE NOT CLEARED. Canonical copy: <a href="https://github.com/aerovista-us/PondyFlats">GitHub aerovista-us/PondyFlats</a>. Older landings stay in-repo; see <a href="docs/lot2-status-conflicts.md">conflict catalog</a>.</div>
+<div class="ok" id="verdict">The living program and the parking both pass. Professional stamps come later.</div>
+<div class="warn"><strong>What this is not.</strong> These are not permit or construction drawings. Zoning, fire, structure, and survey still need professional review. Design 2 (detached rear garages) is a separate concept — do not mix the two building outlines.</div>
+<div class="lock"><strong>How every plan is oriented.</strong> Pennsylvania Street is the <em>right</em> edge — the front of the lot. The rear of the lot is on the left. North points left on purpose; the drawing is not rotated “north-up.” Driveways always enter from Pennsylvania.</div>
 <div class="facts">
-  <div class="fact"><small>Conditioned SF</small><strong id="factSf">1,639 / 1,720</strong></div>
+  <div class="fact"><small>Living area</small><strong id="factSf">1,639 / 1,720 SF</strong></div>
+  <div class="fact"><small>Parking</small><strong>2 enclosed + 2 covered</strong></div>
+  <div class="fact"><small>Street access</small><strong>Pennsylvania only</strong></div>
   <div class="fact"><small>Plates</small><strong id="factPlates">A 58×22.5 · B 40×28</strong></div>
+  <div class="fact"><small>Party wall</small><strong id="factDem">x=68</strong></div>
   <div class="fact"><small>Ridges</small><strong>27.0′ / 26.5′</strong></div>
-  <div class="fact"><small>Demising</small><strong id="factDem">x=68 blank</strong></div>
-  <div class="fact"><small>Parking</small><strong>FULL PASS · frozen</strong></div>
-  <div class="fact"><small>Covered stalls</small><strong>Open · 8 posts</strong></div>
-  <div class="fact"><small>Access</small><strong>Pennsylvania only</strong></div>
+  <div class="fact"><small>Parking proof</small><strong>Full pass · frozen</strong></div>
   <div class="fact"><small>Revision</small><strong id="revId">R5.1e-v1.1</strong></div>
 </div>
+<div class="actions">
+  <button type="button" class="btn" onclick="window.print()">Print / save PDF</button>
+  <a class="btn ghost" href="r51e-site-plan.html">Open site plan</a>
+</div>
+<nav class="toc" aria-label="On this page">
+<a href="#read">How to read</a>
+<a href="#sheets">Drawings</a>
+<a href="r51e-site-plan.html">Site</a>
+<a href="r51e-plans.html">Plans</a>
+<a href="r51e-elevs.html">Elevs</a>
+<a href="r51e-axon.html">Axon</a>
+<a href="#proof">Checks</a>
+</nav>
 </section>
 
-<section class="panel">
-<h2>Sheet index</h2>
-<p>Open a drawing page, or download the frozen SVG. Presentation may be edited; buildings, openings, ridges, parking, posts, paths, setbacks, and stairs may not.</p>
-<div class="sheet-grid" id="sheets"></div>
+<section class="panel" id="read" data-beat="lot">
+<h2>How to read these drawings</h2>
+<p class="lede" style="font-size:15px">Four rules cover every sheet. If something looks “sideways,” it is because the lot is drawn as it sits on Pennsylvania — not rotated to make north point up.</p>
+<div class="read">
+<article><div class="n">1 · Front of the lot</div><h3>Pennsylvania is on the right</h3><p>That is the street, the 50′ frontage, and where cars enter. Home A is the east home, closer to the street. Home B sits farther west, sharing a party wall at x=68.</p></article>
+<article><div class="n">2 · Parking in the house</div><h3>Garages are not in the rear yard</h3><p>Two enclosed stalls live in the plates. Two covered stalls sit beside them, open, on eight posts. A full-size SUV can reach each stall independently from Pennsylvania.</p></article>
+<article><div class="n">3 · Dashed lines</div><h3>Gold is the house envelope</h3><p>The gold dashed line is the principal setback reading (20′ front, 25′ rear, 5′ / 10′ sides). It is a working assumption until the city confirms it.</p></article>
+<article><div class="n">4 · Honesty</div><h3>Outlines are frozen; finishes are not</h3><p>Building sizes, ridges, doors, posts, and parking paths do not move. Stone, window muntins, and interior furniture are presentation. A prettier picture that moves a wall is the wrong picture.</p></article>
+</div>
 </section>
 
-<section class="panel">
-<h2>Consistency gate</h2>
-<p>Machine comparison of site, plans, four elevations, sections, and frozen massing. PASS is Design Complete. It is not zoning, fire, structural, or survey approval.</p>
-<div id="checks"></div>
-<details>
-<summary>Layer verdicts</summary>
-<div id="layers"></div>
-</details>
+<section class="panel" id="sheets" data-beat="walk">
+<h2>What’s in this package</h2>
+<p>Scroll the drawings below, or open a grouped page. Presentation may be edited. Building outlines, parking, and the driveway may not move.</p>
+<div class="sheet-grid" id="sheetsGrid"></div>
 </section>
+
+<section class="panel" id="site">
+<h2>Site plan</h2>
+<p>This is the most important drawing. It shows that both homes sit on the surveyed lot, that cars enter only from Pennsylvania, and that the enclosed and covered stalls are independently reachable.</p>
+<figure class="draw"><img src="imgs/r51e-site-plan.svg" alt="Design 1 site plan"><figcaption><strong>A-001.</strong> North points left. The 148′ dimension runs from the rear (left) to Pennsylvania (right). The 50′ dimension is the street frontage.</figcaption></figure>
+</section>
+
+<section class="panel" id="plans">
+<h2>Floor plans</h2>
+<p>These rooms sit on plates that already work for parking. They are exact to the lock, not a permit takeoff.</p>
+<figure class="draw"><img src="imgs/r51e-plan-ground.svg" alt="Design 1 ground floor"><figcaption><strong>A-101 Ground.</strong> Living, kitchen, and garage stalls on the first floor. Party wall at x=68 is blank.</figcaption></figure>
+<figure class="draw"><img src="imgs/r51e-plan-upper.svg" alt="Design 1 upper floor"><figcaption><strong>A-102 Upper.</strong> Bedrooms over the same outlines.</figcaption></figure>
+</section>
+
+<section class="panel" id="elevs">
+<h2>Elevations and sections</h2>
+<p>Street face first. Heights match the lock: ground 10.5′, mass 20.5′, ridges 27.0′ / 26.5′.</p>
+<figure class="draw"><img src="imgs/r51e-penn-elev.svg" alt="Pennsylvania elevation"><figcaption><strong>A-201 Pennsylvania.</strong> Looking west from the street. Home A is what you see first.</figcaption></figure>
+<figure class="draw"><img src="imgs/r51e-rear-elev.svg" alt="Rear elevation"><figcaption><strong>A-202 Rear.</strong> Looking east from the back of the lot.</figcaption></figure>
+<figure class="draw"><img src="imgs/r51e-north-elev.svg" alt="North elevation"><figcaption><strong>A-203 North.</strong> Long north side — rear left, Pennsylvania right.</figcaption></figure>
+<figure class="draw"><img src="imgs/r51e-south-elev.svg" alt="South elevation"><figcaption><strong>A-204 South.</strong> Private-yard side — not a street.</figcaption></figure>
+<figure class="draw"><img src="imgs/r51e-section-aa.svg" alt="Section A-A"><figcaption><strong>A-301 Section A-A.</strong> Cut at the party wall.</figcaption></figure>
+<figure class="draw"><img src="imgs/r51e-section-bb.svg" alt="Section B-B"><figcaption><strong>A-302 Section B-B.</strong> Cut through the garage doors.</figcaption></figure>
+</section>
+
+<section class="panel" id="massing">
+<h2>Massing</h2>
+<p>Same camera on both drawings: Pennsylvania is near (bottom), the rear of the lot is deep (top). A prettier picture that has to move a wall is the wrong picture.</p>
+<figure class="draw"><img src="imgs/r51e-architectural-massing.svg" alt="Architectural massing"><figcaption><strong>A-401 Architectural massing.</strong> Gables and ridges come from the lock.</figcaption></figure>
+<figure class="draw"><img src="imgs/r51e-axon-lock-clean.svg" alt="Axon"><figcaption><strong>A-402 Axon.</strong> Same volumes and camera. Garage doors are drawing geometry.</figcaption></figure>
+</section>
+
+<section class="panel" id="proof" data-beat="honest">
+<h2>What we checked</h2>
+<p>These are the questions this package has to answer. “Met” means the lock currently holds. Professional validation (zoning, fire, structure, survey) is still open.</p>
+<div class="proof" id="checks"></div>
+<div class="split" style="margin-top:16px">
+  <div class="warn" style="margin:0" id="pending"><strong>Still open with the city.</strong> Working setbacks, fire rating at the party wall, structure, and survey confirmation.</div>
+  <div class="lock" style="margin:0"><strong>Still open with design.</strong> Window patterns and finishes may still change. Photoreal that has to move a volume to “look better” is the wrong picture.</div>
+</div>
+</section>
+
+<p class="footer">
+<a href="index.html">Both designs</a> ·
+<a href="r51e-site-plan.html">Site</a> ·
+<a href="r51e-plans.html">Plans</a> ·
+<a href="r51e-elevs.html">Elevs</a> ·
+<a href="r51e-axon.html">Axon</a><br>
+Pondy Flats · Lot 2 · Design 1 does not move Design 2
+</p>
 </main>
 <script src="js/lot2-sot.js"></script>
 <script src="js/lot2-geometry.js"></script>
@@ -121,29 +149,27 @@ const LOCK = Lot2R51eLock.LOCK;
 const gate = Lot2R51eConsistency.analyze();
 const ok = gate.verdict === 'PASS';
 document.getElementById('statusBadge').className = 'badge ' + (ok ? 'ok' : 'fail');
-document.getElementById('statusBadge').textContent = gate.designComplete ? REV.status : gate.verdict;
-document.getElementById('revLine').textContent = `${REV.id} · ${REV.date} · ${REV.geometry}`;
+document.getElementById('statusBadge').textContent = ok ? 'Design complete' : gate.verdict;
+document.getElementById('revLine').textContent = `${REV.id} · ${REV.date}`;
 document.getElementById('revId').textContent = REV.id;
+document.getElementById('printHead').textContent = `Pondy Flats · 1907 E Pennsylvania · Design 1 · ${REV.id} · not a permit set`;
 const pa = LOCK.plates.find((p) => p.id === 'A');
 const pb = LOCK.plates.find((p) => p.id === 'B');
-document.getElementById('factSf').textContent = `${LOCK.livingSf.A.toLocaleString()} / ${LOCK.livingSf.B.toLocaleString()}`;
+document.getElementById('factSf').textContent = `${LOCK.livingSf.A.toLocaleString()} / ${LOCK.livingSf.B.toLocaleString()} SF`;
 document.getElementById('factPlates').textContent = `A ${pa.w}×${pa.h} · B ${pb.w}×${pb.h}`;
-document.getElementById('factDem').textContent = `x=${LOCK.demisingX} blank`;
-document.getElementById('verdict').innerHTML = `<strong>${gate.next}</strong>`;
-document.getElementById('pending').innerHTML = `<strong>Professional validation pending:</strong> ${gate.pending.join(' · ')}`;
-document.getElementById('checks').innerHTML = Object.entries(gate.checks).map(([k,v]) =>
-  `<div class="check"><span class="${v.ok?'ok':'fail'}">${v.ok?'PASS':'FAIL'}</span> · <strong>${k}</strong> — ${v.detail}</div>`
-).join('');
-document.getElementById('layers').innerHTML = Object.entries(gate.layers || {}).map(([k,v]) =>
-  `<div class="check"><span class="${v?'ok':'fail'}">${v?'PASS':'FAIL'}</span> · ${k}</div>`
-).join('');
-document.getElementById('sheets').innerHTML = Lot2R51eSheet.SHEETS.map((s) => {
-  const svg = s.svg ? `<a class="svg" href="${s.svg}">SVG</a>` : '<span class="svg">this page</span>';
-  return `<article class="sheet">
-    <div class="no">${s.no}</div>
-    <h3><a href="${s.href}">${s.title}</a></h3>
-    <p>${svg}</p>
-  </article>`;
+document.getElementById('factDem').textContent = `x=${LOCK.demisingX}`;
+document.getElementById('verdict').innerHTML = ok
+  ? '<strong>The living program and the parking both pass.</strong> Professional stamps come later.'
+  : `<strong>${gate.next}</strong>`;
+document.getElementById('pending').innerHTML = `<strong>Still open with the city.</strong> ${(gate.pending || []).join(' · ')}`;
+const copy = Lot2R51eSheet.CLIENT_CHECKS || {};
+document.getElementById('checks').innerHTML = Object.entries(gate.checks).map(([k, v]) => {
+  const c = copy[k] || { title: k, client: v.detail };
+  return `<article><div class="mark ${v.ok ? 'ok' : 'fail'}">${v.ok ? 'Met' : 'Not met'}</div><div><h3>${c.title}</h3><p>${c.client}</p></div></article>`;
+}).join('');
+document.getElementById('sheetsGrid').innerHTML = Lot2R51eSheet.SHEETS.map((s) => {
+  const dl = s.svg ? ` <a href="${s.svg}">SVG</a>` : '';
+  return `<article class="sheet"><div class="no">${s.no}</div><h3><a href="${s.href}">${s.title}</a></h3><p>${s.blurb || ''}${dl}</p></article>`;
 }).join('');
 </script>
 </body>

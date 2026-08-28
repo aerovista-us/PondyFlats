@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 148" font-family="ui-sans-serif,system-ui,sans-serif">
+      <rect width="300" height="148" fill="#f4f1ea"/>
+      
+      <text x="150" y="14" font-size="4.2" text-anchor="middle" fill="#5a6570">West / rear is left · the north garage and both homes · 5′ side yard</text>
+      <line x1="18" y1="108" x2="291.8" y2="108" stroke="#0d1b33" stroke-width="1.1"/>
+      <rect x="27.25" y="78.4" width="37" height="29.599999999999994" fill="#8fba88" stroke="#284426" stroke-width=".7"/>
+      <polygon points="27.25,78.4 45.75,74.69999999999999 64.25,78.4" fill="#4a5c45" stroke="#1e2e1c" stroke-width=".7"/>
+      <rect x="114.2" y="70.07499999999999" width="73.92600000000003" height="37.92500000000001" fill="#e5bd78" stroke="#5c4a32" stroke-width=".7"/>
+      <polygon points="114.2,70.07499999999999 151.163,58.974999999999994 188.12600000000003,70.07499999999999" fill="#6a5340" stroke="#3d2a1c" stroke-width=".7"/>
+      <rect x="188.20000000000002" y="70.07499999999999" width="66.6" height="37.92500000000001" fill="#dca766" stroke="#5c4a32" stroke-width=".7"/>
+      <polygon points="188.20000000000002,70.07499999999999 221.5,58.05 254.8,70.07499999999999" fill="#6a5340" stroke="#3d2a1c" stroke-width=".7"/>
+      <rect x="129" y="93.2" width="14.8" height="9.25" fill="#c5d6e8" stroke="#3a5068" stroke-width=".55"/>
+      <line x1="136.4" y1="93.2" x2="136.4" y2="102.45" stroke="#3a5068" stroke-width=".35"/>
+      <line x1="129" y1="97.825" x2="143.8" y2="97.825" stroke="#3a5068" stroke-width=".28"/>
+      <rect x="206.70000000000002" y="93.2" width="14.8" height="9.25" fill="#c5d6e8" stroke="#3a5068" stroke-width=".55"/>
+      <line x1="214.10000000000002" y1="93.2" x2="214.10000000000002" y2="102.45" stroke="#3a5068" stroke-width=".35"/>
+      <line x1="206.70000000000002" y1="97.825" x2="221.50000000000003" y2="97.825" stroke="#3a5068" stroke-width=".28"/>
+      <rect x="129" y="75.625" width="12.950000000000001" height="8.14" fill="#c5d6e8" stroke="#3a5068" stroke-width=".55"/>
+      <line x1="135.475" y1="75.625" x2="135.475" y2="83.765" stroke="#3a5068" stroke-width=".35"/>
+      <line x1="129" y1="79.695" x2="141.95" y2="79.695" stroke="#3a5068" stroke-width=".28"/>
+      <rect x="206.70000000000002" y="75.625" width="12.950000000000001" height="8.14" fill="#c5d6e8" stroke="#3a5068" stroke-width=".55"/>
+      <line x1="213.175" y1="75.625" x2="213.175" y2="83.765" stroke="#3a5068" stroke-width=".35"/>
+      <line x1="206.70000000000002" y1="79.695" x2="219.65" y2="79.695" stroke="#3a5068" stroke-width=".28"/>
+      <line x1="188.20000000000002" y1="108" x2="188.20000000000002" y2="70.07499999999999" stroke="#a43c30" stroke-width=".9"/>
+      <text x="45.75" y="72.69999999999999" font-size="3.6" font-weight="800" text-anchor="middle">G</text>
+      <text x="151.163" y="56.974999999999994" font-size="3.8" font-weight="800" text-anchor="middle">B 26.5′</text>
+      <text x="221.5" y="56.05" font-size="3.8" font-weight="800" text-anchor="middle">A 27.0′</text>
+      <text x="20" y="116" font-size="3.8" font-weight="800">W / REAR</text>
+      <text x="289.8" y="116" font-size="3.8" font-weight="800" text-anchor="end">PENN →</text>
+    
+      <rect x="0" y="132" width="300" height="16" fill="#efe8dc" stroke="#cfc8be" stroke-width=".5"/>
+      <text x="8" y="142.6" font-size="5.1" font-weight="800" fill="#0d1b33">A-203</text>
+      <text x="150" y="142.6" font-size="5.1" font-weight="800" text-anchor="middle" fill="#0d1b33">North · looking south · Pennsylvania at right</text>
+      <text x="292" y="142.6" font-size="4.1" text-anchor="end" fill="#92702e">CONCEPTUAL · D2-v0.9</text>
+    </svg>
