@@ -26,14 +26,14 @@
 
 | Path | Role | Notes |
 | ---- | ---- | ----- |
-| [`index.html`](../index.html) | **CURRENT** | Customer landing — New here · Design 1 · Design 2 |
+| [`../index.html`](../index.html) | **CURRENT** | Lot 2 landing — Design 1 · Design 2 · fallback lot sketch |
 | [`design-2.html`](../design-2.html) | **EXPERIMENT** | Design 2 hub · D2-v0.9 CONDITIONAL · client-readable concept set |
 | [`r51e-elevs.html`](../r51e-elevs.html) | **CURRENT** | Design 1 grouped elevations + sections |
 | [`r51e-axon.html`](../r51e-axon.html) | **CURRENT** | Design 1 grouped massing + axon |
 | [`presenter-design-1.html`](../presenter-design-1.html) | **CURRENT** | Internal presenter guide · Design 1 · not for client zip |
 | [`presenter-design-2.html`](../presenter-design-2.html) | **EXPERIMENT** | Internal presenter guide · Design 2 · not for client zip |
-| [`workbench.html`](../workbench.html) | **CURRENT** | Internal studio UI · do not send to clients |
-| [`lot.html`](../lot.html) | **CURRENT** | Public Lot step · custom polygon + grouped brief categories |
+| [`workbench.html`](../workbench.html) | **CURRENT** | Internal package studio · not LotScope Workbench · do not send to clients |
+| [`lot.html`](../lot.html) | **FALLBACK** | Local lot ingest · keep · not the public LotScope app · [`lot2-workbench-split.md`](lot2-workbench-split.md) |
 | [`docs/lot2-delivery.md`](lot2-delivery.md) | **CURRENT** | Polish → Export → Present |
 | [`packages/`](../packages/) | **DERIVATIVE** | Standalone client + presenter folders from `npm run export` |
 | [`d2-site.html`](../d2-site.html) | **DERIVATIVE** | Generated focus page · A-001 · analog of r51e-site-plan.html |

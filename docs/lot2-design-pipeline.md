@@ -4,7 +4,7 @@
 
 The path starts by **creating (or ingesting) the lot**. Then a **project brief** — size, program, vehicle, access, setbacks, living targets — is set **per project**. Everything after that is fitting that brief onto **that** lot, proving travel, and emitting the package.
 
-This repo’s live lot is already locked: Lot 2 in `js/lot2-sot.js`. Design 1 and Design 2 reuse that parcel; they do not invent a second Lot 2. A different property starts at **Lot**, not at Possible.
+This repo’s live lot is already locked: Lot 2 in `js/lot2-sot.js`. Design 1 and Design 2 reuse that parcel; they do not invent a second Lot 2. A different property starts on **LotScope**; [`../lot.html`](../lot.html) is a fallback ingest here, not the public product.
 
 When a concept on that lot clears **Travel** and **Setbacks** (PASS or CONDITIONAL), the **Package** drawing set is already the next step — then **Polish**, **Export** a standalone client folder, and **Present** with a separate guide. Do not wait to be asked. The client never receives the workbench.
 
@@ -13,7 +13,7 @@ When a concept on that lot clears **Travel** and **Setbacks** (PASS or CONDITION
 | **Design 1** · R5.1e-v1.1 | Frozen complete package. Grandfathered without A-103. Do not mutate. |
 | **Design 2** · D2-v0.9 | First full workbench instance (CONDITIONAL). Gate: `npm run d2`. |
 | **Design 3+ on Lot 2** | New brief + lock engine + gate. Reuse `lot2-sot.js`. Do not mix plates with D1 or D2. |
-| **A different property** | Start at **Lot** (new survey lock), then Brief, then the rest of this path. |
+| **A different property** | Start on **LotScope** (new survey / ProjectSpec). Fallback ingest in this repo: [`../lot.html`](../lot.html). Then Brief, then the rest of this path if this repo is producing drawings. |
 
 Skill: [`.cursor/skills/lot2-workbench/SKILL.md`](../.cursor/skills/lot2-workbench/SKILL.md)  
 Contract: [`../js/lot2-pipeline-contract.js`](../js/lot2-pipeline-contract.js)  
@@ -45,7 +45,7 @@ Lot → Brief → Possible → Fit → Arrange → Read → Travel → Setbacks 
 | **11 Present** | Separate presenter guide + talking points for internal review and in-person delivery. Not inside the client zip. | `packages/{slug}-presenter/` |
 | **12 Freeze** | Explicit request | DESIGN COMPLETE / program gate — Design 1 only so far |
 
-**Today on Lot 2:** skip creating a new parcel. Reuse the locked survey. Start a new design at **Brief** (program may differ; the lot does not). **Later:** a new property begins at Lot — survey in, then a brief, then fit.
+**Today on Lot 2:** skip creating a new parcel. Reuse the locked survey. Start a new design at **Brief** (program may differ; the lot does not). **Later:** a new property begins on LotScope — survey in, then a brief, then fit. [`../lot.html`](../lot.html) is only a fallback ingest.
 
 Required keys: `Lot2PipelineContract.LOT` and `.BRIEF`. Live Lot 2 numbers stay in `lot2-sot.js`; do not duplicate a second survey.
 

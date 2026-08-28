@@ -104,6 +104,19 @@ A later Workbench concept (lot-assessment, `PONDY-RGS-230`) places two detached 
 
 Do not treat Design #2 as a freeze-break of v1.1. Do not apply 5′ rear to the duplex mass.
 
+## J. LotScope vs Pondy Flats — two apps, one engine — **FLAGGED 2026-08-28**
+
+The workbench **product** is [aerovista-us/lot-assessment](https://github.com/aerovista-us/lot-assessment): public LotScope at https://lotscope.aerovista.us plus `/workbench` on the same engine. This repo is Lot 2 source + drawing packages.
+
+The 2026-08-28 delivery pass put a lot sketch and a package studio **here**. Those files are **kept as fallbacks** (do not delete). They are not LotScope. Full list: [`lot2-workbench-split.md`](lot2-workbench-split.md).
+
+| Artifact | What it still is | How to read it |
+| -------- | ---------------- | -------------- |
+| [`../lot.html`](../lot.html) | Fallback lot ingest | LotScope `/` is the intended public product |
+| [`../index.html`](../index.html) | Lot 2 packages + LotScope link | Sketch CTA is fallback only |
+| [`../workbench.html`](../workbench.html) | Package studio | Real solver workbench is `/workbench` on LotScope |
+| [`../README.md`](../README.md) | This repo vs LotScope | Package fallbacks live here |
+
 ## Review questions (do not answer here)
 
 1. Archive R5 schematic / study.html as evidence, or keep as a named alternate?

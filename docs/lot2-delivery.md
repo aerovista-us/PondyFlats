@@ -43,6 +43,9 @@ Shared screen = **client** `index.html`. Your laptop = **presenter** guide.
 
 | Surface | Audience |
 | ------- | -------- |
-| [`../workbench.html`](../workbench.html) | Studio only |
-| [`../lot.html`](../lot.html) | Public Lot step (custom shapes + grouped brief categories) |
+| [`../workbench.html`](../workbench.html) | Pondy package studio only — **not** LotScope Workbench |
+| https://lotscope.aerovista.us | Intended public product for other parcels |
+| [`../lot.html`](../lot.html) | Fallback lot sketch in this repo — keep, do not zip to clients |
 | [`../index.html`](../index.html) | Public home for the two Lot 2 packages |
+
+Split audit: [`lot2-workbench-split.md`](lot2-workbench-split.md).

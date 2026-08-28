@@ -3,32 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pondy Flats · Workbench (internal)</title>
-<meta name="description" content="Internal Lot 2 workbench: pipeline stages, lot lock, briefs, packages, export, present. Clients do not use this page.">
+<title>Pondy Flats · Package studio (internal)</title>
+<meta name="description" content="Internal Lot 2 package studio: pipeline stages, lot lock, briefs, packages, export, present. Not LotScope Workbench. Clients do not use this page.">
 <link rel="stylesheet" href="css/lot2-studio.css">
 </head>
 <body>
 <header class="top"><div class="topin">
-<div class="brand"><small>Internal · not for clients</small><strong>Workbench</strong></div>
+<div class="brand"><small>Internal · not for clients</small><strong>Package studio</strong></div>
 <nav class="nav" aria-label="Studio">
-<a class="primary" href="workbench.html">Workbench</a>
-<a href="lot.html">Public lot</a>
+<a class="primary" href="workbench.html">Studio</a>
+<a href="lot.html">Lot sketch</a>
+<a href="https://lotscope.aerovista.us/workbench">LotScope Workbench</a>
 <a href="packages/README.md">Packages</a>
 <a href="index.html">Public home</a>
 </nav>
 </div></header>
 <main class="wrap">
 <section class="panel">
-<p class="kicker">Studio · clients never land here</p>
+<p class="kicker">Package studio · clients never land here · not LotScope Workbench</p>
 <h1>Fit a brief onto a lot. Then export a package they can open.</h1>
-<p class="lede">This is the workbench. The two Pondy Flats designs are instances. A client receives a standalone folder from <code>npm run export</code> — not this page, not the archive, not the solver.</p>
+<p class="lede">This is the Lot 2 package studio. The two Pondy Flats designs are drawing-package instances. LotScope Workbench (solver / agent) is a separate app. A client receives a standalone folder from <code>npm run export</code> — not this page, not the archive, not the solver.</p>
 <div class="warn"><strong>Do not send this URL.</strong> Delivery is <code>packages/design-1-client</code> or <code>packages/design-2-client</code>. Presenter kits are sibling folders.</div>
 <div class="stage" id="stages"></div>
 </section>
 
 <section class="panel">
 <h2>Lot (locked on this repo)</h2>
-<p>Pondy Flats Lot 2 is already created in <code>js/lot2-sot.js</code>. New Lot 2 designs start at Brief. A different property starts at <a href="lot.html">Your lot</a>, then a new lock file — never a second Lot 2 in SOT.</p>
+<p>Pondy Flats Lot 2 is already created in <code>js/lot2-sot.js</code>. New Lot 2 designs start at Brief. A different property starts on <a href="https://lotscope.aerovista.us">LotScope</a>. <a href="lot.html">lot.html</a> is a fallback ingest in this repo — never a second Lot 2 in SOT.</p>
 <div class="grid">
   <div class="canvas" id="lotmap"></div>
   <div class="facts" id="lotfacts"></div>

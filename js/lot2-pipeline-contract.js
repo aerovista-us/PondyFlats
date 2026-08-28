@@ -4,7 +4,7 @@
  * Front of the path: create (or ingest) the lot, then load the project brief,
  * then fit that brief onto that lot. This repo’s live lot is already locked in
  * js/lot2-sot.js — do not invent a second Lot 2. A different property starts
- * at Lot, not at Possible.
+ * on LotScope. lot.html in this repo is a fallback ingest, not the product.
  *
  * When travel + setbacks are proven (PASS or CONDITIONAL), emit the full
  * package sheet list without waiting to be asked. Axon is not a special request.

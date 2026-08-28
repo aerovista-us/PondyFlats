@@ -27,6 +27,7 @@ Live: [`../r51e.html`](../r51e.html) · [`lot2-r51e-architectural-massing.md`](l
 | [lot2-shift-handoff-2026-08-23.md](lot2-shift-handoff-2026-08-23.md) | **End of shift** · next-session start here |
 | [lot2-r51e-v11.md](lot2-r51e-v11.md) | **Live** · R5.1e-v1.1 demising correction · program gate PASS |
 | [lot2-status-conflicts.md](lot2-status-conflicts.md) | **FLAGGED** contradictions kept for path review |
+| [lot2-workbench-split.md](lot2-workbench-split.md) | **CURRENT** · LotScope vs this repo · packages kept as fallbacks |
 | [lot2-r51e-deliverable-v1.md](lot2-r51e-deliverable-v1.md) | Deliverable tracker · now v1.1 live / v1.0 baseline |
 | [lot2-r51e-v1-baseline.md](lot2-r51e-v1-baseline.md) | Immutable baseline identity **R5.1e-v1.0** · program gate not cleared |
 | [lot2-r51e-sheet-legibility.md](lot2-r51e-sheet-legibility.md) | Presentation pass · geometry untouched |

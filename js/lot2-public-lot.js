@@ -1,7 +1,7 @@
 /**
- * Public (free) Lot stage — custom parcel polygons + grouped brief categories.
- * This is not the workbench. It does not fit buildings or run swept paths.
- * A different property starts here. Do not invent a second Lot 2 in lot2-sot.js.
+ * Fallback lot ingest for this repo — custom parcel polygons + grouped brief.
+ * Not LotScope. The public product is lotscope.aerovista.us.
+ * A different property starts there. Do not invent a second Lot 2 in lot2-sot.js.
  */
 const Lot2PublicLot = (() => {
   const PRESETS = Object.freeze([
