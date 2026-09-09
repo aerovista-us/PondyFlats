@@ -7,15 +7,16 @@ Demising **x=68** · conditioned SF **1,639 / 1,720** (1,600–1,900 each, Δ 81
 
 The engine (`js/lot2-r51e-lock.js`) is authoritative when a presentation page disagrees. v1.0 sheets: [`imgs/r51e-v1.0/`](imgs/r51e-v1.0/). Decision: [`docs/lot2-r51e-v11.md`](docs/lot2-r51e-v11.md) · catalog: [`docs/lot2-status-conflicts.md`](docs/lot2-status-conflicts.md).
 
-This GitHub repo is the **Lot 2 drawing-package fallback**. The intended public product is [LotScope](https://lotscope.aerovista.us) ([aerovista-us/lot-assessment](https://github.com/aerovista-us/lot-assessment)): two surfaces, one engine (`/` public, `/workbench` solver). Do not delete the packages in this repo — they are what we can hand off now. Split: [`docs/lot2-workbench-split.md`](docs/lot2-workbench-split.md). Landing: [`index.html`](index.html).
+This GitHub repo is the **Lot 2 drawing-package fallback**. As of 2026-09-09, **Design 3 / CFB-716** is the current LotScope Workbench-preferred candidate; Design 1 and Design 2 remain preserved options. The intended public product is [LotScope](https://lotscope.aerovista.us) ([aerovista-us/lot-assessment](https://github.com/aerovista-us/lot-assessment)): two surfaces, one engine (`/` public, `/workbench` solver). Do not delete the packages in this repo — they are what we can hand off now. Split: [`docs/lot2-workbench-split.md`](docs/lot2-workbench-split.md). Landing: [`index.html`](index.html).
 
 ## Start here
 
 | Page | What it is |
 | ---- | ---------- |
-| **[index.html](index.html)** | Lot 2 landing — Design 1 · Design 2 · fallback lot sketch |
+| **[index.html](index.html)** | Lot 2 landing — Design 1 · Design 2 · Design 3 · fallback lot sketch |
 | **[r51e-deliverable.html](r51e-deliverable.html)** | **Design 1** · R5.1e-v1.1 frozen package |
 | **[design-2.html](design-2.html)** | **Design 2** · hub (D2-v0.9 CONDITIONAL) · site / plans / elevs / axon |
+| **[design-3.html](design-3.html)** | **Design 3** · CFB-716 · LotScope Workbench preferred candidate · full current physical + architectural gate pass |
 | **[lot.html](lot.html)** | **Fallback** lot ingest (custom polygon + grouped brief) — not LotScope |
 | **[workbench.html](workbench.html)** | Internal package studio — not LotScope Workbench; do not send to clients |
 | **[docs/lot2-design-pipeline.md](docs/lot2-design-pipeline.md)** | Workbench path including Polish → Export → Present |
