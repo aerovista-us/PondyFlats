@@ -16,7 +16,11 @@ This GitHub repo is the **Lot 2 drawing-package fallback**. As of 2026-09-09, **
 | **[index.html](index.html)** | Lot 2 landing — Design 1 · Design 2 · Design 3 · fallback lot sketch |
 | **[r51e-deliverable.html](r51e-deliverable.html)** | **Design 1** · R5.1e-v1.1 frozen package |
 | **[design-2.html](design-2.html)** | **Design 2** · hub (D2-v0.9 CONDITIONAL) · site / plans / elevs / axon |
-| **[design-3.html](design-3.html)** | **Design 3** · CFB-716 · LotScope Workbench preferred candidate · full current physical + architectural gate pass |
+| **[design-3.html](design-3.html)** | **Design 3** · CFB-716 · Workbench preferred candidate · architectural development hub |
+| **[d3-site.html](d3-site.html)** | Design 3 A-001 · frozen CFB-716 site + vehicle paths |
+| **[d3-plans.html](d3-plans.html)** | Design 3 A-101/A-102 · conceptual room zoning inside frozen exterior mass |
+| **[d3-elevs.html](d3-elevs.html)** | Design 3 A-201–A-204 · first conceptual elevation pass |
+| **[d3-axon.html](d3-axon.html)** | Design 3 A-401 · frozen-massing axon |
 | **[lot.html](lot.html)** | **Fallback** lot ingest (custom polygon + grouped brief) — not LotScope |
 | **[workbench.html](workbench.html)** | Internal package studio — not LotScope Workbench; do not send to clients |
 | **[docs/lot2-design-pipeline.md](docs/lot2-design-pipeline.md)** | Workbench path including Polish → Export → Present |
@@ -41,6 +45,8 @@ Conditioned SF **1,639 / 1,720** · ridges **27.0′ / 26.5′** · demising **x
 ## Docs
 
 Full index: [`docs/README.md`](docs/README.md) · file roles: [`docs/lot2-file-map.md`](docs/lot2-file-map.md)
+
+Design 3 is now in architectural development from the canonical CFB-716 freeze. Its authoritative local lock is `js/lot2-design-3.js`; presentation sheets may develop, but the frozen exterior/site geometry must not drift.
 
 Older parking / schematic / J1 pages remain in the tree as **evidence**. They are not the live design. See the conflicts catalog before treating them as current.
 
