@@ -15,6 +15,43 @@ const viewports = [
   { name: 'tablet-768', width: 768, height: 900, scale: 1 },
   { name: 'mobile-390', width: 390, height: 900, scale: 1 },
 ];
+const requiredSvgs = {
+  'design-3.html': 0,
+  'd3-site.html': 1,
+  'd3-plan-closure.html': 2,
+  'd3-elevs.html': 4,
+  'd3-axon.html': 1,
+  'd3-sections.html': 1,
+};
+const requiredFigures = {
+  'd3-site.html': ['drawing'],
+  'd3-plan-closure.html': ['ground', 'upper'],
+  'd3-elevs.html': ['penn', 'rear', 'north', 'south'],
+  'd3-axon.html': ['drawing'],
+  'd3-sections.html': ['drawing'],
+};
+function isExpectedRequestFailure(item) {
+  const url = item.url || '';
+  return (item.status === 404 && /\/favicon\.ico$/.test(url)) || item.error === 'net::ERR_ABORTED';
+}
+function resultFailures(result) {
+  const out = [];
+  const m = result.metrics || {};
+  if ((m.failText || []).length) out.push('renderer fallback output: ' + (m.failText || []).join(' | '));
+  if ((m.bodyTextLength || 0) <= 0) out.push('blank body text');
+  if (m.horizontalOverflow) out.push('horizontal overflow ' + m.scrollWidth + '>' + m.clientWidth);
+  const expectedSvgCount = requiredSvgs[result.page];
+  if (expectedSvgCount != null && (m.svgCount || 0) < expectedSvgCount) out.push('required SVG count ' + (m.svgCount || 0) + '<' + expectedSvgCount);
+  for (const id of requiredFigures[result.page] || []) {
+    const fig = m.figs && m.figs[id];
+    if (!fig) out.push('missing required figure #' + id);
+    else if (!fig.hasSvg) out.push('required figure #' + id + ' has no SVG');
+    else if (fig.width <= 40 || fig.height <= 40) out.push('required figure #' + id + ' too small ' + fig.width + 'x' + fig.height);
+  }
+  for (const item of result.consoleItems || []) out.push(item.type + ': ' + item.text);
+  for (const item of (result.failedRequests || []).filter((x) => !isExpectedRequestFailure(x))) out.push('request ' + (item.status || item.error) + ': ' + (item.url || item.requestId || ''));
+  return out;
+}
 
 function httpJson(path, method = 'GET', parseJson = true) {
   return new Promise((resolve, reject) => {
@@ -129,7 +166,7 @@ async function qaPage(page, viewport) {
       return { aria: svg.getAttribute('aria-label') || '', width: Math.round(r.width), height: Math.round(r.height), visible: r.width > 40 && r.height > 40 };
     });
     const figs = {};
-    ['penn','rear','north','south','site','axon','ground','upper'].forEach((id) => {
+    ['penn','rear','north','south','site','axon','ground','upper','drawing'].forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
       const r = el.getBoundingClientRect();
@@ -139,7 +176,7 @@ async function qaPage(page, viewport) {
     return {
       title: document.title,
       bodyTextLength: document.body.innerText.trim().length,
-      failText: [...document.querySelectorAll('.fail')].map((x) => x.innerText.trim()),
+      failText: [...document.querySelectorAll('.fail:not(.mark)')].map((x) => x.innerText.trim()),
       svgCount: svgs.length,
       svgs,
       figs,
@@ -157,7 +194,7 @@ async function qaPage(page, viewport) {
     for (const id of ['penn', 'rear', 'north', 'south']) {
       await evaluate(client, `document.querySelector('#${id}').scrollIntoView({block:'center'})`);
       await new Promise((r) => setTimeout(r, 250));
-      const clip = await evaluate(client, `(() => { const r = document.querySelector('#${id}').getBoundingClientRect(); return {x:Math.max(0,r.x),y:Math.max(0,r.y),width:r.width,height:r.height,scale:1}; })()`);
+      const clip = await evaluate(client, `(() => { const r = document.querySelector('#${id}').getBoundingClientRect(); return {x:Math.max(0,r.left + window.scrollX),y:Math.max(0,r.top + window.scrollY),width:r.width,height:r.height,scale:1}; })()`);
       const data = await client.send('Page.captureScreenshot', { format: 'png', clip, captureBeyondViewport: true, fromSurface: true });
       const file = `${outDir}/desktop-1440-elevation-${id}.png`;
       await writeFile(file, Buffer.from(data.data, 'base64'));
@@ -188,9 +225,11 @@ try {
       results.push(await qaPage(page, viewport));
     }
   }
+  const failures = results.flatMap((result) => resultFailures(result).map((failure) => ({ page: result.page, viewport: result.viewport, failure })));
   const resultFile = `${outDir}/qa-results.json`;
-  await writeFile(resultFile, JSON.stringify({ base, generatedAt: new Date().toISOString(), results }, null, 2));
-  console.log(JSON.stringify({ outDir, base, resultFile, pages, viewports: viewports.map((v) => v.name) }, null, 2));
+  await writeFile(resultFile, JSON.stringify({ base, generatedAt: new Date().toISOString(), results, failures }, null, 2));
+  console.log(JSON.stringify({ outDir, base, resultFile, pages, viewports: viewports.map((v) => v.name), failures }, null, 2));
+  if (failures.length) process.exitCode = 1;
 } finally {
   chrome.kill('SIGTERM');
   await rm(profile, { recursive: true, force: true });
