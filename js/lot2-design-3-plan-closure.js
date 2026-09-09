@@ -19,7 +19,8 @@ const ROOMS={
    {name:'Primary Bedroom',kind:'bed',x:81,y:5,w:17,d:13},
    {name:'Primary Bath / WIC',kind:'bath',x:98,y:5,w:10,d:13},
    {name:'Bedroom 2',kind:'bed',x:81,y:18,w:13,d:14},
-   {name:'Bedroom 3',kind:'bed',x:94,y:18,w:14,d:14}
+   {name:'Bedroom 3',kind:'bed',x:94,y:18,w:14,d:14},
+   {name:'Loft / Laundry',kind:'hall',x:108,y:8,w:20,d:20}
   ]
  },
  B:{

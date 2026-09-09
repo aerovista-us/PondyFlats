@@ -265,6 +265,72 @@ function renderAxon(){
   </svg>`;
 }
 
+
+function renderSections(){
+  const W=1200,H=820,ink=COLORS.navy,muted=COLORS.muted;
+  const siding="#d9d0c2",stone="#9b8f7e",roof="#3f454c",glass="#bfd2dd",slab="#8b8580";
+  const level=(y,label)=>`<line x1="82" y1="${y}" x2="1118" y2="${y}" stroke="#a8aba7" stroke-width="1.5"/><text x="92" y="${y-8}" font-size="10" font-weight="900" fill="${muted}">${label}</text>`;
+  const sectionA=`<g transform="translate(70,112)">
+    <text x="0" y="-32" font-size="24" font-family="Georgia,serif" fill="${ink}">A-501 - Longitudinal site section</text>
+    <text x="0" y="-10" font-size="12" fill="${muted}">Pennsylvania access, garage/service fronts, two-home relationship, and rear-yard grade are diagrammatic.</text>
+    <rect x="0" y="238" width="1060" height="14" fill="${slab}"/>
+    <path d="M0 252 C170 244 320 248 500 240 S850 246 1060 235 L1060 285 L0 285 Z" fill="#d9d2c5"/>
+    <g transform="translate(710,70)">
+      <rect x="0" y="68" width="235" height="170" fill="${siding}" stroke="${ink}" stroke-width="2"/>
+      <rect x="150" y="142" width="72" height="96" fill="${stone}" opacity=".95"/>
+      <path d="M-14 68 L118 0 L249 68" fill="${roof}" stroke="${ink}" stroke-width="2"/>
+      <rect x="36" y="112" width="42" height="54" fill="${glass}" stroke="#53636c"/>
+      <rect x="95" y="118" width="40" height="120" fill="#7f654e" stroke="${ink}"/>
+      <text x="118" y="266" text-anchor="middle" font-size="12" font-weight="900" fill="${ink}">UNIT A - near Pennsylvania</text>
+    </g>
+    <g transform="translate(245,92)">
+      <rect x="0" y="86" width="210" height="150" fill="#ddcfae" stroke="${ink}" stroke-width="2"/>
+      <rect x="18" y="150" width="68" height="86" fill="${stone}" opacity=".95"/>
+      <path d="M-12 86 L105 18 L222 86" fill="${roof}" stroke="${ink}" stroke-width="2"/>
+      <rect x="110" y="128" width="42" height="56" fill="${glass}" stroke="#53636c"/>
+      <text x="105" y="264" text-anchor="middle" font-size="12" font-weight="900" fill="${ink}">UNIT B - deeper lot position</text>
+    </g>
+    <path d="M1060 238 C1008 226 968 222 920 225 C820 232 752 232 690 226 C560 212 410 224 310 226" fill="none" stroke="#858c8b" stroke-width="14" stroke-linecap="round" opacity=".55"/>
+    <text x="1010" y="214" font-size="11" font-weight="900" fill="#8b3b31">PENNSYLVANIA ACCESS</text>
+    <text x="16" y="314" font-size="10.5" fill="${muted}">Design-development section: grade, floor levels, and roofs are presentation diagrams only. Frozen plan coordinates are not moved.</text>
+  </g>`;
+  const sectionB=`<g transform="translate(70,500)">
+    <text x="0" y="-32" font-size="24" font-family="Georgia,serif" fill="${ink}">A-502 - Representative building section</text>
+    <text x="0" y="-10" font-size="12" fill="${muted}">Shows garage/home relationship, stair/service core, upper bedrooms, and simple roof hierarchy inside the frozen shell.</text>
+    ${level(232,"grade / slab")}
+    ${level(138,"upper floor")}
+    <g transform="translate(178,16)">
+      <rect x="0" y="122" width="210" height="94" fill="#f0c77c" stroke="${ink}" stroke-width="2"/>
+      <rect x="210" y="122" width="152" height="94" fill="#8fa188" stroke="${ink}" stroke-width="2"/>
+      <rect x="0" y="28" width="362" height="94" fill="#d8c7df" stroke="${ink}" stroke-width="2"/>
+      <path d="M-18 28 L181 -36 L380 28" fill="${roof}" stroke="${ink}" stroke-width="2"/>
+      <rect x="92" y="138" width="70" height="78" fill="#b8c9d7" stroke="${ink}" stroke-width="1.5"/>
+      <g stroke="#65717b" stroke-width="1"><line x1="102" y1="148" x2="152" y2="148"/><line x1="102" y1="160" x2="152" y2="160"/><line x1="102" y1="172" x2="152" y2="172"/><line x1="102" y1="184" x2="152" y2="184"/></g>
+      <rect x="236" y="144" width="96" height="72" fill="#756f67" stroke="${ink}" stroke-width="1.5"/>
+      <text x="105" y="108" text-anchor="middle" font-size="11" font-weight="900" fill="${ink}">UPPER BEDROOMS</text>
+      <text x="92" y="194" text-anchor="middle" font-size="10" font-weight="900" fill="${ink}">STAIR / CORE</text>
+      <text x="284" y="185" text-anchor="middle" font-size="10" font-weight="900" fill="#fff">GARAGE</text>
+    </g>
+    <g transform="translate(650,16)">
+      <rect x="0" y="122" width="170" height="94" fill="#f3ddaa" stroke="${ink}" stroke-width="2"/>
+      <rect x="170" y="122" width="128" height="94" fill="#b8c9d7" stroke="${ink}" stroke-width="2"/>
+      <rect x="0" y="28" width="298" height="94" fill="#d8c7df" stroke="${ink}" stroke-width="2"/>
+      <path d="M-16 28 L149 -30 L314 28" fill="${roof}" stroke="${ink}" stroke-width="2"/>
+      <rect x="188" y="142" width="78" height="74" fill="#756f67" stroke="${ink}" stroke-width="1.5"/>
+      <text x="85" y="178" text-anchor="middle" font-size="10" font-weight="900" fill="${ink}">LIVING / DINING</text>
+      <text x="149" y="108" text-anchor="middle" font-size="11" font-weight="900" fill="${ink}">BEDROOM LEVEL</text>
+      <text x="227" y="184" text-anchor="middle" font-size="10" font-weight="900" fill="#fff">GARAGE</text>
+    </g>
+    <text x="16" y="294" font-size="10.5" fill="${muted}">Concept sections only. Structural spans, assemblies, stairs, and code compliance remain professional-validation items.</text>
+  </g>`;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="CFB-716 design-development sections">
+    <rect width="${W}" height="${H}" fill="#fbfaf7"/>
+    <text x="70" y="58" font-size="30" font-family="Georgia,serif" fill="${ink}">Design 3 - Sections</text>
+    <text x="70" y="86" font-size="14" fill="${muted}">Two concept sections tied to the frozen CFB-716 massing and Pennsylvania-only access.</text>
+    ${sectionA}${sectionB}
+  </svg>`;
+}
+
 function analyze(){
   return {
     verdict:'PASS',
@@ -288,5 +354,5 @@ function analyze(){
   };
 }
 
-global.Lot2Design3={REV,LOCK,PLAN,COLORS,analyze,renderSite,renderFloor,renderElev,renderAxon};
+global.Lot2Design3={REV,LOCK,PLAN,COLORS,analyze,renderSite,renderFloor,renderElev,renderAxon,renderSections};
 })(window);
