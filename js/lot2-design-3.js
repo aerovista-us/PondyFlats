@@ -164,14 +164,28 @@ function renderElev(side){
   <text x="70" y="84" font-size="13" fill="${COLORS.muted}">${S.subtitle}</text>
   <line x1="70" y1="${base}" x2="1130" y2="${base}" stroke="#808882" stroke-width="2"/>
   <g filter="url(#softShadow)">${masses}</g>
-  <g opacity=".8">
+  <g opacity=".86">
     <circle cx="90" cy="${base-12}" r="20" fill="#9ba98f"/><rect x="87" y="${base-10}" width="6" height="36" fill="#6f665b"/>
     <circle cx="1080" cy="${base-18}" r="26" fill="#93a287"/><rect x="1077" y="${base-14}" width="6" height="42" fill="#6f665b"/>
+    <circle cx="1015" cy="${base-9}" r="13" fill="#a7b49b"/><rect x="1012" y="${base-7}" width="5" height="25" fill="#6f665b"/>
+  </g>
+  <g transform="translate(1030,${base-96})" fill="none" stroke="#4f5961" stroke-width="2">
+    <circle cx="0" cy="0" r="8" fill="#c7b49b" stroke="none"/><line x1="0" y1="8" x2="0" y2="44"/><line x1="0" y1="18" x2="-12" y2="30"/><line x1="0" y1="18" x2="12" y2="30"/><line x1="0" y1="44" x2="-9" y2="62"/><line x1="0" y1="44" x2="9" y2="62"/>
+  </g>
+  <g transform="translate(70,505)">
+    <line x1="0" y1="0" x2="1060" y2="0" stroke="#a6aaa5" stroke-width="1"/>
+    <line x1="0" y1="-6" x2="0" y2="6" stroke="#a6aaa5"/><line x1="1060" y1="-6" x2="1060" y2="6" stroke="#a6aaa5"/>
+    <text x="530" y="-8" text-anchor="middle" font-size="10" fill="${COLORS.muted}">CONCEPT ELEVATION · PROPORTION / MATERIAL STUDY · NOT FOR CONSTRUCTION</text>
   </g>
   <g transform="translate(70,535)">
-    <rect width="1060" height="54" rx="10" fill="#ffffffd9" stroke="#d8d2ca"/>
-    <text x="18" y="22" font-size="11" font-weight="900" fill="${ink}">DESIGN 3 · CFB-716 · CONCEPT ELEVATION</text>
-    <text x="18" y="40" font-size="10.5" fill="${COLORS.muted}">Frozen exterior footprints/site geometry. Roof articulation, openings, materials, and detailing are design-development items — not permit drawings.</text>
+    <rect width="1060" height="64" rx="10" fill="#ffffffea" stroke="#d8d2ca"/>
+    <text x="18" y="20" font-size="11" font-weight="900" fill="${ink}">DESIGN 3 · CFB-716 · CUSTOMER CONCEPT ELEVATION</text>
+    <text x="18" y="38" font-size="10.5" fill="${COLORS.muted}">Frozen exterior footprints/site geometry. Architecture shown here is the preferred presentation direction, not permit detailing.</text>
+    <g transform="translate(720,16)">
+      <rect width="18" height="18" rx="3" fill="${siding}" stroke="#aaa"/><text x="26" y="13" font-size="9.5" fill="${COLORS.muted}">warm siding</text>
+      <rect x="118" width="18" height="18" rx="3" fill="${stone}" stroke="#888"/><text x="144" y="13" font-size="9.5" fill="${COLORS.muted}">stone</text>
+      <rect x="210" width="18" height="18" rx="3" fill="${roof}" stroke="#444"/><text x="236" y="13" font-size="9.5" fill="${COLORS.muted}">dark roof</text>
+    </g>
   </g>
   </svg>`;
 }
@@ -218,22 +232,35 @@ function renderAxon(){
   <text x="70" y="62" font-size="30" font-family="Georgia,serif" fill="${ink}">Design 3 · CFB-716</text>
   <text x="70" y="90" font-size="14" fill="${COLORS.muted}">Preferred Workbench candidate · customer presentation axon · Pennsylvania access at lower right</text>
   <polygon points="${pts(lotPts)}" fill="#ebe4d7" stroke="#596169" stroke-width="2"/>
+  <polygon points="900,590 1120,520 1185,555 965,628" fill="#d8d8d4" stroke="#9b9b96" stroke-width="1.5"/>
+  <text x="1090" y="610" text-anchor="middle" font-size="11" font-weight="900" fill="#666">PENNSYLVANIA</text>
   ${drives}
   ${trees}
   <g filter="url(#axonShadow)">${homes}${garages}</g>
   <g>
-    <text x="860" y="290" font-size="13" font-weight="900" fill="${ink}">UNIT A</text>
+    <polygon points="760,432 806,417 820,425 774,441" fill="#7f654e" stroke="#3c4348"/>
+    <polygon points="433,451 477,438 490,446 446,460" fill="#7f654e" stroke="#3c4348"/>
+    <text x="786" y="410" font-size="10" font-weight="900" fill="${ink}">ENTRY A</text>
+    <text x="443" y="432" font-size="10" font-weight="900" fill="${ink}">ENTRY B</text>
+    <polygon points="852,525 902,510 902,540 852,555" fill="#6e6a64" stroke="#2b333a"/>
+    <polygon points="248,520 298,506 298,536 248,550" fill="#6e6a64" stroke="#2b333a"/>
+  </g>
+  <g>
+    <rect x="835" y="266" width="88" height="30" rx="15" fill="#ffffffdd" stroke="#d8d2ca"/><text x="879" y="286" text-anchor="middle" font-size="12" font-weight="900" fill="${ink}">UNIT A</text>
     <line x1="850" y1="296" x2="780" y2="350" stroke="${ink}"/>
-    <text x="320" y="330" font-size="13" font-weight="900" fill="${ink}">UNIT B</text>
+    <rect x="285" y="306" width="88" height="30" rx="15" fill="#ffffffdd" stroke="#d8d2ca"/><text x="329" y="326" text-anchor="middle" font-size="12" font-weight="900" fill="${ink}">UNIT B</text>
     <line x1="340" y1="336" x2="430" y2="390" stroke="${ink}"/>
     <text x="200" y="520" font-size="12" font-weight="900" fill="#50624d">GARAGE B</text>
     <text x="825" y="515" font-size="12" font-weight="900" fill="#50624d">GARAGE A</text>
   </g>
-  <g transform="translate(70,650)">
-    <rect width="1060" height="70" rx="12" fill="#ffffffd9" stroke="#d8d2ca"/>
+  <g transform="translate(70,640)">
+    <rect width="1060" height="82" rx="12" fill="#ffffffea" stroke="#d8d2ca"/>
     <text x="18" y="24" font-size="11" font-weight="900" fill="${ink}">GEOMETRY AUTHORITY · CFB-716 FREEZE ${FREEZE.slice(0,12)}…</text>
     <text x="18" y="45" font-size="10.5" fill="${COLORS.muted}">This axon is derived from the frozen site/building placements. Roofs, openings, and materials are presentation-layer development only.</text>
     <text x="18" y="61" font-size="10.5" fill="${COLORS.muted}">Not permit / construction drawings. Professional validation pending.</text>
+    <text x="760" y="24" font-size="10" font-weight="900" fill="${ink}">PRESENTATION LANGUAGE</text>
+    <text x="760" y="43" font-size="10" fill="${COLORS.muted}">Warm siding · stone/service accents · dark roof · wood entries</text>
+    <text x="760" y="60" font-size="10" fill="${COLORS.muted}">Landscape shown for scale/context only.</text>
   </g>
   </svg>`;
 }
