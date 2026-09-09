@@ -1,0 +1,1066 @@
+{
+  "base": "http://127.0.0.1:36643/",
+  "generatedAt": "2026-09-09T23:40:50.652Z",
+  "results": [
+    {
+      "page": "design-3.html",
+      "viewport": "desktop-1440",
+      "screenshot": "qa-artifacts/design3-customer-final/desktop-1440-design-3.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 · CFB-716",
+        "bodyTextLength": 2383,
+        "failText": [],
+        "svgCount": 0,
+        "svgs": [],
+        "figs": {},
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 1425,
+        "clientWidth": 1425,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "d3-site.html",
+      "viewport": "desktop-1440",
+      "screenshot": "qa-artifacts/design3-customer-final/desktop-1440-d3-site.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Site",
+        "bodyTextLength": 578,
+        "failText": [],
+        "svgCount": 1,
+        "svgs": [
+          {
+            "aria": "CFB-716 frozen site plan",
+            "width": 1056,
+            "height": 433,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "drawing": {
+            "hasSvg": true,
+            "text": "UNIT A\nUNIT B\nGARAGE A\nGARAGE B\nPENNSYLVANIA · FRONT / ACCESS\nFrozen candidate CFB-716 · exterior/site geometry locked to Workbench freeze 3de5309fb5c8…\nA-001. ",
+            "width": 1086,
+            "height": 497
+          }
+        },
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "d3-plan-closure.html",
+      "viewport": "desktop-1440",
+      "screenshot": "qa-artifacts/design3-customer-final/desktop-1440-d3-plan-closure.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Plan Closure",
+        "bodyTextLength": 4214,
+        "failText": [],
+        "svgCount": 2,
+        "svgs": [
+          {
+            "aria": "Design 3 ground plan closure",
+            "width": 1056,
+            "height": 458,
+            "visible": true
+          },
+          {
+            "aria": "Design 3 upper plan closure",
+            "width": 1056,
+            "height": 458,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "ground": {
+            "hasSvg": true,
+            "text": "Living\n16′x15′\nKitchen / Dining\n11′x15′\nEntry / Stair\n12′x12′\nPowder\n5′x6′\nMechanical / Storage\n10′x6′\nFlex / Office\n15′x6′\nLiving\n16′x11′\nKitchen / Dining\n16′x",
+            "width": 1086,
+            "height": 522
+          },
+          "upper": {
+            "hasSvg": true,
+            "text": "Primary Bedroom\n17′x13′\nPrimary Bath / WIC\n10′x13′\nStair / Upper Hall\n12′x12′\nUpper Gallery\n35′x4′\nBedroom 2\n15′x10′\nBedroom 3 / Over-garage\n20′x10′\nUpper Den /",
+            "width": 1086,
+            "height": 522
+          }
+        },
+        "navPlans": [],
+        "scrollWidth": 1425,
+        "clientWidth": 1425,
+        "horizontalOverflow": false,
+        "planGate": {
+          "verdict": "PASS",
+          "planningArea": {
+            "A": 1914,
+            "B": 1867.5
+          },
+          "areaTarget": 1800,
+          "geometryOk": true,
+          "geometryFailures": []
+        }
+      }
+    },
+    {
+      "page": "d3-elevs.html",
+      "viewport": "desktop-1440",
+      "screenshot": "qa-artifacts/design3-customer-final/desktop-1440-d3-elevs.png",
+      "clips": [
+        "qa-artifacts/design3-customer-final/desktop-1440-elevation-penn.png",
+        "qa-artifacts/design3-customer-final/desktop-1440-elevation-rear.png",
+        "qa-artifacts/design3-customer-final/desktop-1440-elevation-north.png",
+        "qa-artifacts/design3-customer-final/desktop-1440-elevation-south.png"
+      ],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Elevations",
+        "bodyTextLength": 2708,
+        "failText": [],
+        "svgCount": 4,
+        "svgs": [
+          {
+            "aria": "CFB-716 Pennsylvania / street elevation",
+            "width": 1056,
+            "height": 546,
+            "visible": true
+          },
+          {
+            "aria": "CFB-716 Rear elevation",
+            "width": 1056,
+            "height": 546,
+            "visible": true
+          },
+          {
+            "aria": "CFB-716 North elevation",
+            "width": 1056,
+            "height": 546,
+            "visible": true
+          },
+          {
+            "aria": "CFB-716 South elevation",
+            "width": 1056,
+            "height": 546,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "penn": {
+            "hasSvg": true,
+            "text": "Pennsylvania / street elevation\nFront-facing composition · restrained North Idaho contemporary\nENTRY\n2-CAR GARAGE\nUNIT A\nENTRY\nUNIT B\nCONCEPT ELEVATION · PROPOR",
+            "width": 1086,
+            "height": 576
+          },
+          "rear": {
+            "hasSvg": true,
+            "text": "Rear elevation\nPrivate-yard expression · larger glazing and quieter roof rhythm\nENTRY\n2-CAR GARAGE\nUNIT B\nENTRY\n2-CAR GARAGE\nUNIT A\nCONCEPT ELEVATION · PROPORTI",
+            "width": 1086,
+            "height": 576
+          },
+          "north": {
+            "hasSvg": true,
+            "text": "North elevation\nDrive-side façade · service openings controlled\nENTRY\n2-CAR GARAGE\nUNIT A / UNIT B\nCONCEPT ELEVATION · PROPORTION / MATERIAL STUDY · NOT FOR CON",
+            "width": 1086,
+            "height": 576
+          },
+          "south": {
+            "hasSvg": true,
+            "text": "South elevation\nPrivate-yard façade · daylight-focused openings\nENTRY\n2-CAR GARAGE\nUNIT A / UNIT B\nCONCEPT ELEVATION · PROPORTION / MATERIAL STUDY · NOT FOR CON",
+            "width": 1086,
+            "height": 576
+          }
+        },
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 1425,
+        "clientWidth": 1425,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "d3-axon.html",
+      "viewport": "desktop-1440",
+      "screenshot": "qa-artifacts/design3-customer-final/desktop-1440-d3-axon.png",
+      "clips": [
+        "qa-artifacts/design3-customer-final/desktop-1440-axon-drawing.png"
+      ],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Axon",
+        "bodyTextLength": 1320,
+        "failText": [],
+        "svgCount": 1,
+        "svgs": [
+          {
+            "aria": "CFB-716 customer presentation axonometric",
+            "width": 1056,
+            "height": 651,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "drawing": {
+            "hasSvg": true,
+            "text": "Design 3 · CFB-716\nPreferred Workbench candidate · customer presentation axon · Pennsylvania access at lower right\nPENNSYLVANIA ACCESS\nENTRY A\nENTRY B\nUNIT A\nUN",
+            "width": 1086,
+            "height": 681
+          }
+        },
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 1425,
+        "clientWidth": 1425,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "d3-sections.html",
+      "viewport": "desktop-1440",
+      "screenshot": "qa-artifacts/design3-customer-final/desktop-1440-d3-sections.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Sections",
+        "bodyTextLength": 1237,
+        "failText": [],
+        "svgCount": 1,
+        "svgs": [
+          {
+            "aria": "CFB-716 design-development sections",
+            "width": 1056,
+            "height": 792,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "drawing": {
+            "hasSvg": true,
+            "text": "Design 3 - Sections\nTwo concept sections tied to the frozen CFB-716 massing and Pennsylvania-only access.\nA-501 - Longitudinal site section\nPennsylvania access,",
+            "width": 1086,
+            "height": 822
+          }
+        },
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 1425,
+        "clientWidth": 1425,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "design-3.html",
+      "viewport": "tablet-1024",
+      "screenshot": "qa-artifacts/design3-customer-final/tablet-1024-design-3.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 · CFB-716",
+        "bodyTextLength": 2383,
+        "failText": [],
+        "svgCount": 0,
+        "svgs": [],
+        "figs": {},
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 1009,
+        "clientWidth": 1009,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "d3-site.html",
+      "viewport": "tablet-1024",
+      "screenshot": "qa-artifacts/design3-customer-final/tablet-1024-d3-site.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Site",
+        "bodyTextLength": 578,
+        "failText": [],
+        "svgCount": 1,
+        "svgs": [
+          {
+            "aria": "CFB-716 frozen site plan",
+            "width": 885,
+            "height": 363,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "drawing": {
+            "hasSvg": true,
+            "text": "UNIT A\nUNIT B\nGARAGE A\nGARAGE B\nPENNSYLVANIA · FRONT / ACCESS\nFrozen candidate CFB-716 · exterior/site geometry locked to Workbench freeze 3de5309fb5c8…\nA-001. ",
+            "width": 915,
+            "height": 427
+          }
+        },
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 1009,
+        "clientWidth": 1009,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "d3-plan-closure.html",
+      "viewport": "tablet-1024",
+      "screenshot": "qa-artifacts/design3-customer-final/tablet-1024-d3-plan-closure.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Plan Closure",
+        "bodyTextLength": 4214,
+        "failText": [],
+        "svgCount": 2,
+        "svgs": [
+          {
+            "aria": "Design 3 ground plan closure",
+            "width": 885,
+            "height": 384,
+            "visible": true
+          },
+          {
+            "aria": "Design 3 upper plan closure",
+            "width": 885,
+            "height": 384,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "ground": {
+            "hasSvg": true,
+            "text": "Living\n16′x15′\nKitchen / Dining\n11′x15′\nEntry / Stair\n12′x12′\nPowder\n5′x6′\nMechanical / Storage\n10′x6′\nFlex / Office\n15′x6′\nLiving\n16′x11′\nKitchen / Dining\n16′x",
+            "width": 915,
+            "height": 448
+          },
+          "upper": {
+            "hasSvg": true,
+            "text": "Primary Bedroom\n17′x13′\nPrimary Bath / WIC\n10′x13′\nStair / Upper Hall\n12′x12′\nUpper Gallery\n35′x4′\nBedroom 2\n15′x10′\nBedroom 3 / Over-garage\n20′x10′\nUpper Den /",
+            "width": 915,
+            "height": 448
+          }
+        },
+        "navPlans": [],
+        "scrollWidth": 1009,
+        "clientWidth": 1009,
+        "horizontalOverflow": false,
+        "planGate": {
+          "verdict": "PASS",
+          "planningArea": {
+            "A": 1914,
+            "B": 1867.5
+          },
+          "areaTarget": 1800,
+          "geometryOk": true,
+          "geometryFailures": []
+        }
+      }
+    },
+    {
+      "page": "d3-elevs.html",
+      "viewport": "tablet-1024",
+      "screenshot": "qa-artifacts/design3-customer-final/tablet-1024-d3-elevs.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Elevations",
+        "bodyTextLength": 2708,
+        "failText": [],
+        "svgCount": 4,
+        "svgs": [
+          {
+            "aria": "CFB-716 Pennsylvania / street elevation",
+            "width": 885,
+            "height": 457,
+            "visible": true
+          },
+          {
+            "aria": "CFB-716 Rear elevation",
+            "width": 885,
+            "height": 457,
+            "visible": true
+          },
+          {
+            "aria": "CFB-716 North elevation",
+            "width": 885,
+            "height": 457,
+            "visible": true
+          },
+          {
+            "aria": "CFB-716 South elevation",
+            "width": 885,
+            "height": 457,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "penn": {
+            "hasSvg": true,
+            "text": "Pennsylvania / street elevation\nFront-facing composition · restrained North Idaho contemporary\nENTRY\n2-CAR GARAGE\nUNIT A\nENTRY\nUNIT B\nCONCEPT ELEVATION · PROPOR",
+            "width": 915,
+            "height": 487
+          },
+          "rear": {
+            "hasSvg": true,
+            "text": "Rear elevation\nPrivate-yard expression · larger glazing and quieter roof rhythm\nENTRY\n2-CAR GARAGE\nUNIT B\nENTRY\n2-CAR GARAGE\nUNIT A\nCONCEPT ELEVATION · PROPORTI",
+            "width": 915,
+            "height": 487
+          },
+          "north": {
+            "hasSvg": true,
+            "text": "North elevation\nDrive-side façade · service openings controlled\nENTRY\n2-CAR GARAGE\nUNIT A / UNIT B\nCONCEPT ELEVATION · PROPORTION / MATERIAL STUDY · NOT FOR CON",
+            "width": 915,
+            "height": 487
+          },
+          "south": {
+            "hasSvg": true,
+            "text": "South elevation\nPrivate-yard façade · daylight-focused openings\nENTRY\n2-CAR GARAGE\nUNIT A / UNIT B\nCONCEPT ELEVATION · PROPORTION / MATERIAL STUDY · NOT FOR CON",
+            "width": 915,
+            "height": 487
+          }
+        },
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 1009,
+        "clientWidth": 1009,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "d3-axon.html",
+      "viewport": "tablet-1024",
+      "screenshot": "qa-artifacts/design3-customer-final/tablet-1024-d3-axon.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Axon",
+        "bodyTextLength": 1320,
+        "failText": [],
+        "svgCount": 1,
+        "svgs": [
+          {
+            "aria": "CFB-716 customer presentation axonometric",
+            "width": 885,
+            "height": 546,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "drawing": {
+            "hasSvg": true,
+            "text": "Design 3 · CFB-716\nPreferred Workbench candidate · customer presentation axon · Pennsylvania access at lower right\nPENNSYLVANIA ACCESS\nENTRY A\nENTRY B\nUNIT A\nUN",
+            "width": 915,
+            "height": 576
+          }
+        },
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 1009,
+        "clientWidth": 1009,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "d3-sections.html",
+      "viewport": "tablet-1024",
+      "screenshot": "qa-artifacts/design3-customer-final/tablet-1024-d3-sections.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Sections",
+        "bodyTextLength": 1237,
+        "failText": [],
+        "svgCount": 1,
+        "svgs": [
+          {
+            "aria": "CFB-716 design-development sections",
+            "width": 885,
+            "height": 664,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "drawing": {
+            "hasSvg": true,
+            "text": "Design 3 - Sections\nTwo concept sections tied to the frozen CFB-716 massing and Pennsylvania-only access.\nA-501 - Longitudinal site section\nPennsylvania access,",
+            "width": 915,
+            "height": 694
+          }
+        },
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 1009,
+        "clientWidth": 1009,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "design-3.html",
+      "viewport": "tablet-768",
+      "screenshot": "qa-artifacts/design3-customer-final/tablet-768-design-3.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 · CFB-716",
+        "bodyTextLength": 2383,
+        "failText": [],
+        "svgCount": 0,
+        "svgs": [],
+        "figs": {},
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 753,
+        "clientWidth": 753,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "d3-site.html",
+      "viewport": "tablet-768",
+      "screenshot": "qa-artifacts/design3-customer-final/tablet-768-d3-site.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Site",
+        "bodyTextLength": 578,
+        "failText": [],
+        "svgCount": 1,
+        "svgs": [
+          {
+            "aria": "CFB-716 frozen site plan",
+            "width": 644,
+            "height": 264,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "drawing": {
+            "hasSvg": true,
+            "text": "UNIT A\nUNIT B\nGARAGE A\nGARAGE B\nPENNSYLVANIA · FRONT / ACCESS\nFrozen candidate CFB-716 · exterior/site geometry locked to Workbench freeze 3de5309fb5c8…\nA-001. ",
+            "width": 674,
+            "height": 328
+          }
+        },
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "d3-plan-closure.html",
+      "viewport": "tablet-768",
+      "screenshot": "qa-artifacts/design3-customer-final/tablet-768-d3-plan-closure.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Plan Closure",
+        "bodyTextLength": 4214,
+        "failText": [],
+        "svgCount": 2,
+        "svgs": [
+          {
+            "aria": "Design 3 ground plan closure",
+            "width": 629,
+            "height": 273,
+            "visible": true
+          },
+          {
+            "aria": "Design 3 upper plan closure",
+            "width": 629,
+            "height": 273,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "ground": {
+            "hasSvg": true,
+            "text": "Living\n16′x15′\nKitchen / Dining\n11′x15′\nEntry / Stair\n12′x12′\nPowder\n5′x6′\nMechanical / Storage\n10′x6′\nFlex / Office\n15′x6′\nLiving\n16′x11′\nKitchen / Dining\n16′x",
+            "width": 659,
+            "height": 357
+          },
+          "upper": {
+            "hasSvg": true,
+            "text": "Primary Bedroom\n17′x13′\nPrimary Bath / WIC\n10′x13′\nStair / Upper Hall\n12′x12′\nUpper Gallery\n35′x4′\nBedroom 2\n15′x10′\nBedroom 3 / Over-garage\n20′x10′\nUpper Den /",
+            "width": 659,
+            "height": 337
+          }
+        },
+        "navPlans": [],
+        "scrollWidth": 753,
+        "clientWidth": 753,
+        "horizontalOverflow": false,
+        "planGate": {
+          "verdict": "PASS",
+          "planningArea": {
+            "A": 1914,
+            "B": 1867.5
+          },
+          "areaTarget": 1800,
+          "geometryOk": true,
+          "geometryFailures": []
+        }
+      }
+    },
+    {
+      "page": "d3-elevs.html",
+      "viewport": "tablet-768",
+      "screenshot": "qa-artifacts/design3-customer-final/tablet-768-d3-elevs.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Elevations",
+        "bodyTextLength": 2708,
+        "failText": [],
+        "svgCount": 4,
+        "svgs": [
+          {
+            "aria": "CFB-716 Pennsylvania / street elevation",
+            "width": 629,
+            "height": 325,
+            "visible": true
+          },
+          {
+            "aria": "CFB-716 Rear elevation",
+            "width": 629,
+            "height": 325,
+            "visible": true
+          },
+          {
+            "aria": "CFB-716 North elevation",
+            "width": 629,
+            "height": 325,
+            "visible": true
+          },
+          {
+            "aria": "CFB-716 South elevation",
+            "width": 629,
+            "height": 325,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "penn": {
+            "hasSvg": true,
+            "text": "Pennsylvania / street elevation\nFront-facing composition · restrained North Idaho contemporary\nENTRY\n2-CAR GARAGE\nUNIT A\nENTRY\nUNIT B\nCONCEPT ELEVATION · PROPOR",
+            "width": 659,
+            "height": 355
+          },
+          "rear": {
+            "hasSvg": true,
+            "text": "Rear elevation\nPrivate-yard expression · larger glazing and quieter roof rhythm\nENTRY\n2-CAR GARAGE\nUNIT B\nENTRY\n2-CAR GARAGE\nUNIT A\nCONCEPT ELEVATION · PROPORTI",
+            "width": 659,
+            "height": 355
+          },
+          "north": {
+            "hasSvg": true,
+            "text": "North elevation\nDrive-side façade · service openings controlled\nENTRY\n2-CAR GARAGE\nUNIT A / UNIT B\nCONCEPT ELEVATION · PROPORTION / MATERIAL STUDY · NOT FOR CON",
+            "width": 659,
+            "height": 355
+          },
+          "south": {
+            "hasSvg": true,
+            "text": "South elevation\nPrivate-yard façade · daylight-focused openings\nENTRY\n2-CAR GARAGE\nUNIT A / UNIT B\nCONCEPT ELEVATION · PROPORTION / MATERIAL STUDY · NOT FOR CON",
+            "width": 659,
+            "height": 355
+          }
+        },
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 753,
+        "clientWidth": 753,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "d3-axon.html",
+      "viewport": "tablet-768",
+      "screenshot": "qa-artifacts/design3-customer-final/tablet-768-d3-axon.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Axon",
+        "bodyTextLength": 1320,
+        "failText": [],
+        "svgCount": 1,
+        "svgs": [
+          {
+            "aria": "CFB-716 customer presentation axonometric",
+            "width": 629,
+            "height": 388,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "drawing": {
+            "hasSvg": true,
+            "text": "Design 3 · CFB-716\nPreferred Workbench candidate · customer presentation axon · Pennsylvania access at lower right\nPENNSYLVANIA ACCESS\nENTRY A\nENTRY B\nUNIT A\nUN",
+            "width": 659,
+            "height": 418
+          }
+        },
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 753,
+        "clientWidth": 753,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "d3-sections.html",
+      "viewport": "tablet-768",
+      "screenshot": "qa-artifacts/design3-customer-final/tablet-768-d3-sections.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Sections",
+        "bodyTextLength": 1237,
+        "failText": [],
+        "svgCount": 1,
+        "svgs": [
+          {
+            "aria": "CFB-716 design-development sections",
+            "width": 629,
+            "height": 472,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "drawing": {
+            "hasSvg": true,
+            "text": "Design 3 - Sections\nTwo concept sections tied to the frozen CFB-716 massing and Pennsylvania-only access.\nA-501 - Longitudinal site section\nPennsylvania access,",
+            "width": 659,
+            "height": 502
+          }
+        },
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 753,
+        "clientWidth": 753,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "design-3.html",
+      "viewport": "mobile-390",
+      "screenshot": "qa-artifacts/design3-customer-final/mobile-390-design-3.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 · CFB-716",
+        "bodyTextLength": 2383,
+        "failText": [],
+        "svgCount": 0,
+        "svgs": [],
+        "figs": {},
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 392,
+        "clientWidth": 390,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "d3-site.html",
+      "viewport": "mobile-390",
+      "screenshot": "qa-artifacts/design3-customer-final/mobile-390-d3-site.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Site",
+        "bodyTextLength": 584,
+        "failText": [],
+        "svgCount": 1,
+        "svgs": [
+          {
+            "aria": "CFB-716 frozen site plan",
+            "width": 314,
+            "height": 129,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "drawing": {
+            "hasSvg": true,
+            "text": "UNIT A\nUNIT B\nGARAGE A\nGARAGE B\nPENNSYLVANIA · FRONT / ACCESS\nFrozen candidate CFB-716 · exterior/site geometry locked to Workbench freeze 3de5309fb5c8…\nA-001. ",
+            "width": 332,
+            "height": 221
+          }
+        },
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "d3-plan-closure.html",
+      "viewport": "mobile-390",
+      "screenshot": "qa-artifacts/design3-customer-final/mobile-390-d3-plan-closure.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Plan Closure",
+        "bodyTextLength": 4220,
+        "failText": [],
+        "svgCount": 2,
+        "svgs": [
+          {
+            "aria": "Design 3 ground plan closure",
+            "width": 314,
+            "height": 136,
+            "visible": true
+          },
+          {
+            "aria": "Design 3 upper plan closure",
+            "width": 314,
+            "height": 136,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "ground": {
+            "hasSvg": true,
+            "text": "Living\n16′x15′\nKitchen / Dining\n11′x15′\nEntry / Stair\n12′x12′\nPowder\n5′x6′\nMechanical / Storage\n10′x6′\nFlex / Office\n15′x6′\nLiving\n16′x11′\nKitchen / Dining\n16′x",
+            "width": 332,
+            "height": 228
+          },
+          "upper": {
+            "hasSvg": true,
+            "text": "Primary Bedroom\n17′x13′\nPrimary Bath / WIC\n10′x13′\nStair / Upper Hall\n12′x12′\nUpper Gallery\n35′x4′\nBedroom 2\n15′x10′\nBedroom 3 / Over-garage\n20′x10′\nUpper Den /",
+            "width": 332,
+            "height": 208
+          }
+        },
+        "navPlans": [],
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "horizontalOverflow": false,
+        "planGate": {
+          "verdict": "PASS",
+          "planningArea": {
+            "A": 1914,
+            "B": 1867.5
+          },
+          "areaTarget": 1800,
+          "geometryOk": true,
+          "geometryFailures": []
+        }
+      }
+    },
+    {
+      "page": "d3-elevs.html",
+      "viewport": "mobile-390",
+      "screenshot": "qa-artifacts/design3-customer-final/mobile-390-d3-elevs.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Elevations",
+        "bodyTextLength": 2714,
+        "failText": [],
+        "svgCount": 4,
+        "svgs": [
+          {
+            "aria": "CFB-716 Pennsylvania / street elevation",
+            "width": 314,
+            "height": 162,
+            "visible": true
+          },
+          {
+            "aria": "CFB-716 Rear elevation",
+            "width": 314,
+            "height": 162,
+            "visible": true
+          },
+          {
+            "aria": "CFB-716 North elevation",
+            "width": 314,
+            "height": 162,
+            "visible": true
+          },
+          {
+            "aria": "CFB-716 South elevation",
+            "width": 314,
+            "height": 162,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "penn": {
+            "hasSvg": true,
+            "text": "Pennsylvania / street elevation\nFront-facing composition · restrained North Idaho contemporary\nENTRY\n2-CAR GARAGE\nUNIT A\nENTRY\nUNIT B\nCONCEPT ELEVATION · PROPOR",
+            "width": 332,
+            "height": 180
+          },
+          "rear": {
+            "hasSvg": true,
+            "text": "Rear elevation\nPrivate-yard expression · larger glazing and quieter roof rhythm\nENTRY\n2-CAR GARAGE\nUNIT B\nENTRY\n2-CAR GARAGE\nUNIT A\nCONCEPT ELEVATION · PROPORTI",
+            "width": 332,
+            "height": 180
+          },
+          "north": {
+            "hasSvg": true,
+            "text": "North elevation\nDrive-side façade · service openings controlled\nENTRY\n2-CAR GARAGE\nUNIT A / UNIT B\nCONCEPT ELEVATION · PROPORTION / MATERIAL STUDY · NOT FOR CON",
+            "width": 332,
+            "height": 180
+          },
+          "south": {
+            "hasSvg": true,
+            "text": "South elevation\nPrivate-yard façade · daylight-focused openings\nENTRY\n2-CAR GARAGE\nUNIT A / UNIT B\nCONCEPT ELEVATION · PROPORTION / MATERIAL STUDY · NOT FOR CON",
+            "width": 332,
+            "height": 180
+          }
+        },
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "d3-axon.html",
+      "viewport": "mobile-390",
+      "screenshot": "qa-artifacts/design3-customer-final/mobile-390-d3-axon.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Axon",
+        "bodyTextLength": 1326,
+        "failText": [],
+        "svgCount": 1,
+        "svgs": [
+          {
+            "aria": "CFB-716 customer presentation axonometric",
+            "width": 314,
+            "height": 194,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "drawing": {
+            "hasSvg": true,
+            "text": "Design 3 · CFB-716\nPreferred Workbench candidate · customer presentation axon · Pennsylvania access at lower right\nPENNSYLVANIA ACCESS\nENTRY A\nENTRY B\nUNIT A\nUN",
+            "width": 332,
+            "height": 212
+          }
+        },
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    },
+    {
+      "page": "d3-sections.html",
+      "viewport": "mobile-390",
+      "screenshot": "qa-artifacts/design3-customer-final/mobile-390-d3-sections.png",
+      "clips": [],
+      "consoleItems": [],
+      "failedRequests": [],
+      "metrics": {
+        "title": "Pondy Flats · Design 3 Sections",
+        "bodyTextLength": 1243,
+        "failText": [],
+        "svgCount": 1,
+        "svgs": [
+          {
+            "aria": "CFB-716 design-development sections",
+            "width": 314,
+            "height": 236,
+            "visible": true
+          }
+        ],
+        "figs": {
+          "drawing": {
+            "hasSvg": true,
+            "text": "Design 3 - Sections\nTwo concept sections tied to the frozen CFB-716 massing and Pennsylvania-only access.\nA-501 - Longitudinal site section\nPennsylvania access,",
+            "width": 332,
+            "height": 254
+          }
+        },
+        "navPlans": [
+          "d3-plan-closure.html"
+        ],
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "horizontalOverflow": false,
+        "planGate": null
+      }
+    }
+  ],
+  "failures": []
+}

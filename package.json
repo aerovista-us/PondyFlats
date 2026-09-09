@@ -5,7 +5,7 @@
   "scripts": {
     "d1": "node scripts/r51e-deliverable-gates.js",
     "d2": "node scripts/d2-deliverable-gates.js",
-    "gates": "node scripts/r51e-deliverable-gates.js && node scripts/d2-deliverable-gates.js",
+    "gates": "node scripts/r51e-deliverable-gates.js && node scripts/d2-deliverable-gates.js && node scripts/d3-render-qa.mjs /tmp/pondy-d3-gate",
     "export": "node scripts/export-packages.js"
   }
 }

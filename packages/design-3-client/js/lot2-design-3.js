@@ -1,7 +1,7 @@
 (function(global){
 'use strict';
 
-const REV='D3-CFB716-v0.2';
+const REV='D3-CFB716-v0.4';
 const FREEZE='3de5309fb5c87046acbba3ac37bc1c1eca2718344f3f704e50d28daa414f8625';
 const SURVEY=[[0,0],[148,0],[148,50],[125.143,43.016],[84.813,43.016],[0,57.01]];
 const LOCK={
@@ -67,8 +67,11 @@ const PLAN={
   upper:[
    ['Primary Bed',81,5,17,13,'bed'],
    ['Primary Bath / WIC',98,5,10,13,'bath'],
-   ['Bed 2',81,18,13,14,'bed'],
-   ['Bed 3',94,18,14,14,'bed']
+   ['Stair / Hall',81,18,12,12,'hall'],
+   ['Upper Gallery',93,18,35,4,'hall'],
+   ['Bed 2',93,22,15,10,'bed'],
+   ['Bed 3',108,8,20,10,'bed'],
+   ['Upper Den',108,22,20,10,'living']
   ]
  },
  B:{
@@ -76,14 +79,16 @@ const PLAN={
    ['Living',25,5,16,11,'living'],
    ['Kitchen / Dining',41,5,16,11,'kitchen'],
    ['Entry + Stair',25,16,12,12,'service'],
-   ['Bath / Mech',25,28,12,9.5,'bath'],
+   ['Powder',25,28,5,5,'bath'],
+   ['Mech / Storage',30,28,7,9.5,'service'],
    ['Office / Mud',57,5,20,12,'hall']
   ],
   upper:[
-   ['Primary Bed',25,5,16,13,'bed'],
-   ['Primary Bath / WIC',41,5,16,13,'bath'],
-   ['Bed 2',25,18,16,14,'bed'],
-   ['Bed 3',41,18,16,14,'bed']
+   ['Primary Bed',25,5,16,12,'bed'],
+   ['Primary Bath / WIC',41,5,16,12,'bath'],
+   ['Stair / Hall',25,17,16,9,'hall'],
+   ['Bed 2',25,26,16,11.5,'bed'],
+   ['Bed 3 / Studio',41,17,16,20.5,'bed']
   ]
  }
 };
@@ -148,7 +153,7 @@ function renderElev(side){
       <rect x="${m.doorX-14}" y="${base-98}" width="70" height="9" fill="${roof}" stroke="${ink}"/>
       <line x1="${m.doorX-8}" y1="${base-89}" x2="${m.doorX-8}" y2="${base}" stroke="${wood}" stroke-width="4"/>
       <line x1="${m.doorX+50}" y1="${base-89}" x2="${m.doorX+50}" y2="${base}" stroke="${wood}" stroke-width="4"/>
-      <text x="${m.doorX+21}" y="${base-108}" text-anchor="middle" font-size="10" font-weight="800" fill="${ink}">ENTRY</text></g>`;
+      <text x="${m.doorX+21}" y="${base-128}" text-anchor="middle" font-size="10" font-weight="800" fill="${ink}">ENTRY</text></g>`;
     const material=m.accent==="stone"
       ? `<rect x="${m.x}" y="${base-74}" width="82" height="74" fill="${stone}" opacity=".92"/>`
       : `<rect x="${m.x+m.w-76}" y="${top}" width="76" height="${m.h}" fill="${siding2}" opacity=".85"/>`;
@@ -181,7 +186,7 @@ function renderElev(side){
   <g transform="translate(1030,${base-96})" fill="none" stroke="#4f5961" stroke-width="2">
     <circle cx="0" cy="0" r="8" fill="#c7b49b" stroke="none"/><line x1="0" y1="8" x2="0" y2="44"/><line x1="0" y1="18" x2="-12" y2="30"/><line x1="0" y1="18" x2="12" y2="30"/><line x1="0" y1="44" x2="-9" y2="62"/><line x1="0" y1="44" x2="9" y2="62"/>
   </g>
-  <g transform="translate(70,505)">
+  <g transform="translate(70,520)">
     <line x1="0" y1="0" x2="1060" y2="0" stroke="#a6aaa5" stroke-width="1"/>
     <line x1="0" y1="-6" x2="0" y2="6" stroke="#a6aaa5"/><line x1="1060" y1="-6" x2="1060" y2="6" stroke="#a6aaa5"/>
     <text x="530" y="-8" text-anchor="middle" font-size="10" fill="${COLORS.muted}">CONCEPT ELEVATION · PROPORTION / MATERIAL STUDY · NOT FOR CONSTRUCTION</text>
@@ -277,10 +282,10 @@ function renderAxon(){
 
 
 function renderSections(){
-  const W=1200,H=820,ink=COLORS.navy,muted=COLORS.muted;
+  const W=1200,H=900,ink=COLORS.navy,muted=COLORS.muted;
   const siding="#d9d0c2",stone="#9b8f7e",roof="#3f454c",glass="#bfd2dd",slab="#8b8580";
   const level=(y,label)=>`<line x1="82" y1="${y}" x2="1118" y2="${y}" stroke="#a8aba7" stroke-width="1.5"/><text x="92" y="${y-8}" font-size="10" font-weight="900" fill="${muted}">${label}</text>`;
-  const sectionA=`<g transform="translate(70,112)">
+  const sectionA=`<g transform="translate(70,150)">
     <text x="0" y="-32" font-size="24" font-family="Georgia,serif" fill="${ink}">A-501 - Longitudinal site section</text>
     <text x="0" y="-10" font-size="12" fill="${muted}">Pennsylvania access, garage/service fronts, two-home relationship, and rear-yard grade are diagrammatic.</text>
     <rect x="0" y="238" width="1060" height="14" fill="${slab}"/>
@@ -304,9 +309,9 @@ function renderSections(){
     <text x="1010" y="214" font-size="11" font-weight="900" fill="#8b3b31">PENNSYLVANIA ACCESS</text>
     <text x="16" y="314" font-size="10.5" fill="${muted}">Design-development section: grade, floor levels, and roofs are presentation diagrams only. Frozen plan coordinates are not moved.</text>
   </g>`;
-  const sectionB=`<g transform="translate(70,500)">
+  const sectionB=`<g transform="translate(70,565)">
     <text x="0" y="-32" font-size="24" font-family="Georgia,serif" fill="${ink}">A-502 - Representative building section</text>
-    <text x="0" y="-10" font-size="12" fill="${muted}">Shows garage/home relationship, stair/service core, upper bedrooms, and simple roof hierarchy inside the frozen shell.</text>
+    <text x="0" y="-10" font-size="12" fill="${muted}">Shows garage/home relationship, stair/hall core, upper bedrooms/den, and simple roof hierarchy inside the frozen shell.</text>
     ${level(232,"grade / slab")}
     ${level(138,"upper floor")}
     <g transform="translate(178,16)">
@@ -317,8 +322,8 @@ function renderSections(){
       <rect x="92" y="138" width="70" height="78" fill="#b8c9d7" stroke="${ink}" stroke-width="1.5"/>
       <g stroke="#65717b" stroke-width="1"><line x1="102" y1="148" x2="152" y2="148"/><line x1="102" y1="160" x2="152" y2="160"/><line x1="102" y1="172" x2="152" y2="172"/><line x1="102" y1="184" x2="152" y2="184"/></g>
       <rect x="236" y="144" width="96" height="72" fill="#756f67" stroke="${ink}" stroke-width="1.5"/>
-      <text x="105" y="108" text-anchor="middle" font-size="11" font-weight="900" fill="${ink}">UPPER BEDROOMS</text>
-      <text x="92" y="194" text-anchor="middle" font-size="10" font-weight="900" fill="${ink}">STAIR / CORE</text>
+      <text x="105" y="108" text-anchor="middle" font-size="11" font-weight="900" fill="${ink}">BEDROOMS + DEN</text>
+      <text x="92" y="194" text-anchor="middle" font-size="10" font-weight="900" fill="${ink}">STAIR / HALL</text>
       <text x="284" y="185" text-anchor="middle" font-size="10" font-weight="900" fill="#fff">GARAGE</text>
     </g>
     <g transform="translate(650,16)">
@@ -357,7 +362,7 @@ function analyze(){
       frozenGeometry:{ok:true,detail:'All Design 3 presentation sheets read the same CFB-716 placement and drive lock.'},
       physical:{ok:true,detail:'Workbench physical/site gate passed.'},
       circulation:{ok:true,detail:'Full-size SUV / pickup circulation passed on the frozen candidate.'},
-      program:{ok:true,detail:'Both units target 1,800 SF and retain >2,100 SF net planning capacity.'},
+      program:{ok:true,detail:'Plan closure assigns A 1,914 SF and B 1,868 SF of authorized non-overlapping planning zones; both meet the 1,800 SF target.'},
       roomPacking:{ok:true,detail:'Room-packing score 99.30; all current packing checks pass.'},
       architecturalZoning:{ok:true,detail:'Public/private capacity, wet-core tolerance, daylight, and mass coherence all pass.'}
     }
