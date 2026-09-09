@@ -190,15 +190,21 @@ function renderAxon(){
       <polygon points="${pts([D,C,midBack])}" fill="#4d555d" stroke="#2b333a" stroke-width="1.6"/>
       <polygon points="${pts([A,D,midBack,midFront])}" fill="#596169" stroke="#2b333a" stroke-width="1.6"/>
       <polygon points="${pts([B,C,midBack,midFront])}" fill="#3d444b" stroke="#2b333a" stroke-width="1.6"/>`:"";
-    const win1=[(a[0]+b[0])/2-20,(a[1]+b[1])/2-75];
-    const win2=[(b[0]+c[0])/2-8,(b[1]+c[1])/2-72];
+    const lerp=(p0,p1,t)=>[p0[0]+(p1[0]-p0[0])*t,p0[1]+(p1[1]-p0[1])*t];
+    const faceWindow=(p0,p1,pTop1,pTop0,u0,u1,v0,v1)=>{
+      const bottom0=lerp(p0,p1,u0), bottom1=lerp(p0,p1,u1);
+      const top0=lerp(pTop0,pTop1,u0), top1=lerp(pTop0,pTop1,u1);
+      return [lerp(bottom0,top0,v0),lerp(bottom1,top1,v0),lerp(bottom1,top1,v1),lerp(bottom0,top0,v1)];
+    };
+    const frontWindow=faceWindow(a,b,B,A,.34,.48,.30,.68);
+    const sideWindow=faceWindow(b,c,C,B,.30,.50,.30,.66);
     return `<g>
       <polygon points="${pts([a,b,B,A])}" fill="${fill}" stroke="#2b333a" stroke-width="1.8"/>
       <polygon points="${pts([b,c,C,B])}" fill="#b9ae9e" stroke="#2b333a" stroke-width="1.8"/>
       <polygon points="${pts([A,B,C,D])}" fill="#e6ded1" stroke="#2b333a" stroke-width="1.6"/>
       ${roofPoly}
-      <rect x="${win1[0]}" y="${win1[1]}" width="38" height="48" fill="#bfd2dd" stroke="#53636c" transform="skewY(-21)"/>
-      <rect x="${win2[0]}" y="${win2[1]}" width="32" height="44" fill="#bfd2dd" stroke="#53636c" transform="skewY(21)"/>
+      <polygon points="${pts(frontWindow)}" fill="#bfd2dd" stroke="#53636c" stroke-width="1.2"/>
+      <polygon points="${pts(sideWindow)}" fill="#bfd2dd" stroke="#53636c" stroke-width="1.2"/>
     </g>`;
   }
   const lotPts=SURVEY.map(([x,y])=>iso(x,y,0));
