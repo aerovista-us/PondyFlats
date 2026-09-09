@@ -107,7 +107,7 @@ function renderFloor(level){
 
 function renderElev(side){
   const W=1200,H=620,base=470;
-  const ink=COLORS.navy, glass="#bfd2dd", siding="#d9d0c2", siding2="#c9bca8", stone="#9b8f7e", roof="#3f454c", trim="#f7f4ee", garage="#756f67";
+  const ink=COLORS.navy, glass="#bfd2dd", siding="#d9d0c2", siding2="#c9bca8", stone="#9b8f7e", roof="#3f454c", trim="#f7f4ee", garageFill="#756f67";
   const specs={
     penn:{title:"Pennsylvania / street elevation",subtitle:"Front-facing composition · restrained North Idaho contemporary", masses:[
       {x:130,w:430,h:190,ridge:86,label:"UNIT A",doorX:365,garageX:430,garageW:118,windowXs:[175,255],accent:"stone"},
@@ -134,7 +134,7 @@ function renderElev(side){
       return `<g><rect x="${wx}" y="${wy}" width="54" height="74" rx="2" fill="${glass}" stroke="#4d5f6b" stroke-width="2"/>
       <line x1="${wx+27}" y1="${wy}" x2="${wx+27}" y2="${wy+74}" stroke="#ffffffbb"/><line x1="${wx}" y1="${wy+37}" x2="${wx+54}" y2="${wy+37}" stroke="#ffffffbb"/></g>`;
     }).join("");
-    const garage=m.garageX!=null?`<g><rect x="${m.garageX}" y="${base-88}" width="${m.garageW}" height="88" fill="${garage}" stroke="${ink}" stroke-width="2"/>
+    const garageSvg=m.garageX!=null?`<g><rect x="${m.garageX}" y="${base-88}" width="${m.garageW}" height="88" fill="${garageFill}" stroke="${ink}" stroke-width="2"/>
       <line x1="${m.garageX}" y1="${base-58}" x2="${m.garageX+m.garageW}" y2="${base-58}" stroke="#9f9991"/>
       <line x1="${m.garageX}" y1="${base-29}" x2="${m.garageX+m.garageW}" y2="${base-29}" stroke="#9f9991"/>
       <text x="${m.garageX+m.garageW/2}" y="${base-98}" text-anchor="middle" font-size="11" font-weight="800" fill="${ink}">2-CAR GARAGE</text></g>`:"";
@@ -150,7 +150,7 @@ function renderElev(side){
       ${material}
       <path d="M ${m.x-roofInset} ${top} L ${m.x+m.w/2} ${ridgeY} L ${m.x+m.w+roofInset} ${top}" fill="${roof}" stroke="${ink}" stroke-width="2.2"/>
       <line x1="${m.x+14}" y1="${top+18}" x2="${m.x+m.w-14}" y2="${top+18}" stroke="#ffffff88"/>
-      ${windows}${entry}${garage}
+      ${windows}${entry}${garageSvg}
       <text x="${m.x+m.w/2}" y="${base+28}" text-anchor="middle" font-size="12" font-weight="900" fill="${ink}">${m.label}</text>
     </g>`;
   }).join("");
