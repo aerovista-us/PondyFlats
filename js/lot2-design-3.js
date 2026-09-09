@@ -106,48 +106,129 @@ function renderFloor(level){
 }
 
 function renderElev(side){
-  const W=1000,H=360,base=285;
+  const W=1200,H=620,base=470;
+  const ink=COLORS.navy, glass="#bfd2dd", siding="#d9d0c2", siding2="#c9bca8", stone="#9b8f7e", roof="#3f454c", trim="#f7f4ee", garage="#756f67";
   const specs={
-    penn:{title:'Pennsylvania / east',masses:[{x:180,w:360,e:18,r:52,label:'UNIT A'},{x:570,w:240,e:18,r:48,label:'UNIT B'}]},
-    rear:{title:'Rear / west',masses:[{x:160,w:250,e:18,r:48,label:'UNIT B'},{x:470,w:380,e:18,r:52,label:'UNIT A'}]},
-    north:{title:'North side',masses:[{x:130,w:500,e:18,r:52,label:'UNIT A / B MASS'},{x:680,w:150,e:13,r:32,label:'GARAGE'}]},
-    south:{title:'South side',masses:[{x:130,w:500,e:18,r:50,label:'UNIT A / B MASS'},{x:680,w:150,e:13,r:32,label:'GARAGE'}]}
+    penn:{title:"Pennsylvania / street elevation",subtitle:"Front-facing composition · restrained North Idaho contemporary", masses:[
+      {x:130,w:430,h:190,ridge:86,label:"UNIT A",doorX:365,garageX:430,garageW:118,windowXs:[175,255],accent:"stone"},
+      {x:650,w:300,h:180,ridge:72,label:"UNIT B",doorX:690,garageX:null,garageW:0,windowXs:[760,850],accent:"siding"}
+    ]},
+    rear:{title:"Rear elevation",subtitle:"Private-yard expression · larger glazing and quieter roof rhythm", masses:[
+      {x:115,w:350,h:180,ridge:72,label:"UNIT B",doorX:205,garageX:120,garageW:118,windowXs:[285,380],accent:"stone"},
+      {x:560,w:470,h:190,ridge:86,label:"UNIT A",doorX:610,garageX:870,garageW:118,windowXs:[690,780],accent:"siding"}
+    ]},
+    north:{title:"North elevation",subtitle:"Drive-side façade · service openings controlled", masses:[
+      {x:120,w:760,h:188,ridge:82,label:"UNIT A / UNIT B",doorX:760,garageX:135,garageW:120,windowXs:[320,430,560,660],accent:"stone"}
+    ]},
+    south:{title:"South elevation",subtitle:"Private-yard façade · daylight-focused openings", masses:[
+      {x:120,w:760,h:188,ridge:82,label:"UNIT A / UNIT B",doorX:185,garageX:690,garageW:120,windowXs:[300,430,560,650],accent:"siding"}
+    ]}
   };
   const S=specs[side]||specs.penn;
-  const body=S.masses.map(m=>{
-    const y=base-m.e*7;
-    const roofY=y-m.r;
-    return `<g><rect x="${m.x}" y="${y}" width="${m.w}" height="${m.e*7}" fill="#d8ccb9" stroke="${COLORS.line}" stroke-width="2"/>
-      <path d="M ${m.x} ${y} L ${m.x+m.w/2} ${roofY} L ${m.x+m.w} ${y}" fill="#4a5058" stroke="${COLORS.line}" stroke-width="2"/>
-      <text x="${m.x+m.w/2}" y="${base+22}" text-anchor="middle" font-size="11" font-weight="800" fill="${COLORS.navy}">${m.label}</text>
-      <rect x="${m.x+25}" y="${y+40}" width="42" height="54" fill="#c7d9e4" stroke="#51636f"/>
-      <rect x="${m.x+m.w-68}" y="${y+40}" width="42" height="54" fill="#c7d9e4" stroke="#51636f"/>
+  const masses=S.masses.map((m,i)=>{
+    const top=base-m.h;
+    const ridgeY=top-m.ridge;
+    const roofInset=18;
+    const windows=(m.windowXs||[]).map((wx,j)=>{
+      const wy=top+46+(j%2)*8;
+      return `<g><rect x="${wx}" y="${wy}" width="54" height="74" rx="2" fill="${glass}" stroke="#4d5f6b" stroke-width="2"/>
+      <line x1="${wx+27}" y1="${wy}" x2="${wx+27}" y2="${wy+74}" stroke="#ffffffbb"/><line x1="${wx}" y1="${wy+37}" x2="${wx+54}" y2="${wy+37}" stroke="#ffffffbb"/></g>`;
+    }).join("");
+    const garage=m.garageX!=null?`<g><rect x="${m.garageX}" y="${base-88}" width="${m.garageW}" height="88" fill="${garage}" stroke="${ink}" stroke-width="2"/>
+      <line x1="${m.garageX}" y1="${base-58}" x2="${m.garageX+m.garageW}" y2="${base-58}" stroke="#9f9991"/>
+      <line x1="${m.garageX}" y1="${base-29}" x2="${m.garageX+m.garageW}" y2="${base-29}" stroke="#9f9991"/>
+      <text x="${m.garageX+m.garageW/2}" y="${base-98}" text-anchor="middle" font-size="11" font-weight="800" fill="${ink}">2-CAR GARAGE</text></g>`:"";
+    const entry=`<g><rect x="${m.doorX}" y="${base-82}" width="42" height="82" fill="#7f654e" stroke="${ink}" stroke-width="2"/>
+      <circle cx="${m.doorX+32}" cy="${base-41}" r="3" fill="${trim}"/>
+      <rect x="${m.doorX-10}" y="${base-92}" width="62" height="8" fill="${roof}" stroke="${ink}"/>
+      <text x="${m.doorX+21}" y="${base-100}" text-anchor="middle" font-size="10" font-weight="800" fill="${ink}">ENTRY</text></g>`;
+    const material=m.accent==="stone"
+      ? `<rect x="${m.x}" y="${base-74}" width="82" height="74" fill="${stone}" opacity=".92"/>`
+      : `<rect x="${m.x+m.w-76}" y="${top}" width="76" height="${m.h}" fill="${siding2}" opacity=".85"/>`;
+    return `<g>
+      <rect x="${m.x}" y="${top}" width="${m.w}" height="${m.h}" fill="${siding}" stroke="${ink}" stroke-width="2.2"/>
+      ${material}
+      <path d="M ${m.x-roofInset} ${top} L ${m.x+m.w/2} ${ridgeY} L ${m.x+m.w+roofInset} ${top}" fill="${roof}" stroke="${ink}" stroke-width="2.2"/>
+      <line x1="${m.x+14}" y1="${top+18}" x2="${m.x+m.w-14}" y2="${top+18}" stroke="#ffffff88"/>
+      ${windows}${entry}${garage}
+      <text x="${m.x+m.w/2}" y="${base+28}" text-anchor="middle" font-size="12" font-weight="900" fill="${ink}">${m.label}</text>
     </g>`;
-  }).join('');
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="CFB-716 ${S.title} conceptual elevation">
-  <rect width="${W}" height="${H}" fill="#fbfaf7"/>
-  <line x1="80" y1="${base}" x2="920" y2="${base}" stroke="#8a918a" stroke-width="2"/>
-  ${body}
-  <text x="500" y="42" text-anchor="middle" font-size="18" font-family="Georgia,serif" fill="${COLORS.navy}">${S.title} elevation · conceptual architecture on frozen footprints</text>
-  <text x="500" y="335" text-anchor="middle" font-size="11" fill="${COLORS.muted}">Roof form, openings, and materials remain design-development items. Footprints/site geometry stay locked.</text>
+  }).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="CFB-716 ${S.title}">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#eef3f6"/><stop offset="100%" stop-color="#fbfaf7"/></linearGradient>
+    <filter id="softShadow"><feDropShadow dx="0" dy="7" stdDeviation="8" flood-opacity=".12"/></filter>
+  </defs>
+  <rect width="${W}" height="${H}" fill="url(#sky)"/>
+  <text x="70" y="58" font-size="28" font-family="Georgia,serif" fill="${ink}">${S.title}</text>
+  <text x="70" y="84" font-size="13" fill="${COLORS.muted}">${S.subtitle}</text>
+  <line x1="70" y1="${base}" x2="1130" y2="${base}" stroke="#808882" stroke-width="2"/>
+  <g filter="url(#softShadow)">${masses}</g>
+  <g opacity=".8">
+    <circle cx="90" cy="${base-12}" r="20" fill="#9ba98f"/><rect x="87" y="${base-10}" width="6" height="36" fill="#6f665b"/>
+    <circle cx="1080" cy="${base-18}" r="26" fill="#93a287"/><rect x="1077" y="${base-14}" width="6" height="42" fill="#6f665b"/>
+  </g>
+  <g transform="translate(70,535)">
+    <rect width="1060" height="54" rx="10" fill="#ffffffd9" stroke="#d8d2ca"/>
+    <text x="18" y="22" font-size="11" font-weight="900" fill="${ink}">DESIGN 3 · CFB-716 · CONCEPT ELEVATION</text>
+    <text x="18" y="40" font-size="10.5" fill="${COLORS.muted}">Frozen exterior footprints/site geometry. Roof articulation, openings, materials, and detailing are design-development items — not permit drawings.</text>
+  </g>
   </svg>`;
 }
 
 function renderAxon(){
-  const W=1000,H=520;
-  const iso=(x,y,z=0)=>[500+(x-75)*4.2-(y-25)*2.6,390-(y-25)*1.6-z*5.4];
-  function box(p,h,fill){
+  const W=1200,H=760;
+  const ink=COLORS.navy;
+  const iso=(x,y,z=0)=>[620+(x-76)*5.0-(y-26)*3.0,560-(y-26)*2.0-z*6.0];
+  const pts=a=>a.map(p=>p.map(v=>v.toFixed(1)).join(",")).join(" ");
+  function mass(p,h,fill,roof=true){
     const a=iso(p.x,p.y,0),b=iso(p.x+p.w,p.y,0),c=iso(p.x+p.w,p.y+p.d,0),d=iso(p.x,p.y+p.d,0);
     const A=iso(p.x,p.y,h),B=iso(p.x+p.w,p.y,h),C=iso(p.x+p.w,p.y+p.d,h),D=iso(p.x,p.y+p.d,h);
-    const pts=q=>q.map(t=>t.join(',')).join(' ');
-    return `<polygon points="${pts([a,b,B,A])}" fill="${fill}" stroke="#2b333a"/><polygon points="${pts([b,c,C,B])}" fill="#b8b0a2" stroke="#2b333a"/><polygon points="${pts([A,B,C,D])}" fill="#e8dfcf" stroke="#2b333a"/>`;
+    const midFront=[(A[0]+B[0])/2,(A[1]+B[1])/2-28];
+    const midBack=[(D[0]+C[0])/2,(D[1]+C[1])/2-28];
+    const roofPoly=roof?`<polygon points="${pts([A,B,midFront])}" fill="#434a51" stroke="#2b333a" stroke-width="1.6"/>
+      <polygon points="${pts([D,C,midBack])}" fill="#4d555d" stroke="#2b333a" stroke-width="1.6"/>
+      <polygon points="${pts([A,D,midBack,midFront])}" fill="#596169" stroke="#2b333a" stroke-width="1.6"/>
+      <polygon points="${pts([B,C,midBack,midFront])}" fill="#3d444b" stroke="#2b333a" stroke-width="1.6"/>`:"";
+    const win1=[(a[0]+b[0])/2-20,(a[1]+b[1])/2-75];
+    const win2=[(b[0]+c[0])/2-8,(b[1]+c[1])/2-72];
+    return `<g>
+      <polygon points="${pts([a,b,B,A])}" fill="${fill}" stroke="#2b333a" stroke-width="1.8"/>
+      <polygon points="${pts([b,c,C,B])}" fill="#b9ae9e" stroke="#2b333a" stroke-width="1.8"/>
+      <polygon points="${pts([A,B,C,D])}" fill="#e6ded1" stroke="#2b333a" stroke-width="1.6"/>
+      ${roofPoly}
+      <rect x="${win1[0]}" y="${win1[1]}" width="38" height="48" fill="#bfd2dd" stroke="#53636c" transform="skewY(-21)"/>
+      <rect x="${win2[0]}" y="${win2[1]}" width="32" height="44" fill="#bfd2dd" stroke="#53636c" transform="skewY(21)"/>
+    </g>`;
   }
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="CFB-716 conceptual axonometric massing">
-  <rect width="${W}" height="${H}" fill="#f4f0e9"/>
-  ${LOCK.placements.filter(p=>p.kind==='home').map(p=>box(p,20,p.unit==='A'?'#d7bd8d':'#decda8')).join('')}
-  ${LOCK.placements.filter(p=>p.kind==='garage').map(p=>box(p,11,'#8fa188')).join('')}
-  <text x="500" y="45" text-anchor="middle" font-size="20" font-family="Georgia,serif" fill="${COLORS.navy}">Design 3 · CFB-716 frozen massing</text>
-  <text x="500" y="492" text-anchor="middle" font-size="11" fill="${COLORS.muted}">Concept axon · geometry from canonical freeze; roof articulation and façade development remain open.</text>
+  const lotPts=SURVEY.map(([x,y])=>iso(x,y,0));
+  const drives=LOCK.drives.map(d=>`<polyline points="${pts(d.points.map(([x,y])=>iso(x,y,.2)))}" fill="none" stroke="#8e9492" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" opacity=".62"/>`).join("");
+  const homes=LOCK.placements.filter(p=>p.kind==="home").map(p=>mass(p,20,p.unit==="A"?"#d1bd98":"#ddcfae",true)).join("");
+  const garages=LOCK.placements.filter(p=>p.kind==="garage").map(p=>mass(p,11,"#8fa188",true)).join("");
+  const trees=[[13,44],[70,49],[134,43],[18,8]].map(([x,y])=>{const [tx,ty]=iso(x,y,0);return `<g><ellipse cx="${tx}" cy="${ty-38}" rx="22" ry="34" fill="#93a287" opacity=".85"/><rect x="${tx-3}" y="${ty-16}" width="6" height="24" fill="#706457"/></g>`}).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="CFB-716 customer presentation axonometric">
+  <defs><filter id="axonShadow"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-opacity=".16"/></filter></defs>
+  <rect width="${W}" height="${H}" fill="#f3efe8"/>
+  <text x="70" y="62" font-size="30" font-family="Georgia,serif" fill="${ink}">Design 3 · CFB-716</text>
+  <text x="70" y="90" font-size="14" fill="${COLORS.muted}">Preferred Workbench candidate · customer presentation axon · Pennsylvania access at lower right</text>
+  <polygon points="${pts(lotPts)}" fill="#ebe4d7" stroke="#596169" stroke-width="2"/>
+  ${drives}
+  ${trees}
+  <g filter="url(#axonShadow)">${homes}${garages}</g>
+  <g>
+    <text x="860" y="290" font-size="13" font-weight="900" fill="${ink}">UNIT A</text>
+    <line x1="850" y1="296" x2="780" y2="350" stroke="${ink}"/>
+    <text x="320" y="330" font-size="13" font-weight="900" fill="${ink}">UNIT B</text>
+    <line x1="340" y1="336" x2="430" y2="390" stroke="${ink}"/>
+    <text x="200" y="520" font-size="12" font-weight="900" fill="#50624d">GARAGE B</text>
+    <text x="825" y="515" font-size="12" font-weight="900" fill="#50624d">GARAGE A</text>
+  </g>
+  <g transform="translate(70,650)">
+    <rect width="1060" height="70" rx="12" fill="#ffffffd9" stroke="#d8d2ca"/>
+    <text x="18" y="24" font-size="11" font-weight="900" fill="${ink}">GEOMETRY AUTHORITY · CFB-716 FREEZE ${FREEZE.slice(0,12)}…</text>
+    <text x="18" y="45" font-size="10.5" fill="${COLORS.muted}">This axon is derived from the frozen site/building placements. Roofs, openings, and materials are presentation-layer development only.</text>
+    <text x="18" y="61" font-size="10.5" fill="${COLORS.muted}">Not permit / construction drawings. Professional validation pending.</text>
+  </g>
   </svg>`;
 }
 
