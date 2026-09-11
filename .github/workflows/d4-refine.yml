@@ -1,0 +1,44 @@
+name: Design 4 targeted refinement
+
+on:
+  push:
+    branches:
+      - design4/rear-22-discovery
+    paths:
+      - scripts/d4-refine.js
+      - .github/workflows/d4-refine.yml
+
+permissions:
+  contents: write
+
+jobs:
+  refine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design4/rear-22-discovery
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run refinement
+        run: node scripts/d4-refine.js
+      - name: Commit refinement evidence
+        run: |
+          git config user.name "AeroVista"
+          git config user.email "aerovistaus@gmail.com"
+          git add docs/lot2-design-4-refinement.md docs/lot2-design-4-refinement.json
+          if git diff --cached --quiet; then
+            echo "No refinement changes"
+          else
+            git commit -m "Record Design 4 targeted refinement [skip ci]"
+            git push origin HEAD:design4/rear-22-discovery
+          fi
+      - name: Upload refinement
+        uses: actions/upload-artifact@v4
+        with:
+          name: design4-targeted-refinement
+          path: |
+            docs/lot2-design-4-refinement.md
+            docs/lot2-design-4-refinement.json
+          retention-days: 14
