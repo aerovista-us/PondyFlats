@@ -1,0 +1,42 @@
+name: One-time Design 4 garage ownership normalization
+
+on:
+  push:
+    branches:
+      - design4/rear-22-discovery
+    paths:
+      - scripts/d4-ownership-fix.js
+      - .github/workflows/d4-ownership-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design4/rear-22-discovery
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Normalize ownership
+        run: |
+          node scripts/d4-ownership-fix.js
+          node --check js/lot2-design-4.js
+          node <<'NODE'
+          const d=require('./js/lot2-design-4.js');
+          const north=d.GARAGES.find(g=>g.y===5), south=d.GARAGES.find(g=>g.y===29);
+          if(north.unit!=='B'||south.unit!=='A') throw new Error('garage ownership normalization failed');
+          if(d.ACCESS_PATHS.B.at(-1)[1]!==16||d.ACCESS_PATHS.A.at(-1)[1]!==40) throw new Error('path ownership normalization failed');
+          NODE
+      - name: Commit corrected model and remove one-time runner
+        run: |
+          git config user.name "AeroVista"
+          git config user.email "aerovistaus@gmail.com"
+          git add js/lot2-design-4.js
+          git rm scripts/d4-ownership-fix.js .github/workflows/d4-ownership-fix.yml
+          git commit -m "Align Design 4 garage ownership with site relationships [skip ci]"
+          git push origin HEAD:design4/rear-22-discovery
