@@ -17,7 +17,9 @@ jobs:
           fetch-depth: 0
 
       - name: Apply reviewed Design 3 fixes
-        run: python3 scripts/d3-ci-repair.py
+        run: |
+          python3 scripts/d3-ci-repair.py
+          python3 scripts/d3-ci-cleanup-fix.py
 
       - name: Syntax checks
         run: |
@@ -47,7 +49,7 @@ jobs:
       - name: Commit verified repair and remove temporary runner
         shell: bash
         run: |
-          rm -f .github/workflows/d3-release-repair.yml scripts/d3-ci-repair.py
+          rm -f .github/workflows/d3-release-repair.yml scripts/d3-ci-repair.py scripts/d3-ci-cleanup-fix.py
           git config user.name "AeroVista QA"
           git config user.email "aechovistaus@gmail.com"
           git add -A
