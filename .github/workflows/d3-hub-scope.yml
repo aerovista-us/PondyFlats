@@ -1,4 +1,4 @@
-name: Temporary Design 3 hub-scope verification
+name: Temporary Design 3 current-head hub verification
 
 on:
   push:
@@ -9,21 +9,12 @@ permissions:
   contents: write
 
 jobs:
-  verify-and-commit:
+  verify-current-head:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Apply hub-scope correction
-        run: python3 scripts/d3-align-hub-scope.py
-
-      - name: Syntax checks
-        run: |
-          node --check scripts/d3-render-qa.mjs
-          node --check js/lot2-design-3.js
-          node --check js/lot2-design-3-plan-closure.js
 
       - name: Locate Chrome
         shell: bash
@@ -36,24 +27,27 @@ jobs:
       - name: Full repository gates
         run: npm run gates
 
-      - name: Verify scope and frozen boundaries
+      - name: Verify truthful hub scope and frozen boundaries
         shell: bash
         run: |
           git fetch origin main
-          grep -q "garage-threshold approach/return envelope" design-3.html
-          grep -q "Full garage parking/enclosure remains unresolved" design-3.html
-          ! grep -qi "cleared.*circulation" design-3.html
+          grep -q "Garage-threshold approach verified" design-3.html
+          grep -q "complete garage parking/enclosure remains unresolved" design-3.html
+          ! grep -Eqi "cleared[^<]*circulation|wet-core tolerance" design-3.html
+          grep -q "Garage-threshold approach verified" packages/design-3-client/index.html
+          grep -q "complete garage parking/enclosure remains unresolved" packages/design-3-client/index.html
+          ! grep -Eqi "cleared[^<]*circulation|wet-core tolerance" packages/design-3-client/index.html
           grep -q "3de5309fb5c87046acbba3ac37bc1c1eca2718344f3f704e50d28daa414f8625" js/lot2-design-3.js
           git diff --check
           git diff --exit-code origin/main -- packages/design-1-client packages/design-1-presenter packages/design-2-client packages/design-2-presenter
 
-      - name: Commit verified correction and remove temporary runner
+      - name: Commit verified package and remove temporary workflows
         shell: bash
         run: |
-          rm -f .github/workflows/d3-hub-scope.yml scripts/d3-align-hub-scope.py
+          rm -f .github/workflows/d3-hub-scope.yml .github/workflows/d3-hub-scope-final.yml
           git config user.name "AeroVista QA"
           git config user.email "aerovistaus@gmail.com"
           git add -A
           git status --short
-          git commit -m "Align Design 3 hub with approach-only circulation proof [d3-final-scope]"
+          git commit -m "Finalize Design 3 hub scope after full QA [d3-hub-final]"
           git push origin HEAD:codex/design3-execution
