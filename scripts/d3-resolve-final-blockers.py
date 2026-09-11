@@ -26,7 +26,7 @@ sub_once(js,r'  <g>\n    <polygon data-opening="door" points="760,432.*?  </g>\n
 replace_once(js,'global.Lot2Design3={REV,LOCK,VEHICLE,PLAN,COLORS,analyze,renderSite,renderSweptPath,renderFloor,renderElev,renderMassing,renderAxon,renderSections};','global.Lot2Design3={REV,LOCK,VEHICLE,OPENINGS,PLAN,COLORS,analyze,projectAxonOpening,renderSite,renderSweptPath,renderFloor,renderElev,renderMassing,renderAxon,renderSections};')
 
 pc='js/lot2-design-3-plan-closure.js'
-sub_once(pc,r"const DOORS=\[.*?\];", "const DOORS=(D.OPENINGS||[]).filter(o=>o.role==='entry'||o.role==='garage-connection').map(o=>({...o,label:o.id.replace(/-/g,' ')}));", re.S)
+sub_once(pc,r"const DOORS=\[.*?\];", "const DOORS=(D.OPENINGS||[]).filter(o=>o.role==='entry'||o.role==='garage-connection').map(o=>({...o,label:o.role==='entry'?`ENTRY ${o.unit}`:`GARAGE ${o.unit}`}));", re.S)
 
 site='d3-site.html'
 p=Path(site); s=p.read_text()
