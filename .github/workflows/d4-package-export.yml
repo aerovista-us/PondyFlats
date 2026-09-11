@@ -1,0 +1,40 @@
+name: One-time Design 4 package export
+
+on:
+  push:
+    branches: [design4/rear-22-discovery]
+    paths: ['.github/workflows/d4-package-export.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design4/rear-22-discovery
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build standalone packages
+        run: |
+          node scripts/export-design4.js
+          test -f packages/design-4-client/index.html
+          test -f packages/design-4-client/site.html
+          test -f packages/design-4-client/plans.html
+          test -f packages/design-4-client/elevs.html
+          test -f packages/design-4-client/axon.html
+          test -f packages/design-4-client/sections.html
+          test -f packages/design-4-presenter/index.html
+          ! grep -R -E 'href="https://lotscope\.aerovista\.us|href="\.\./|href="design-[123]\.html' packages/design-4-client --include='*.html'
+      - name: Retire discovery runners and commit export
+        run: |
+          git config user.name "AeroVista"
+          git config user.email "aerovistaus@gmail.com"
+          rm -f .github/workflows/d4-discovery.yml .github/workflows/d4-refine.yml .github/workflows/d4-seed-qa.yml .github/workflows/d4-plan-qa.yml .github/workflows/d4-package-export.yml
+          git add packages/design-4-client packages/design-4-presenter .github/workflows
+          git commit -m "Export complete Design 4 handoff packages"
+          git push origin HEAD:design4/rear-22-discovery
