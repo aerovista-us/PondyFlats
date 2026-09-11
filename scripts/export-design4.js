@@ -1,4 +1,5 @@
 'use strict';
+// Exact-head final-QA trigger. Export output remains deterministic.
 const fs=require('fs');const path=require('path');
 const root=path.resolve(__dirname,'..');
 const client=path.join(root,'packages','design-4-client');
