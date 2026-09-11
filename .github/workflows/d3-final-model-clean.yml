@@ -1,0 +1,69 @@
+name: Temporary Design 3 final model verification
+
+on:
+  push:
+    branches:
+      - codex/design3-execution
+    paths:
+      - .github/workflows/d3-final-model-clean.yml
+
+permissions:
+  contents: write
+
+jobs:
+  verify-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply final model truth correction
+        run: python3 scripts/d3-final-model-clean.py
+
+      - name: Syntax checks
+        run: |
+          node --check js/lot2-design-3.js
+          node --check js/lot2-design-3-plan-closure.js
+          node --check scripts/d3-render-qa.mjs
+          node --check scripts/export-packages.js
+
+      - name: Locate Chrome
+        shell: bash
+        run: |
+          CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$CHROME"
+          echo "CHROME_BIN=$CHROME" >> "$GITHUB_ENV"
+          "$CHROME" --version
+
+      - name: Full repository gates
+        run: npm run gates
+
+      - name: Verify model truth and frozen boundaries
+        shell: bash
+        run: |
+          git fetch origin main
+          grep -q "verdict:'CONDITIONAL'" js/lot2-design-3.js
+          grep -q "status:'APPROACH_VERIFIED'" js/lot2-design-3.js
+          grep -q "status:'UNRESOLVED'" js/lot2-design-3.js
+          grep -q "status:'ADVISORY'" js/lot2-design-3.js
+          grep -q "verdict:'CONDITIONAL'" packages/design-3-client/js/lot2-design-3.js
+          grep -q "status:'APPROACH_VERIFIED'" packages/design-3-client/js/lot2-design-3.js
+          grep -q "Garage-threshold approach verified" design-3.html
+          grep -q "Garage-threshold approach verified" packages/design-3-client/index.html
+          grep -q "Complete garage parking/enclosure remains unresolved" design-3.html
+          grep -q "Complete garage parking/enclosure remains unresolved" packages/design-3-client/index.html
+          grep -q "3de5309fb5c87046acbba3ac37bc1c1eca2718344f3f704e50d28daa414f8625" js/lot2-design-3.js
+          git diff --check
+          git diff --exit-code origin/main -- packages/design-1-client packages/design-1-presenter packages/design-2-client packages/design-2-presenter
+
+      - name: Commit verified correction and remove temporary runner
+        shell: bash
+        run: |
+          rm -f .github/workflows/d3-final-model-clean.yml scripts/d3-final-model-clean.py
+          git config user.name "AeroVista QA"
+          git config user.email "aerovistaus@gmail.com"
+          git add -A
+          git status --short
+          git commit -m "Align Design 3 model gate with verified concept scope [d3-model-clean]"
+          git push origin HEAD:codex/design3-execution
