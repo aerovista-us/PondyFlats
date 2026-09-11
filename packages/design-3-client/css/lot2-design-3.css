@@ -26,3 +26,5 @@ figure.draw>svg{display:block;width:100%;height:auto}
   #ground,#upper{overflow-x:auto}
   #ground>svg,#upper>svg{width:900px!important;max-width:none}
 }
+
+.proof .mark.advisory{color:#956d29}

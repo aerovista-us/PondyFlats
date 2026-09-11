@@ -90,10 +90,22 @@ function resultFailures(result) {
     else if (fig.width <= 40 || fig.height <= 40) out.push('required figure #' + id + ' too small ' + fig.width + 'x' + fig.height);
   }
   if (key === 'd3-site.html') {
-    if ((m.vehicleBodies || []).length < 6) out.push('A-002 missing locked FS-SUV body poses');
+    const sm=m.sweepMeta || {};
+    if ((m.vehicleBodies || []).length < 20) out.push('A-002 missing continuous locked FS-SUV body sweep');
     for (const body of m.vehicleBodies || []) {
       if (Math.abs(body.lengthFt - 20.5) > 1e-6 || Math.abs(body.widthFt - 8) > 1e-6) out.push(`A-002 vehicle body ${body.lengthFt}x${body.widthFt} != locked 20.5x8.0`);
+      if (Math.abs(body.turnRadiusFt - 25) > 1e-6) out.push(`A-002 turn radius ${body.turnRadiusFt} != locked 25`);
     }
+    if ((sm.poseCount||0)<20) out.push('A-002 sweep pose count too small: '+(sm.poseCount||0));
+    if ((sm.arcPoseCount||0)<6) out.push('A-002 has no meaningful filleted arc sweep');
+    if ((sm.shortTangentCount||0)!==0) out.push('A-002 has short-tangent turning-radius failures: '+sm.shortTangentCount);
+    if (Math.abs((sm.turnRadiusFt||0)-25)>1e-6) out.push('A-002 sweep metadata turn radius is not 25 ft');
+    if ((sm.minClearanceFt||0)<1) out.push('A-002 continuous clearance '+(sm.minClearanceFt||0)+' ft < 1 ft');
+    if (sm.outboundProof!=='reverse-equivalent') out.push('A-002 outbound proof missing');
+  }
+  if (key === 'd3-elevs.html') {
+    for (const id of ['rear','north','south']) if ((m.figs?.[id]?.garageDoors||0)!==0) out.push(`${id} elevation shows a garage door on a non-east face`);
+    if ((m.figs?.penn?.garageDoors||0)<2) out.push('Pennsylvania/east elevation must show both east-facing garage doors');
   }
   if (key === 'd3-axon.html') {
     for (const id of ['massing-drawing','axon-drawing']) {
@@ -121,6 +133,7 @@ function resultFailures(result) {
           out.push(`Unit ${unit} area ${gate.planningArea?.[unit] || 0}<${gate.areaTarget || 1800}`);
         }
       }
+      if (!gate.wetCore || gate.wetCore.ok !== false || gate.wetCore.blocking !== false) out.push('wet-core/plumbing coordination must be a truthful non-blocking advisory for the current plan');
     }
   }
   return out;
@@ -243,7 +256,7 @@ async function qaPage(page, viewport) {
       const el = document.getElementById(id);
       if (!el) return;
       const r = el.getBoundingClientRect();
-      figs[id] = { hasSvg: !!el.querySelector('svg'), text: el.innerText.trim().slice(0,160), width: Math.round(r.width), height: Math.round(r.height), doors: el.querySelectorAll('[data-opening="door"]').length, windows: el.querySelectorAll('[data-opening="window"]').length };
+      figs[id] = { hasSvg: !!el.querySelector('svg'), text: el.innerText.trim().slice(0,160), width: Math.round(r.width), height: Math.round(r.height), doors: el.querySelectorAll('[data-opening="door"]').length, windows: el.querySelectorAll('[data-opening="window"]').length, garageDoors: el.querySelectorAll('[data-opening="garage-door"]').length };
     });
     const navPlans = [...document.querySelectorAll('nav a')].filter((a) => /plans/i.test(a.textContent)).map((a) => a.getAttribute('href'));
     const planGate = window.Lot2Design3PlanClosure ? (() => {
@@ -254,13 +267,16 @@ async function qaPage(page, viewport) {
         areaTarget: g.areaTarget,
         geometryOk: !!g.geometry?.ok,
         geometryFailures: g.geometry?.failures || [],
+        wetCore: g.checks?.wetCore || null,
       };
     })() : null;
     const externalLinks=[...document.querySelectorAll('a[href]')].map(a=>a.getAttribute('href')||'').filter((href)=>{
       if(!/^https?:/i.test(href)) return false;
       try{return new URL(href,location.href).origin!==location.origin}catch{return false}
     });
-    const vehicleBodies=[...document.querySelectorAll('[data-vehicle-id="FS-SUV"]')].map(el=>({lengthFt:Number(el.getAttribute('data-length-ft')),widthFt:Number(el.getAttribute('data-width-ft'))}));
+    const vehicleBodies=[...document.querySelectorAll('[data-vehicle-id="FS-SUV"]')].map(el=>({lengthFt:Number(el.getAttribute('data-length-ft')),widthFt:Number(el.getAttribute('data-width-ft')),sweepKind:el.getAttribute('data-sweep-kind')||'',turnRadiusFt:Number(el.getAttribute('data-turn-radius-ft'))}));
+    const sweepEl=document.querySelector('#swept-path svg');
+    const sweepMeta=sweepEl?{poseCount:Number(sweepEl.getAttribute('data-sweep-pose-count')),arcPoseCount:Number(sweepEl.getAttribute('data-arc-pose-count')),shortTangentCount:Number(sweepEl.getAttribute('data-short-tangent-count')),turnRadiusFt:Number(sweepEl.getAttribute('data-turn-radius-ft')),minClearanceFt:Number(sweepEl.getAttribute('data-min-clearance-ft')),outboundProof:sweepEl.getAttribute('data-outbound-proof')||''}:null;
     const localLinks = (await Promise.all([...document.querySelectorAll('a[href]')].map(async (a) => {
       const href = a.getAttribute('href') || '';
       if (!href || href === '#' || href.startsWith('javascript:') || href.startsWith('mailto:') || href.startsWith('tel:')) return null;
@@ -294,6 +310,7 @@ async function qaPage(page, viewport) {
       localLinks,
       externalLinks,
       vehicleBodies,
+      sweepMeta,
     };
   })()`);
   const screenshot = `${outDir}/${viewport.name}-${page.replace('.html', '')}.png`;
@@ -373,6 +390,19 @@ try {
   if (failures.length) process.exitCode = 1;
 } finally {
   chrome.kill('SIGTERM');
+  await new Promise((resolve) => {
+    if (chrome.exitCode != null || chrome.signalCode != null) return resolve();
+    const timer = setTimeout(resolve, 1500);
+    chrome.once('exit', () => { clearTimeout(timer); resolve(); });
+  });
   if (localServer) await new Promise((resolve) => localServer.server.close(resolve));
-  await rm(profile, { recursive: true, force: true });
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      await rm(profile, { recursive: true, force: true, maxRetries: 3, retryDelay: 100 });
+      break;
+    } catch (err) {
+      if (attempt === 4) throw err;
+      await new Promise((resolve) => setTimeout(resolve, 250));
+    }
+  }
 }

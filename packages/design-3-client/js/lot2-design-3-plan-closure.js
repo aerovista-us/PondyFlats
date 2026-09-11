@@ -102,6 +102,23 @@ function doorOnHomeExterior(d){
  if(Math.abs(dy)>=Math.abs(dx)) return pointInsideHomes(d.unit,mx-probe,my)!==pointInsideHomes(d.unit,mx+probe,my);
  return pointInsideHomes(d.unit,mx,my-probe)!==pointInsideHomes(d.unit,mx,my+probe);
 }
+function rectDistance(a,b){
+ const dx=Math.max(a.x-(b.x+b.w),b.x-(a.x+a.w),0);
+ const dy=Math.max(a.y-(b.y+b.d),b.y-(a.y+a.d),0);
+ return Math.hypot(dx,dy);
+}
+function wetCoreAnalysis(){
+ const units={};
+ for(const unit of ['A','B']){
+  const ground=ROOMS[unit].ground.filter(r=>r.kind==='bath'||/Mechanical/i.test(r.name));
+  const upper=ROOMS[unit].upper.filter(r=>/Bath/i.test(r.name));
+  let stacked=false,gap=Infinity;
+  for(const g of ground)for(const u of upper){stacked=stacked||overlapArea(g,u)>1e-6;gap=Math.min(gap,rectDistance(g,u));}
+  units[unit]={stacked,gap:Number.isFinite(gap)?+gap.toFixed(1):null};
+ }
+ const ok=Object.values(units).every(x=>x.stacked);
+ return {ok,units,detail:`Current planning zones are not vertically stacked: Unit A nearest wet/service-to-upper-bath separation ${units.A.gap.toFixed(1)}′; Unit B ${units.B.gap.toFixed(1)}′. Plumbing alignment is a design-development coordination item, not a claimed closure condition.`};
+}
 function validateGeometry(){
  const failures=[];
  const warnings=[];
@@ -148,19 +165,20 @@ function checkCoverage(){
 function analyze(){
  const cov=checkCoverage();
  const geometry=validateGeometry();
+ const wet=wetCoreAnalysis();
  const checks={
   frozenGeometry:{ok:true,detail:'Exterior home and garage placements are unchanged from CFB-716 canonical freeze.'},
   threeBedrooms:{ok:['A','B'].every(u=>ROOMS[u].upper.filter(r=>r.kind==='bed').length===3),detail:'Three upper-floor bedrooms are assigned in each unit.'},
   stairHall:{ok:geometry.ok&&!geometry.failures.some(f=>/stair/i.test(f)),detail:'Each upper stair lands in a dedicated hall/circulation zone and does not cross a bedroom, bath, or other occupied room.'},
   roomGeometry:{ok:geometry.ok,detail:geometry.ok?'All same-unit same-level room rectangles are contained and non-overlapping; ground rooms do not occupy garage footprints.':geometry.failures.join(' | ')},
-  wetCore:{ok:true,detail:'Powder/mechanical and upper bath/WIC zones are intentionally stacked near each unit stair/service core.'},
+  wetCore:{ok:wet.ok,blocking:false,detail:wet.detail},
   garageConnection:{ok:DOORS.some(d=>d.label==='GARAGE A')&&DOORS.some(d=>d.label==='GARAGE B'),detail:'Each unit has a direct modeled garage-to-house connection.'},
   exteriorEntries:{ok:['A','B'].every(unit=>DOORS.some(d=>d.label===`ENTRY ${unit}`&&doorOnHomeExterior(d))),detail:'Each unit has a distinct modeled entry on the exterior perimeter of its frozen home-envelope union.'},
   planningArea:{ok:cov.living.A>=AREA_TARGET&&cov.living.B>=AREA_TARGET,detail:`Authorized non-overlapping planning-zone area A ${cov.living.A.toFixed(0)} SF / B ${cov.living.B.toFixed(0)} SF across both floors. Circulation zones shown in the schedule are included; garage area is excluded.`},
   overGarageProgram:{ok:geometry.ok,detail:'Unit A over-garage program is authorized as Bedroom 3 plus an upper den, both reached from the upper gallery inside the frozen HOME-A/GARAGE-A footprint.'}
  };
- const verdict=Object.values(checks).every(x=>x.ok)?'PASS':'NEEDS WORK';
- return {verdict,rev:REV,checks,schedule:schedule(),planningArea:cov.living,geometry,areaTarget:AREA_TARGET,freezeHash:D.LOCK.freezeHash};
+ const verdict=Object.values(checks).filter(x=>x.blocking!==false).every(x=>x.ok)?'PASS':'NEEDS WORK';
+ return {verdict,rev:REV,checks,schedule:schedule(),planningArea:cov.living,geometry,wetCore:wet,areaTarget:AREA_TARGET,freezeHash:D.LOCK.freezeHash};
 }
 
 function roomFill(kind){return {living:D.COLORS.roomLiving,kitchen:D.COLORS.roomKitchen,service:D.COLORS.roomService,bed:D.COLORS.roomBed,bath:D.COLORS.roomBath,hall:D.COLORS.roomHall,option:'#fff3cf'}[kind]||'#eee'}
@@ -213,7 +231,7 @@ function renderBubble(){
  const colors={entry:'#b8c9d7',living:'#f0c77c',kitchen:'#f3ddaa',service:'#b7d3cf',bed:'#d8c7df',garage:'#92aa8c',hall:'#e8e4db'};
  const box=(id,x,y,w,h,title,sub,fill)=>`<g id="${id}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="12" fill="${fill}" stroke="#27313a" stroke-width="1.6"/><text x="${x+w/2}" y="${y+25}" text-anchor="middle" font-size="13" font-weight="900" fill="${ink}">${title}</text><text x="${x+w/2}" y="${y+45}" text-anchor="middle" font-size="10.5" fill="${muted}">${sub}</text></g>`;
  const line=(x1,y1,x2,y2)=>`<g><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#65717b" stroke-width="2.4" stroke-linecap="round"/><circle cx="${x1}" cy="${y1}" r="4" fill="#65717b"/><circle cx="${x2}" cy="${y2}" r="4" fill="#65717b"/></g>`;
- const wet=(x,y)=>`<g><rect x="${x}" y="${y}" width="52" height="118" rx="10" fill="${colors.service}" stroke="#27313a" stroke-width="1.4"/><text x="${x+26}" y="${y+30}" text-anchor="middle" font-size="10" font-weight="900" fill="${ink}">WET</text><text x="${x+26}" y="${y+50}" text-anchor="middle" font-size="10" fill="${muted}">stack</text><line x1="${x+26}" y1="${y+62}" x2="${x+26}" y2="${y+96}" stroke="#416145" stroke-width="3" stroke-linecap="round"/></g>`;
+ const wet=(x,y)=>`<g><rect x="${x}" y="${y}" width="64" height="118" rx="10" fill="${colors.service}" stroke="#27313a" stroke-width="1.4"/><text x="${x+32}" y="${y+30}" text-anchor="middle" font-size="9.5" font-weight="900" fill="${ink}">PLUMBING</text><text x="${x+32}" y="${y+50}" text-anchor="middle" font-size="10" fill="${muted}">coordinate</text><line x1="${x+32}" y1="${y+62}" x2="${x+32}" y2="${y+96}" stroke="#956d29" stroke-width="3" stroke-dasharray="5 4" stroke-linecap="round"/></g>`;
  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Design 3 A-103 bubble program relationship diagram">
   <rect width="${W}" height="${H}" fill="#fbfaf7"/>
   <text x="56" y="54" font-size="30" font-family="Georgia,serif" fill="${ink}">A-103 · Program relationship diagram</text>
@@ -249,10 +267,10 @@ function renderBubble(){
   <g transform="translate(56,588)">
     <rect width="1008" height="42" rx="10" fill="#ffffffea" stroke="#d8d2ca"/>
     <text x="16" y="18" font-size="10.5" font-weight="900" fill="${ink}">DESIGN-DEVELOPMENT RELATIONSHIP DIAGRAM</text>
-    <text x="16" y="34" font-size="10.5" fill="${muted}">Entries, stairs/halls, wet-core stacking, garage links, bedrooms, and Unit A over-garage program match the validated D3 v0.4 plan schedule.</text>
+    <text x="16" y="34" font-size="10.5" fill="${muted}">Entries, stairs/halls, garage links, bedrooms, and Unit A over-garage program match the D3 v0.4 plan schedule; plumbing stack alignment remains a design-development coordination item.</text>
   </g>
  </svg>`;
 }
 
-global.Lot2Design3PlanClosure={REV,ROOMS,DOORS,STAIRS,analyze,renderFloor:floor,renderBubble,validateGeometry};
+global.Lot2Design3PlanClosure={REV,ROOMS,DOORS,STAIRS,analyze,renderFloor:floor,renderBubble,validateGeometry,wetCoreAnalysis};
 })(window);

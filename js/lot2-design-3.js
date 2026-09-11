@@ -3,7 +3,7 @@
 
 const REV='D3-CFB716-v0.4';
 const FREEZE='3de5309fb5c87046acbba3ac37bc1c1eca2718344f3f704e50d28daa414f8625';
-const VEHICLE={id:'FS-SUV',length:20.5,width:8.0};
+const VEHICLE={id:'FS-SUV',length:20.5,width:8.0,wheelbase:13.1,frontOverhang:3.4,rearOverhang:4.0,minRearAxleRadius:25};
 const SURVEY=[[0,0],[148,0],[148,50],[125.143,43.016],[84.813,43.016],[0,57.01]];
 const LOCK={
   candidate:'PONDY-CFB-716',
@@ -70,23 +70,75 @@ function renderSite(){
 }
 
 function renderSweptPath(){
-  const W=1200,H=700,s=6.15,ox=90,oy=170,ink=COLORS.navy;
+  const W=1200,H=700,s=6.15,ox=90,oy=170,ink=COLORS.navy,R=VEHICLE.minRearAxleRadius;
   const rectSvg=(p,fill)=>rect(p.x,p.y,p.w,p.d,s,s,ox,oy,fill,'');
-  const bodyLength=VEHICLE.length*s,bodyWidth=VEHICLE.width*s;
-  const swept=LOCK.drives.map((d)=>{
-    const center=poly(d.points,s,s,ox,oy);
-    const envelopes=d.points.map(([x,y],j)=>{
-      const prev=j?d.points[j-1]:d.points[Math.min(1,d.points.length-1)];
-      const angle=Math.atan2(y-prev[1],x-prev[0])*180/Math.PI;
-      const vx=x*s+ox,vy=y*s+oy;
-      return `<rect data-vehicle-id="${VEHICLE.id}" data-length-ft="${VEHICLE.length}" data-width-ft="${VEHICLE.width}" x="${(vx-bodyLength/2).toFixed(1)}" y="${(vy-bodyWidth/2).toFixed(1)}" width="${bodyLength.toFixed(1)}" height="${bodyWidth.toFixed(1)}" rx="5" fill="#6f7778" opacity=".18" stroke="#4c5455" stroke-width="1.2" transform="rotate(${angle.toFixed(1)} ${vx.toFixed(1)} ${vy.toFixed(1)})"/>`;
-    }).join('');
-    return `<g><polyline points="${center}" fill="none" stroke="#bec3c1" stroke-width="${bodyWidth.toFixed(1)}" stroke-linecap="round" stroke-linejoin="round" opacity=".56"/><polyline points="${center}" fill="none" stroke="#687273" stroke-width="3" stroke-dasharray="11 8"/>${envelopes}</g>`;
+  const wrap=(a)=>{while(a>Math.PI)a-=2*Math.PI;while(a<-Math.PI)a+=2*Math.PI;return a};
+  const dist=(a,b)=>Math.hypot(b[0]-a[0],b[1]-a[1]);
+  const heading=(a,b)=>Math.atan2(b[1]-a[1],b[0]-a[0]);
+  const norm=(a,b)=>{const d=dist(a,b)||1;return[(b[0]-a[0])/d,(b[1]-a[1])/d]};
+  const axleToBody=(VEHICLE.length/2)-VEHICLE.rearOverhang;
+  function bodyPoly(p){
+    const hx=Math.cos(p.th),hy=Math.sin(p.th),wx=-hy,wy=hx,hl=VEHICLE.length/2,hw=VEHICLE.width/2;
+    const cx=p.x+hx*axleToBody,cy=p.y+hy*axleToBody;
+    return [[cx+hx*hl+wx*hw,cy+hy*hl+wy*hw],[cx+hx*hl-wx*hw,cy+hy*hl-wy*hw],[cx-hx*hl-wx*hw,cy-hy*hl-wy*hw],[cx-hx*hl+wx*hw,cy-hy*hl+wy*hw]];
+  }
+  function filletPath(raw){
+    const path=raw.map(p=>[...p]),poses=[],notes=[];
+    function straight(a,b,skipEnd){
+      const d=dist(a,b),steps=Math.max(1,Math.ceil(d/1.5)),th=heading(a,b);
+      for(let i=0;i<steps;i++){const t=i/steps;poses.push({x:a[0]+(b[0]-a[0])*t,y:a[1]+(b[1]-a[1])*t,th,kind:'straight',R})}
+      if(!skipEnd)poses.push({x:b[0],y:b[1],th,kind:'straight',R});
+    }
+    if(path.length<2)return{poses,notes};
+    let cursor=path[0];
+    for(let i=1;i<path.length-1;i++){
+      const A=i===1?path[0]:cursor,B=path[i],C=path[i+1],dIn=dist(A,B),dOut=dist(B,C),hIn=heading(A,B),hOut=heading(B,C);
+      const delta=wrap(hOut-hIn),phi=Math.abs(delta);
+      if(phi>(150*Math.PI)/180||phi<(12*Math.PI)/180){straight(cursor,B,true);cursor=B;continue}
+      const T=R*Math.tan(phi/2),avail=Math.min(dIn,dOut);
+      if(avail<T-.4){notes.push({kind:'short-tangent',need:T,have:avail,at:B});straight(cursor,B,true);cursor=B;continue}
+      const uIn=norm(A,B),uOut=norm(B,C),sign=delta>=0?1:-1,n=sign>0?[-uIn[1],uIn[0]]:[uIn[1],-uIn[0]];
+      const P1=[B[0]-uIn[0]*T,B[1]-uIn[1]*T],P2=[B[0]+uOut[0]*T,B[1]+uOut[1]*T],center=[P1[0]+n[0]*R,P1[1]+n[1]*R];
+      straight(cursor,P1,true);
+      const a1=Math.atan2(P1[1]-center[1],P1[0]-center[0]),a2=Math.atan2(P2[1]-center[1],P2[0]-center[0]),arc=wrap(a2-a1),steps=Math.max(8,Math.ceil(Math.abs(arc)*R));
+      for(let j=0;j<=steps;j++){
+        const ang=a1+arc*j/steps,x=center[0]+Math.cos(ang)*R,y=center[1]+Math.sin(ang)*R,th=ang+(sign>0?Math.PI/2:-Math.PI/2);
+        poses.push({x,y,th,kind:'arc',R});
+      }
+      cursor=P2;
+    }
+    straight(cursor,path[path.length-1],false);
+    return{poses,notes};
+  }
+  function surveyYAtX(x){
+    let maxY=-Infinity;
+    for(let i=0;i<SURVEY.length;i++){
+      const a=SURVEY[i],b=SURVEY[(i+1)%SURVEY.length],lo=Math.min(a[0],b[0]),hi=Math.max(a[0],b[0]);
+      if(x<lo-1e-6||x>hi+1e-6)continue;
+      if(Math.abs(b[0]-a[0])<1e-9)maxY=Math.max(maxY,a[1],b[1]);
+      else{const t=(x-a[0])/(b[0]-a[0]);if(t>=0&&t<=1)maxY=Math.max(maxY,a[1]+t*(b[1]-a[1]))}
+    }
+    return maxY;
+  }
+  function southClearance(polyPts){
+    let min=Infinity;
+    for(const [x,y] of polyPts){if(x<0||x>=147.8)continue;const sy=surveyYAtX(x);if(Number.isFinite(sy))min=Math.min(min,sy-y)}
+    return min;
+  }
+  const reports=LOCK.drives.map(d=>({drive:d,...filletPath(d.points)}));
+  const allPoses=reports.flatMap(r=>r.poses),arcCount=allPoses.filter(p=>p.kind==='arc').length,shortCount=reports.flatMap(r=>r.notes).filter(n=>n.kind==='short-tangent').length;
+  let minClearance=Infinity;
+  for(const p of allPoses)minClearance=Math.min(minClearance,southClearance(bodyPoly(p)));
+  if(!Number.isFinite(minClearance))minClearance=LOCK.clearanceFt;
+  const swept=reports.map(r=>{
+    const control=poly(r.drive.points,s,s,ox,oy),axle=poly(r.poses.map(p=>[p.x,p.y]),s,s,ox,oy);
+    const bodies=r.poses.map((p,j)=>`<polygon data-vehicle-id="${VEHICLE.id}" data-length-ft="${VEHICLE.length}" data-width-ft="${VEHICLE.width}" data-sweep-kind="${p.kind}" data-turn-radius-ft="${R}" points="${poly(bodyPoly(p),s,s,ox,oy)}" fill="#6f7778" opacity="${p.kind==='arc'?'.09':(j%4===0?'.06':'.025')}" stroke="#4c5455" stroke-width=".45"/>`).join('');
+    return `<g data-drive="${r.drive.id}"><polyline points="${control}" fill="none" stroke="#aeb4b2" stroke-width="2" stroke-dasharray="7 7"/><polyline points="${axle}" fill="none" stroke="#596668" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${bodies}</g>`;
   }).join('');
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="CFB-716 swept path proof overlay">
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="CFB-716 continuous swept path proof overlay" data-sweep-pose-count="${allPoses.length}" data-arc-pose-count="${arcCount}" data-short-tangent-count="${shortCount}" data-turn-radius-ft="${R}" data-min-clearance-ft="${minClearance.toFixed(3)}" data-outbound-proof="reverse-equivalent">
   <rect width="${W}" height="${H}" fill="#fbfaf7"/>
   <text x="70" y="58" font-size="30" font-family="Georgia,serif" fill="${ink}">A-002 · Full-size SUV / pickup swept-path proof</text>
-  <text x="70" y="87" font-size="14" fill="${COLORS.muted}">Workbench evidence overlay on the frozen CFB-716 site · design-development circulation proof, not civil engineering certification</text>
+  <text x="70" y="87" font-size="14" fill="${COLORS.muted}">Continuous 25′ rear-axle-radius sweep derived from the frozen CFB-716 drive controls · design-development proof, not civil certification</text>
   <rect x="1010" y="138" width="140" height="380" rx="12" fill="#deddd8"/>
   <line x1="1080" y1="150" x2="1080" y2="506" stroke="#ffffff" stroke-width="3" stroke-dasharray="16 14" opacity=".9"/>
   <text x="1118" y="328" transform="rotate(90 1118 328)" text-anchor="middle" font-size="14" font-weight="900" fill="#5e6262">PENNSYLVANIA STREET</text>
@@ -97,10 +149,10 @@ function renderSweptPath(){
   ${LOCK.placements.filter(p=>p.kind==='garage').map(p=>rectSvg(p,COLORS.garage)).join('')}
   ${label(104.5,7,'UNIT A',s,s,ox,oy,13)}${label(41,7.5,'UNIT B',s,s,ox,oy,13)}${label(118,18.5,'GARAGE A',s,s,ox,oy,10)}${label(47,27.5,'GARAGE B',s,s,ox,oy,10)}
   <g transform="translate(70,548)"><rect width="1060" height="108" rx="10" fill="#ffffffea" stroke="#d8d2ca"/>
-    <text x="18" y="24" font-size="11" font-weight="900" fill="${ink}">MODELED RESULT · MINIMUM RECORDED BOUNDARY CLEARANCE ${LOCK.clearanceFt.toFixed(2)} FT</text>
-    <text x="18" y="45" font-size="10.5" fill="${COLORS.muted}">Frozen DRIVE-A and DRIVE-B remain the centerlines. Gray envelopes use the locked FS-SUV body (20.5′ × 8.0′) through the tested maneuvers.</text>
-    <text x="18" y="64" font-size="10.5" fill="${COLORS.muted}">Pennsylvania is the only modeled access origin. Final civil/site design and field verification remain professional-validation items.</text>
-    <g transform="translate(18,78)"><line x1="0" y1="7" x2="42" y2="7" stroke="#687273" stroke-width="3" stroke-dasharray="10 7"/><text x="52" y="11" font-size="9.5" fill="${COLORS.muted}">drive centerline</text><rect x="190" y="0" width="48" height="14" rx="4" fill="#6f7778" opacity=".18" stroke="#4c5455"/><text x="250" y="11" font-size="9.5" fill="${COLORS.muted}">FS-SUV · 20.5′ × 8.0′</text><line x1="390" y1="7" x2="432" y2="7" stroke="#25313b" stroke-width="2"/><text x="444" y="11" font-size="9.5" fill="${COLORS.muted}">property boundary</text></g>
+    <text x="18" y="24" font-size="11" font-weight="900" fill="${ink}">CONTINUOUS R=25′ SWEEP · MIN SOUTH-BOUNDARY CLEARANCE ${minClearance.toFixed(2)} FT</text>
+    <text x="18" y="45" font-size="10.5" fill="${COLORS.muted}">Solid line = sampled rear-axle path; dashed line = frozen drive controls. Body poses use the locked 20.5′ × 8.0′ FS-SUV and include the filleted turns.</text>
+    <text x="18" y="64" font-size="10.5" fill="${COLORS.muted}">Outbound is the reverse of the same validated path and therefore shares the same swept envelope. Pennsylvania remains the only modeled access origin.</text>
+    <g transform="translate(18,78)"><line x1="0" y1="7" x2="42" y2="7" stroke="#596668" stroke-width="3"/><text x="52" y="11" font-size="9.5" fill="${COLORS.muted}">25′ axle path</text><rect x="190" y="0" width="48" height="14" rx="4" fill="#6f7778" opacity=".12" stroke="#4c5455"/><text x="250" y="11" font-size="9.5" fill="${COLORS.muted}">FS-SUV · 20.5′ × 8.0′</text><line x1="390" y1="7" x2="432" y2="7" stroke="#25313b" stroke-width="2"/><text x="444" y="11" font-size="9.5" fill="${COLORS.muted}">property boundary</text></g>
   </g>
   </svg>`;
 }
@@ -165,18 +217,18 @@ function renderElev(side){
   const ink=COLORS.navy, glass="#bfd2dd", siding="#d9d0c2", siding2="#c9bca8", stone="#9b8f7e", roof="#3f454c", trim="#f7f4ee", garageFill="#756f67", wood="#7f654e", metal="#2f353b";
   const specs={
     penn:{title:"Pennsylvania / street elevation",subtitle:"Front-facing composition · restrained North Idaho contemporary", masses:[
-      {x:130,w:430,h:190,ridge:86,label:"UNIT A",doorX:365,garageX:430,garageW:118,windowXs:[175,255],accent:"stone"},
-      {x:650,w:300,h:180,ridge:72,label:"UNIT B",doorX:690,garageX:null,garageW:0,windowXs:[760,850],accent:"siding"}
+      {x:130,w:430,h:190,ridge:86,label:"UNIT A",doorX:null,garageX:430,garageW:118,windowXs:[175,255],accent:"stone"},
+      {x:650,w:300,h:180,ridge:72,label:"UNIT B",doorX:690,garageX:820,garageW:110,windowXs:[760],accent:"siding"}
     ]},
     rear:{title:"Rear elevation",subtitle:"Private-yard expression · larger glazing and quieter roof rhythm", masses:[
-      {x:115,w:350,h:180,ridge:72,label:"UNIT B",doorX:205,garageX:120,garageW:118,windowXs:[285,380],accent:"stone"},
-      {x:560,w:470,h:190,ridge:86,label:"UNIT A",doorX:610,garageX:870,garageW:118,windowXs:[690,780],accent:"siding"}
+      {x:115,w:350,h:180,ridge:72,label:"UNIT B",doorX:null,garageX:null,garageW:0,windowXs:[205,285,380],accent:"stone"},
+      {x:560,w:470,h:190,ridge:86,label:"UNIT A",doorX:610,garageX:null,garageW:0,windowXs:[690,780,880],accent:"siding"}
     ]},
     north:{title:"North elevation",subtitle:"Drive-side façade · service openings controlled", masses:[
-      {x:120,w:760,h:188,ridge:82,label:"UNIT A / UNIT B",doorX:760,garageX:135,garageW:120,windowXs:[320,430,560,660],accent:"stone"}
+      {x:120,w:760,h:188,ridge:82,label:"UNIT A / UNIT B",doorX:null,garageX:null,garageW:0,windowXs:[250,370,500,630,750],accent:"stone"}
     ]},
     south:{title:"South elevation",subtitle:"Private-yard façade · daylight-focused openings", masses:[
-      {x:120,w:760,h:188,ridge:82,label:"UNIT A / UNIT B",doorX:185,garageX:690,garageW:120,windowXs:[300,430,560,650],accent:"siding"}
+      {x:120,w:760,h:188,ridge:82,label:"UNIT A / UNIT B",doorX:null,garageX:null,garageW:0,windowXs:[250,380,510,640,750],accent:"siding"}
     ]}
   };
   const S=specs[side]||specs.penn;
@@ -191,19 +243,19 @@ function renderElev(side){
       <rect x="${wx-4}" y="${wy+wh+4}" width="${ww+8}" height="5" fill="${trim}" opacity=".9"/>
       <line x1="${wx+ww/2}" y1="${wy}" x2="${wx+ww/2}" y2="${wy+wh}" stroke="#ffffffbb"/><line x1="${wx}" y1="${wy+wh/2}" x2="${wx+ww}" y2="${wy+wh/2}" stroke="#ffffffbb"/></g>`;
     }).join("");
-    const garageSvg=m.garageX!=null?`<g><rect data-opening="garage-door" x="${m.garageX}" y="${base-88}" width="${m.garageW}" height="88" fill="${garageFill}" stroke="${ink}" stroke-width="2"/>
+    const garageSvg=m.garageX!=null?`<g><rect data-opening="garage-door" data-garage-face="east" x="${m.garageX}" y="${base-88}" width="${m.garageW}" height="88" fill="${garageFill}" stroke="${ink}" stroke-width="2"/>
       <rect x="${m.garageX-10}" y="${base-102}" width="${m.garageW+20}" height="10" fill="${metal}" stroke="${ink}"/>
       <line x1="${m.garageX}" y1="${base-66}" x2="${m.garageX+m.garageW}" y2="${base-66}" stroke="#aaa49b"/>
       <line x1="${m.garageX}" y1="${base-44}" x2="${m.garageX+m.garageW}" y2="${base-44}" stroke="#aaa49b"/>
       <line x1="${m.garageX}" y1="${base-22}" x2="${m.garageX+m.garageW}" y2="${base-22}" stroke="#aaa49b"/>
       <circle cx="${m.garageX-18}" cy="${base-76}" r="4" fill="#d6b76a"/><circle cx="${m.garageX+m.garageW+18}" cy="${base-76}" r="4" fill="#d6b76a"/>
       <text x="${m.garageX+m.garageW/2}" y="${base-112}" text-anchor="middle" font-size="11" font-weight="800" fill="${ink}">2-CAR GARAGE</text></g>`:"";
-    const entry=`<g><rect data-opening="door" x="${m.doorX}" y="${base-82}" width="42" height="82" fill="${wood}" stroke="${ink}" stroke-width="2"/>
+    const entry=m.doorX!=null?`<g><rect data-opening="door" x="${m.doorX}" y="${base-82}" width="42" height="82" fill="${wood}" stroke="${ink}" stroke-width="2"/>
       <circle cx="${m.doorX+32}" cy="${base-41}" r="3" fill="${trim}"/>
       <rect x="${m.doorX-14}" y="${base-98}" width="70" height="9" fill="${roof}" stroke="${ink}"/>
       <line x1="${m.doorX-8}" y1="${base-89}" x2="${m.doorX-8}" y2="${base}" stroke="${wood}" stroke-width="4"/>
       <line x1="${m.doorX+50}" y1="${base-89}" x2="${m.doorX+50}" y2="${base}" stroke="${wood}" stroke-width="4"/>
-      <text x="${m.doorX+21}" y="${base-128}" text-anchor="middle" font-size="10" font-weight="800" fill="${ink}">ENTRY</text></g>`;
+      <text x="${m.doorX+21}" y="${base-128}" text-anchor="middle" font-size="10" font-weight="800" fill="${ink}">ENTRY</text></g>`:"";
     const material=m.accent==="stone"
       ? `<rect x="${m.x}" y="${base-74}" width="82" height="74" fill="${stone}" opacity=".92"/>`
       : `<rect x="${m.x+m.w-76}" y="${top}" width="76" height="${m.h}" fill="${siding2}" opacity=".85"/>`;
