@@ -89,6 +89,24 @@ function resultFailures(result) {
     else if (!fig.hasSvg) out.push('required figure #' + id + ' has no SVG');
     else if (fig.width <= 40 || fig.height <= 40) out.push('required figure #' + id + ' too small ' + fig.width + 'x' + fig.height);
   }
+  const model=m.modelAnalysis;
+  if (!model) out.push('missing Lot2Design3 model analysis');
+  else {
+    if (model.verdict !== 'CONDITIONAL') out.push('Lot2Design3.analyze verdict must be CONDITIONAL while garage fit/plumbing remain unresolved');
+    const cir=model.checks?.circulation||{};
+    if (cir.ok !== false || cir.blocking !== true || cir.status !== 'APPROACH_VERIFIED' || cir.scope !== 'threshold-approach' || cir.fullEnclosure !== false) out.push('Lot2Design3 circulation analysis overstates or misstates the verified threshold-approach scope: '+JSON.stringify(cir));
+    const fit=model.checks?.garageFit||{};
+    if (fit.ok !== false || fit.blocking !== true || fit.status !== 'UNRESOLVED') out.push('Lot2Design3 garage fit must remain unresolved: '+JSON.stringify(fit));
+    const plumbing=model.checks?.plumbing||{};
+    if (plumbing.ok !== false || plumbing.blocking !== false || plumbing.status !== 'ADVISORY') out.push('Lot2Design3 plumbing analysis must remain a non-blocking advisory: '+JSON.stringify(plumbing));
+    if (/wet-core[^.]{0,80}pass/i.test(model.checks?.architecturalZoning?.detail||'')) out.push('Lot2Design3 architectural analysis still claims wet-core PASS');
+  }
+  if (key === 'design-3.html') {
+    const hs=m.hubScope||{};
+    if (hs.circulationPassClaim) out.push('Design 3 hub still claims circulation PASS/cleared');
+    if (!hs.approachVerified) out.push('Design 3 hub missing garage-threshold approach scope');
+    if (!hs.garageFitUnresolved) out.push('Design 3 hub missing unresolved full-garage-fit disclosure');
+  }
   if (key === 'd3-site.html') {
     const sm=m.sweepMeta || {};
     if ((m.vehicleBodies || []).length < 20) out.push('A-002 missing continuous locked FS-SUV body sweep');
@@ -275,6 +293,14 @@ async function qaPage(page, viewport) {
         wetCore: g.checks?.wetCore || null,
       };
     })() : null;
+    const bodyText=document.body.innerText.trim();
+    const lowerBody=bodyText.toLowerCase();
+    const hubScope={
+      circulationPassClaim: lowerBody.includes('circulation gate cleared') || lowerBody.includes('circulation passed') || lowerBody.includes('circulation pass'),
+      approachVerified: lowerBody.includes('garage-threshold approach verified') || lowerBody.includes('garage threshold approach verified'),
+      garageFitUnresolved: lowerBody.includes('complete garage parking/enclosure remains unresolved') || lowerBody.includes('full enclosure / parking fit is not claimed') || lowerBody.includes('complete garage parking/enclosure is not'),
+    };
+    const modelAnalysis=window.Lot2Design3&&typeof window.Lot2Design3.analyze==='function'?window.Lot2Design3.analyze():null;
     const externalLinks=[...document.querySelectorAll('a[href]')].map(a=>a.getAttribute('href')||'').filter((href)=>{
       if(!/^https?:/i.test(href)) return false;
       try{return new URL(href,location.href).origin!==location.origin}catch{return false}
@@ -321,7 +347,9 @@ async function qaPage(page, viewport) {
     }))).filter(Boolean);
     return {
       title: document.title,
-      bodyTextLength: document.body.innerText.trim().length,
+      bodyTextLength: bodyText.length,
+      hubScope,
+      modelAnalysis,
       failText: [...document.querySelectorAll('.fail:not(.mark)')].map((x) => x.innerText.trim()),
       svgCount: svgs.length,
       svgs,

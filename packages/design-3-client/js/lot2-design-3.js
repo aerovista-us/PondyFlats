@@ -528,7 +528,7 @@ function renderSections(){
 
 function analyze(){
   return {
-    verdict:'PASS',
+    verdict:'CONDITIONAL',
     rev:REV,
     freezeHash:FREEZE,
     candidate:LOCK.candidate,
@@ -541,10 +541,12 @@ function analyze(){
     checks:{
       frozenGeometry:{ok:true,detail:'All Design 3 presentation sheets read the same CFB-716 placement and drive lock.'},
       physical:{ok:true,detail:'Workbench physical/site gate passed.'},
-      circulation:{ok:true,detail:'Full-size SUV / pickup circulation passed on the frozen candidate.'},
+      circulation:{ok:false,status:'APPROACH_VERIFIED',blocking:true,scope:'threshold-approach',fullEnclosure:false,detail:'Continuous Pennsylvania-to-garage-threshold approach/return is verified for the locked 20.5 ft x 8.0 ft vehicle. Complete garage parking/enclosure is unresolved because the nominal garage depth is 20 ft.'},
+      garageFit:{ok:false,status:'UNRESOLVED',blocking:true,detail:'The locked 20.5 ft vehicle exceeds the nominal 20 ft garage depth by 0.5 ft; complete enclosure is not claimed.'},
       program:{ok:true,detail:'Plan closure assigns A 1,914 SF and B 1,868 SF of authorized non-overlapping planning zones; both meet the 1,800 SF target.'},
       roomPacking:{ok:true,detail:'Room-packing score 99.30; all current packing checks pass.'},
-      architecturalZoning:{ok:true,detail:'Public/private capacity, wet-core tolerance, daylight, and mass coherence all pass.'}
+      architecturalZoning:{ok:true,detail:'Public/private zoning, daylight, and mass coherence pass; plumbing coordination is tracked separately.'},
+      plumbing:{ok:false,status:'ADVISORY',blocking:false,detail:'Wet-core vertical alignment is not closed in the current plan and remains a non-blocking design-development coordination item.'}
     }
   };
 }
