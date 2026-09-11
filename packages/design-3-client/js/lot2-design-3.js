@@ -30,6 +30,15 @@ const LOCK={
   freezeHash:FREEZE
 };
 
+const OPENINGS=[
+  {id:'ENTRY-A',role:'entry',unit:'A',x1:80.8,y1:25,x2:81.2,y2:28,height:7},
+  {id:'GARAGE-A-CONNECTION',role:'garage-connection',unit:'A',x1:107.8,y1:15,x2:108.2,y2:18,height:7},
+  {id:'ENTRY-B',role:'entry',unit:'B',x1:76.8,y1:9,x2:77.2,y2:12,height:7},
+  {id:'GARAGE-B-CONNECTION',role:'garage-connection',unit:'B',x1:46,y1:15.8,x2:49,y2:16.2,height:7},
+  {id:'GARAGE-A-OVERHEAD',role:'garage-overhead',unit:'A',x1:128,y1:10,x2:128,y2:26,height:8},
+  {id:'GARAGE-B-OVERHEAD',role:'garage-overhead',unit:'B',x1:57,y1:18,x2:57,y2:34,height:8}
+];
+
 const COLORS={lot:'#f8f3e7',line:'#27313a',homeA:'#e5bd78',homeB:'#efd99f',garage:'#92aa8c',drive:'#7d8587',roomLiving:'#f0c77c',roomKitchen:'#f3ddaa',roomService:'#b8c9d7',roomBed:'#d8c7df',roomBath:'#b7d3cf',roomHall:'#e8e4db',red:'#a43c30',navy:'#0d1b33',muted:'#65717b'};
 
 function poly(points,sx,sy,ox,oy){return points.map(([x,y])=>`${(x*sx+ox).toFixed(1)},${(y*sy+oy).toFixed(1)}`).join(' ')}
@@ -135,10 +144,10 @@ function renderSweptPath(){
     const bodies=r.poses.map((p,j)=>`<polygon data-vehicle-id="${VEHICLE.id}" data-length-ft="${VEHICLE.length}" data-width-ft="${VEHICLE.width}" data-sweep-kind="${p.kind}" data-turn-radius-ft="${R}" points="${poly(bodyPoly(p),s,s,ox,oy)}" fill="#6f7778" opacity="${p.kind==='arc'?'.09':(j%4===0?'.06':'.025')}" stroke="#4c5455" stroke-width=".45"/>`).join('');
     return `<g data-drive="${r.drive.id}"><polyline points="${control}" fill="none" stroke="#aeb4b2" stroke-width="2" stroke-dasharray="7 7"/><polyline points="${axle}" fill="none" stroke="#596668" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${bodies}</g>`;
   }).join('');
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="CFB-716 continuous swept path proof overlay" data-sweep-pose-count="${allPoses.length}" data-arc-pose-count="${arcCount}" data-short-tangent-count="${shortCount}" data-turn-radius-ft="${R}" data-min-clearance-ft="${minClearance.toFixed(3)}" data-outbound-proof="reverse-equivalent">
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="CFB-716 continuous garage-threshold approach sweep" data-proof-scope="threshold-approach" data-full-enclosure="false" data-garage-depth-ft="20" data-depth-deficit-ft="${(VEHICLE.length-20).toFixed(1)}" data-sweep-pose-count="${allPoses.length}" data-arc-pose-count="${arcCount}" data-short-tangent-count="${shortCount}" data-turn-radius-ft="${R}" data-min-clearance-ft="${minClearance.toFixed(3)}" data-outbound-proof="threshold-return-reverse-equivalent">
   <rect width="${W}" height="${H}" fill="#fbfaf7"/>
-  <text x="70" y="58" font-size="30" font-family="Georgia,serif" fill="${ink}">A-002 · Full-size SUV / pickup swept-path proof</text>
-  <text x="70" y="87" font-size="14" fill="${COLORS.muted}">Continuous 25′ rear-axle-radius sweep derived from the frozen CFB-716 drive controls · design-development proof, not civil certification</text>
+  <text x="70" y="58" font-size="30" font-family="Georgia,serif" fill="${ink}">A-002 · Full-size SUV / pickup garage-threshold approach sweep</text>
+  <text x="70" y="87" font-size="14" fill="${COLORS.muted}">Continuous 25′ rear-axle-radius approach sweep to the frozen garage thresholds · design-development study, not civil certification</text>
   <rect x="1010" y="138" width="140" height="380" rx="12" fill="#deddd8"/>
   <line x1="1080" y1="150" x2="1080" y2="506" stroke="#ffffff" stroke-width="3" stroke-dasharray="16 14" opacity=".9"/>
   <text x="1118" y="328" transform="rotate(90 1118 328)" text-anchor="middle" font-size="14" font-weight="900" fill="#5e6262">PENNSYLVANIA STREET</text>
@@ -149,9 +158,9 @@ function renderSweptPath(){
   ${LOCK.placements.filter(p=>p.kind==='garage').map(p=>rectSvg(p,COLORS.garage)).join('')}
   ${label(104.5,7,'UNIT A',s,s,ox,oy,13)}${label(41,7.5,'UNIT B',s,s,ox,oy,13)}${label(118,18.5,'GARAGE A',s,s,ox,oy,10)}${label(47,27.5,'GARAGE B',s,s,ox,oy,10)}
   <g transform="translate(70,548)"><rect width="1060" height="108" rx="10" fill="#ffffffea" stroke="#d8d2ca"/>
-    <text x="18" y="24" font-size="11" font-weight="900" fill="${ink}">CONTINUOUS R=25′ SWEEP · MIN SOUTH-BOUNDARY CLEARANCE ${minClearance.toFixed(2)} FT</text>
+    <text x="18" y="24" font-size="11" font-weight="900" fill="${ink}">CONTINUOUS R=25′ APPROACH SWEEP · MIN SOUTH-BOUNDARY CLEARANCE ${minClearance.toFixed(2)} FT</text>
     <text x="18" y="45" font-size="10.5" fill="${COLORS.muted}">Solid line = sampled rear-axle path; dashed line = frozen drive controls. Body poses use the locked 20.5′ × 8.0′ FS-SUV and include the filleted turns.</text>
-    <text x="18" y="64" font-size="10.5" fill="${COLORS.muted}">Outbound is the reverse of the same validated path and therefore shares the same swept envelope. Pennsylvania remains the only modeled access origin.</text>
+    <text x="18" y="64" font-size="10.5" fill="${COLORS.muted}">Scope: Pennsylvania ↔ garage-threshold approach only. The locked 20.5′ vehicle exceeds the nominal 20′ garage depth by 0.5′, so full enclosure / parking fit is not claimed.</text>
     <g transform="translate(18,78)"><line x1="0" y1="7" x2="42" y2="7" stroke="#596668" stroke-width="3"/><text x="52" y="11" font-size="9.5" fill="${COLORS.muted}">25′ axle path</text><rect x="190" y="0" width="48" height="14" rx="4" fill="#6f7778" opacity=".12" stroke="#4c5455"/><text x="250" y="11" font-size="9.5" fill="${COLORS.muted}">FS-SUV · 20.5′ × 8.0′</text><line x1="390" y1="7" x2="432" y2="7" stroke="#25313b" stroke-width="2"/><text x="444" y="11" font-size="9.5" fill="${COLORS.muted}">property boundary</text></g>
   </g>
   </svg>`;
@@ -309,6 +318,16 @@ function renderElev(side){
 const AXON_CAMERA={W:1200,H:740,ox:610,oy:535,cx:76,cy:26,sx:5.65,syx:3.35,sy:2.35,sz:6.65};
 function axonProject(x,y,z=0){return [AXON_CAMERA.ox+(x-AXON_CAMERA.cx)*AXON_CAMERA.sx-(y-AXON_CAMERA.cy)*AXON_CAMERA.syx,AXON_CAMERA.oy-(y-AXON_CAMERA.cy)*AXON_CAMERA.sy-z*AXON_CAMERA.sz]}
 function axonPts(a){return a.map(p=>p.map(v=>v.toFixed(1)).join(",")).join(" ")}
+function projectAxonOpening(o){const h=o.height||7;return [[o.x1,o.y1,0],[o.x2,o.y2,0],[o.x2,o.y2,h],[o.x1,o.y1,h]].map(([x,y,z])=>axonProject(x,y,z))}
+function renderProjectedOpenings(mode='massing'){
+  const shown=OPENINGS.filter(o=>o.role==='entry'||o.role==='garage-overhead');
+  return `<g aria-label="Derived opening location overlay">${shown.map(o=>{
+    const q=projectAxonOpening(o),fill=mode==='axon'?(o.role==='entry'?'#7f654e':'#6e6a64'):'none';
+    const top=q.slice(2),cx=(top[0][0]+top[1][0])/2,cy=(top[0][1]+top[1][1])/2-8;
+    const tag=o.role==='entry'?`<text x="${cx.toFixed(1)}" y="${cy.toFixed(1)}" text-anchor="middle" font-size="9" font-weight="900" fill="${COLORS.navy}">${o.id.replace('-', ' ')}</text>`:'';
+    return `<g data-opening-group="${o.id}"><polygon data-opening="door" data-opening-id="${o.id}" data-opening-role="${o.role}" data-opening-derived="world" points="${axonPts(q)}" fill="${fill}" stroke="#c34232" stroke-width="3"/>${tag}</g>`;
+  }).join('')}</g>`;
+}
 
 function renderMassing(){
   const W=AXON_CAMERA.W,H=AXON_CAMERA.H,ink=COLORS.navy,iso=axonProject,pts=axonPts;
@@ -348,12 +367,7 @@ function renderMassing(){
   <polygon points="872,558 1125,476 1190,512 938,606" fill="#d6d5cf" stroke="#8e8f89" stroke-width="1.5"/>
   ${drives}
   <g>${homes}${garages}</g>
-  <g aria-label="A-401 opening location overlay">
-    <polygon data-opening="door" points="760,432 806,417 820,425 774,441" fill="none" stroke="#c34232" stroke-width="3"/>
-    <polygon data-opening="door" points="433,451 477,438 490,446 446,460" fill="none" stroke="#c34232" stroke-width="3"/>
-    <polygon data-opening="door" points="852,525 902,510 902,540 852,555" fill="none" stroke="#c34232" stroke-width="3"/>
-    <polygon data-opening="door" points="248,520 298,506 298,536 248,550" fill="none" stroke="#c34232" stroke-width="3"/>
-  </g>
+  ${renderProjectedOpenings('massing')}
   <text x="1075" y="586" text-anchor="middle" font-size="12" font-weight="900" fill="#666">PENNSYLVANIA ACCESS</text>
   <text x="826" y="508" font-size="12" font-weight="900" fill="#50624d">GARAGE A</text>
   <text x="200" y="520" font-size="12" font-weight="900" fill="#50624d">GARAGE B</text>
@@ -418,14 +432,7 @@ function renderAxon(){
   ${drives}
   ${trees}
   <g filter="url(#axonShadow)">${homes}${garages}</g>
-  <g>
-    <polygon data-opening="door" points="760,432 806,417 820,425 774,441" fill="#7f654e" stroke="#c34232" stroke-width="3"/>
-    <polygon data-opening="door" points="433,451 477,438 490,446 446,460" fill="#7f654e" stroke="#c34232" stroke-width="3"/>
-    <text x="786" y="410" font-size="10" font-weight="900" fill="${ink}">ENTRY A</text>
-    <text x="443" y="432" font-size="10" font-weight="900" fill="${ink}">ENTRY B</text>
-    <polygon data-opening="door" points="852,525 902,510 902,540 852,555" fill="#6e6a64" stroke="#c34232" stroke-width="3"/>
-    <polygon data-opening="door" points="248,520 298,506 298,536 248,550" fill="#6e6a64" stroke="#c34232" stroke-width="3"/>
-  </g>
+  ${renderProjectedOpenings('axon')}
   <g>
     <rect x="835" y="266" width="88" height="30" rx="15" fill="#ffffffdd" stroke="#d8d2ca"/><text x="879" y="286" text-anchor="middle" font-size="12" font-weight="900" fill="${ink}">UNIT A</text>
     <line x1="850" y1="296" x2="780" y2="350" stroke="${ink}"/>
@@ -542,5 +549,5 @@ function analyze(){
   };
 }
 
-global.Lot2Design3={REV,LOCK,VEHICLE,PLAN,COLORS,analyze,renderSite,renderSweptPath,renderFloor,renderElev,renderMassing,renderAxon,renderSections};
+global.Lot2Design3={REV,LOCK,VEHICLE,OPENINGS,PLAN,COLORS,analyze,projectAxonOpening,renderSite,renderSweptPath,renderFloor,renderElev,renderMassing,renderAxon,renderSections};
 })(window);

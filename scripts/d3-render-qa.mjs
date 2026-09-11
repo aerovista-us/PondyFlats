@@ -101,7 +101,10 @@ function resultFailures(result) {
     if ((sm.shortTangentCount||0)!==0) out.push('A-002 has short-tangent turning-radius failures: '+sm.shortTangentCount);
     if (Math.abs((sm.turnRadiusFt||0)-25)>1e-6) out.push('A-002 sweep metadata turn radius is not 25 ft');
     if ((sm.minClearanceFt||0)<1) out.push('A-002 continuous clearance '+(sm.minClearanceFt||0)+' ft < 1 ft');
-    if (sm.outboundProof!=='reverse-equivalent') out.push('A-002 outbound proof missing');
+    if (sm.proofScope!=='threshold-approach') out.push('A-002 must be scoped as threshold approach, not full garage-entry proof');
+    if (sm.fullEnclosure!==false) out.push('A-002 must explicitly state full enclosure is not proven');
+    if (Math.abs((sm.garageDepthFt||0)-20)>1e-6 || Math.abs((sm.depthDeficitFt||0)-.5)>1e-6) out.push('A-002 garage fit disclosure does not match 20.5 ft vehicle / 20 ft garage');
+    if (sm.outboundProof!=='threshold-return-reverse-equivalent') out.push('A-002 threshold-return proof missing');
   }
   if (key === 'd3-elevs.html') {
     for (const id of ['rear','north','south']) if ((m.figs?.[id]?.garageDoors||0)!==0) out.push(`${id} elevation shows a garage door on a non-east face`);
@@ -114,6 +117,8 @@ function resultFailures(result) {
     }
     const a=m.figs?.['massing-drawing'], b=m.figs?.['axon-drawing'];
     if (a&&b&&(a.doors!==b.doors||a.windows!==b.windows)) out.push(`A-401/A-402 opening count mismatch ${a.doors}/${a.windows} vs ${b.doors}/${b.windows}`);
+    const truth=m.axonOpeningTruth;
+    if (!truth || !truth.ok) out.push('A-401/A-402 door overlays are not derived from shared world opening geometry: '+JSON.stringify(truth||{}));
   }
   for (const item of result.consoleItems || []) out.push(item.type + ': ' + item.text);
   for (const item of (result.failedRequests || []).filter((x) => !isExpectedRequestFailure(x))) out.push('request ' + (item.status || item.error) + ': ' + (item.url || item.requestId || ''));
@@ -276,7 +281,26 @@ async function qaPage(page, viewport) {
     });
     const vehicleBodies=[...document.querySelectorAll('[data-vehicle-id="FS-SUV"]')].map(el=>({lengthFt:Number(el.getAttribute('data-length-ft')),widthFt:Number(el.getAttribute('data-width-ft')),sweepKind:el.getAttribute('data-sweep-kind')||'',turnRadiusFt:Number(el.getAttribute('data-turn-radius-ft'))}));
     const sweepEl=document.querySelector('#swept-path svg');
-    const sweepMeta=sweepEl?{poseCount:Number(sweepEl.getAttribute('data-sweep-pose-count')),arcPoseCount:Number(sweepEl.getAttribute('data-arc-pose-count')),shortTangentCount:Number(sweepEl.getAttribute('data-short-tangent-count')),turnRadiusFt:Number(sweepEl.getAttribute('data-turn-radius-ft')),minClearanceFt:Number(sweepEl.getAttribute('data-min-clearance-ft')),outboundProof:sweepEl.getAttribute('data-outbound-proof')||''}:null;
+    const sweepMeta=sweepEl?{proofScope:sweepEl.getAttribute('data-proof-scope')||'',fullEnclosure:sweepEl.getAttribute('data-full-enclosure')==='true',garageDepthFt:Number(sweepEl.getAttribute('data-garage-depth-ft')),depthDeficitFt:Number(sweepEl.getAttribute('data-depth-deficit-ft')),poseCount:Number(sweepEl.getAttribute('data-sweep-pose-count')),arcPoseCount:Number(sweepEl.getAttribute('data-arc-pose-count')),shortTangentCount:Number(sweepEl.getAttribute('data-short-tangent-count')),turnRadiusFt:Number(sweepEl.getAttribute('data-turn-radius-ft')),minClearanceFt:Number(sweepEl.getAttribute('data-min-clearance-ft')),outboundProof:sweepEl.getAttribute('data-outbound-proof')||''}:null;
+    const axonOpeningTruth=window.Lot2Design3&&window.Lot2Design3.OPENINGS&&window.Lot2Design3.projectAxonOpening?(()=>{
+      const expected=window.Lot2Design3.OPENINGS.filter(o=>o.role==='entry'||o.role==='garage-overhead');
+      const checks={};
+      for(const id of ['massing-drawing','axon-drawing']){
+        const root=document.getElementById(id); if(!root){checks[id]={ok:false,reason:'missing figure'};continue}
+        const actual=[...root.querySelectorAll('[data-opening="door"]')];
+        let ok=actual.length===expected.length; const details=[];
+        for(const o of expected){
+          const el=actual.find(x=>x.getAttribute('data-opening-id')===o.id); if(!el){ok=false;details.push(o.id+':missing');continue}
+          if(el.getAttribute('data-opening-derived')!=='world'){ok=false;details.push(o.id+':not-derived')}
+          const got=(el.getAttribute('points')||'').trim().split(/\s+/).map(pair=>pair.split(',').map(Number));
+          const want=window.Lot2Design3.projectAxonOpening(o);
+          const delta=Math.max(...want.map((p,i)=>Math.hypot(p[0]-(got[i]?.[0]??9999),p[1]-(got[i]?.[1]??9999))));
+          if(delta>.2){ok=false;details.push(o.id+':projection-delta='+delta.toFixed(2))}
+        }
+        checks[id]={ok,details,count:actual.length};
+      }
+      return {ok:Object.values(checks).every(x=>x.ok),checks};
+    })():null;
     const localLinks = (await Promise.all([...document.querySelectorAll('a[href]')].map(async (a) => {
       const href = a.getAttribute('href') || '';
       if (!href || href === '#' || href.startsWith('javascript:') || href.startsWith('mailto:') || href.startsWith('tel:')) return null;
@@ -311,6 +335,7 @@ async function qaPage(page, viewport) {
       externalLinks,
       vehicleBodies,
       sweepMeta,
+      axonOpeningTruth,
     };
   })()`);
   const screenshot = `${outDir}/${viewport.name}-${page.replace('.html', '')}.png`;

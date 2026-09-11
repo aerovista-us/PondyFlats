@@ -45,12 +45,7 @@ const ROOMS={
  }
 };
 
-const DOORS=[
- {unit:'A',level:'ground',x1:80.8,y1:25,x2:81.2,y2:28,label:'ENTRY A'},
- {unit:'A',level:'ground',x1:107.8,y1:15,x2:108.2,y2:18,label:'GARAGE A'},
- {unit:'B',level:'ground',x1:76.8,y1:9,x2:77.2,y2:12,label:'ENTRY B'},
- {unit:'B',level:'ground',x1:46,y1:15.8,x2:49,y2:16.2,label:'GARAGE B'}
-];
+const DOORS=(D.OPENINGS||[]).filter(o=>o.role==='entry'||o.role==='garage-connection').map(o=>({...o,label:o.role==='entry'?`ENTRY ${o.unit}`:`GARAGE ${o.unit}`}));
 
 const STAIRS=[
  {unit:'A',x:82,y:20,w:10,d:9},

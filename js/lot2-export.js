@@ -427,7 +427,7 @@ ${figures}
         'Design 3 is CFB-716, the Workbench preferred candidate.',
         'CFB-716 survey, placements, drives, Pennsylvania access, and freeze hash remain locked.',
         'Plan closure is PASS: Unit A is 1,914 SF and Unit B is 1,868 SF of authorized planning area.',
-        'Walk site and swept path, plans and bubble, elevations, massing and axon, then sections.',
+        'Walk site and garage-threshold approach sweep, plans and bubble, elevations, massing and axon, then sections.',
         'Not a permit set. Professional validation remains required.',
       ],
     }
