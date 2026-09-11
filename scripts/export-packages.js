@@ -45,7 +45,8 @@ function rewriteStaticDesign3(html) {
     .replace(/href="d3-axon\.html([^"]*)"/g, 'href="axon.html$1"')
     .replace(/href="d3-sections\.html([^"]*)"/g, 'href="sections.html$1"')
     .replace(/href="r51e-deliverable\.html([^"]*)"/g, 'href="#$1"')
-    .replace(/href="design-2\.html([^"]*)"/g, 'href="#$1"');
+    .replace(/href="design-2\.html([^"]*)"/g, 'href="#$1"')
+    .replace(/<a class="cta" href="https:\/\/lotscope\.aerovista\.us\/workbench">[^<]*<\/a>/g, '<span class="note">Standalone customer package · no Workbench connection required.</span>');
 }
 
 function listFiles(dir, prefix = '') {

@@ -89,12 +89,27 @@ function resultFailures(result) {
     else if (!fig.hasSvg) out.push('required figure #' + id + ' has no SVG');
     else if (fig.width <= 40 || fig.height <= 40) out.push('required figure #' + id + ' too small ' + fig.width + 'x' + fig.height);
   }
+  if (key === 'd3-site.html') {
+    if ((m.vehicleBodies || []).length < 6) out.push('A-002 missing locked FS-SUV body poses');
+    for (const body of m.vehicleBodies || []) {
+      if (Math.abs(body.lengthFt - 20.5) > 1e-6 || Math.abs(body.widthFt - 8) > 1e-6) out.push(`A-002 vehicle body ${body.lengthFt}x${body.widthFt} != locked 20.5x8.0`);
+    }
+  }
+  if (key === 'd3-axon.html') {
+    for (const id of ['massing-drawing','axon-drawing']) {
+      const fig=m.figs?.[id];
+      if (fig && (fig.doors < 4 || fig.windows < 10)) out.push(`${id} opening overlays ${fig.doors} doors/${fig.windows} windows; require >=4/10`);
+    }
+    const a=m.figs?.['massing-drawing'], b=m.figs?.['axon-drawing'];
+    if (a&&b&&(a.doors!==b.doors||a.windows!==b.windows)) out.push(`A-401/A-402 opening count mismatch ${a.doors}/${a.windows} vs ${b.doors}/${b.windows}`);
+  }
   for (const item of result.consoleItems || []) out.push(item.type + ': ' + item.text);
   for (const item of (result.failedRequests || []).filter((x) => !isExpectedRequestFailure(x))) out.push('request ' + (item.status || item.error) + ': ' + (item.url || item.requestId || ''));
   for (const link of m.localLinks || []) {
     if (!link.ok) out.push(`broken local link ${link.href} -> ${link.status || link.error || 'failed'}`);
     else if (!link.anchorOk) out.push(`missing local anchor ${link.href}`);
   }
+  if (packageMode && (m.externalLinks || []).length) out.push('standalone package contains external links: ' + m.externalLinks.join(' | '));
   if (key === 'd3-plan-closure.html') {
     const gate = m.planGate;
     if (!gate) out.push('missing plan geometry gate');
@@ -228,7 +243,7 @@ async function qaPage(page, viewport) {
       const el = document.getElementById(id);
       if (!el) return;
       const r = el.getBoundingClientRect();
-      figs[id] = { hasSvg: !!el.querySelector('svg'), text: el.innerText.trim().slice(0,160), width: Math.round(r.width), height: Math.round(r.height) };
+      figs[id] = { hasSvg: !!el.querySelector('svg'), text: el.innerText.trim().slice(0,160), width: Math.round(r.width), height: Math.round(r.height), doors: el.querySelectorAll('[data-opening="door"]').length, windows: el.querySelectorAll('[data-opening="window"]').length };
     });
     const navPlans = [...document.querySelectorAll('nav a')].filter((a) => /plans/i.test(a.textContent)).map((a) => a.getAttribute('href'));
     const planGate = window.Lot2Design3PlanClosure ? (() => {
@@ -241,6 +256,11 @@ async function qaPage(page, viewport) {
         geometryFailures: g.geometry?.failures || [],
       };
     })() : null;
+    const externalLinks=[...document.querySelectorAll('a[href]')].map(a=>a.getAttribute('href')||'').filter((href)=>{
+      if(!/^https?:/i.test(href)) return false;
+      try{return new URL(href,location.href).origin!==location.origin}catch{return false}
+    });
+    const vehicleBodies=[...document.querySelectorAll('[data-vehicle-id="FS-SUV"]')].map(el=>({lengthFt:Number(el.getAttribute('data-length-ft')),widthFt:Number(el.getAttribute('data-width-ft'))}));
     const localLinks = (await Promise.all([...document.querySelectorAll('a[href]')].map(async (a) => {
       const href = a.getAttribute('href') || '';
       if (!href || href === '#' || href.startsWith('javascript:') || href.startsWith('mailto:') || href.startsWith('tel:')) return null;
@@ -272,6 +292,8 @@ async function qaPage(page, viewport) {
       horizontalOverflow: doc.scrollWidth > doc.clientWidth + 2,
       planGate,
       localLinks,
+      externalLinks,
+      vehicleBodies,
     };
   })()`);
   const screenshot = `${outDir}/${viewport.name}-${page.replace('.html', '')}.png`;

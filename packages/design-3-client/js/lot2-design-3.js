@@ -3,6 +3,7 @@
 
 const REV='D3-CFB716-v0.4';
 const FREEZE='3de5309fb5c87046acbba3ac37bc1c1eca2718344f3f704e50d28daa414f8625';
+const VEHICLE={id:'FS-SUV',length:20.5,width:8.0};
 const SURVEY=[[0,0],[148,0],[148,50],[125.143,43.016],[84.813,43.016],[0,57.01]];
 const LOCK={
   candidate:'PONDY-CFB-716',
@@ -71,15 +72,16 @@ function renderSite(){
 function renderSweptPath(){
   const W=1200,H=700,s=6.15,ox=90,oy=170,ink=COLORS.navy;
   const rectSvg=(p,fill)=>rect(p.x,p.y,p.w,p.d,s,s,ox,oy,fill,'');
-  const swept=LOCK.drives.map((d,i)=>{
-    const width=i===0?28:27;
+  const bodyLength=VEHICLE.length*s,bodyWidth=VEHICLE.width*s;
+  const swept=LOCK.drives.map((d)=>{
     const center=poly(d.points,s,s,ox,oy);
     const envelopes=d.points.map(([x,y],j)=>{
-      const angle=j&&d.points[j-1]?Math.atan2(y-d.points[j-1][1],x-d.points[j-1][0])*180/Math.PI:0;
+      const prev=j?d.points[j-1]:d.points[Math.min(1,d.points.length-1)];
+      const angle=Math.atan2(y-prev[1],x-prev[0])*180/Math.PI;
       const vx=x*s+ox,vy=y*s+oy;
-      return `<rect x="${(vx-37).toFixed(1)}" y="${(vy-15).toFixed(1)}" width="74" height="30" rx="5" fill="#6f7778" opacity=".18" stroke="#4c5455" stroke-width="1.2" transform="rotate(${angle.toFixed(1)} ${vx.toFixed(1)} ${vy.toFixed(1)})"/>`;
+      return `<rect data-vehicle-id="${VEHICLE.id}" data-length-ft="${VEHICLE.length}" data-width-ft="${VEHICLE.width}" x="${(vx-bodyLength/2).toFixed(1)}" y="${(vy-bodyWidth/2).toFixed(1)}" width="${bodyLength.toFixed(1)}" height="${bodyWidth.toFixed(1)}" rx="5" fill="#6f7778" opacity=".18" stroke="#4c5455" stroke-width="1.2" transform="rotate(${angle.toFixed(1)} ${vx.toFixed(1)} ${vy.toFixed(1)})"/>`;
     }).join('');
-    return `<g><polyline points="${center}" fill="none" stroke="#bec3c1" stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round" opacity=".82"/><polyline points="${center}" fill="none" stroke="#687273" stroke-width="3" stroke-dasharray="11 8"/>${envelopes}</g>`;
+    return `<g><polyline points="${center}" fill="none" stroke="#bec3c1" stroke-width="${bodyWidth.toFixed(1)}" stroke-linecap="round" stroke-linejoin="round" opacity=".56"/><polyline points="${center}" fill="none" stroke="#687273" stroke-width="3" stroke-dasharray="11 8"/>${envelopes}</g>`;
   }).join('');
   return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="CFB-716 swept path proof overlay">
   <rect width="${W}" height="${H}" fill="#fbfaf7"/>
@@ -96,9 +98,9 @@ function renderSweptPath(){
   ${label(104.5,7,'UNIT A',s,s,ox,oy,13)}${label(41,7.5,'UNIT B',s,s,ox,oy,13)}${label(118,18.5,'GARAGE A',s,s,ox,oy,10)}${label(47,27.5,'GARAGE B',s,s,ox,oy,10)}
   <g transform="translate(70,548)"><rect width="1060" height="108" rx="10" fill="#ffffffea" stroke="#d8d2ca"/>
     <text x="18" y="24" font-size="11" font-weight="900" fill="${ink}">MODELED RESULT · MINIMUM RECORDED BOUNDARY CLEARANCE ${LOCK.clearanceFt.toFixed(2)} FT</text>
-    <text x="18" y="45" font-size="10.5" fill="${COLORS.muted}">Frozen DRIVE-A and DRIVE-B remain the centerlines. Gray envelopes illustrate vehicle-body occupation through the tested maneuvers.</text>
+    <text x="18" y="45" font-size="10.5" fill="${COLORS.muted}">Frozen DRIVE-A and DRIVE-B remain the centerlines. Gray envelopes use the locked FS-SUV body (20.5′ × 8.0′) through the tested maneuvers.</text>
     <text x="18" y="64" font-size="10.5" fill="${COLORS.muted}">Pennsylvania is the only modeled access origin. Final civil/site design and field verification remain professional-validation items.</text>
-    <g transform="translate(18,78)"><line x1="0" y1="7" x2="42" y2="7" stroke="#687273" stroke-width="3" stroke-dasharray="10 7"/><text x="52" y="11" font-size="9.5" fill="${COLORS.muted}">drive centerline</text><rect x="190" y="0" width="48" height="14" rx="4" fill="#6f7778" opacity=".18" stroke="#4c5455"/><text x="250" y="11" font-size="9.5" fill="${COLORS.muted}">vehicle envelope</text><line x1="390" y1="7" x2="432" y2="7" stroke="#25313b" stroke-width="2"/><text x="444" y="11" font-size="9.5" fill="${COLORS.muted}">property boundary</text></g>
+    <g transform="translate(18,78)"><line x1="0" y1="7" x2="42" y2="7" stroke="#687273" stroke-width="3" stroke-dasharray="10 7"/><text x="52" y="11" font-size="9.5" fill="${COLORS.muted}">drive centerline</text><rect x="190" y="0" width="48" height="14" rx="4" fill="#6f7778" opacity=".18" stroke="#4c5455"/><text x="250" y="11" font-size="9.5" fill="${COLORS.muted}">FS-SUV · 20.5′ × 8.0′</text><line x1="390" y1="7" x2="432" y2="7" stroke="#25313b" stroke-width="2"/><text x="444" y="11" font-size="9.5" fill="${COLORS.muted}">property boundary</text></g>
   </g>
   </svg>`;
 }
@@ -263,6 +265,13 @@ function renderMassing(){
     const A=iso(p.x,p.y,h),B=iso(p.x+p.w,p.y,h),C=iso(p.x+p.w,p.y+p.d,h),D=iso(p.x,p.y+p.d,h);
     const midFront=[(A[0]+B[0])/2,(A[1]+B[1])/2-24];
     const midBack=[(D[0]+C[0])/2,(D[1]+C[1])/2-24];
+    const lerp=(p0,p1,t)=>[p0[0]+(p1[0]-p0[0])*t,p0[1]+(p1[1]-p0[1])*t];
+    const faceWindow=(p0,p1,pTop1,pTop0,u0,u1,v0,v1)=>{
+      const bottom0=lerp(p0,p1,u0),bottom1=lerp(p0,p1,u1),top0=lerp(pTop0,pTop1,u0),top1=lerp(pTop0,pTop1,u1);
+      return [lerp(bottom0,top0,v0),lerp(bottom1,top1,v0),lerp(bottom1,top1,v1),lerp(bottom0,top0,v1)];
+    };
+    const frontWindow=faceWindow(a,b,B,A,.34,.48,.30,.68);
+    const sideWindow=faceWindow(b,c,C,B,.30,.50,.30,.66);
     return `<g>
       <polygon points="${pts([a,b,B,A])}" fill="${fill}" stroke="#2b333a" stroke-width="1.8"/>
       <polygon points="${pts([b,c,C,B])}" fill="#b8afa1" stroke="#2b333a" stroke-width="1.8"/>
@@ -271,6 +280,8 @@ function renderMassing(){
       <polygon points="${pts([D,C,midBack])}" fill="#4b535b" stroke="#2b333a" stroke-width="1.5"/>
       <polygon points="${pts([A,D,midBack,midFront])}" fill="#596169" stroke="#2b333a" stroke-width="1.5"/>
       <polygon points="${pts([B,C,midBack,midFront])}" fill="#3a4148" stroke="#2b333a" stroke-width="1.5"/>
+      <polygon data-opening="window" points="${pts(frontWindow)}" fill="none" stroke="#2a6496" stroke-width="2.4"/>
+      <polygon data-opening="window" points="${pts(sideWindow)}" fill="none" stroke="#2a6496" stroke-width="2.4"/>
     </g>`;
   }
   const lotPts=SURVEY.map(([x,y])=>iso(x,y,0));
@@ -285,6 +296,12 @@ function renderMassing(){
   <polygon points="872,558 1125,476 1190,512 938,606" fill="#d6d5cf" stroke="#8e8f89" stroke-width="1.5"/>
   ${drives}
   <g>${homes}${garages}</g>
+  <g aria-label="A-401 opening location overlay">
+    <polygon data-opening="door" points="760,432 806,417 820,425 774,441" fill="none" stroke="#c34232" stroke-width="3"/>
+    <polygon data-opening="door" points="433,451 477,438 490,446 446,460" fill="none" stroke="#c34232" stroke-width="3"/>
+    <polygon data-opening="door" points="852,525 902,510 902,540 852,555" fill="none" stroke="#c34232" stroke-width="3"/>
+    <polygon data-opening="door" points="248,520 298,506 298,536 248,550" fill="none" stroke="#c34232" stroke-width="3"/>
+  </g>
   <text x="1075" y="586" text-anchor="middle" font-size="12" font-weight="900" fill="#666">PENNSYLVANIA ACCESS</text>
   <text x="826" y="508" font-size="12" font-weight="900" fill="#50624d">GARAGE A</text>
   <text x="200" y="520" font-size="12" font-weight="900" fill="#50624d">GARAGE B</text>
@@ -296,7 +313,7 @@ function renderMassing(){
     <rect width="1060" height="72" rx="10" fill="#ffffffea" stroke="#d8d2ca"/>
     <text x="18" y="24" font-size="11" font-weight="900" fill="${ink}">A-401 MASSING · SAME CAMERA AS A-402</text>
     <text x="18" y="45" font-size="10.5" fill="${COLORS.muted}">Simplified architectural volumes from frozen CFB-716 placements. No exterior/site geometry moved.</text>
-    <text x="18" y="61" font-size="10.5" fill="${COLORS.muted}">Customer massing study. Not permit / construction drawings.</text>
+    <text x="18" y="61" font-size="10.5" fill="${COLORS.muted}">Opening check: doors outlined red · windows outlined blue. Not permit / construction drawings.</text>
   </g>
   </svg>`;
 }
@@ -328,8 +345,8 @@ function renderAxon(){
       <polygon points="${pts([b,c,C,B])}" fill="#b9ae9e" stroke="#2b333a" stroke-width="1.8"/>
       <polygon points="${pts([A,B,C,D])}" fill="#e6ded1" stroke="#2b333a" stroke-width="1.6"/>
       ${roofPoly}
-      <polygon data-opening="window" points="${pts(frontWindow)}" fill="#bfd2dd" stroke="#53636c" stroke-width="1.8"/>
-      <polygon data-opening="window" points="${pts(sideWindow)}" fill="#bfd2dd" stroke="#53636c" stroke-width="1.8"/>
+      <polygon data-opening="window" points="${pts(frontWindow)}" fill="#bfd2dd" stroke="#2a6496" stroke-width="2.2"/>
+      <polygon data-opening="window" points="${pts(sideWindow)}" fill="#bfd2dd" stroke="#2a6496" stroke-width="2.2"/>
     </g>`;
   }
   const lotPts=SURVEY.map(([x,y])=>iso(x,y,0));
@@ -350,12 +367,12 @@ function renderAxon(){
   ${trees}
   <g filter="url(#axonShadow)">${homes}${garages}</g>
   <g>
-    <polygon data-opening="door" points="760,432 806,417 820,425 774,441" fill="#7f654e" stroke="#3f3731" stroke-width="2"/>
-    <polygon data-opening="door" points="433,451 477,438 490,446 446,460" fill="#7f654e" stroke="#3f3731" stroke-width="2"/>
+    <polygon data-opening="door" points="760,432 806,417 820,425 774,441" fill="#7f654e" stroke="#c34232" stroke-width="3"/>
+    <polygon data-opening="door" points="433,451 477,438 490,446 446,460" fill="#7f654e" stroke="#c34232" stroke-width="3"/>
     <text x="786" y="410" font-size="10" font-weight="900" fill="${ink}">ENTRY A</text>
     <text x="443" y="432" font-size="10" font-weight="900" fill="${ink}">ENTRY B</text>
-    <polygon data-opening="door" points="852,525 902,510 902,540 852,555" fill="#6e6a64" stroke="#3f3731" stroke-width="2"/>
-    <polygon data-opening="door" points="248,520 298,506 298,536 248,550" fill="#6e6a64" stroke="#3f3731" stroke-width="2"/>
+    <polygon data-opening="door" points="852,525 902,510 902,540 852,555" fill="#6e6a64" stroke="#c34232" stroke-width="3"/>
+    <polygon data-opening="door" points="248,520 298,506 298,536 248,550" fill="#6e6a64" stroke="#c34232" stroke-width="3"/>
   </g>
   <g>
     <rect x="835" y="266" width="88" height="30" rx="15" fill="#ffffffdd" stroke="#d8d2ca"/><text x="879" y="286" text-anchor="middle" font-size="12" font-weight="900" fill="${ink}">UNIT A</text>
@@ -372,7 +389,7 @@ function renderAxon(){
     <text x="18" y="61" font-size="10.5" fill="${COLORS.muted}">Not permit / construction drawings. Professional validation pending.</text>
     <text x="760" y="24" font-size="10" font-weight="900" fill="${ink}">MATERIAL DIRECTION</text>
     <text x="760" y="43" font-size="10" fill="${COLORS.muted}">Warm siding · stone/service accents · dark roof · wood entries</text>
-    <text x="760" y="60" font-size="10" fill="${COLORS.muted}">Openings and landscape cues are presentation-layer design development.</text>
+    <text x="760" y="60" font-size="10" fill="${COLORS.muted}">Opening check: doors outlined red · windows outlined blue.</text>
   </g>
   </svg>`;
 }
@@ -473,5 +490,5 @@ function analyze(){
   };
 }
 
-global.Lot2Design3={REV,LOCK,PLAN,COLORS,analyze,renderSite,renderSweptPath,renderFloor,renderElev,renderMassing,renderAxon,renderSections};
+global.Lot2Design3={REV,LOCK,VEHICLE,PLAN,COLORS,analyze,renderSite,renderSweptPath,renderFloor,renderElev,renderMassing,renderAxon,renderSections};
 })(window);

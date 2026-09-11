@@ -48,7 +48,7 @@ const ROOMS={
 const DOORS=[
  {unit:'A',level:'ground',x1:80.8,y1:25,x2:81.2,y2:28,label:'ENTRY A'},
  {unit:'A',level:'ground',x1:107.8,y1:15,x2:108.2,y2:18,label:'GARAGE A'},
- {unit:'B',level:'ground',x1:56.8,y1:9,x2:57.2,y2:12,label:'ENTRY B'},
+ {unit:'B',level:'ground',x1:76.8,y1:9,x2:77.2,y2:12,label:'ENTRY B'},
  {unit:'B',level:'ground',x1:46,y1:15.8,x2:49,y2:16.2,label:'GARAGE B'}
 ];
 
@@ -92,6 +92,15 @@ function garageRects(unit){
 }
 function rectContainedInHomes(unit,r){
  return homeRects(unit).some(h=>containsRect(h,r));
+}
+function pointInsideHomes(unit,x,y){
+ const eps=1e-6;
+ return homeRects(unit).some(h=>x>h.x+eps&&x<h.x+h.w-eps&&y>h.y+eps&&y<h.y+h.d-eps);
+}
+function doorOnHomeExterior(d){
+ const mx=(d.x1+d.x2)/2,my=(d.y1+d.y2)/2,dx=d.x2-d.x1,dy=d.y2-d.y1,probe=.35;
+ if(Math.abs(dy)>=Math.abs(dx)) return pointInsideHomes(d.unit,mx-probe,my)!==pointInsideHomes(d.unit,mx+probe,my);
+ return pointInsideHomes(d.unit,mx,my-probe)!==pointInsideHomes(d.unit,mx,my+probe);
 }
 function validateGeometry(){
  const failures=[];
@@ -146,7 +155,7 @@ function analyze(){
   roomGeometry:{ok:geometry.ok,detail:geometry.ok?'All same-unit same-level room rectangles are contained and non-overlapping; ground rooms do not occupy garage footprints.':geometry.failures.join(' | ')},
   wetCore:{ok:true,detail:'Powder/mechanical and upper bath/WIC zones are intentionally stacked near each unit stair/service core.'},
   garageConnection:{ok:DOORS.some(d=>d.label==='GARAGE A')&&DOORS.some(d=>d.label==='GARAGE B'),detail:'Each unit has a direct modeled garage-to-house connection.'},
-  exteriorEntries:{ok:DOORS.some(d=>d.label==='ENTRY A')&&DOORS.some(d=>d.label==='ENTRY B'),detail:'Each unit has a distinct exterior entry.'},
+  exteriorEntries:{ok:['A','B'].every(unit=>DOORS.some(d=>d.label===`ENTRY ${unit}`&&doorOnHomeExterior(d))),detail:'Each unit has a distinct modeled entry on the exterior perimeter of its frozen home-envelope union.'},
   planningArea:{ok:cov.living.A>=AREA_TARGET&&cov.living.B>=AREA_TARGET,detail:`Authorized non-overlapping planning-zone area A ${cov.living.A.toFixed(0)} SF / B ${cov.living.B.toFixed(0)} SF across both floors. Circulation zones shown in the schedule are included; garage area is excluded.`},
   overGarageProgram:{ok:geometry.ok,detail:'Unit A over-garage program is authorized as Bedroom 3 plus an upper den, both reached from the upper gallery inside the frozen HOME-A/GARAGE-A footprint.'}
  };
