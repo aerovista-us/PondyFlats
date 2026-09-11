@@ -1,0 +1,66 @@
+# Pondy Flats Lot 2 — Design 4 rules
+
+**Status:** Design-specific locked brief for Design 4 discovery.  
+**Scope:** Design 4 only. It does not alter Design 1, Design 2, or frozen Design 3 / CFB-716.  
+**Zoning status:** Planning rule based on the City of Coeur d'Alene lots-without-alley accessory-structure sheet; professional/city confirmation remains required.
+
+## Primary Design 4 rule
+
+Design 4 shall use **two separate full-size detached garages, each exactly 22 ft × 22 ft (484 SF)**, for **four enclosed parking stalls total**.
+
+These garages are a **LOCKED Design 4 program element**. Do not shrink them, substitute 20×20 plates, attach them to the homes, or move them toward Pennsylvania merely to obtain a geometric pass.
+
+## Rear accessory placement
+
+Both garages shall be placed **as far toward the rear/west of Lot 2 as the accessory-structure rules and true survey geometry allow**, inside the rear-25-ft accessory-structure study zone.
+
+Design 4 uses the normal accessory-yard targets as its baseline:
+
+- **Rear property-line target: 5 ft minimum**.
+- **Side property-line target: 5 ft minimum**.
+- The **3 ft roof-slope exception is not part of the default Design 4 brief** and may not be used silently to make a concept pass.
+- Principal dwelling walls remain governed by the principal-yard scenario; the accessory-garage rule does not relax the homes' setbacks.
+- Garages must remain detached accessory structures with **no living/sleeping space**.
+- Maintain a **minimum 6 ft garage-to-principal-building separation** as a planning floor; more is preferred and code/fire review may require more.
+
+In the current drawing convention, rear/west is approximately `x = 0`. The first placement target should therefore put each garage's west face near the **5 ft accessory rear line**, subject to the true irregular survey polygon and side-yard fit.
+
+## Access rule
+
+Pennsylvania-only vehicle access remains locked.
+
+Each 22×22 garage must have:
+
+- its own real, reachable garage door and apron;
+- a continuous FS-SUV/full-size-pickup inbound path from Pennsylvania;
+- a demonstrated outbound path back to Pennsylvania;
+- full-body swept-path validation through every turn;
+- a demonstrated maneuver into the garage, not merely to the threshold;
+- a demonstrated enclosed parking position inside the 22×22 plate.
+
+Unlike Design 3's threshold-only A-002 proof, Design 4 is expected to prove **complete garage entry and parking fit** because the 22 ft depth is intentionally being restored.
+
+## Optimization priority
+
+For Design 4, solve the site in this order:
+
+1. true Lot 2 survey polygon;
+2. Design 4 accessory rear/side setback zone;
+3. two locked 22×22 detached rear garages;
+4. Pennsylvania-origin driveway spine and minimum maneuvering pavement;
+5. full FS-SUV entry/exit proof for both garages;
+6. principal-home envelopes and separation;
+7. two comparable homes near the current ~1,800 SF/home target;
+8. architecture, landscape, and presentation.
+
+The optimizer may move/re-proportion the homes and driveway around the locked garage program. It may not make the garages smaller or convert them to attached garages to rescue a failing concept.
+
+## Pass / fail language
+
+A Design 4 concept cannot be promoted as a circulation PASS unless both garages retain the full 22×22 plate and each independently passes full inbound, enclosed-parking, and outbound validation with the locked design vehicle.
+
+Accessory-yard compliance remains **ZONING-DEPENDENT / CONDITIONAL** until the City confirms the parcel-specific interpretation. Do not call the concept permit-ready, code-approved, or construction-ready from this planning rule alone.
+
+## Source basis
+
+The project source sheet, `setbacks-without-alley.pdf`, shows accessory structures in the rear 25 ft using 5 ft side and rear setbacks, with narrower 3 ft conditions only under specified roof-slope circumstances. The prior Design 2 accessory-rear study is precedent for using the normal 5 ft targets without invoking the 3 ft exception.
