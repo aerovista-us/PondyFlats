@@ -6,8 +6,8 @@ const VEHICLE={id:'FS-SUV',label:'Full-size SUV / pickup',length:20.5,width:8,wh
 const SURVEY=[[0,0],[148,0],[148,50],[125.143,43.016],[84.813,43.016],[0,57.01]];
 const SOUTH_BOUNDARY=[[0,57.01],[84.813,43.016],[125.143,43.016],[148,50]];
 const GARAGES=[
-  {id:'GARAGE-A',kind:'garage',unit:'A',x:5,y:5,w:22,d:22,doorFace:'east',stalls:2,detached:true},
-  {id:'GARAGE-B',kind:'garage',unit:'B',x:5,y:29,w:22,d:22,doorFace:'east',stalls:2,detached:true}
+  {id:'GARAGE-NORTH-B',kind:'garage',unit:'B',x:5,y:5,w:22,d:22,doorFace:'east',stalls:2,detached:true},
+  {id:'GARAGE-SOUTH-A',kind:'garage',unit:'A',x:5,y:29,w:22,d:22,doorFace:'east',stalls:2,detached:true}
 ];
 const HOMES=[
   {id:'HOME-B',kind:'home',unit:'B',poly:[[54,5],[94.5,5],[94.5,31.25],[72.5,31.25],[72.5,22],[54,22]]},
@@ -56,7 +56,7 @@ function buildPath(endY){
   const p=SEED.params,curve=sCurve(p.turn,p.spine,endY);
   return [[151,p.spine],[148,p.spine],[p.turn,p.spine],...curve.slice(1),[22.5,endY]];
 }
-const ACCESS_PATHS={A:buildPath(16),B:buildPath(40)};
+const ACCESS_PATHS={A:buildPath(40),B:buildPath(16)};
 function poseHeading(path,index){
   const i=Math.max(1,index),p=path[i],q=path[i-1];return Math.atan2(p[1]-q[1],p[0]-q[0]);
 }
@@ -98,7 +98,7 @@ function renderSite(){
   ${bldg(homePoly(HOMES[0]),COLORS.homeB)}${bldg(homePoly(HOMES[1]),COLORS.homeA)}
   ${GARAGES.map(g=>bldg(rectPoly(g),COLORS.garage)).join('')}
   ${GARAGES.map(g=>`<line x1="${((g.x+g.w)*s+ox).toFixed(1)}" y1="${((g.y+3)*s+oy).toFixed(1)}" x2="${((g.x+g.w)*s+ox).toFixed(1)}" y2="${((g.y+19)*s+oy).toFixed(1)}" stroke="${COLORS.red}" stroke-width="5" data-garage-door="${g.id}"/>`).join('')}
-  <g font-size="10" font-weight="900" fill="${COLORS.ink}"><text x="${(16*s+ox).toFixed(1)}" y="${(16*s+oy).toFixed(1)}" text-anchor="middle">GARAGE A · 22×22</text><text x="${(16*s+ox).toFixed(1)}" y="${(40*s+oy).toFixed(1)}" text-anchor="middle">GARAGE B · 22×22</text><text x="${(108*s+ox).toFixed(1)}" y="${(18*s+oy).toFixed(1)}" text-anchor="middle">HOME A · ~1,759 SF SHELL</text><text x="${(78*s+ox).toFixed(1)}" y="${(15*s+oy).toFixed(1)}" text-anchor="middle">HOME B · ~1,784 SF SHELL</text></g>
+  <g font-size="10" font-weight="900" fill="${COLORS.ink}"><text x="${(16*s+ox).toFixed(1)}" y="${(16*s+oy).toFixed(1)}" text-anchor="middle">GARAGE B · 22×22</text><text x="${(16*s+ox).toFixed(1)}" y="${(40*s+oy).toFixed(1)}" text-anchor="middle">GARAGE A · 22×22</text><text x="${(108*s+ox).toFixed(1)}" y="${(18*s+oy).toFixed(1)}" text-anchor="middle">HOME A · ~1,759 SF SHELL</text><text x="${(78*s+ox).toFixed(1)}" y="${(15*s+oy).toFixed(1)}" text-anchor="middle">HOME B · ~1,784 SF SHELL</text></g>
   <g transform="translate(740,540)"><rect width="410" height="150" rx="12" fill="#fff" stroke="#d4d0c6"/><text x="18" y="28" font-size="13" font-weight="900" fill="${COLORS.ink}">CURRENT GATES</text><text x="18" y="54" font-size="11" fill="${COLORS.ink}">✓ 2 × full 22×22 detached garage plates</text><text x="18" y="76" font-size="11" fill="${COLORS.ink}">✓ full-size vehicle enclosed parking fit</text><text x="18" y="98" font-size="11" fill="${COLORS.ink}">✓ inbound + reverse-equivalent back-out envelope</text><text x="18" y="120" font-size="11" fill="${COLORS.orange}">△ accessory zoning + ~${ac.interGarageFt.toFixed(1)}′ inter-garage gap require AHJ review</text><text x="18" y="140" font-size="10" fill="${COLORS.muted}">Room-program closure pending · design-development evidence only</text></g>
   </svg>`;
 }
