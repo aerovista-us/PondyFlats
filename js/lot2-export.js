@@ -83,6 +83,14 @@ Do not mix Design 1 plates with Design 2 plates.
   ];
 
   const D2_NAV = D1_NAV;
+  const D3_NAV = [
+    { id: 'hub', href: 'index.html', label: 'Package' },
+    { id: 'site', href: 'site.html', label: 'Site' },
+    { id: 'plans', href: 'plans.html', label: 'Plans' },
+    { id: 'elevs', href: 'elevs.html', label: 'Elevs' },
+    { id: 'axon', href: 'axon.html', label: 'Axon' },
+    { id: 'sections', href: 'sections.html', label: 'Sections' },
+  ];
 
   function d1Hub() {
     const checks = [
@@ -391,6 +399,38 @@ ${figures}
         'Concept package. Do not freeze. Do not mix with Design 1.',
       ],
     },
+    {
+      id: 'design-3',
+      title: 'Pondy Flats · Design 3',
+      brand: 'Design 3',
+      rev: 'D3-CFB716-v0.4',
+      ok: false,
+      badge: 'Design development',
+      not: 'Not permit or construction drawings. Professional structural, code, MEP, civil, and survey validation remains pending.',
+      nav: D3_NAV,
+      status: 'Design-development package / CFB-716 frozen geometry. Not a permit set.',
+      imgs: [],
+      staticPages: [
+        { src: 'design-3.html', dest: 'index.html' },
+        { src: 'd3-site.html', dest: 'site.html' },
+        { src: 'd3-plan-closure.html', dest: 'plans.html' },
+        { src: 'd3-elevs.html', dest: 'elevs.html' },
+        { src: 'd3-axon.html', dest: 'axon.html' },
+        { src: 'd3-sections.html', dest: 'sections.html' },
+      ],
+      staticScripts: ['lot2-design-3.js', 'lot2-design-3-plan-closure.js'],
+      staticStyles: ['lot2-design-3.css'],
+      hub: () => fs.readFileSync('design-3.html', 'utf8'),
+      pages: [],
+      presenterSrc: 'presenter-design-3.html',
+      points: [
+        'Design 3 is CFB-716, the Workbench preferred candidate.',
+        'CFB-716 survey, placements, drives, Pennsylvania access, and freeze hash remain locked.',
+        'Plan closure is PASS: Unit A is 1,914 SF and Unit B is 1,868 SF of authorized planning area.',
+        'Walk site and garage-threshold approach sweep, plans and bubble, elevations, massing and axon, then sections.',
+        'Not a permit set. Professional validation remains required.',
+      ],
+    }
   ]);
 
   return { PACKAGES, shell, focusPage, talkingPoints, clientReadme };
