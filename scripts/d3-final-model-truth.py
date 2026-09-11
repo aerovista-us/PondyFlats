@@ -68,10 +68,11 @@ replace_once(
     qa,
     "    return {\n      title: document.title,\n      bodyTextLength: document.body.innerText.trim().length,",
     """    const bodyText=document.body.innerText.trim();
+    const lowerBody=bodyText.toLowerCase();
     const hubScope={
-      circulationPassClaim:/(?:cleared|pass(?:ed)?)\\b[^.]{0,120}\\bcirculation\\b|\\bcirculation\\b[^.]{0,120}\\b(?:cleared|pass(?:ed)?)\\b/i.test(bodyText),
-      approachVerified:/garage[-\\s]threshold|threshold approach/i.test(bodyText),
-      garageFitUnresolved:/(?:full garage|parking\\/enclosure|parking fit)[^.\\n]{0,180}(?:unresolved|not claimed|separate design decision|is not)/i.test(bodyText),
+      circulationPassClaim: lowerBody.includes('circulation gate cleared') || lowerBody.includes('circulation passed') || lowerBody.includes('circulation pass'),
+      approachVerified: lowerBody.includes('garage-threshold approach verified') || lowerBody.includes('garage threshold approach verified'),
+      garageFitUnresolved: lowerBody.includes('complete garage parking/enclosure remains unresolved') || lowerBody.includes('full enclosure / parking fit is not claimed') || lowerBody.includes('complete garage parking/enclosure is not'),
     };
     const analysis=window.Lot2Design3&&typeof window.Lot2Design3.analyze==='function'?window.Lot2Design3.analyze():null;
     const modelAnalysis=analysis?{
