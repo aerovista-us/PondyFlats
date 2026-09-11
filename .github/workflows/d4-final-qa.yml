@@ -1,0 +1,138 @@
+name: Design 4 final package QA
+
+on:
+  push:
+    branches: [design4/rear-22-discovery]
+    paths:
+      - 'design-4.html'
+      - 'd4-*.html'
+      - 'index.html'
+      - 'js/lot2-design-4*.js'
+      - 'scripts/export-design4.js'
+      - 'packages/design-4-client/**'
+      - 'packages/design-4-presenter/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design4/rear-22-discovery
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Locate Chrome
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+      - name: Design 4 model gates
+        run: |
+          node --check js/lot2-design-4.js
+          node --check js/lot2-design-4-plan-closure.js
+          node --check js/lot2-design-4-architecture.js
+          node --check scripts/export-design4.js
+          node <<'NODE'
+          const assert=require('assert');
+          const d=require('./js/lot2-design-4.js');
+          const p=require('./js/lot2-design-4-plan-closure.js');
+          const a=require('./js/lot2-design-4-architecture.js');
+          assert.deepEqual(d.SURVEY,[[0,0],[148,0],[148,50],[125.143,43.016],[84.813,43.016],[0,57.01]]);
+          assert.equal(d.GARAGES.length,2);
+          assert.deepEqual(d.GARAGES.map(g=>[g.unit,g.x,g.y,g.w,g.d,g.detached]),[['B',5,5,22,22,true],['A',5,29,22,22,true]]);
+          const gm=d.analyze();
+          assert.equal(gm.verdict,'CONDITIONAL');
+          assert.equal(gm.checks.garageProgram.ok,true);
+          assert.equal(gm.checks.parkingFit.ok,true);
+          assert.equal(gm.checks.circulation.status,'INBOUND_PARK_BACKOUT_VERIFIED');
+          assert.equal(gm.checks.circulation.forwardExitProven,false);
+          assert.equal(gm.checks.circulation.reverseEquivalent,true);
+          assert.equal(gm.checks.accessorySetbacks.status,'CONDITIONAL');
+          assert.equal(gm.checks.interGarageSpacing.status,'AHJ_REVIEW');
+          assert.equal(gm.checks.roomProgram.status,'CLOSED_IN_PLAN_MODULE');
+          const pm=p.analyze();
+          assert.equal(pm.verdict,'PASS');
+          assert.equal(pm.failures.length,0);
+          for(const u of ['A','B']){
+            assert.equal(pm.units[u].ok,true);
+            assert.equal(pm.units[u].bedrooms,3);
+            assert.equal(pm.units[u].entry.ok,true);
+            assert(pm.units[u].stairOverlapSf>=10);
+            assert.equal(pm.units[u].levels.ground.ok,true);
+            assert.equal(pm.units[u].levels.upper.ok,true);
+          }
+          assert.equal(pm.checks.wetCore.blocking,false);
+          const am=a.analyze();
+          assert.equal(am.verdict,'CONDITIONAL');
+          assert.equal(am.checks.planGeometry.ok,true);
+          const ids=a.OPENINGS.map(o=>o.id);assert.equal(new Set(ids).size,ids.length);
+          for(const e of p.ENTRIES) assert(a.OPENINGS.some(o=>o.id===e.id&&o.role==='entry'));
+          assert(a.OPENINGS.some(o=>o.id==='GARAGE-A-OVERHEAD'&&o.role==='garage-overhead'));
+          assert(a.OPENINGS.some(o=>o.id==='GARAGE-B-OVERHEAD'&&o.role==='garage-overhead'));
+          for(const f of ['east','west','north','south']) assert(a.renderElev(f).includes('data-openings-source="shared-world-model"'));
+          const m=a.renderAxon('massing'),c=a.renderAxon('clean');
+          assert(m.includes('data-camera="D4-ISO-01"'));assert(c.includes('data-camera="D4-ISO-01"'));
+          assert(!m.includes('data-opening-id='));assert(c.includes('data-opening-id='));assert(c.includes('data-derived="world"'));
+          assert(a.renderSection('A').includes('data-section-unit="A"'));assert(a.renderSection('B').includes('data-section-unit="B"'));
+          console.log(JSON.stringify({geometry:gm.verdict,plans:pm.verdict,architecture:am.verdict,openings:a.OPENINGS.length},null,2));
+          NODE
+      - name: Preserve Designs 1–3 regression gates
+        run: npm run gates
+      - name: Verify committed standalone export is current
+        run: |
+          node scripts/export-design4.js
+          git diff --exit-code -- packages/design-4-client packages/design-4-presenter
+          ! grep -R -E 'href="https://lotscope\.aerovista\.us|href="\.\./|href="design-[123]\.html' packages/design-4-client --include='*.html'
+      - name: Browser QA source and standalone at four widths
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/d4-final-qa && mkdir -p /tmp/d4-final-qa/source /tmp/d4-final-qa/package
+          python3 -m http.server 8000 --bind 127.0.0.1 >/tmp/d4-root-http.log 2>&1 & ROOT_PID=$!
+          (cd packages/design-4-client && python3 -m http.server 8001 --bind 127.0.0.1 >/tmp/d4-package-http.log 2>&1) & PKG_PID=$!
+          trap 'kill $ROOT_PID $PKG_PID 2>/dev/null || true' EXIT
+          sleep 1
+          source_pages=(design-4 d4-site d4-plans d4-elevs d4-axon d4-sections)
+          package_pages=(index site plans elevs axon sections)
+          for i in "${!source_pages[@]}"; do
+            S="${source_pages[$i]}"; P="${package_pages[$i]}"
+            "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --virtual-time-budget=3500 --dump-dom "http://127.0.0.1:8000/${S}.html" > "/tmp/d4-final-qa/source/${S}.dom.html"
+            "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --virtual-time-budget=3500 --dump-dom "http://127.0.0.1:8001/${P}.html" > "/tmp/d4-final-qa/package/${P}.dom.html"
+            for F in "/tmp/d4-final-qa/source/${S}.dom.html" "/tmp/d4-final-qa/package/${P}.dom.html"; do
+              grep -q '<svg' "$F"
+              ! grep -qi 'ReferenceError\|TypeError\|renderer failed\|Not Found' "$F"
+            done
+            for SIZE in 1440,1100 1024,900 768,900 390,900; do
+              TAG="${SIZE/,/x}"
+              "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-budget=3500 --window-size="$SIZE" --screenshot="/tmp/d4-final-qa/source/${TAG}-${S}.png" "http://127.0.0.1:8000/${S}.html"
+              "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-budget=3500 --window-size="$SIZE" --screenshot="/tmp/d4-final-qa/package/${TAG}-${P}.png" "http://127.0.0.1:8001/${P}.html"
+            done
+          done
+          test "$(grep -o '<svg' /tmp/d4-final-qa/source/design-4.dom.html | wc -l)" -ge 1
+          test "$(grep -o '<svg' /tmp/d4-final-qa/source/d4-site.dom.html | wc -l)" -ge 2
+          test "$(grep -o '<svg' /tmp/d4-final-qa/source/d4-plans.dom.html | wc -l)" -ge 3
+          test "$(grep -o '<svg' /tmp/d4-final-qa/source/d4-elevs.dom.html | wc -l)" -ge 4
+          test "$(grep -o '<svg' /tmp/d4-final-qa/source/d4-axon.dom.html | wc -l)" -ge 2
+          test "$(grep -o '<svg' /tmp/d4-final-qa/source/d4-sections.dom.html | wc -l)" -ge 2
+          grep -q 'data-accessory-status="CONDITIONAL"' /tmp/d4-final-qa/source/d4-site.dom.html
+          grep -q 'data-intergarage-status="AHJ_REVIEW"' /tmp/d4-final-qa/source/d4-site.dom.html
+          grep -q 'data-proof-scope="full-entry-enclosed-park-reverse-equivalent"' /tmp/d4-final-qa/source/d4-site.dom.html
+          grep -q 'data-forward-exit="false"' /tmp/d4-final-qa/source/d4-site.dom.html
+          grep -q 'data-plan-verdict="PASS"' /tmp/d4-final-qa/source/d4-plans.dom.html
+          grep -q 'data-openings-source="shared-world-model"' /tmp/d4-final-qa/source/d4-elevs.dom.html
+          test "$(grep -o 'data-camera="D4-ISO-01"' /tmp/d4-final-qa/source/d4-axon.dom.html | wc -l)" -ge 2
+          grep -q 'data-derived="world"' /tmp/d4-final-qa/source/d4-axon.dom.html
+          grep -q 'data-section-unit="A"' /tmp/d4-final-qa/source/d4-sections.dom.html
+          grep -q 'data-section-unit="B"' /tmp/d4-final-qa/source/d4-sections.dom.html
+          printf 'head=%s\nsource_pages=6\npackage_pages=6\nviewports=4\nstatus=PASS\n' "$(git rev-parse HEAD)" > /tmp/d4-final-qa/qa-results.txt
+      - name: Upload exact-head rendered-pixel evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: design4-final-qa-${{ github.sha }}
+          path: /tmp/d4-final-qa/
+          retention-days: 14
