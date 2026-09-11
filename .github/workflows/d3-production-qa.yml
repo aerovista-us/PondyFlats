@@ -1,0 +1,85 @@
+name: Temporary Design 3 production QA
+
+on:
+  push:
+    branches:
+      - codex/design3-execution
+    paths:
+      - .github/workflows/d3-production-qa.yml
+
+permissions:
+  contents: write
+
+jobs:
+  production-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Locate Chrome
+        shell: bash
+        run: |
+          CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$CHROME"
+          echo "CHROME_BIN=$CHROME" >> "$GITHUB_ENV"
+          "$CHROME" --version
+
+      - name: Wait for merged Pages content
+        shell: bash
+        run: |
+          URL="https://aerovista-us.github.io/PondyFlats/d3-site.html"
+          for i in $(seq 1 30); do
+            BODY="$(curl -fsSL --retry 2 --retry-delay 1 "$URL" || true)"
+            if printf '%s' "$BODY" | grep -q "SETBACKS · CONDITIONAL" && printf '%s' "$BODY" | grep -q "APPROACH VERIFIED"; then
+              echo "Production content is current."
+              exit 0
+            fi
+            echo "Waiting for current Pages content ($i/30)..."
+            sleep 5
+          done
+          echo "Timed out waiting for current Pages content."
+          exit 1
+
+      - name: Run production Chromium QA
+        shell: bash
+        run: |
+          rm -rf /tmp/pondy-d3-production
+          node scripts/d3-render-qa.mjs /tmp/pondy-d3-production https://aerovista-us.github.io/PondyFlats/
+
+      - name: Summarize production QA
+        shell: bash
+        run: |
+          node - <<'NODE'
+          const fs=require('fs');
+          const p='/tmp/pondy-d3-production/qa-results.json';
+          const data=JSON.parse(fs.readFileSync(p,'utf8'));
+          const rows=Array.isArray(data)?data:(data.results||[]);
+          const failures=rows.flatMap(r=>(r.failures||[]).map(f=>`${r.viewport||''} ${r.page||''}: ${f}`));
+          console.log(`Production QA checks: ${rows.length}`);
+          console.log(`Production QA failures: ${failures.length}`);
+          if(failures.length){console.error(failures.join('\n'));process.exit(1)}
+          NODE
+
+      - name: Upload production screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: design3-production-qa
+          path: |
+            /tmp/pondy-d3-production/*.png
+            /tmp/pondy-d3-production/qa-results.json
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Self-clean temporary workflow
+        if: always()
+        shell: bash
+        run: |
+          rm -f .github/workflows/d3-production-qa.yml
+          if git diff --quiet -- .github/workflows/d3-production-qa.yml; then exit 0; fi
+          git config user.name "AeroVista QA"
+          git config user.email "aerovistaus@gmail.com"
+          git add -u .github/workflows/d3-production-qa.yml
+          git commit -m "Remove temporary production QA workflow"
+          git push origin HEAD:codex/design3-execution
