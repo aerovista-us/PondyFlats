@@ -5,7 +5,9 @@
   "scripts": {
     "d1": "node scripts/r51e-deliverable-gates.js",
     "d2": "node scripts/d2-deliverable-gates.js",
-    "gates": "node scripts/r51e-deliverable-gates.js && node scripts/d2-deliverable-gates.js && node scripts/d3-render-qa.mjs /tmp/pondy-d3-gate",
+    "gates:d3-source": "node scripts/d3-render-qa.mjs /tmp/pondy-d3-gate",
+    "gates:d3-package": "node scripts/export-packages.js && cd packages/design-3-client && D3_QA_PACKAGE=1 node ../../scripts/d3-render-qa.mjs /tmp/pondy-d3-package-gate",
+    "gates": "node scripts/r51e-deliverable-gates.js && node scripts/d2-deliverable-gates.js && node scripts/d3-render-qa.mjs /tmp/pondy-d3-gate && node scripts/export-packages.js && cd packages/design-3-client && D3_QA_PACKAGE=1 node ../../scripts/d3-render-qa.mjs /tmp/pondy-d3-package-gate",
     "export": "node scripts/export-packages.js"
   }
 }

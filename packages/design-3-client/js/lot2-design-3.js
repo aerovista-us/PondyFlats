@@ -36,22 +36,70 @@ function rect(x,y,w,d,sx,sy,ox,oy,fill,cls=''){return `<rect class="${cls}" x="$
 function label(x,y,text,sx,sy,ox,oy,size=10,anchor='middle'){return `<text x="${(x*sx+ox).toFixed(1)}" y="${(y*sy+oy).toFixed(1)}" text-anchor="${anchor}" font-size="${size}" font-weight="800" fill="${COLORS.navy}">${text}</text>`}
 
 function renderSite(){
-  const W=1000,H=410,pad=30,s=6.15,ox=pad,oy=pad;
+  const W=1200,H=650,s=6.15,ox=90,oy=170,ink=COLORS.navy;
   const homes=LOCK.placements.filter(p=>p.kind==='home');
   const garages=LOCK.placements.filter(p=>p.kind==='garage');
-  const drives=LOCK.drives.map(d=>`<polyline points="${poly(d.points,s,s,ox,oy)}" fill="none" stroke="${COLORS.drive}" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" opacity=".6"/><polyline points="${poly(d.points,s,s,ox,oy)}" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="6 6"/>`).join('');
+  const drives=LOCK.drives.map(d=>`<polyline points="${poly(d.points,s,s,ox,oy)}" fill="none" stroke="#a5aaa8" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/><polyline points="${poly(d.points,s,s,ox,oy)}" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-dasharray="8 7"/>`).join('');
+  const building=(p,fill)=>`<g filter="url(#siteShadow)">${rect(p.x,p.y,p.w,p.d,s,s,ox,oy,fill)}</g>`;
   return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="CFB-716 frozen site plan">
+  <defs><filter id="siteShadow"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-opacity=".12"/></filter></defs>
   <rect width="${W}" height="${H}" fill="#fbfaf7"/>
-  <polygon points="${poly(SURVEY,s,s,ox,oy)}" fill="${COLORS.lot}" stroke="${COLORS.line}" stroke-width="2"/>
+  <text x="70" y="58" font-size="30" font-family="Georgia,serif" fill="${ink}">A-001 · CFB-716 frozen site plan</text>
+  <text x="70" y="87" font-size="14" fill="${COLORS.muted}">Preferred Design 3 placement · Pennsylvania-only access · exterior/site geometry locked to the canonical Workbench freeze</text>
+  <g transform="translate(72,112)"><path d="M0 26 L0 0 L5 9 L10 0 L10 26" fill="none" stroke="${ink}" stroke-width="2"/><text x="5" y="-6" text-anchor="middle" font-size="10" font-weight="900" fill="${ink}">N</text></g>
+  <rect x="1010" y="138" width="140" height="380" rx="12" fill="#deddd8"/>
+  <line x1="1080" y1="150" x2="1080" y2="506" stroke="#ffffff" stroke-width="3" stroke-dasharray="16 14" opacity=".9"/>
+  <text x="1118" y="328" transform="rotate(90 1118 328)" text-anchor="middle" font-size="14" font-weight="900" fill="#5e6262">PENNSYLVANIA STREET</text>
+  <text x="1048" y="328" transform="rotate(90 1048 328)" text-anchor="middle" font-size="10" font-weight="800" fill="#8b3b31">MODELED ACCESS ONLY</text>
+  <polygon points="${poly(SURVEY,s,s,ox,oy)}" fill="${COLORS.lot}" stroke="${COLORS.line}" stroke-width="2.4"/>
   ${drives}
-  ${homes.map(p=>rect(p.x,p.y,p.w,p.d,s,s,ox,oy,p.unit==='A'?COLORS.homeA:COLORS.homeB)).join('')}
-  ${garages.map(p=>rect(p.x,p.y,p.w,p.d,s,s,ox,oy,COLORS.garage)).join('')}
-  ${label(104.5,6.5,'UNIT A',s,s,ox,oy,12)}
-  ${label(41,7,'UNIT B',s,s,ox,oy,12)}
-  ${label(118,18,'GARAGE A',s,s,ox,oy,10)}
-  ${label(47,27,'GARAGE B',s,s,ox,oy,10)}
-  <text x="970" y="205" transform="rotate(90 970 205)" text-anchor="middle" font-size="12" font-weight="900" fill="${COLORS.red}">PENNSYLVANIA · FRONT / ACCESS</text>
-  <text x="32" y="392" font-size="11" fill="${COLORS.muted}">Frozen candidate CFB-716 · exterior/site geometry locked to Workbench freeze ${FREEZE.slice(0,12)}…</text>
+  ${homes.map(p=>building(p,p.unit==='A'?COLORS.homeA:COLORS.homeB)).join('')}
+  ${garages.map(p=>building(p,COLORS.garage)).join('')}
+  ${label(104.5,7,'UNIT A',s,s,ox,oy,13)}
+  ${label(41,7.5,'UNIT B',s,s,ox,oy,13)}
+  ${label(118,18.5,'GARAGE A',s,s,ox,oy,10)}
+  ${label(47,27.5,'GARAGE B',s,s,ox,oy,10)}
+  <g transform="translate(70,552)">
+    <rect width="1060" height="62" rx="10" fill="#ffffffea" stroke="#d8d2ca"/>
+    <text x="18" y="22" font-size="11" font-weight="900" fill="${ink}">GEOMETRY AUTHORITY · CFB-716 FREEZE ${FREEZE.slice(0,12)}…</text>
+    <text x="18" y="42" font-size="10.5" fill="${COLORS.muted}">Presentation may change; property boundary, home/garage placements, drive paths, and Pennsylvania access may not.</text>
+    <g transform="translate(690,15)"><rect width="18" height="18" rx="3" fill="${COLORS.homeA}" stroke="#999"/><text x="26" y="13" font-size="9.5" fill="${COLORS.muted}">home</text><rect x="92" width="18" height="18" rx="3" fill="${COLORS.garage}" stroke="#888"/><text x="118" y="13" font-size="9.5" fill="${COLORS.muted}">garage</text><line x1="196" y1="9" x2="235" y2="9" stroke="#a5aaa8" stroke-width="12" stroke-linecap="round"/><text x="244" y="13" font-size="9.5" fill="${COLORS.muted}">vehicle route</text></g>
+  </g>
+  </svg>`;
+}
+
+function renderSweptPath(){
+  const W=1200,H=700,s=6.15,ox=90,oy=170,ink=COLORS.navy;
+  const rectSvg=(p,fill)=>rect(p.x,p.y,p.w,p.d,s,s,ox,oy,fill,'');
+  const swept=LOCK.drives.map((d,i)=>{
+    const width=i===0?28:27;
+    const center=poly(d.points,s,s,ox,oy);
+    const envelopes=d.points.map(([x,y],j)=>{
+      const angle=j&&d.points[j-1]?Math.atan2(y-d.points[j-1][1],x-d.points[j-1][0])*180/Math.PI:0;
+      const vx=x*s+ox,vy=y*s+oy;
+      return `<rect x="${(vx-37).toFixed(1)}" y="${(vy-15).toFixed(1)}" width="74" height="30" rx="5" fill="#6f7778" opacity=".18" stroke="#4c5455" stroke-width="1.2" transform="rotate(${angle.toFixed(1)} ${vx.toFixed(1)} ${vy.toFixed(1)})"/>`;
+    }).join('');
+    return `<g><polyline points="${center}" fill="none" stroke="#bec3c1" stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round" opacity=".82"/><polyline points="${center}" fill="none" stroke="#687273" stroke-width="3" stroke-dasharray="11 8"/>${envelopes}</g>`;
+  }).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="CFB-716 swept path proof overlay">
+  <rect width="${W}" height="${H}" fill="#fbfaf7"/>
+  <text x="70" y="58" font-size="30" font-family="Georgia,serif" fill="${ink}">A-002 · Full-size SUV / pickup swept-path proof</text>
+  <text x="70" y="87" font-size="14" fill="${COLORS.muted}">Workbench evidence overlay on the frozen CFB-716 site · design-development circulation proof, not civil engineering certification</text>
+  <rect x="1010" y="138" width="140" height="380" rx="12" fill="#deddd8"/>
+  <line x1="1080" y1="150" x2="1080" y2="506" stroke="#ffffff" stroke-width="3" stroke-dasharray="16 14" opacity=".9"/>
+  <text x="1118" y="328" transform="rotate(90 1118 328)" text-anchor="middle" font-size="14" font-weight="900" fill="#5e6262">PENNSYLVANIA STREET</text>
+  <path d="M ${1010} 146 L ${1010} 505" stroke="#a43c30" stroke-width="4"/>
+  <polygon points="${poly(SURVEY,s,s,ox,oy)}" fill="${COLORS.lot}" stroke="${COLORS.line}" stroke-width="2.4"/>
+  ${swept}
+  ${LOCK.placements.filter(p=>p.kind==='home').map(p=>rectSvg(p,p.unit==='A'?COLORS.homeA:COLORS.homeB)).join('')}
+  ${LOCK.placements.filter(p=>p.kind==='garage').map(p=>rectSvg(p,COLORS.garage)).join('')}
+  ${label(104.5,7,'UNIT A',s,s,ox,oy,13)}${label(41,7.5,'UNIT B',s,s,ox,oy,13)}${label(118,18.5,'GARAGE A',s,s,ox,oy,10)}${label(47,27.5,'GARAGE B',s,s,ox,oy,10)}
+  <g transform="translate(70,548)"><rect width="1060" height="108" rx="10" fill="#ffffffea" stroke="#d8d2ca"/>
+    <text x="18" y="24" font-size="11" font-weight="900" fill="${ink}">MODELED RESULT · MINIMUM RECORDED BOUNDARY CLEARANCE ${LOCK.clearanceFt.toFixed(2)} FT</text>
+    <text x="18" y="45" font-size="10.5" fill="${COLORS.muted}">Frozen DRIVE-A and DRIVE-B remain the centerlines. Gray envelopes illustrate vehicle-body occupation through the tested maneuvers.</text>
+    <text x="18" y="64" font-size="10.5" fill="${COLORS.muted}">Pennsylvania is the only modeled access origin. Final civil/site design and field verification remain professional-validation items.</text>
+    <g transform="translate(18,78)"><line x1="0" y1="7" x2="42" y2="7" stroke="#687273" stroke-width="3" stroke-dasharray="10 7"/><text x="52" y="11" font-size="9.5" fill="${COLORS.muted}">drive centerline</text><rect x="190" y="0" width="48" height="14" rx="4" fill="#6f7778" opacity=".18" stroke="#4c5455"/><text x="250" y="11" font-size="9.5" fill="${COLORS.muted}">vehicle envelope</text><line x1="390" y1="7" x2="432" y2="7" stroke="#25313b" stroke-width="2"/><text x="444" y="11" font-size="9.5" fill="${COLORS.muted}">property boundary</text></g>
+  </g>
   </svg>`;
 }
 
@@ -204,11 +252,60 @@ function renderElev(side){
   </svg>`;
 }
 
+const AXON_CAMERA={W:1200,H:740,ox:610,oy:535,cx:76,cy:26,sx:5.65,syx:3.35,sy:2.35,sz:6.65};
+function axonProject(x,y,z=0){return [AXON_CAMERA.ox+(x-AXON_CAMERA.cx)*AXON_CAMERA.sx-(y-AXON_CAMERA.cy)*AXON_CAMERA.syx,AXON_CAMERA.oy-(y-AXON_CAMERA.cy)*AXON_CAMERA.sy-z*AXON_CAMERA.sz]}
+function axonPts(a){return a.map(p=>p.map(v=>v.toFixed(1)).join(",")).join(" ")}
+
+function renderMassing(){
+  const W=AXON_CAMERA.W,H=AXON_CAMERA.H,ink=COLORS.navy,iso=axonProject,pts=axonPts;
+  function simpleMass(p,h,fill){
+    const a=iso(p.x,p.y,0),b=iso(p.x+p.w,p.y,0),c=iso(p.x+p.w,p.y+p.d,0),d=iso(p.x,p.y+p.d,0);
+    const A=iso(p.x,p.y,h),B=iso(p.x+p.w,p.y,h),C=iso(p.x+p.w,p.y+p.d,h),D=iso(p.x,p.y+p.d,h);
+    const midFront=[(A[0]+B[0])/2,(A[1]+B[1])/2-24];
+    const midBack=[(D[0]+C[0])/2,(D[1]+C[1])/2-24];
+    return `<g>
+      <polygon points="${pts([a,b,B,A])}" fill="${fill}" stroke="#2b333a" stroke-width="1.8"/>
+      <polygon points="${pts([b,c,C,B])}" fill="#b8afa1" stroke="#2b333a" stroke-width="1.8"/>
+      <polygon points="${pts([A,B,C,D])}" fill="#e8e1d4" stroke="#2b333a" stroke-width="1.4"/>
+      <polygon points="${pts([A,B,midFront])}" fill="#3f454c" stroke="#2b333a" stroke-width="1.5"/>
+      <polygon points="${pts([D,C,midBack])}" fill="#4b535b" stroke="#2b333a" stroke-width="1.5"/>
+      <polygon points="${pts([A,D,midBack,midFront])}" fill="#596169" stroke="#2b333a" stroke-width="1.5"/>
+      <polygon points="${pts([B,C,midBack,midFront])}" fill="#3a4148" stroke="#2b333a" stroke-width="1.5"/>
+    </g>`;
+  }
+  const lotPts=SURVEY.map(([x,y])=>iso(x,y,0));
+  const drives=LOCK.drives.map(d=>`<polyline points="${pts(d.points.map(([x,y])=>iso(x,y,.2)))}" fill="none" stroke="#8e9492" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" opacity=".62"/>`).join("");
+  const homes=LOCK.placements.filter(p=>p.kind==="home").map(p=>simpleMass(p,20,p.unit==="A"?"#d1bd98":"#ddcfae")).join("");
+  const garages=LOCK.placements.filter(p=>p.kind==="garage").map(p=>simpleMass(p,11,"#8fa188")).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="CFB-716 same-camera architectural massing">
+  <rect width="${W}" height="${H}" fill="#f5f1ea"/>
+  <text x="70" y="62" font-size="30" font-family="Georgia,serif" fill="${ink}">A-401 Massing · Design 3 CFB-716</text>
+  <text x="70" y="90" font-size="14" fill="${COLORS.muted}">Same projection as A-402 · simplified volumes, roofs, garages, site, and Pennsylvania access</text>
+  <polygon points="${pts(lotPts)}" fill="#ebe4d7" stroke="#596169" stroke-width="2"/>
+  <polygon points="872,558 1125,476 1190,512 938,606" fill="#d6d5cf" stroke="#8e8f89" stroke-width="1.5"/>
+  ${drives}
+  <g>${homes}${garages}</g>
+  <text x="1075" y="586" text-anchor="middle" font-size="12" font-weight="900" fill="#666">PENNSYLVANIA ACCESS</text>
+  <text x="826" y="508" font-size="12" font-weight="900" fill="#50624d">GARAGE A</text>
+  <text x="200" y="520" font-size="12" font-weight="900" fill="#50624d">GARAGE B</text>
+  <rect x="835" y="266" width="88" height="30" rx="15" fill="#ffffffdd" stroke="#d8d2ca"/><text x="879" y="286" text-anchor="middle" font-size="12" font-weight="900" fill="${ink}">UNIT A</text>
+  <line x1="850" y1="296" x2="780" y2="350" stroke="${ink}"/>
+  <rect x="285" y="306" width="88" height="30" rx="15" fill="#ffffffdd" stroke="#d8d2ca"/><text x="329" y="326" text-anchor="middle" font-size="12" font-weight="900" fill="${ink}">UNIT B</text>
+  <line x1="340" y1="336" x2="430" y2="390" stroke="${ink}"/>
+  <g transform="translate(70,632)">
+    <rect width="1060" height="72" rx="10" fill="#ffffffea" stroke="#d8d2ca"/>
+    <text x="18" y="24" font-size="11" font-weight="900" fill="${ink}">A-401 MASSING · SAME CAMERA AS A-402</text>
+    <text x="18" y="45" font-size="10.5" fill="${COLORS.muted}">Simplified architectural volumes from frozen CFB-716 placements. No exterior/site geometry moved.</text>
+    <text x="18" y="61" font-size="10.5" fill="${COLORS.muted}">Customer massing study. Not permit / construction drawings.</text>
+  </g>
+  </svg>`;
+}
+
 function renderAxon(){
-  const W=1200,H=740;
+  const W=AXON_CAMERA.W,H=AXON_CAMERA.H;
   const ink=COLORS.navy;
-  const iso=(x,y,z=0)=>[610+(x-76)*5.65-(y-26)*3.35,535-(y-26)*2.35-z*6.65];
-  const pts=a=>a.map(p=>p.map(v=>v.toFixed(1)).join(",")).join(" ");
+  const iso=axonProject;
+  const pts=axonPts;
   function mass(p,h,fill,roof=true){
     const a=iso(p.x,p.y,0),b=iso(p.x+p.w,p.y,0),c=iso(p.x+p.w,p.y+p.d,0),d=iso(p.x,p.y+p.d,0);
     const A=iso(p.x,p.y,h),B=iso(p.x+p.w,p.y,h),C=iso(p.x+p.w,p.y+p.d,h),D=iso(p.x,p.y+p.d,h);
@@ -231,8 +328,8 @@ function renderAxon(){
       <polygon points="${pts([b,c,C,B])}" fill="#b9ae9e" stroke="#2b333a" stroke-width="1.8"/>
       <polygon points="${pts([A,B,C,D])}" fill="#e6ded1" stroke="#2b333a" stroke-width="1.6"/>
       ${roofPoly}
-      <polygon data-opening="window" points="${pts(frontWindow)}" fill="#bfd2dd" stroke="#2a6496" stroke-width="2"/>
-      <polygon data-opening="window" points="${pts(sideWindow)}" fill="#bfd2dd" stroke="#2a6496" stroke-width="2"/>
+      <polygon data-opening="window" points="${pts(frontWindow)}" fill="#bfd2dd" stroke="#53636c" stroke-width="1.8"/>
+      <polygon data-opening="window" points="${pts(sideWindow)}" fill="#bfd2dd" stroke="#53636c" stroke-width="1.8"/>
     </g>`;
   }
   const lotPts=SURVEY.map(([x,y])=>iso(x,y,0));
@@ -253,12 +350,12 @@ function renderAxon(){
   ${trees}
   <g filter="url(#axonShadow)">${homes}${garages}</g>
   <g>
-    <polygon data-opening="door" points="760,432 806,417 820,425 774,441" fill="#7f654e" stroke="#c34232" stroke-width="3"/>
-    <polygon data-opening="door" points="433,451 477,438 490,446 446,460" fill="#7f654e" stroke="#c34232" stroke-width="3"/>
+    <polygon data-opening="door" points="760,432 806,417 820,425 774,441" fill="#7f654e" stroke="#3f3731" stroke-width="2"/>
+    <polygon data-opening="door" points="433,451 477,438 490,446 446,460" fill="#7f654e" stroke="#3f3731" stroke-width="2"/>
     <text x="786" y="410" font-size="10" font-weight="900" fill="${ink}">ENTRY A</text>
     <text x="443" y="432" font-size="10" font-weight="900" fill="${ink}">ENTRY B</text>
-    <polygon data-opening="door" points="852,525 902,510 902,540 852,555" fill="#6e6a64" stroke="#c34232" stroke-width="3"/>
-    <polygon data-opening="door" points="248,520 298,506 298,536 248,550" fill="#6e6a64" stroke="#c34232" stroke-width="3"/>
+    <polygon data-opening="door" points="852,525 902,510 902,540 852,555" fill="#6e6a64" stroke="#3f3731" stroke-width="2"/>
+    <polygon data-opening="door" points="248,520 298,506 298,536 248,550" fill="#6e6a64" stroke="#3f3731" stroke-width="2"/>
   </g>
   <g>
     <rect x="835" y="266" width="88" height="30" rx="15" fill="#ffffffdd" stroke="#d8d2ca"/><text x="879" y="286" text-anchor="middle" font-size="12" font-weight="900" fill="${ink}">UNIT A</text>
@@ -273,19 +370,20 @@ function renderAxon(){
     <text x="18" y="24" font-size="11" font-weight="900" fill="${ink}">GEOMETRY AUTHORITY · CFB-716 FREEZE ${FREEZE.slice(0,12)}…</text>
     <text x="18" y="45" font-size="10.5" fill="${COLORS.muted}">This axon is derived from the frozen site/building placements. Roofs, openings, and materials are presentation-layer development only.</text>
     <text x="18" y="61" font-size="10.5" fill="${COLORS.muted}">Not permit / construction drawings. Professional validation pending.</text>
-    <text x="760" y="24" font-size="10" font-weight="900" fill="${ink}">PRESENTATION LANGUAGE</text>
+    <text x="760" y="24" font-size="10" font-weight="900" fill="${ink}">MATERIAL DIRECTION</text>
     <text x="760" y="43" font-size="10" fill="${COLORS.muted}">Warm siding · stone/service accents · dark roof · wood entries</text>
-    <text x="760" y="60" font-size="10" fill="${COLORS.muted}">Door = red outline · Window = blue outline</text>
+    <text x="760" y="60" font-size="10" fill="${COLORS.muted}">Openings and landscape cues are presentation-layer design development.</text>
   </g>
   </svg>`;
 }
 
 
 function renderSections(){
-  const W=1200,H=900,ink=COLORS.navy,muted=COLORS.muted;
+  const W=1200,H=1060,ink=COLORS.navy,muted=COLORS.muted;
   const siding="#d9d0c2",stone="#9b8f7e",roof="#3f454c",glass="#bfd2dd",slab="#8b8580";
   const level=(y,label)=>`<line x1="82" y1="${y}" x2="1118" y2="${y}" stroke="#a8aba7" stroke-width="1.5"/><text x="92" y="${y-8}" font-size="10" font-weight="900" fill="${muted}">${label}</text>`;
   const sectionA=`<g transform="translate(70,150)">
+    <rect x="-24" y="-62" width="1108" height="445" rx="16" fill="#ffffff" stroke="#e0dbd4"/>
     <text x="0" y="-32" font-size="24" font-family="Georgia,serif" fill="${ink}">A-501 - Longitudinal site section</text>
     <text x="0" y="-10" font-size="12" fill="${muted}">Pennsylvania access, garage/service fronts, two-home relationship, and rear-yard grade are diagrammatic.</text>
     <rect x="0" y="238" width="1060" height="14" fill="${slab}"/>
@@ -296,20 +394,23 @@ function renderSections(){
       <path d="M-14 68 L118 0 L249 68" fill="${roof}" stroke="${ink}" stroke-width="2"/>
       <rect x="36" y="112" width="42" height="54" fill="${glass}" stroke="#53636c"/>
       <rect x="95" y="118" width="40" height="120" fill="#7f654e" stroke="${ink}"/>
-      <text x="118" y="266" text-anchor="middle" font-size="12" font-weight="900" fill="${ink}">UNIT A - near Pennsylvania</text>
+      <text x="118" y="266" text-anchor="middle" font-size="12" font-weight="900" fill="${ink}">UNIT A · near Pennsylvania</text>
+      <text x="184" y="210" text-anchor="middle" font-size="9.5" font-weight="800" fill="#5e665f">GARAGE / SERVICE</text>
     </g>
     <g transform="translate(245,92)">
       <rect x="0" y="86" width="210" height="150" fill="#ddcfae" stroke="${ink}" stroke-width="2"/>
       <rect x="18" y="150" width="68" height="86" fill="${stone}" opacity=".95"/>
       <path d="M-12 86 L105 18 L222 86" fill="${roof}" stroke="${ink}" stroke-width="2"/>
       <rect x="110" y="128" width="42" height="56" fill="${glass}" stroke="#53636c"/>
-      <text x="105" y="264" text-anchor="middle" font-size="12" font-weight="900" fill="${ink}">UNIT B - deeper lot position</text>
+      <text x="105" y="264" text-anchor="middle" font-size="12" font-weight="900" fill="${ink}">UNIT B · deeper lot position</text>
+      <text x="52" y="214" text-anchor="middle" font-size="9.5" font-weight="800" fill="#5e665f">SERVICE</text>
     </g>
     <path d="M1060 238 C1008 226 968 222 920 225 C820 232 752 232 690 226 C560 212 410 224 310 226" fill="none" stroke="#858c8b" stroke-width="14" stroke-linecap="round" opacity=".55"/>
-    <text x="1010" y="214" font-size="11" font-weight="900" fill="#8b3b31">PENNSYLVANIA ACCESS</text>
+    <text x="900" y="214" font-size="10.5" font-weight="900" fill="#8b3b31">PENNSYLVANIA STREET / ACCESS</text>
     <text x="16" y="314" font-size="10.5" fill="${muted}">Design-development section: grade, floor levels, and roofs are presentation diagrams only. Frozen plan coordinates are not moved.</text>
   </g>`;
-  const sectionB=`<g transform="translate(70,565)">
+  const sectionB=`<g transform="translate(70,635)">
+    <rect x="-24" y="-62" width="1108" height="350" rx="16" fill="#ffffff" stroke="#e0dbd4"/>
     <text x="0" y="-32" font-size="24" font-family="Georgia,serif" fill="${ink}">A-502 - Representative building section</text>
     <text x="0" y="-10" font-size="12" fill="${muted}">Shows garage/home relationship, stair/hall core, upper bedrooms/den, and simple roof hierarchy inside the frozen shell.</text>
     ${level(232,"grade / slab")}
@@ -323,6 +424,7 @@ function renderSections(){
       <g stroke="#65717b" stroke-width="1"><line x1="102" y1="148" x2="152" y2="148"/><line x1="102" y1="160" x2="152" y2="160"/><line x1="102" y1="172" x2="152" y2="172"/><line x1="102" y1="184" x2="152" y2="184"/></g>
       <rect x="236" y="144" width="96" height="72" fill="#756f67" stroke="${ink}" stroke-width="1.5"/>
       <text x="105" y="108" text-anchor="middle" font-size="11" font-weight="900" fill="${ink}">BEDROOMS + DEN</text>
+      <text x="181" y="12" text-anchor="middle" font-size="9.5" font-weight="800" fill="#5e665f">SIMPLE PITCHED ROOF</text>
       <text x="92" y="194" text-anchor="middle" font-size="10" font-weight="900" fill="${ink}">STAIR / HALL</text>
       <text x="284" y="185" text-anchor="middle" font-size="10" font-weight="900" fill="#fff">GARAGE</text>
     </g>
@@ -334,6 +436,7 @@ function renderSections(){
       <rect x="188" y="142" width="78" height="74" fill="#756f67" stroke="${ink}" stroke-width="1.5"/>
       <text x="85" y="178" text-anchor="middle" font-size="10" font-weight="900" fill="${ink}">LIVING / DINING</text>
       <text x="149" y="108" text-anchor="middle" font-size="11" font-weight="900" fill="${ink}">BEDROOM LEVEL</text>
+      <text x="149" y="12" text-anchor="middle" font-size="9.5" font-weight="800" fill="#5e665f">SIMPLE PITCHED ROOF</text>
       <text x="227" y="184" text-anchor="middle" font-size="10" font-weight="900" fill="#fff">GARAGE</text>
     </g>
     <text x="16" y="294" font-size="10.5" fill="${muted}">Concept sections only. Structural spans, assemblies, stairs, and code compliance remain professional-validation items.</text>
@@ -341,8 +444,9 @@ function renderSections(){
   return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="CFB-716 design-development sections">
     <rect width="${W}" height="${H}" fill="#fbfaf7"/>
     <text x="70" y="58" font-size="30" font-family="Georgia,serif" fill="${ink}">Design 3 - Sections</text>
-    <text x="70" y="86" font-size="14" fill="${muted}">Two concept sections tied to the frozen CFB-716 massing and Pennsylvania-only access.</text>
+    <text x="70" y="86" font-size="14" fill="${muted}">Two customer-readable concept sections tied to the frozen CFB-716 massing and Pennsylvania-only access.</text>
     ${sectionA}${sectionB}
+    <g transform="translate(70,1000)"><rect width="1060" height="36" rx="10" fill="#eef2f4"/><text x="18" y="23" font-size="10.5" font-weight="800" fill="${ink}">SECTION INTENT · explain site relationship, garage/home organization, floor stacking, and roof hierarchy without implying structural or permit resolution.</text></g>
   </svg>`;
 }
 
@@ -369,5 +473,5 @@ function analyze(){
   };
 }
 
-global.Lot2Design3={REV,LOCK,PLAN,COLORS,analyze,renderSite,renderFloor,renderElev,renderAxon,renderSections};
+global.Lot2Design3={REV,LOCK,PLAN,COLORS,analyze,renderSite,renderSweptPath,renderFloor,renderElev,renderMassing,renderAxon,renderSections};
 })(window);

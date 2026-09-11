@@ -38,14 +38,14 @@ function write(dir, name, body) {
 
 function rewriteStaticDesign3(html) {
   return html
-    .replace(/href="design-3\.html"/g, 'href="index.html"')
-    .replace(/href="d3-site\.html"/g, 'href="site.html"')
-    .replace(/href="d3-plan-closure\.html"/g, 'href="plans.html"')
-    .replace(/href="d3-elevs\.html"/g, 'href="elevs.html"')
-    .replace(/href="d3-axon\.html"/g, 'href="axon.html"')
-    .replace(/href="d3-sections\.html"/g, 'href="sections.html"')
-    .replace(/href="r51e-deliverable\.html"/g, 'href="#"')
-    .replace(/href="design-2\.html"/g, 'href="#"');
+    .replace(/href="design-3\.html([^"]*)"/g, 'href="index.html$1"')
+    .replace(/href="d3-site\.html([^"]*)"/g, 'href="site.html$1"')
+    .replace(/href="d3-plan-closure\.html([^"]*)"/g, 'href="plans.html$1"')
+    .replace(/href="d3-elevs\.html([^"]*)"/g, 'href="elevs.html$1"')
+    .replace(/href="d3-axon\.html([^"]*)"/g, 'href="axon.html$1"')
+    .replace(/href="d3-sections\.html([^"]*)"/g, 'href="sections.html$1"')
+    .replace(/href="r51e-deliverable\.html([^"]*)"/g, 'href="#$1"')
+    .replace(/href="design-2\.html([^"]*)"/g, 'href="#$1"');
 }
 
 function listFiles(dir, prefix = '') {
@@ -92,6 +92,9 @@ for (const pack of Export.PACKAGES) {
   }
   write(clientDir, 'README.txt', Export.clientReadme(pack.title, pack.status));
   copyFile(path.join(root, 'css', 'lot2-client.css'), path.join(clientDir, 'css', 'lot2-client.css'));
+  for (const stylesheet of pack.staticStyles || pack.staticCss || []) {
+    copyFile(path.join(root, 'css', stylesheet), path.join(clientDir, 'css', stylesheet));
+  }
 
   const presenterSrc = path.join(root, pack.presenterSrc);
   let presenterHtml = fs.readFileSync(presenterSrc, 'utf8');
@@ -104,6 +107,9 @@ for (const pack of Export.PACKAGES) {
     .replace(/href="presenter-design-2\.html"/g, pack.id === 'design-2' ? 'href="index.html"' : 'href="../design-2-presenter/index.html"')
     .replace(/href="presenter-design-3\.html"/g, pack.id === 'design-3' ? 'href="index.html"' : 'href="../design-3-presenter/index.html"')
     .replace(/href="css\/lot2-studio\.css"/g, 'href="css/lot2-studio.css"');
+  if (pack.id === 'design-1' || pack.id === 'design-2') {
+    presenterHtml = presenterHtml.replace(/(<a href="index\.html">)Studio(<\/a>)/g, '$1Workbench$2');
+  }
   write(presenterDir, 'index.html', presenterHtml);
   write(presenterDir, 'talking-points.html', Export.talkingPoints(pack.points));
   copyFile(path.join(root, 'css', 'lot2-studio.css'), path.join(presenterDir, 'css', 'lot2-studio.css'));

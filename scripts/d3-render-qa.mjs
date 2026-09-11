@@ -9,7 +9,10 @@ const outDir = process.argv[2] || '/tmp/pondy-d3-qa';
 let base = process.argv[3] || '';
 const port = Number(process.env.CDP_PORT || 9333);
 const profile = `/tmp/pondy-d3-chrome-${process.pid}`;
-const pages = ['design-3.html', 'd3-site.html', 'd3-plan-closure.html', 'd3-elevs.html', 'd3-axon.html', 'd3-sections.html'];
+const packageMode = process.env.D3_QA_PACKAGE === '1';
+const packageAliases = { 'index.html':'design-3.html', 'site.html':'d3-site.html', 'plans.html':'d3-plan-closure.html', 'elevs.html':'d3-elevs.html', 'axon.html':'d3-axon.html', 'sections.html':'d3-sections.html' };
+const pages = packageMode ? Object.keys(packageAliases) : ['design-3.html', 'd3-site.html', 'd3-plan-closure.html', 'd3-elevs.html', 'd3-axon.html', 'd3-sections.html'];
+const canonicalPage = (page) => packageMode ? packageAliases[page] : page;
 const viewports = [
   { name: 'desktop-1440', width: 1440, height: 1100, scale: 1 },
   { name: 'tablet-1024', width: 1024, height: 900, scale: 1 },
@@ -17,18 +20,18 @@ const viewports = [
   { name: 'mobile-390', width: 390, height: 900, scale: 1 },
 ];
 const requiredSvgs = {
-  'design-3.html': 0,
-  'd3-site.html': 1,
-  'd3-plan-closure.html': 2,
+  'design-3.html': 1,
+  'd3-site.html': 2,
+  'd3-plan-closure.html': 3,
   'd3-elevs.html': 4,
-  'd3-axon.html': 1,
+  'd3-axon.html': 2,
   'd3-sections.html': 1,
 };
 const requiredFigures = {
-  'd3-site.html': ['drawing'],
-  'd3-plan-closure.html': ['ground', 'upper'],
+  'd3-site.html': ['drawing', 'swept-path'],
+  'd3-plan-closure.html': ['ground', 'upper', 'bubble-drawing'],
   'd3-elevs.html': ['penn', 'rear', 'north', 'south'],
-  'd3-axon.html': ['drawing'],
+  'd3-axon.html': ['massing-drawing', 'axon-drawing'],
   'd3-sections.html': ['drawing'],
 };
 const mime = {
@@ -77,9 +80,10 @@ function resultFailures(result) {
   if ((m.failText || []).length) out.push('renderer fallback output: ' + (m.failText || []).join(' | '));
   if ((m.bodyTextLength || 0) <= 0) out.push('blank body text');
   if (m.horizontalOverflow) out.push('horizontal overflow ' + m.scrollWidth + '>' + m.clientWidth);
-  const expectedSvgCount = requiredSvgs[result.page];
+  const key = canonicalPage(result.page);
+  const expectedSvgCount = requiredSvgs[key];
   if (expectedSvgCount != null && (m.svgCount || 0) < expectedSvgCount) out.push('required SVG count ' + (m.svgCount || 0) + '<' + expectedSvgCount);
-  for (const id of requiredFigures[result.page] || []) {
+  for (const id of requiredFigures[key] || []) {
     const fig = m.figs && m.figs[id];
     if (!fig) out.push('missing required figure #' + id);
     else if (!fig.hasSvg) out.push('required figure #' + id + ' has no SVG');
@@ -87,7 +91,11 @@ function resultFailures(result) {
   }
   for (const item of result.consoleItems || []) out.push(item.type + ': ' + item.text);
   for (const item of (result.failedRequests || []).filter((x) => !isExpectedRequestFailure(x))) out.push('request ' + (item.status || item.error) + ': ' + (item.url || item.requestId || ''));
-  if (result.page === 'd3-plan-closure.html') {
+  for (const link of m.localLinks || []) {
+    if (!link.ok) out.push(`broken local link ${link.href} -> ${link.status || link.error || 'failed'}`);
+    else if (!link.anchorOk) out.push(`missing local anchor ${link.href}`);
+  }
+  if (key === 'd3-plan-closure.html') {
     const gate = m.planGate;
     if (!gate) out.push('missing plan geometry gate');
     else {
@@ -209,14 +217,14 @@ async function qaPage(page, viewport) {
   await client.send('Page.navigate', { url: new URL(page, base).href });
   await Promise.race([loaded, new Promise((r) => setTimeout(r, 12000))]);
   await new Promise((r) => setTimeout(r, 900));
-  const metrics = await evaluate(client, `(() => {
+  const metrics = await evaluate(client, `(async () => {
     const doc = document.documentElement;
     const svgs = [...document.querySelectorAll('svg')].map((svg) => {
       const r = svg.getBoundingClientRect();
       return { aria: svg.getAttribute('aria-label') || '', width: Math.round(r.width), height: Math.round(r.height), visible: r.width > 40 && r.height > 40 };
     });
     const figs = {};
-    ['penn','rear','north','south','site','axon','ground','upper','drawing'].forEach((id) => {
+    ['penn','rear','north','south','site','axon','ground','upper','drawing','swept-path','bubble-drawing','massing-drawing','axon-drawing'].forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
       const r = el.getBoundingClientRect();
@@ -233,6 +241,24 @@ async function qaPage(page, viewport) {
         geometryFailures: g.geometry?.failures || [],
       };
     })() : null;
+    const localLinks = (await Promise.all([...document.querySelectorAll('a[href]')].map(async (a) => {
+      const href = a.getAttribute('href') || '';
+      if (!href || href === '#' || href.startsWith('javascript:') || href.startsWith('mailto:') || href.startsWith('tel:')) return null;
+      const u = new URL(href, location.href);
+      if (u.origin !== location.origin) return null;
+      try {
+        const res = await fetch(u.pathname + u.search, { cache: 'no-store' });
+        let anchorOk = true;
+        if (res.ok && u.hash) {
+          const text = await res.text();
+          const parsed = new DOMParser().parseFromString(text, 'text/html');
+          anchorOk = !!parsed.getElementById(decodeURIComponent(u.hash.slice(1)));
+        }
+        return { href, target: u.pathname + u.hash, ok: res.ok, status: res.status, anchorOk };
+      } catch (err) {
+        return { href, target: u.pathname + u.hash, ok: false, status: 0, anchorOk: false, error: String(err) };
+      }
+    }))).filter(Boolean);
     return {
       title: document.title,
       bodyTextLength: document.body.innerText.trim().length,
@@ -245,6 +271,7 @@ async function qaPage(page, viewport) {
       clientWidth: doc.clientWidth,
       horizontalOverflow: doc.scrollWidth > doc.clientWidth + 2,
       planGate,
+      localLinks,
     };
   })()`);
   const screenshot = `${outDir}/${viewport.name}-${page.replace('.html', '')}.png`;
@@ -263,9 +290,31 @@ async function qaPage(page, viewport) {
     }
   }
   if (page === 'd3-axon.html' && viewport.name === 'desktop-1440') {
-    const clip = await evaluate(client, `(() => { const r = document.querySelector('#drawing').getBoundingClientRect(); return {x:Math.max(0,r.left + window.scrollX),y:Math.max(0,r.top + window.scrollY),width:r.width,height:r.height,scale:1}; })()`);
+    for (const [id, name] of [['massing-drawing','massing'], ['axon-drawing','axon']]) {
+      await evaluate(client, `document.querySelector('#${id}').scrollIntoView({block:'center'})`);
+      await new Promise((r) => setTimeout(r, 250));
+      const clip = await evaluate(client, `(() => { const r = document.querySelector('#${id}').getBoundingClientRect(); return {x:Math.max(0,r.left + window.scrollX),y:Math.max(0,r.top + window.scrollY),width:r.width,height:r.height,scale:1}; })()`);
+      const data = await client.send('Page.captureScreenshot', { format: 'png', clip, captureBeyondViewport: true, fromSurface: true });
+      const file = `${outDir}/desktop-1440-${name}-drawing.png`;
+      await writeFile(file, Buffer.from(data.data, 'base64'));
+      clips.push(file);
+    }
+  }
+  if (page === 'd3-site.html' && viewport.name === 'desktop-1440') {
+    await evaluate(client, `document.querySelector('#swept-path').scrollIntoView({block:'center'})`);
+    await new Promise((r) => setTimeout(r, 250));
+    const clip = await evaluate(client, `(() => { const r = document.querySelector('#swept-path').getBoundingClientRect(); return {x:Math.max(0,r.left + window.scrollX),y:Math.max(0,r.top + window.scrollY),width:r.width,height:r.height,scale:1}; })()`);
     const data = await client.send('Page.captureScreenshot', { format: 'png', clip, captureBeyondViewport: true, fromSurface: true });
-    const file = `${outDir}/desktop-1440-axon-drawing.png`;
+    const file = `${outDir}/desktop-1440-swept-path.png`;
+    await writeFile(file, Buffer.from(data.data, 'base64'));
+    clips.push(file);
+  }
+  if (page === 'd3-plan-closure.html' && viewport.name === 'desktop-1440') {
+    await evaluate(client, `document.querySelector('#bubble-drawing').scrollIntoView({block:'center'})`);
+    await new Promise((r) => setTimeout(r, 250));
+    const clip = await evaluate(client, `(() => { const r = document.querySelector('#bubble-drawing').getBoundingClientRect(); return {x:Math.max(0,r.left + window.scrollX),y:Math.max(0,r.top + window.scrollY),width:r.width,height:r.height,scale:1}; })()`);
+    const data = await client.send('Page.captureScreenshot', { format: 'png', clip, captureBeyondViewport: true, fromSurface: true });
+    const file = `${outDir}/desktop-1440-bubble-drawing.png`;
     await writeFile(file, Buffer.from(data.data, 'base64'));
     clips.push(file);
   }
@@ -298,7 +347,7 @@ try {
   const failures = results.flatMap((result) => resultFailures(result).map((failure) => ({ page: result.page, viewport: result.viewport, failure })));
   const resultFile = `${outDir}/qa-results.json`;
   await writeFile(resultFile, JSON.stringify({ base, generatedAt: new Date().toISOString(), results, failures }, null, 2));
-  console.log(JSON.stringify({ outDir, base, resultFile, pages, viewports: viewports.map((v) => v.name), failures }, null, 2));
+  console.log(JSON.stringify({ mode: packageMode ? 'standalone-package' : 'source', outDir, base, resultFile, pages, viewports: viewports.map((v) => v.name), failures }, null, 2));
   if (failures.length) process.exitCode = 1;
 } finally {
   chrome.kill('SIGTERM');
