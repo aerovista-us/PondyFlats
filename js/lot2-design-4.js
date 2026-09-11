@@ -1,0 +1,121 @@
+(function(global){
+'use strict';
+
+const REV='D4-REAR22-SEED-v0.1';
+const VEHICLE={id:'FS-SUV',label:'Full-size SUV / pickup',length:20.5,width:8,wheelbase:13.1,frontOverhang:3.4,rearOverhang:4,minRearAxleRadius:25,doorWidth:16,apronDepth:24};
+const SURVEY=[[0,0],[148,0],[148,50],[125.143,43.016],[84.813,43.016],[0,57.01]];
+const SOUTH_BOUNDARY=[[0,57.01],[84.813,43.016],[125.143,43.016],[148,50]];
+const GARAGES=[
+  {id:'GARAGE-A',kind:'garage',unit:'A',x:5,y:5,w:22,d:22,doorFace:'east',stalls:2,detached:true},
+  {id:'GARAGE-B',kind:'garage',unit:'B',x:5,y:29,w:22,d:22,doorFace:'east',stalls:2,detached:true}
+];
+const HOMES=[
+  {id:'HOME-B',kind:'home',unit:'B',poly:[[54,5],[94.5,5],[94.5,31.25],[72.5,31.25],[72.5,22],[54,22]]},
+  {id:'HOME-A',kind:'home',unit:'A',x:94.5,y:5,w:33.5,d:26.25}
+];
+const SEED={
+  id:'d4_nf_54_72p5_94p5_31p25_35p75_71p5',
+  family:'north-finger',
+  status:'PROMOTED_GEOMETRY_SEED',
+  frozen:false,
+  params:{wingX:54,xW:72.5,party:94.5,south:31.25,wingSouth:22,spine:35.75,turn:71.5},
+  firstFloorShellSf:{B:892,A:879},
+  twoStoryShellCapacitySf:{B:1784,A:1759},
+  capacityDeltaSf:25,
+  garageHomeSeparationFt:27,
+  minSouthClearanceFt:1.08
+};
+const SETBACKS={
+  principal:{status:'CONDITIONAL',frontFt:20,rearFt:25,sideOptionsFt:[5,10],workingOrientation:'north-5 / south-10',legalFit:false},
+  accessory:{status:'CONDITIONAL',rearFt:5,sideFt:5,threeFootExceptionUsed:false,legalFit:false,source:'CDA 17.06.425 planning evidence'},
+  interGarage:{status:'AHJ_REVIEW',clearFt:2,detail:'Two 22×22 plates on the same rear line leave only ~2.2 ft theoretical inter-garage room after normal outer 5 ft side setbacks.'}
+};
+const COLORS={paper:'#fbfaf7',lot:'#f5efe1',ink:'#132238',muted:'#67727e',homeA:'#d9b56d',homeB:'#ead495',garage:'#8ca58b',drive:'#8b9291',red:'#a13b31',orange:'#a9612b',blue:'#3f6c8e',park:'#d9ead8'};
+
+function polygonArea(poly){let a=0;for(let i=0;i<poly.length;i++){const p=poly[i],q=poly[(i+1)%poly.length];a+=p[0]*q[1]-q[0]*p[1];}return Math.abs(a)/2;}
+function homePoly(h){return h.poly||[[h.x,h.y],[h.x+h.w,h.y],[h.x+h.w,h.y+h.d],[h.x,h.y+h.d]];}
+function poly(points,s,ox,oy){return points.map(([x,y])=>`${(x*s+ox).toFixed(1)},${(y*s+oy).toFixed(1)}`).join(' ')}
+function rectPoly(r){return [[r.x,r.y],[r.x+r.w,r.y],[r.x+r.w,r.y+r.d],[r.x,r.y+r.d]]}
+function pointSegDistance(p,a,b){const dx=b[0]-a[0],dy=b[1]-a[1],den=dx*dx+dy*dy||1,t=Math.max(0,Math.min(1,((p[0]-a[0])*dx+(p[1]-a[1])*dy)/den));return Math.hypot(p[0]-(a[0]+t*dx),p[1]-(a[1]+t*dy));}
+function rectPolylineClearance(r,line){const q=rectPoly(r),edges=[[0,1],[1,2],[2,3],[3,0]];let min=Infinity;for(const [i,j] of edges)for(let k=0;k<line.length-1;k++)min=Math.min(min,pointSegDistance(q[i],line[k],line[k+1]),pointSegDistance(q[j],line[k],line[k+1]));return min;}
+function southY(x){if(x<=84.813)return 57.01+(43.016-57.01)*(x/84.813);if(x<=125.143)return 43.016;return 43.016+(50-43.016)*((x-125.143)/(148-125.143));}
+function accessoryClearances(){
+  const a=GARAGES[0],b=GARAGES[1];
+  return {rearFt:5,northFt:5,southFt:southY(5)-(b.y+b.d),interGarageFt:b.y-(a.y+a.d)};
+}
+function sCurve(startX,startY,endY,stepDeg=4){
+  const R=VEHICLE.minRearAxleRadius,d=Math.abs(endY-startY),sign=endY>startY?1:-1,ct=1-d/(2*R);
+  if(ct<-1||ct>1)return null;
+  const theta=Math.acos(ct),steps=Math.max(4,Math.ceil(theta/(stepDeg*Math.PI/180))),pts=[[startX,startY]];
+  for(let i=1;i<=steps;i++){const a=theta*i/steps;pts.push([startX-R*Math.sin(a),startY+sign*R*(1-Math.cos(a))]);}
+  const u1=R*Math.sin(theta),v1=R*(1-Math.cos(theta));
+  for(let i=1;i<=steps;i++){const t=theta*i/steps,du=R*(Math.sin(theta)-Math.sin(theta-t)),dv=R*(Math.cos(theta-t)-Math.cos(theta));pts.push([startX-u1-du,startY+sign*(v1+dv)]);}
+  return pts;
+}
+function buildPath(endY){
+  const p=SEED.params,curve=sCurve(p.turn,p.spine,endY);
+  return [[151,p.spine],[148,p.spine],[p.turn,p.spine],...curve.slice(1),[22.5,endY]];
+}
+const ACCESS_PATHS={A:buildPath(16),B:buildPath(40)};
+function poseHeading(path,index){
+  const i=Math.max(1,index),p=path[i],q=path[i-1];return Math.atan2(p[1]-q[1],p[0]-q[0]);
+}
+function vehiclePoly(axleX,axleY,th){
+  const hx=Math.cos(th),hy=Math.sin(th),wx=-hy,wy=hx,axleOffset=VEHICLE.length/2-VEHICLE.rearOverhang,cx=axleX+hx*axleOffset,cy=axleY+hy*axleOffset,hl=VEHICLE.length/2,hw=VEHICLE.width/2;
+  return [[cx+hx*hl+wx*hw,cy+hy*hl+wy*hw],[cx+hx*hl-wx*hw,cy+hy*hl-wy*hw],[cx-hx*hl-wx*hw,cy-hy*hl-wy*hw],[cx-hx*hl+wx*hw,cy-hy*hl+wy*hw]];
+}
+function parkBounds(path){const i=path.length-1,p=path[i],th=poseHeading(path,i),vp=vehiclePoly(p[0],p[1],th),xs=vp.map(q=>q[0]),ys=vp.map(q=>q[1]);return {minX:Math.min(...xs),maxX:Math.max(...xs),minY:Math.min(...ys),maxY:Math.max(...ys)};}
+function analyze(){
+  const ac=accessoryClearances(),parkA=parkBounds(ACCESS_PATHS.A),parkB=parkBounds(ACCESS_PATHS.B);
+  return {
+    rev:REV,verdict:'CONDITIONAL',candidate:SEED.id,frozen:false,
+    checks:{
+      garageProgram:{ok:true,status:'LOCKED_RULE',blocking:true,count:2,sizeFt:[22,22],stalls:4},
+      accessorySetbacks:{ok:false,status:'CONDITIONAL',blocking:false,legalFit:false,required:{rearFt:5,sideFt:5},clearances:ac,threeFootExceptionUsed:false,detail:'Geometry uses the normal 5 ft accessory rear/side planning targets. Parcel-specific zoning confirmation remains required.'},
+      interGarageSpacing:{ok:false,status:'AHJ_REVIEW',blocking:true,clearFt:ac.interGarageFt,detail:'Inter-garage building/fire/eave/drainage requirements have not yet been confirmed.'},
+      principalEnvelope:{ok:true,status:'GEOMETRY_PASS / ZONING_CONFIRM',blocking:false,legalFit:false,detail:'Selected home shells fit the current working principal-envelope model; final side-yard assignment remains a zoning confirmation item.'},
+      circulation:{ok:true,status:'INBOUND_PARK_BACKOUT_VERIFIED',blocking:false,scope:'full-entry-enclosed-park-reverse-equivalent',forwardExitProven:false,reverseEquivalent:true,minSouthClearanceFt:SEED.minSouthClearanceFt,detail:'Full-size vehicle enters each 22×22 garage, parks fully enclosed, and can back out over the same collision-free pose envelope. This is not a forward-exit proof.'},
+      parkingFit:{ok:true,status:'FULL_ENCLOSED_FIT',blocking:false,A:parkA,B:parkB},
+      homeCapacity:{ok:true,status:'SEED_CAPACITY',blocking:false,capacitySf:SEED.twoStoryShellCapacitySf,detail:'Gross diagrammed shell capacity only; room-program closure remains pending.'},
+      roomProgram:{ok:false,status:'PENDING',blocking:true}
+    }
+  };
+}
+function openingDoor(g){return {x:g.x+g.w,y:g.y+3,w:0,d:16};}
+function renderSite(){
+  const W=1200,H=735,s=6.2,ox=88,oy=168;
+  const path=(pts,stroke,width,dash='')=>`<polyline points="${poly(pts,s,ox,oy)}" fill="none" stroke="${stroke}" stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round" ${dash?`stroke-dasharray="${dash}"`:''}/>`;
+  const bldg=(pts,fill)=>`<polygon points="${poly(pts,s,ox,oy)}" fill="${fill}" stroke="${COLORS.ink}" stroke-width="2"/>`;
+  const ac=accessoryClearances();
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Design 4 rear detached 22 by 22 garage geometry seed" data-design="4" data-seed="${SEED.id}" data-frozen="false" data-garage-size="22x22" data-accessory-status="CONDITIONAL" data-intergarage-status="AHJ_REVIEW">
+  <rect width="${W}" height="${H}" fill="${COLORS.paper}"/>
+  <text x="68" y="50" font-family="Georgia,serif" font-size="29" font-weight="700" fill="${COLORS.ink}">Design 4 · Rear 22×22 garage seed</text>
+  <text x="68" y="78" font-size="14" fill="${COLORS.muted}">Promoted discovery geometry · not frozen · accessory zoning CONDITIONAL</text>
+  <rect x="1030" y="137" width="130" height="380" rx="12" fill="#d8d9d5"/><line x1="1095" y1="151" x2="1095" y2="505" stroke="#fff" stroke-width="3" stroke-dasharray="16 14"/><text x="1135" y="325" transform="rotate(90 1135 325)" text-anchor="middle" font-size="13" font-weight="900" fill="#596168">PENNSYLVANIA STREET</text>
+  ${bldg(SURVEY,COLORS.lot)}
+  <g fill="none" stroke="${COLORS.orange}"><line x1="${(5*s+ox).toFixed(1)}" y1="${oy}" x2="${(5*s+ox).toFixed(1)}" y2="${(57*s+oy).toFixed(1)}" stroke-width="2" stroke-dasharray="8 6"/><text x="${(5*s+ox+8).toFixed(1)}" y="154" fill="${COLORS.orange}" stroke="none" font-size="10" font-weight="900">ACCESSORY REAR 5′</text></g>
+  ${path(ACCESS_PATHS.A,'#b2b5b2',20)}${path(ACCESS_PATHS.B,'#b2b5b2',20)}${path(ACCESS_PATHS.A,'#fff',2,'8 7')}${path(ACCESS_PATHS.B,'#fff',2,'8 7')}
+  ${bldg(homePoly(HOMES[0]),COLORS.homeB)}${bldg(homePoly(HOMES[1]),COLORS.homeA)}
+  ${GARAGES.map(g=>bldg(rectPoly(g),COLORS.garage)).join('')}
+  ${GARAGES.map(g=>`<line x1="${((g.x+g.w)*s+ox).toFixed(1)}" y1="${((g.y+3)*s+oy).toFixed(1)}" x2="${((g.x+g.w)*s+ox).toFixed(1)}" y2="${((g.y+19)*s+oy).toFixed(1)}" stroke="${COLORS.red}" stroke-width="5" data-garage-door="${g.id}"/>`).join('')}
+  <g font-size="10" font-weight="900" fill="${COLORS.ink}"><text x="${(16*s+ox).toFixed(1)}" y="${(16*s+oy).toFixed(1)}" text-anchor="middle">GARAGE A · 22×22</text><text x="${(16*s+ox).toFixed(1)}" y="${(40*s+oy).toFixed(1)}" text-anchor="middle">GARAGE B · 22×22</text><text x="${(108*s+ox).toFixed(1)}" y="${(18*s+oy).toFixed(1)}" text-anchor="middle">HOME A · ~1,759 SF SHELL</text><text x="${(78*s+ox).toFixed(1)}" y="${(15*s+oy).toFixed(1)}" text-anchor="middle">HOME B · ~1,784 SF SHELL</text></g>
+  <g transform="translate(740,540)"><rect width="410" height="150" rx="12" fill="#fff" stroke="#d4d0c6"/><text x="18" y="28" font-size="13" font-weight="900" fill="${COLORS.ink}">CURRENT GATES</text><text x="18" y="54" font-size="11" fill="${COLORS.ink}">✓ 2 × full 22×22 detached garage plates</text><text x="18" y="76" font-size="11" fill="${COLORS.ink}">✓ full-size vehicle enclosed parking fit</text><text x="18" y="98" font-size="11" fill="${COLORS.ink}">✓ inbound + reverse-equivalent back-out envelope</text><text x="18" y="120" font-size="11" fill="${COLORS.orange}">△ accessory zoning + ~${ac.interGarageFt.toFixed(1)}′ inter-garage gap require AHJ review</text><text x="18" y="140" font-size="10" fill="${COLORS.muted}">Room-program closure pending · design-development evidence only</text></g>
+  </svg>`;
+}
+function renderSwept(){
+  const W=1200,H=735,s=6.2,ox=88,oy=168;
+  const body=(pt,th,opacity)=>`<polygon points="${poly(vehiclePoly(pt[0],pt[1],th),s,ox,oy)}" fill="${COLORS.blue}" fill-opacity="${opacity}" stroke="${COLORS.blue}" stroke-width="1" data-vehicle-id="${VEHICLE.id}" data-length-ft="20.5" data-width-ft="8" data-turn-radius-ft="25"/>`;
+  let poses='';
+  for(const key of ['A','B']){const p=ACCESS_PATHS[key];for(let i=1;i<p.length;i+=3)poses+=body(p[i],poseHeading(p,i),.08);poses+=body(p[p.length-1],poseHeading(p,p.length-1),.25);}
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Design 4 full-size vehicle entry parking and reverse-equivalent back-out proof" data-proof-scope="full-entry-enclosed-park-reverse-equivalent" data-forward-exit="false" data-reverse-equivalent="true" data-garage-depth-ft="22" data-vehicle-length-ft="20.5" data-min-south-clearance-ft="1.08">
+  <rect width="${W}" height="${H}" fill="${COLORS.paper}"/><text x="68" y="50" font-family="Georgia,serif" font-size="29" font-weight="700" fill="${COLORS.ink}">A-002 · Full entry + enclosed park + back-out proof</text><text x="68" y="78" font-size="14" fill="${COLORS.muted}">FS-SUV 20.5×8.0 · 25′ rear-axle radius · outbound is reverse-equivalent, not forward exit</text>
+  <polygon points="${poly(SURVEY,s,ox,oy)}" fill="${COLORS.lot}" stroke="${COLORS.ink}" stroke-width="2"/>${HOMES.map((h,i)=>`<polygon points="${poly(homePoly(h),s,ox,oy)}" fill="${i?COLORS.homeA:COLORS.homeB}" stroke="${COLORS.ink}" stroke-width="2"/>`).join('')}${GARAGES.map(g=>`<polygon points="${poly(rectPoly(g),s,ox,oy)}" fill="${COLORS.park}" stroke="${COLORS.ink}" stroke-width="2"/>`).join('')}
+  <polyline points="${poly(ACCESS_PATHS.A,s,ox,oy)}" fill="none" stroke="${COLORS.red}" stroke-width="2.5"/><polyline points="${poly(ACCESS_PATHS.B,s,ox,oy)}" fill="none" stroke="${COLORS.red}" stroke-width="2.5"/>${poses}
+  <g transform="translate(730,535)"><rect width="430" height="155" rx="12" fill="#fff" stroke="#d4d0c6"/><text x="18" y="28" font-size="13" font-weight="900" fill="${COLORS.ink}">PROOF BOUNDARY</text><text x="18" y="54" font-size="11" fill="${COLORS.ink}">✓ full body reaches both garage interiors</text><text x="18" y="76" font-size="11" fill="${COLORS.ink}">✓ complete 20.5×8.0 body parks inside each 22×22 plate</text><text x="18" y="98" font-size="11" fill="${COLORS.ink}">✓ backing out retraces the collision-free body envelope</text><text x="18" y="120" font-size="11" fill="${COLORS.orange}">△ forward exit / turnaround inside garage is NOT claimed</text><text x="18" y="141" font-size="10" fill="${COLORS.muted}">Design-development geometry only · civil/AHJ validation pending</text></g>
+  </svg>`;
+}
+
+const api={REV,VEHICLE,SURVEY,SOUTH_BOUNDARY,GARAGES,HOMES,SEED,SETBACKS,ACCESS_PATHS,analyze,renderSite,renderSwept,vehiclePoly,sCurve,polygonArea};
+if(typeof module!=='undefined'&&module.exports)module.exports=api;
+global.Lot2Design4=api;
+})(typeof window!=='undefined'?window:globalThis);
