@@ -1,0 +1,51 @@
+name: One-time Design 4 plan visual correction
+
+on:
+  push:
+    branches: [design4/rear-22-discovery]
+    paths: ['.github/workflows/d4-plan-visual-fix.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design4/rear-22-discovery
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Reframe plan drawings around the actual home shells
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('js/lot2-design-4-plan-closure.js')
+          s=p.read_text()
+          old="const W=1200,H=720,s=12,ox=62,oy=120,a=analyze();"
+          new="const W=1200,H=720,s=9.5,ox=-428,oy=72.5,a=analyze();"
+          if old not in s:
+              raise SystemExit('renderLevel projection signature not found')
+          s=s.replace(old,new,1)
+          s=s.replace('<g transform="translate(800,120)"><rect width="340" height="190"', '<g transform="translate(820,120)"><rect width="340" height="190"',1)
+          p.write_text(s)
+          PY
+          node --check js/lot2-design-4-plan-closure.js
+          node <<'NODE'
+          const assert=require('assert');const p=require('./js/lot2-design-4-plan-closure.js');const a=p.analyze();
+          assert.equal(a.verdict,'PASS');assert.equal(a.failures.length,0);
+          const svg=p.renderLevel('ground');
+          assert(svg.includes('A-101'));assert(svg.includes('PLAN CLOSURE · PASS'));
+          NODE
+          node scripts/export-design4.js
+      - name: Commit corrected plan framing and packages
+        run: |
+          git config user.name "AeroVista"
+          git config user.email "aerovistaus@gmail.com"
+          rm -f .github/workflows/d4-plan-visual-fix.yml
+          git add js/lot2-design-4-plan-closure.js packages/design-4-client .github/workflows/d4-plan-visual-fix.yml
+          git commit -m "Reframe Design 4 plan sheets for full-shell visibility"
+          git push origin HEAD:design4/rear-22-discovery
