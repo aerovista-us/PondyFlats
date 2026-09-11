@@ -1,0 +1,44 @@
+name: One-time Design 4 plan stair repair
+
+on:
+  push:
+    branches:
+      - design4/rear-22-discovery
+    paths:
+      - scripts/d4-plan-stair-fix.js
+      - .github/workflows/d4-plan-stair-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design4/rear-22-discovery
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Repair and validate plan model
+        run: |
+          node scripts/d4-plan-stair-fix.js
+          node --check js/lot2-design-4-plan-closure.js
+          node <<'NODE'
+          const p=require('./js/lot2-design-4-plan-closure.js');
+          const a=p.analyze();
+          console.log(JSON.stringify(a,null,2));
+          if(a.verdict!=='PASS') throw new Error('plan closure still not PASS');
+          if(a.units.B.stairOverlapSf<10) throw new Error('Unit B stair still disconnected');
+          if(a.checks.wetCore.blocking!==false) throw new Error('wet core must remain non-blocking');
+          NODE
+      - name: Commit repair and remove one-time runner
+        run: |
+          git config user.name "AeroVista"
+          git config user.email "aerovistaus@gmail.com"
+          git add js/lot2-design-4-plan-closure.js
+          git rm scripts/d4-plan-stair-fix.js .github/workflows/d4-plan-stair-fix.yml
+          git commit -m "Repair Design 4 stair continuity and wet-core evidence [skip ci]"
+          git push origin HEAD:design4/rear-22-discovery
