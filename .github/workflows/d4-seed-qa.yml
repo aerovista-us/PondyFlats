@@ -1,0 +1,75 @@
+name: Design 4 seed QA
+
+on:
+  push:
+    branches:
+      - design4/rear-22-discovery
+    paths:
+      - js/lot2-design-4.js
+      - design-4.html
+      - d4-site.html
+      - .github/workflows/d4-seed-qa.yml
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design4/rear-22-discovery
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Model syntax and invariants
+        run: |
+          node --check js/lot2-design-4.js
+          node <<'NODE'
+          const assert=require('assert');
+          const d=require('./js/lot2-design-4.js');
+          assert.equal(d.GARAGES.length,2);
+          for(const g of d.GARAGES){assert.equal(g.w,22);assert.equal(g.d,22);assert.equal(g.detached,true)}
+          const a=d.analyze();
+          assert.equal(a.verdict,'CONDITIONAL');
+          assert.equal(a.checks.garageProgram.ok,true);
+          assert.equal(a.checks.parkingFit.ok,true);
+          assert.equal(a.checks.circulation.status,'INBOUND_PARK_BACKOUT_VERIFIED');
+          assert.equal(a.checks.circulation.forwardExitProven,false);
+          assert.equal(a.checks.circulation.reverseEquivalent,true);
+          assert.equal(a.checks.accessorySetbacks.status,'CONDITIONAL');
+          assert.equal(a.checks.interGarageSpacing.status,'AHJ_REVIEW');
+          assert.equal(a.checks.roomProgram.status,'PENDING');
+          assert(d.renderSite().includes('data-garage-size="22x22"'));
+          assert(d.renderSwept().includes('data-proof-scope="full-entry-enclosed-park-reverse-equivalent"'));
+          console.log(JSON.stringify(a,null,2));
+          NODE
+      - name: Locate Chrome
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+      - name: Browser render QA
+        run: |
+          mkdir -p /tmp/d4-seed-qa
+          python3 -m http.server 8000 --bind 127.0.0.1 >/tmp/d4-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID || true' EXIT
+          sleep 1
+          for PAGE in design-4 d4-site; do
+            "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --virtual-time-budget=3000 --dump-dom "http://127.0.0.1:8000/${PAGE}.html" > "/tmp/d4-seed-qa/${PAGE}.dom.html"
+            grep -q '<svg' "/tmp/d4-seed-qa/${PAGE}.dom.html"
+            ! grep -qi 'ReferenceError\|TypeError\|renderer failed' "/tmp/d4-seed-qa/${PAGE}.dom.html"
+            for SIZE in 1440,1100 390,900; do
+              TAG="${SIZE/,/x}"
+              "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-budget=3000 --window-size="$SIZE" --screenshot="/tmp/d4-seed-qa/${TAG}-${PAGE}.png" "http://127.0.0.1:8000/${PAGE}.html"
+            done
+          done
+          grep -q 'data-garage-size="22x22"' /tmp/d4-seed-qa/design-4.dom.html
+          grep -q 'data-accessory-status="CONDITIONAL"' /tmp/d4-seed-qa/d4-site.dom.html
+          grep -q 'data-proof-scope="full-entry-enclosed-park-reverse-equivalent"' /tmp/d4-seed-qa/d4-site.dom.html
+          grep -q 'data-forward-exit="false"' /tmp/d4-seed-qa/d4-site.dom.html
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: design4-seed-qa
+          path: /tmp/d4-seed-qa/
+          retention-days: 14
