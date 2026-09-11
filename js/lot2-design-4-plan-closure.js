@@ -46,9 +46,9 @@ const ROOMS={
       {id:'B-U-PRIMARY',name:'Primary Bedroom',x:54,y:5,w:18.5,d:17,kind:'bed'},
       {id:'B-U-BED2',name:'Bedroom 2',x:72.5,y:5,w:11,d:10,kind:'bed'},
       {id:'B-U-BED3',name:'Bedroom 3',x:83.5,y:5,w:11,d:10,kind:'bed'},
-      {id:'B-U-PRIMARYBATH',name:'Primary Bath / WIC',x:72.5,y:15,w:11,d:7,kind:'bath',wet:true},
-      {id:'B-U-BATH',name:'Hall Bath',x:83.5,y:15,w:6,d:7,kind:'bath',wet:true},
-      {id:'B-U-STAIR',name:'Stair / Hall',x:89.5,y:15,w:5,d:7,kind:'hall',stair:true},
+      {id:'B-U-STAIR',name:'Stair / Hall',x:72.5,y:15,w:8.5,d:7,kind:'hall',stair:true},
+      {id:'B-U-PRIMARYBATH',name:'Primary Bath / WIC',x:81,y:15,w:8.5,d:7,kind:'bath',wet:true},
+      {id:'B-U-BATH',name:'Hall Bath',x:89.5,y:15,w:5,d:7,kind:'bath',wet:true},
       {id:'B-U-LOFT',name:'Loft / Upper Hall',x:72.5,y:22,w:22,d:9.25,kind:'hall'}
     ]
   }
@@ -65,7 +65,7 @@ function shellArea(poly){let a=0;for(let i=0;i<poly.length;i++){const p=poly[i],
 function entryOnPerimeter(e,shell){const mid=[(e.x1+e.x2)/2,(e.y1+e.y2)/2];for(let i=0;i<shell.poly.length;i++)if(pointOnSeg(mid,shell.poly[i],shell.poly[(i+1)%shell.poly.length],1e-4))return true;return false}
 function stairOverlap(unit){const g=ROOMS.ground[unit].find(r=>r.stair),u=ROOMS.upper[unit].find(r=>r.stair);return overlapArea(g,u)}
 function beds(unit){return ROOMS.upper[unit].filter(r=>r.kind==='bed').length}
-function wetAnalysis(unit){const ground=ROOMS.ground[unit].filter(r=>r.wet),upper=ROOMS.upper[unit].filter(r=>r.wet);let best={gap:Infinity,pair:null};for(const g of ground)for(const u of upper){const dx=Math.max(u.x-(g.x+g.w),g.x-(u.x+u.w),0),dy=Math.max(u.y-(g.y+g.d),g.y-(u.y+u.d),0),gap=Math.hypot(dx,dy);if(gap<best.gap)best={gap,pair:[g.id,u.id]};}return {ok:best.gap===0,blocking:false,status:best.gap===0?'OVERLAP_AVAILABLE':'ADVISORY',gapFt:+best.gap.toFixed(2),pair:best.pair}}
+function wetAnalysis(unit){const ground=ROOMS.ground[unit].filter(r=>r.wet),upper=ROOMS.upper[unit].filter(r=>r.wet);let best={gap:Infinity,pair:null,overlapSf:0};for(const g of ground)for(const u of upper){const ov=overlapArea(g,u),dx=Math.max(u.x-(g.x+g.w),g.x-(u.x+u.w),0),dy=Math.max(u.y-(g.y+g.d),g.y-(u.y+u.d),0),gap=Math.hypot(dx,dy);if(ov>best.overlapSf||(ov===best.overlapSf&&gap<best.gap))best={gap,pair:[g.id,u.id],overlapSf:ov};}const ok=best.overlapSf>1e-6;return {ok,blocking:false,status:ok?'OVERLAP_AVAILABLE':'ADVISORY',gapFt:+best.gap.toFixed(2),overlapSf:+best.overlapSf.toFixed(2),pair:best.pair}}
 function analyze(){
   const failures=[];const units={};
   for(const unit of ['A','B']){
