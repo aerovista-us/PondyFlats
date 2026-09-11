@@ -99,6 +99,10 @@ function resultFailures(result) {
     if (fit.ok !== false || fit.blocking !== true || fit.status !== 'UNRESOLVED') out.push('Lot2Design3 garage fit must remain unresolved: '+JSON.stringify(fit));
     const plumbing=model.checks?.plumbing||{};
     if (plumbing.ok !== false || plumbing.blocking !== false || plumbing.status !== 'ADVISORY') out.push('Lot2Design3 plumbing analysis must remain a non-blocking advisory: '+JSON.stringify(plumbing));
+    const setbacks=model.checks?.setbacks||{};
+    if (setbacks.ok !== false || setbacks.status !== 'CONDITIONAL' || setbacks.confirmed !== false || setbacks.legalFit !== false || setbacks.sideAssignment !== 'UNCONFIRMED') out.push('Lot2Design3 setback analysis must remain explicitly conditional/unconfirmed: '+JSON.stringify(setbacks));
+    if ((setbacks.clearances?.frontFt||0) < 20-1e-6 || (setbacks.clearances?.rearFt||0) < 25-1e-6) out.push('A-001 front/rear setback evidence does not reach the 20/25 ft project-reference lines: '+JSON.stringify(setbacks.clearances||{}));
+    if (!Array.isArray(setbacks.required?.sideOptionsFt) || setbacks.required.sideOptionsFt.join(',') !== '5,10') out.push('A-001 must preserve the project-reference 5/10 ft side-yard alternatives');
     if (/wet-core[^.]{0,80}pass/i.test(model.checks?.architecturalZoning?.detail||'')) out.push('Lot2Design3 architectural analysis still claims wet-core PASS');
   }
   if (key === 'design-3.html') {
@@ -108,6 +112,11 @@ function resultFailures(result) {
     if (!hs.garageFitUnresolved) out.push('Design 3 hub missing unresolved full-garage-fit disclosure');
   }
   if (key === 'd3-site.html') {
+    const sb=m.setbackMeta||{};
+    if (sb.status!=='CONDITIONAL' || sb.confirmed!==false || sb.legalFit!==false || sb.sideAssignment!=='UNCONFIRMED') out.push('A-001 rendered setback metadata is missing truthful CONDITIONAL/unconfirmed scope: '+JSON.stringify(sb));
+    if (Math.abs((sb.frontFt||0)-20)>1e-6 || Math.abs((sb.rearFt||0)-25)>1e-6 || sb.sideOptions!=='5,10') out.push('A-001 rendered setback overlay does not match 20 front / 25 rear / 5+10 side project reference');
+    if (Math.abs((sb.frontClearanceFt||0)-20)>.01 || Math.abs((sb.rearClearanceFt||0)-25)>.01 || Math.abs((sb.northClearanceFt||0)-5)>.01 || !(sb.southClearanceFt>9.9&&sb.southClearanceFt<10)) out.push('A-001 frozen-wall setback clearance evidence drifted: '+JSON.stringify(sb));
+    if (!/setbacks?\s*·?\s*conditional/i.test(m.bodyText||'') || !/city\s*\/\s*zoning confirmation/i.test(m.bodyText||'')) out.push('A-001 customer copy must disclose conditional setbacks and city/zoning confirmation');
     const sm=m.sweepMeta || {};
     if ((m.vehicleBodies || []).length < 20) out.push('A-002 missing continuous locked FS-SUV body sweep');
     for (const body of m.vehicleBodies || []) {
@@ -306,6 +315,8 @@ async function qaPage(page, viewport) {
       try{return new URL(href,location.href).origin!==location.origin}catch{return false}
     });
     const vehicleBodies=[...document.querySelectorAll('[data-vehicle-id="FS-SUV"]')].map(el=>({lengthFt:Number(el.getAttribute('data-length-ft')),widthFt:Number(el.getAttribute('data-width-ft')),sweepKind:el.getAttribute('data-sweep-kind')||'',turnRadiusFt:Number(el.getAttribute('data-turn-radius-ft'))}));
+    const setbackEl=document.querySelector('#drawing svg');
+    const setbackMeta=setbackEl?{status:setbackEl.getAttribute('data-setback-status')||'',confirmed:setbackEl.getAttribute('data-setback-confirmed')==='true',legalFit:setbackEl.getAttribute('data-setback-legal-fit')==='true',frontFt:Number(setbackEl.getAttribute('data-setback-front-ft')),rearFt:Number(setbackEl.getAttribute('data-setback-rear-ft')),sideOptions:setbackEl.getAttribute('data-setback-side-options')||'',sideAssignment:setbackEl.getAttribute('data-setback-side-assignment')||'',frontClearanceFt:Number(setbackEl.getAttribute('data-front-clearance-ft')),rearClearanceFt:Number(setbackEl.getAttribute('data-rear-clearance-ft')),northClearanceFt:Number(setbackEl.getAttribute('data-north-clearance-ft')),southClearanceFt:Number(setbackEl.getAttribute('data-south-clearance-ft'))}:null;
     const sweepEl=document.querySelector('#swept-path svg');
     const sweepMeta=sweepEl?{proofScope:sweepEl.getAttribute('data-proof-scope')||'',fullEnclosure:sweepEl.getAttribute('data-full-enclosure')==='true',garageDepthFt:Number(sweepEl.getAttribute('data-garage-depth-ft')),depthDeficitFt:Number(sweepEl.getAttribute('data-depth-deficit-ft')),poseCount:Number(sweepEl.getAttribute('data-sweep-pose-count')),arcPoseCount:Number(sweepEl.getAttribute('data-arc-pose-count')),shortTangentCount:Number(sweepEl.getAttribute('data-short-tangent-count')),turnRadiusFt:Number(sweepEl.getAttribute('data-turn-radius-ft')),minClearanceFt:Number(sweepEl.getAttribute('data-min-clearance-ft')),outboundProof:sweepEl.getAttribute('data-outbound-proof')||''}:null;
     const axonOpeningTruth=window.Lot2Design3&&window.Lot2Design3.OPENINGS&&window.Lot2Design3.projectAxonOpening?(()=>{
@@ -348,6 +359,7 @@ async function qaPage(page, viewport) {
     return {
       title: document.title,
       bodyTextLength: bodyText.length,
+      bodyText,
       hubScope,
       modelAnalysis,
       failText: [...document.querySelectorAll('.fail:not(.mark)')].map((x) => x.innerText.trim()),
@@ -362,6 +374,7 @@ async function qaPage(page, viewport) {
       localLinks,
       externalLinks,
       vehicleBodies,
+      setbackMeta,
       sweepMeta,
       axonOpeningTruth,
     };

@@ -1,10 +1,21 @@
 (function(global){
 'use strict';
 
-const REV='D3-CFB716-v0.4';
+const REV='D3-CFB716-v0.5';
 const FREEZE='3de5309fb5c87046acbba3ac37bc1c1eca2718344f3f704e50d28daa414f8625';
 const VEHICLE={id:'FS-SUV',length:20.5,width:8.0,wheelbase:13.1,frontOverhang:3.4,rearOverhang:4.0,minRearAxleRadius:25};
 const SURVEY=[[0,0],[148,0],[148,50],[125.143,43.016],[84.813,43.016],[0,57.01]];
+const SOUTH_BOUNDARY=[[0,57.01],[84.813,43.016],[125.143,43.016],[148,50]];
+const SETBACKS={
+  status:'CONDITIONAL',
+  source:'Setbacks - Lots without Alley · project reference',
+  confirmed:false,
+  legalFit:false,
+  frontFt:20,
+  rearFt:25,
+  sideOptionsFt:[5,10],
+  sideAssignment:'UNCONFIRMED'
+};
 const LOCK={
   candidate:'PONDY-CFB-716',
   family:'compact-front-block',
@@ -45,23 +56,86 @@ function poly(points,sx,sy,ox,oy){return points.map(([x,y])=>`${(x*sx+ox).toFixe
 function rect(x,y,w,d,sx,sy,ox,oy,fill,cls=''){return `<rect class="${cls}" x="${(x*sx+ox).toFixed(1)}" y="${(y*sy+oy).toFixed(1)}" width="${(w*sx).toFixed(1)}" height="${(d*sy).toFixed(1)}" fill="${fill}" stroke="${COLORS.line}" stroke-width="1.5"/>`}
 function label(x,y,text,sx,sy,ox,oy,size=10,anchor='middle'){return `<text x="${(x*sx+ox).toFixed(1)}" y="${(y*sy+oy).toFixed(1)}" text-anchor="${anchor}" font-size="${size}" font-weight="800" fill="${COLORS.navy}">${text}</text>`}
 
+function pointSegDistance(p,a,b){
+  const dx=b[0]-a[0],dy=b[1]-a[1],den=dx*dx+dy*dy||1;
+  const t=Math.max(0,Math.min(1,((p[0]-a[0])*dx+(p[1]-a[1])*dy)/den));
+  return Math.hypot(p[0]-(a[0]+t*dx),p[1]-(a[1]+t*dy));
+}
+function segmentDistance(a,b,c,d){return Math.min(pointSegDistance(a,c,d),pointSegDistance(b,c,d),pointSegDistance(c,a,b),pointSegDistance(d,a,b))}
+function rectPolylineClearance(p,line){
+  const q=[[p.x,p.y],[p.x+p.w,p.y],[p.x+p.w,p.y+p.d],[p.x,p.y+p.d]],edges=[[0,1],[1,2],[2,3],[3,0]];
+  let min=Infinity;
+  for(const [i,j] of edges)for(let k=0;k<line.length-1;k++)min=Math.min(min,segmentDistance(q[i],q[j],line[k],line[k+1]));
+  return min;
+}
+function analyzeSetbacks(){
+  const occupied=LOCK.placements;
+  const frontClearanceFt=148-Math.max(...occupied.map(p=>p.x+p.w));
+  const rearClearanceFt=Math.min(...occupied.map(p=>p.x));
+  const northClearanceFt=Math.min(...occupied.map(p=>p.y));
+  const southClearanceFt=Math.min(...occupied.map(p=>rectPolylineClearance(p,SOUTH_BOUNDARY)));
+  const north5South10={northFt:5,southFt:10,ok:northClearanceFt>=5&&southClearanceFt>=10};
+  const north10South5={northFt:10,southFt:5,ok:northClearanceFt>=10&&southClearanceFt>=5};
+  return {
+    ok:false,status:'CONDITIONAL',blocking:false,confirmed:false,legalFit:false,
+    source:SETBACKS.source,sideAssignment:SETBACKS.sideAssignment,
+    required:{frontFt:SETBACKS.frontFt,rearFt:SETBACKS.rearFt,sideOptionsFt:[...SETBACKS.sideOptionsFt]},
+    clearances:{frontFt:frontClearanceFt,rearFt:rearClearanceFt,northFt:northClearanceFt,southFt:southClearanceFt},
+    scenarios:{north5South10,north10South5},
+    detail:`Concept setback evidence only: front ${frontClearanceFt.toFixed(2)} ft / rear ${rearClearanceFt.toFixed(2)} ft / north ${northClearanceFt.toFixed(2)} ft / south ${southClearanceFt.toFixed(2)} ft. The project reference shows 5 ft and 10 ft side yards, but side assignment is not confirmed. Neither orientation is asserted as legal-fit proof; city/zoning confirmation remains required.`
+  };
+}
+function lineIntersection(a,b,c,d){
+  const x1=a[0],y1=a[1],x2=b[0],y2=b[1],x3=c[0],y3=c[1],x4=d[0],y4=d[1];
+  const den=(x1-x2)*(y3-y4)-(y1-y2)*(x3-x4);
+  if(Math.abs(den)<1e-9)return null;
+  return [((x1*y2-y1*x2)*(x3-x4)-(x1-x2)*(x3*y4-y3*x4))/den,((x1*y2-y1*x2)*(y3-y4)-(y1-y2)*(x3*y4-y3*x4))/den];
+}
+function offsetOpenPolyline(points,d){
+  const lines=[];
+  for(let i=0;i<points.length-1;i++){
+    const a=points[i],b=points[i+1],dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy)||1,nx=dy/len,ny=-dx/len;
+    lines.push([[a[0]+nx*d,a[1]+ny*d],[b[0]+nx*d,b[1]+ny*d]]);
+  }
+  const out=[lines[0][0]];
+  for(let i=1;i<lines.length;i++)out.push(lineIntersection(lines[i-1][0],lines[i-1][1],lines[i][0],lines[i][1])||lines[i][0]);
+  out.push(lines[lines.length-1][1]);
+  return out;
+}
+
 function renderSite(){
-  const W=1200,H=650,s=6.15,ox=90,oy=170,ink=COLORS.navy;
+  const W=1200,H=735,s=6.15,ox=90,oy=170,ink=COLORS.navy;
   const homes=LOCK.placements.filter(p=>p.kind==='home');
   const garages=LOCK.placements.filter(p=>p.kind==='garage');
   const drives=LOCK.drives.map(d=>`<polyline points="${poly(d.points,s,s,ox,oy)}" fill="none" stroke="#a5aaa8" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/><polyline points="${poly(d.points,s,s,ox,oy)}" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-dasharray="8 7"/>`).join('');
   const building=(p,fill)=>`<g filter="url(#siteShadow)">${rect(p.x,p.y,p.w,p.d,s,s,ox,oy,fill)}</g>`;
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="CFB-716 frozen site plan">
+  const sb=analyzeSetbacks(),south5=offsetOpenPolyline(SOUTH_BOUNDARY,5),south10=offsetOpenPolyline(SOUTH_BOUNDARY,10);
+  const setInk='#a85f2a';
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="CFB-716 frozen site plan with conditional setback evidence" data-setback-status="${sb.status}" data-setback-confirmed="${sb.confirmed}" data-setback-legal-fit="${sb.legalFit}" data-setback-front-ft="${SETBACKS.frontFt}" data-setback-rear-ft="${SETBACKS.rearFt}" data-setback-side-options="5,10" data-setback-side-assignment="${SETBACKS.sideAssignment}" data-front-clearance-ft="${sb.clearances.frontFt.toFixed(3)}" data-rear-clearance-ft="${sb.clearances.rearFt.toFixed(3)}" data-north-clearance-ft="${sb.clearances.northFt.toFixed(3)}" data-south-clearance-ft="${sb.clearances.southFt.toFixed(3)}">
   <defs><filter id="siteShadow"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-opacity=".12"/></filter></defs>
   <rect width="${W}" height="${H}" fill="#fbfaf7"/>
   <text x="70" y="58" font-size="30" font-family="Georgia,serif" fill="${ink}">A-001 · CFB-716 frozen site plan</text>
-  <text x="70" y="87" font-size="14" fill="${COLORS.muted}">Preferred Design 3 placement · Pennsylvania-only access · exterior/site geometry locked to the canonical Workbench freeze</text>
+  <text x="70" y="87" font-size="14" fill="${COLORS.muted}">Preferred Design 3 placement · Pennsylvania-only access · setback reading shown as CONDITIONAL evidence, not legal-fit proof</text>
   <g transform="translate(72,112)"><path d="M0 26 L0 0 L5 9 L10 0 L10 26" fill="none" stroke="${ink}" stroke-width="2"/><text x="5" y="-6" text-anchor="middle" font-size="10" font-weight="900" fill="${ink}">N</text></g>
   <rect x="1010" y="138" width="140" height="380" rx="12" fill="#deddd8"/>
   <line x1="1080" y1="150" x2="1080" y2="506" stroke="#ffffff" stroke-width="3" stroke-dasharray="16 14" opacity=".9"/>
   <text x="1118" y="328" transform="rotate(90 1118 328)" text-anchor="middle" font-size="14" font-weight="900" fill="#5e6262">PENNSYLVANIA STREET</text>
   <text x="1048" y="328" transform="rotate(90 1048 328)" text-anchor="middle" font-size="10" font-weight="800" fill="#8b3b31">MODELED ACCESS ONLY</text>
   <polygon points="${poly(SURVEY,s,s,ox,oy)}" fill="${COLORS.lot}" stroke="${COLORS.line}" stroke-width="2.4"/>
+  <g aria-label="Conditional setback overlay" fill="none" stroke="${setInk}">
+    <line x1="${(25*s+ox).toFixed(1)}" y1="${oy}" x2="${(25*s+ox).toFixed(1)}" y2="${(57.01*s+oy).toFixed(1)}" stroke-width="2.2" stroke-dasharray="10 7"/>
+    <line x1="${(128*s+ox).toFixed(1)}" y1="${oy}" x2="${(128*s+ox).toFixed(1)}" y2="${(50*s+oy).toFixed(1)}" stroke-width="2.2" stroke-dasharray="10 7"/>
+    <line x1="${ox}" y1="${(5*s+oy).toFixed(1)}" x2="${(148*s+ox).toFixed(1)}" y2="${(5*s+oy).toFixed(1)}" stroke-width="1.7" stroke-dasharray="6 6" opacity=".9"/>
+    <line x1="${ox}" y1="${(10*s+oy).toFixed(1)}" x2="${(148*s+ox).toFixed(1)}" y2="${(10*s+oy).toFixed(1)}" stroke-width="1.4" stroke-dasharray="3 6" opacity=".65"/>
+    <polyline points="${poly(south5,s,s,ox,oy)}" stroke-width="1.7" stroke-dasharray="6 6" opacity=".9"/>
+    <polyline points="${poly(south10,s,s,ox,oy)}" stroke-width="1.4" stroke-dasharray="3 6" opacity=".65"/>
+  </g>
+  <g fill="${setInk}" font-size="9.5" font-weight="900">
+    <text x="${(25*s+ox+8).toFixed(1)}" y="158">REAR 25′</text>
+    <text x="${(128*s+ox-8).toFixed(1)}" y="158" text-anchor="end">FRONT 20′</text>
+    <text x="110" y="${(5*s+oy-6).toFixed(1)}">SIDE 5′</text>
+    <text x="110" y="${(10*s+oy-6).toFixed(1)}" opacity=".72">SIDE 10′ ALT.</text>
+  </g>
   ${drives}
   ${homes.map(p=>building(p,p.unit==='A'?COLORS.homeA:COLORS.homeB)).join('')}
   ${garages.map(p=>building(p,COLORS.garage)).join('')}
@@ -69,7 +143,14 @@ function renderSite(){
   ${label(41,7.5,'UNIT B',s,s,ox,oy,13)}
   ${label(118,18.5,'GARAGE A',s,s,ox,oy,10)}
   ${label(47,27.5,'GARAGE B',s,s,ox,oy,10)}
-  <g transform="translate(70,552)">
+  <g transform="translate(70,548)">
+    <rect width="1060" height="78" rx="10" fill="#fff8f0" stroke="#d9b28e"/>
+    <text x="18" y="21" font-size="11" font-weight="900" fill="${setInk}">SETBACK EVIDENCE · CONDITIONAL · CITY / ZONING CONFIRMATION REQUIRED</text>
+    <text x="18" y="41" font-size="10.5" fill="${COLORS.muted}">Project reference: 20′ front · 25′ rear · side yards 5′ + 10′. Which side receives 10′ is not confirmed, so both side interpretations are drawn.</text>
+    <text x="18" y="59" font-size="10.5" fill="${COLORS.muted}">Frozen clearances: front ${sb.clearances.frontFt.toFixed(2)}′ · rear ${sb.clearances.rearFt.toFixed(2)}′ · north ${sb.clearances.northFt.toFixed(2)}′ · south ${sb.clearances.southFt.toFixed(2)}′. N5/S10 = ${sb.scenarios.north5South10.ok?'PASS':'REVIEW'} · N10/S5 = ${sb.scenarios.north10South5.ok?'PASS':'CONFLICT'}.</text>
+    <text x="18" y="72" font-size="9.5" fill="${setInk}">This overlay documents the unresolved setback scenario; it does not assert zoning, permit, or legal compliance.</text>
+  </g>
+  <g transform="translate(70,638)">
     <rect width="1060" height="62" rx="10" fill="#ffffffea" stroke="#d8d2ca"/>
     <text x="18" y="22" font-size="11" font-weight="900" fill="${ink}">GEOMETRY AUTHORITY · CFB-716 FREEZE ${FREEZE.slice(0,12)}…</text>
     <text x="18" y="42" font-size="10.5" fill="${COLORS.muted}">Presentation may change; property boundary, home/garage placements, drive paths, and Pennsylvania access may not.</text>
@@ -527,6 +608,7 @@ function renderSections(){
 }
 
 function analyze(){
+  const setbacks=analyzeSetbacks();
   return {
     verdict:'CONDITIONAL',
     rev:REV,
@@ -546,10 +628,11 @@ function analyze(){
       program:{ok:true,detail:'Plan closure assigns A 1,914 SF and B 1,868 SF of authorized non-overlapping planning zones; both meet the 1,800 SF target.'},
       roomPacking:{ok:true,detail:'Room-packing score 99.30; all current packing checks pass.'},
       architecturalZoning:{ok:true,detail:'Public/private zoning, daylight, and mass coherence pass; plumbing coordination is tracked separately.'},
+      setbacks:{...setbacks},
       plumbing:{ok:false,status:'ADVISORY',blocking:false,detail:'Wet-core vertical alignment is not closed in the current plan and remains a non-blocking design-development coordination item.'}
     }
   };
 }
 
-global.Lot2Design3={REV,LOCK,VEHICLE,OPENINGS,PLAN,COLORS,analyze,projectAxonOpening,renderSite,renderSweptPath,renderFloor,renderElev,renderMassing,renderAxon,renderSections};
+global.Lot2Design3={REV,LOCK,VEHICLE,SETBACKS,OPENINGS,PLAN,COLORS,analyze,analyzeSetbacks,projectAxonOpening,renderSite,renderSweptPath,renderFloor,renderElev,renderMassing,renderAxon,renderSections};
 })(window);
