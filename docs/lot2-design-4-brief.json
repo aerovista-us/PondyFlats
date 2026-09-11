@@ -1,0 +1,62 @@
+{
+  "design": "Design 4",
+  "site": "Pondy Flats Lot 2",
+  "status": "LOCKED_BRIEF",
+  "doesNotAlter": ["Design 1", "Design 2", "Design 3 / CFB-716"],
+  "garageProgram": {
+    "count": 2,
+    "type": "detached accessory garage",
+    "widthFt": 22,
+    "depthFt": 22,
+    "areaEachSf": 484,
+    "totalGarageSf": 968,
+    "enclosedStallsTotal": 4,
+    "sizeRule": "LOCKED_EXACT",
+    "attachment": "DETACHED",
+    "livingSpaceAllowed": false
+  },
+  "placement": {
+    "zone": "rear 25 ft accessory-structure zone",
+    "priority": "far rear / west of lot",
+    "rearSetbackFt": 5,
+    "sideSetbackFt": 5,
+    "threeFootExceptionDefaultAllowed": false,
+    "principalBuildingSeparationPlanningMinFt": 6,
+    "principalDwellingSetbacksUnaffected": true,
+    "zoningStatus": "CONDITIONAL"
+  },
+  "access": {
+    "origin": "Pennsylvania Street",
+    "otherOriginsAllowed": false,
+    "vehicle": "FS-SUV / full-size pickup class",
+    "requireInbound": true,
+    "requireOutbound": true,
+    "requireFullBodySweep": true,
+    "requireGarageEntry": true,
+    "requireEnclosedParkingFit": true,
+    "thresholdOnlyProofAccepted": false
+  },
+  "optimizationOrder": [
+    "true survey polygon",
+    "accessory setback zone",
+    "two locked 22x22 rear detached garages",
+    "Pennsylvania driveway and maneuver pavement",
+    "full vehicle entry/exit proof",
+    "principal home envelopes",
+    "~1800 SF comparable homes",
+    "architecture and presentation"
+  ],
+  "forbiddenRescues": [
+    "shrink garage below 22x22",
+    "substitute 20x20 garage",
+    "attach garage to dwelling",
+    "move garage forward solely to obtain pass",
+    "silently use 3 ft roof-slope exception",
+    "claim permit/code/construction approval from planning study"
+  ],
+  "sourceBasis": [
+    "setbacks-without-alley.pdf",
+    "docs/lot2-design-2-accessory-rear.md",
+    "docs/lot2-design-4-rules.md"
+  ]
+}
