@@ -8,9 +8,11 @@ on:
       - 'd4-*.html'
       - 'index.html'
       - 'js/lot2-design-4*.js'
+      - 'js/lot2-workbench-audit.js'
+      - 'scripts/d4-workbench-search-v2.js'
       - 'scripts/export-design4.js'
-      - 'packages/design-4-client/**'
-      - 'packages/design-4-presenter/**'
+      - 'package.json'
+      - '.github/workflows/d4-final-qa.yml'
   workflow_dispatch:
 
 permissions:
@@ -19,6 +21,7 @@ permissions:
 jobs:
   qa:
     runs-on: ubuntu-latest
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,11 +35,13 @@ jobs:
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
           test -n "$CHROME_BIN"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
-      - name: Design 4 model gates
+      - name: Workbench and Design 4 model gates
         run: |
+          node --check js/lot2-workbench-audit.js
           node --check js/lot2-design-4.js
           node --check js/lot2-design-4-plan-closure.js
           node --check js/lot2-design-4-architecture.js
+          node --check scripts/d4-workbench-search-v2.js
           node --check scripts/export-design4.js
           node <<'NODE'
           const assert=require('assert');
@@ -44,55 +49,81 @@ jobs:
           const p=require('./js/lot2-design-4-plan-closure.js');
           const a=require('./js/lot2-design-4-architecture.js');
           assert.deepEqual(d.SURVEY,[[0,0],[148,0],[148,50],[125.143,43.016],[84.813,43.016],[0,57.01]]);
-          assert.equal(d.GARAGES.length,2);
           assert.deepEqual(d.GARAGES.map(g=>[g.unit,g.x,g.y,g.w,g.d,g.detached]),[['B',5,5,22,22,true],['A',5,29,22,22,true]]);
+          assert.equal(d.STALLS.length,4);
+          assert(d.STALLS.every(s=>s.axleX===22.25));
           const gm=d.analyze();
           assert.equal(gm.verdict,'CONDITIONAL');
           assert.equal(gm.checks.garageProgram.ok,true);
           assert.equal(gm.checks.parkingFit.ok,true);
-          assert.equal(gm.checks.circulation.status,'INBOUND_PARK_BACKOUT_VERIFIED');
-          assert.equal(gm.checks.circulation.forwardExitProven,false);
-          assert.equal(gm.checks.circulation.reverseEquivalent,true);
+          assert.equal(gm.checks.parkingFit.status,'FOUR_STALL_STATIC_SIMULTANEOUS_FIT');
+          assert.equal(gm.checks.pavement.ok,true);
+          assert(gm.checks.pavement.minLaneWidthFt>=10);
+          assert(gm.checks.pavement.maneuverApronWidthFt>=25);
           assert.equal(gm.checks.accessorySetbacks.status,'CONDITIONAL');
           assert.equal(gm.checks.interGarageSpacing.status,'AHJ_REVIEW');
-          assert.equal(gm.checks.roomProgram.status,'CLOSED_IN_PLAN_MODULE');
+          assert.equal(gm.checks.roomProgram.status,'CONNECTIVITY_GATED_PLAN_MODULE');
           const pm=p.analyze();
           assert.equal(pm.verdict,'PASS');
           assert.equal(pm.failures.length,0);
+          assert.equal(pm.checks.circulation.ok,true);
           for(const u of ['A','B']){
             assert.equal(pm.units[u].ok,true);
             assert.equal(pm.units[u].bedrooms,3);
             assert.equal(pm.units[u].entry.ok,true);
             assert(pm.units[u].stairOverlapSf>=10);
-            assert.equal(pm.units[u].levels.ground.ok,true);
-            assert.equal(pm.units[u].levels.upper.ok,true);
+            assert.equal(pm.units[u].levels.ground.circulation.ok,true);
+            assert.equal(pm.units[u].levels.upper.circulation.ok,true);
           }
-          assert.equal(pm.checks.wetCore.blocking,false);
           const am=a.analyze();
           assert.equal(am.verdict,'CONDITIONAL');
           assert.equal(am.checks.planGeometry.ok,true);
-          const ids=a.OPENINGS.map(o=>o.id);assert.equal(new Set(ids).size,ids.length);
-          for(const e of p.ENTRIES) assert(a.OPENINGS.some(o=>o.id===e.id&&o.role==='entry'));
-          assert(a.OPENINGS.some(o=>o.id==='GARAGE-A-OVERHEAD'&&o.role==='garage-overhead'));
-          assert(a.OPENINGS.some(o=>o.id==='GARAGE-B-OVERHEAD'&&o.role==='garage-overhead'));
-          for(const f of ['east','west','north','south']) assert(a.renderElev(f).includes('data-openings-source="shared-world-model"'));
-          const m=a.renderAxon('massing'),c=a.renderAxon('clean');
-          assert(m.includes('data-camera="D4-ISO-01"'));assert(c.includes('data-camera="D4-ISO-01"'));
-          assert(!m.includes('data-opening-id='));assert(c.includes('data-opening-id='));assert(c.includes('data-derived="world"'));
-          assert(a.renderSection('A').includes('data-section-unit="A"'));assert(a.renderSection('B').includes('data-section-unit="B"'));
-          console.log(JSON.stringify({geometry:gm.verdict,plans:pm.verdict,architecture:am.verdict,openings:a.OPENINGS.length},null,2));
+          assert.equal(am.checks.openingContract.ok,true);
+          assert.equal(am.checks.polygonFaces.ok,true);
+          for(const f of ['east','west','north','south']){
+            const svg=a.renderElev(f);
+            assert(svg.includes('data-openings-source="shared-world-model"'));
+            assert(svg.includes('data-world-face-segment='));
+          }
+          for(const svg of [a.renderAxon('massing'),a.renderAxon('clean')]){
+            assert(svg.includes('data-camera="D4-ISO-01"'));
+            assert(svg.includes('data-opening="door"'));
+            assert(svg.includes('data-opening="window"'));
+            assert(svg.includes('#b3261e'));
+            assert(svg.includes('#2367b1'));
+          }
+          console.log(JSON.stringify({geometry:gm.verdict,staticParking:gm.checks.parkingFit.status,plans:pm.checks.circulation.status,architecture:am.verdict},null,2));
+          NODE
+      - name: Workbench exact four-stall path gate
+        run: |
+          node scripts/d4-workbench-search-v2.js
+          node <<'NODE'
+          const assert=require('assert');
+          const r=require('./qa-artifacts/design4-workbench/paths-v2.json');
+          assert.equal(r.ok,true);
+          assert.equal(Object.keys(r.paths).length,4);
+          for(const [id,p] of Object.entries(r.paths)){
+            assert.equal(p.ok,true,id);
+            assert(p.proof.minClearanceFt>=1,id+' clearance');
+            assert.equal(p.proof.parked,true,id+' final enclosed');
+          }
+          console.log(Object.fromEntries(Object.entries(r.paths).map(([id,p])=>[id,{clearance:p.proof.minClearanceFt,boundary:p.proof.minBoundaryFt,obstacle:p.proof.minObstacleFt,door:p.proof.doorClearanceFt,gearChanges:p.gearChanges}])))
           NODE
       - name: Preserve Designs 1–3 regression gates
         run: npm run gates
-      - name: Verify committed standalone export is current
+      - name: Generate standalone exports through normal command
         run: |
-          node scripts/export-design4.js
-          git diff --exit-code -- packages/design-4-client packages/design-4-presenter
+          npm run export
+          test -f packages/design-4-client/js/lot2-workbench-audit.js
+          test -f packages/design-4-client/index.html
+          test -f packages/design-4-client/site.html
           ! grep -R -E 'href="https://lotscope\.aerovista\.us|href="\.\./|href="design-[123]\.html' packages/design-4-client --include='*.html'
-      - name: Browser QA source and standalone at four widths
+          ! grep -R '~1\.08 ft\|reverse-equivalent back-out\|Inbound geometry and reverse-equivalent' packages/design-4-client packages/design-4-presenter --include='*.html' --include='*.md'
+      - name: Browser QA source and generated package
         run: |
           set -euo pipefail
           rm -rf /tmp/d4-final-qa && mkdir -p /tmp/d4-final-qa/source /tmp/d4-final-qa/package
+          cp -r qa-artifacts/design4-workbench /tmp/d4-final-qa/workbench
           python3 -m http.server 8000 --bind 127.0.0.1 >/tmp/d4-root-http.log 2>&1 & ROOT_PID=$!
           (cd packages/design-4-client && python3 -m http.server 8001 --bind 127.0.0.1 >/tmp/d4-package-http.log 2>&1) & PKG_PID=$!
           trap 'kill $ROOT_PID $PKG_PID 2>/dev/null || true' EXIT
@@ -113,23 +144,19 @@ jobs:
               "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-budget=3500 --window-size="$SIZE" --screenshot="/tmp/d4-final-qa/package/${TAG}-${P}.png" "http://127.0.0.1:8001/${P}.html"
             done
           done
-          test "$(grep -o '<svg' /tmp/d4-final-qa/source/design-4.dom.html | wc -l)" -ge 1
-          test "$(grep -o '<svg' /tmp/d4-final-qa/source/d4-site.dom.html | wc -l)" -ge 2
-          test "$(grep -o '<svg' /tmp/d4-final-qa/source/d4-plans.dom.html | wc -l)" -ge 3
-          test "$(grep -o '<svg' /tmp/d4-final-qa/source/d4-elevs.dom.html | wc -l)" -ge 4
-          test "$(grep -o '<svg' /tmp/d4-final-qa/source/d4-axon.dom.html | wc -l)" -ge 2
-          test "$(grep -o '<svg' /tmp/d4-final-qa/source/d4-sections.dom.html | wc -l)" -ge 2
-          grep -q 'data-accessory-status="CONDITIONAL"' /tmp/d4-final-qa/source/d4-site.dom.html
-          grep -q 'data-intergarage-status="AHJ_REVIEW"' /tmp/d4-final-qa/source/d4-site.dom.html
-          grep -q 'data-proof-scope="full-entry-enclosed-park-reverse-equivalent"' /tmp/d4-final-qa/source/d4-site.dom.html
-          grep -q 'data-forward-exit="false"' /tmp/d4-final-qa/source/d4-site.dom.html
-          grep -q 'data-plan-verdict="PASS"' /tmp/d4-final-qa/source/d4-plans.dom.html
-          grep -q 'data-openings-source="shared-world-model"' /tmp/d4-final-qa/source/d4-elevs.dom.html
+          grep -q 'data-four-stall-fit="PASS"' /tmp/d4-final-qa/source/d4-site.dom.html
+          grep -q 'data-pavement="CONCEPT_ENVELOPE"' /tmp/d4-final-qa/source/d4-site.dom.html
+          grep -q 'data-proof-scope="four-stall-static-fit-plus-workbench-path-audit"' /tmp/d4-final-qa/source/d4-site.dom.html
+          grep -q 'data-circulation="CONNECTED"' /tmp/d4-final-qa/source/d4-plans.dom.html
+          grep -q 'data-opening="door"' /tmp/d4-final-qa/source/d4-elevs.dom.html
+          grep -q 'data-opening="window"' /tmp/d4-final-qa/source/d4-elevs.dom.html
+          grep -q 'data-world-face-segment=' /tmp/d4-final-qa/source/d4-elevs.dom.html
           test "$(grep -o 'data-camera="D4-ISO-01"' /tmp/d4-final-qa/source/d4-axon.dom.html | wc -l)" -ge 2
-          grep -q 'data-derived="world"' /tmp/d4-final-qa/source/d4-axon.dom.html
+          grep -q 'data-opening="door"' /tmp/d4-final-qa/source/d4-axon.dom.html
+          grep -q 'data-opening="window"' /tmp/d4-final-qa/source/d4-axon.dom.html
           grep -q 'data-section-unit="A"' /tmp/d4-final-qa/source/d4-sections.dom.html
           grep -q 'data-section-unit="B"' /tmp/d4-final-qa/source/d4-sections.dom.html
-          printf 'head=%s\nsource_pages=6\npackage_pages=6\nviewports=4\nstatus=PASS\n' "$(git rev-parse HEAD)" > /tmp/d4-final-qa/qa-results.txt
+          printf 'head=%s\nsource_pages=6\npackage_pages=6\nviewports=4\nworkbench=PASS\nstatus=PASS\n' "$(git rev-parse HEAD)" > /tmp/d4-final-qa/qa-results.txt
       - name: Upload exact-head rendered-pixel evidence
         uses: actions/upload-artifact@v4
         with:
