@@ -1,0 +1,32 @@
+{
+  "schema": "lot2_workbench_vehicle_evidence_v1",
+  "design": "Pondy Flats Lot 2 Design 4",
+  "status": "PASS_DESIGN_DEVELOPMENT_GEOMETRY",
+  "source_head": "aa126f74482bab55d4a117bebb94a6110a0c9855",
+  "workflow_run_id": 34685165467,
+  "workflow_job_id": 103530785066,
+  "artifact_id": 10295137846,
+  "artifact_sha256": "3394044282bff68c1d5188c4a5970642d796916b3a49ce60de6bb71cc91ed1ba",
+  "vehicle": {
+    "length_ft": 20.5,
+    "width_ft": 8.0,
+    "min_rear_axle_radius_ft": 25
+  },
+  "garage_program": {
+    "garage_count": 2,
+    "garage_size_ft": [22, 22],
+    "stalls": 4,
+    "stall_axle_x_ft": 22.25,
+    "garage_opening_ft": 20
+  },
+  "path_results": {
+    "B-NORTH": {"pass": true, "stall_y_ft": 10.5, "expanded": 63581, "gear_changes": 4, "min_clearance_ft": 1.042, "min_boundary_ft": 1.158, "min_obstacle_ft": 1.042, "door_clearance_ft": 0.639},
+    "B-SOUTH": {"pass": true, "stall_y_ft": 21.5, "expanded": 2274, "gear_changes": 0, "min_clearance_ft": 1.044, "min_boundary_ft": 2.0, "min_obstacle_ft": 1.044, "door_clearance_ft": 0.073},
+    "A-NORTH": {"pass": true, "stall_y_ft": 34.5, "expanded": 136, "gear_changes": 0, "min_clearance_ft": 1.346, "min_boundary_ft": 2.0, "min_obstacle_ft": 1.346, "door_clearance_ft": 1.704},
+    "A-SOUTH": {"pass": true, "stall_y_ft": 45.5, "expanded": 683, "gear_changes": 0, "min_clearance_ft": 1.118, "min_boundary_ft": 1.158, "min_obstacle_ft": 1.118, "door_clearance_ft": 2.182}
+  },
+  "plan_checks": {"room_stair_connectivity": "PASS"},
+  "architecture_checks": {"opening_contract": "PASS", "polygon_face_derivation": "PASS"},
+  "pavement": {"shared_lane_width_ft": 10, "local_maneuver_apron_width_ft": 25},
+  "scope_note": "Design-development geometry evidence only. Not zoning approval, code approval, civil certification, permit readiness, structural validation, or construction documentation."
+}
