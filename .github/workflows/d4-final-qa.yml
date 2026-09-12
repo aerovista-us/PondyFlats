@@ -3,16 +3,6 @@ name: Design 4 final package QA
 on:
   push:
     branches: [design4/rear-22-discovery]
-    paths:
-      - 'design-4.html'
-      - 'd4-*.html'
-      - 'index.html'
-      - 'js/lot2-design-4*.js'
-      - 'js/lot2-workbench-audit.js'
-      - 'scripts/d4-workbench-search-v2.js'
-      - 'scripts/export-design4.js'
-      - 'package.json'
-      - '.github/workflows/d4-final-qa.yml'
   workflow_dispatch:
 
 permissions:
@@ -25,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: design4/rear-22-discovery
+          ref: ${{ github.sha }}
           fetch-depth: 2
       - uses: actions/setup-node@v4
         with:
