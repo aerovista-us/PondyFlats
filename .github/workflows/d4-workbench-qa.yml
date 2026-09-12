@@ -3,13 +3,6 @@ name: Design 4 Workbench self-audit
 on:
   push:
     branches: [design4/rear-22-discovery]
-    paths:
-      - 'js/lot2-design-4.js'
-      - 'js/lot2-design-4-plan-closure.js'
-      - 'js/lot2-design-4-architecture.js'
-      - 'js/lot2-workbench-audit.js'
-      - 'scripts/d4-workbench-search-v2.js'
-      - '.github/workflows/d4-workbench-qa.yml'
   workflow_dispatch:
 
 permissions:
@@ -22,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: design4/rear-22-discovery
+          ref: ${{ github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
