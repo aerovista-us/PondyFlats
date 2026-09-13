@@ -28,6 +28,7 @@ jobs:
       - name: Workbench and Design 4 model gates
         run: |
           node --check js/lot2-workbench-audit.js
+          node --check js/workbench-results-ui.js
           node --check js/lot2-design-4.js
           node --check js/lot2-design-4-plan-closure.js
           node --check js/lot2-design-4-architecture.js
@@ -38,6 +39,8 @@ jobs:
           const d=require('./js/lot2-design-4.js');
           const p=require('./js/lot2-design-4-plan-closure.js');
           const a=require('./js/lot2-design-4-architecture.js');
+          const rui=require('./js/workbench-results-ui.js');
+          assert.equal(typeof rui.derive,'function');
           assert.deepEqual(d.SURVEY,[[0,0],[148,0],[148,50],[125.143,43.016],[84.813,43.016],[0,57.01]]);
           assert.deepEqual(d.GARAGES.map(g=>[g.unit,g.x,g.y,g.w,g.d,g.detached]),[['B',5,5,22,22,true],['A',5,29,22,22,true]]);
           assert.equal(d.STALLS.length,4);
@@ -82,7 +85,12 @@ jobs:
             assert(svg.includes('#b3261e'));
             assert(svg.includes('#2367b1'));
           }
-          console.log(JSON.stringify({geometry:gm.verdict,staticParking:gm.checks.parkingFit.status,plans:pm.checks.circulation.status,architecture:am.verdict},null,2));
+          const evidence=require('./docs/lot2-design-4-workbench-evidence.json');
+          const derived=rui.derive(evidence);
+          assert.equal(derived.paths.length,4);
+          assert.equal(derived.allPass,true);
+          assert.equal(Boolean(derived.practicalWatch),true);
+          console.log(JSON.stringify({geometry:gm.verdict,staticParking:gm.checks.parkingFit.status,plans:pm.checks.circulation.status,architecture:am.verdict,presentation:{paths:derived.paths.length,practicalWatch:Boolean(derived.practicalWatch)}},null,2));
           NODE
       - name: Workbench exact four-stall path gate
         run: |
@@ -109,10 +117,10 @@ jobs:
           test -f packages/design-4-client/site.html
           ! grep -R -E 'href="https://lotscope\.aerovista\.us|href="\.\./|href="design-[123]\.html' packages/design-4-client --include='*.html'
           ! grep -R '~1\.08 ft\|reverse-equivalent back-out\|Inbound geometry and reverse-equivalent' packages/design-4-client packages/design-4-presenter --include='*.html' --include='*.md'
-      - name: Browser QA source and generated package
+      - name: Browser QA source, Workbench result and generated package
         run: |
           set -euo pipefail
-          rm -rf /tmp/d4-final-qa && mkdir -p /tmp/d4-final-qa/source /tmp/d4-final-qa/package
+          rm -rf /tmp/d4-final-qa && mkdir -p /tmp/d4-final-qa/source /tmp/d4-final-qa/package /tmp/d4-final-qa/results
           cp -r qa-artifacts/design4-workbench /tmp/d4-final-qa/workbench
           python3 -m http.server 8000 --bind 127.0.0.1 >/tmp/d4-root-http.log 2>&1 & ROOT_PID=$!
           (cd packages/design-4-client && python3 -m http.server 8001 --bind 127.0.0.1 >/tmp/d4-package-http.log 2>&1) & PKG_PID=$!
@@ -134,6 +142,17 @@ jobs:
               "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-budget=3500 --window-size="$SIZE" --screenshot="/tmp/d4-final-qa/package/${TAG}-${P}.png" "http://127.0.0.1:8001/${P}.html"
             done
           done
+          "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --virtual-time-budget=4500 --dump-dom "http://127.0.0.1:8000/workbench-results.html" > /tmp/d4-final-qa/results/workbench-results.dom.html
+          grep -q 'What Workbench proved' /tmp/d4-final-qa/results/workbench-results.dom.html
+          grep -q 'Four-stall path results' /tmp/d4-final-qa/results/workbench-results.dom.html
+          grep -q 'Operational refinement recommended' /tmp/d4-final-qa/results/workbench-results.dom.html
+          grep -q 'B-SOUTH' docs/lot2-design-4-workbench-evidence.json
+          grep -q '<svg' /tmp/d4-final-qa/results/workbench-results.dom.html
+          ! grep -qi 'ReferenceError\|TypeError\|could not be loaded\|Not Found' /tmp/d4-final-qa/results/workbench-results.dom.html
+          for SIZE in 1440,1100 1024,900 390,900; do
+            TAG="${SIZE/,/x}"
+            "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-budget=4500 --window-size="$SIZE" --screenshot="/tmp/d4-final-qa/results/${TAG}-workbench-results.png" "http://127.0.0.1:8000/workbench-results.html"
+          done
           grep -q 'data-four-stall-fit="PASS"' /tmp/d4-final-qa/source/d4-site.dom.html
           grep -q 'data-pavement="CONCEPT_ENVELOPE"' /tmp/d4-final-qa/source/d4-site.dom.html
           grep -q 'data-proof-scope="four-stall-static-fit-plus-workbench-path-audit"' /tmp/d4-final-qa/source/d4-site.dom.html
@@ -146,7 +165,7 @@ jobs:
           grep -q 'data-opening="window"' /tmp/d4-final-qa/source/d4-axon.dom.html
           grep -q 'data-section-unit="A"' /tmp/d4-final-qa/source/d4-sections.dom.html
           grep -q 'data-section-unit="B"' /tmp/d4-final-qa/source/d4-sections.dom.html
-          printf 'head=%s\nsource_pages=6\npackage_pages=6\nviewports=4\nworkbench=PASS\nstatus=PASS\n' "$(git rev-parse HEAD)" > /tmp/d4-final-qa/qa-results.txt
+          printf 'head=%s\nsource_pages=6\npackage_pages=6\nworkbench_result_pages=1\nviewports=4\nworkbench=PASS\npresentation=PASS\nstatus=PASS\n' "$(git rev-parse HEAD)" > /tmp/d4-final-qa/qa-results.txt
       - name: Upload exact-head rendered-pixel evidence
         uses: actions/upload-artifact@v4
         with:
