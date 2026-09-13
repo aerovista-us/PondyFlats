@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pondy Flats · Workbench Assessment</title>
+<meta name="description" content="Professional LotScope Workbench assessment presentation for Pondy Flats Lot 2 Design 4: geometry proof, practical watch items, and evidence traceability.">
+<link rel="stylesheet" href="css/workbench-results.css">
+</head>
+<body class="wb-results">
+<header class="wb-top"><div class="wb-topin">
+  <div class="wb-brand"><small>LotScope Workbench</small><strong>Assessment result</strong></div>
+  <nav class="wb-nav" aria-label="Assessment navigation">
+    <a class="primary" href="workbench-results.html">Result</a>
+    <a href="design-4.html">Design 4</a>
+    <a href="d4-site.html">Site + vehicle</a>
+    <a href="d4-plans.html">Plans</a>
+    <a href="workbench.html">Package studio</a>
+  </nav>
+</div></header>
+<main class="wb-shell" id="workbench-result" aria-live="polite"></main>
+<script src="js/lot2-workbench-audit.js"></script>
+<script src="js/lot2-design-4.js"></script>
+<script src="js/workbench-results-ui.js"></script>
+<script>
+Lot2WorkbenchResults.mount('#workbench-result',{
+  evidenceUrl:'docs/lot2-design-4-workbench-evidence.json',
+  designUrl:'design-4.html',
+  stageLabel:'Pondy Flats Lot 2 · Design 4'
+});
+</script>
+</body>
+</html>
