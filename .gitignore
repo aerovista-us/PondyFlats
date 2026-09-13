@@ -21,3 +21,5 @@ imgs/_*.svg
 
 # Generated QA artifacts
 /qa-artifacts/design3-*/
+
+/qa-artifacts/design4-*/
