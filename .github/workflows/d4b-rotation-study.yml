@@ -1,0 +1,42 @@
+name: Design 4B rotation study
+
+on:
+  push:
+    branches:
+      - 'feature/design4b-rotated-garages'
+    paths:
+      - 'js/lot2-design-4.js'
+      - 'js/lot2-workbench-audit.js'
+      - 'scripts/d4b-rotation-study.js'
+      - '.github/workflows/d4b-rotation-study.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax gates
+        run: |
+          node --check js/lot2-workbench-audit.js
+          node --check js/lot2-design-4.js
+          node --check scripts/d4b-rotation-study.js
+      - name: Run Design 4B static rotation study
+        run: node scripts/d4b-rotation-study.js
+      - name: Show study summary
+        run: cat qa-artifacts/design4b/rotation-study.md
+      - name: Upload Design 4B evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: design4b-rotation-study-${{ github.sha }}
+          path: qa-artifacts/design4b/
+          retention-days: 90
