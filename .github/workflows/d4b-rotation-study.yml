@@ -13,6 +13,10 @@ on:
       - '.github/workflows/d4b-rotation-study.yml'
   workflow_dispatch:
 
+concurrency:
+  group: d4b-rotation-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
