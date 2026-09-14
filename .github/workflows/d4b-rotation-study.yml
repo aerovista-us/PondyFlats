@@ -6,8 +6,10 @@ on:
       - 'feature/design4b-rotated-garages'
     paths:
       - 'js/lot2-design-4.js'
+      - 'js/lot2-design-4b.js'
       - 'js/lot2-workbench-audit.js'
       - 'scripts/d4b-rotation-study.js'
+      - 'scripts/d4b-static-repair-search.js'
       - '.github/workflows/d4b-rotation-study.yml'
   workflow_dispatch:
 
@@ -29,11 +31,27 @@ jobs:
         run: |
           node --check js/lot2-workbench-audit.js
           node --check js/lot2-design-4.js
+          node --check js/lot2-design-4b.js
           node --check scripts/d4b-rotation-study.js
+          node --check scripts/d4b-static-repair-search.js
+      - name: Validate encoded 35 degree 4B study geometry
+        run: |
+          node - <<'NODE'
+          const D4B=require('./js/lot2-design-4b.js');
+          const r=D4B.staticAudit();
+          console.log(JSON.stringify(r,null,2));
+          if(D4B.ANGLE_DEG!==35) throw new Error('Design 4B Garage B angle drifted from 35 degrees');
+          if(!r.fourStallProgramPreserved) throw new Error('Rotated Garage B no longer preserves the two-stall program');
+          NODE
       - name: Run Design 4B static rotation study
         run: node scripts/d4b-rotation-study.js
-      - name: Show study summary
-        run: cat qa-artifacts/design4b/rotation-study.md
+      - name: Run Design 4B repair search
+        run: node scripts/d4b-static-repair-search.js
+      - name: Show study summaries
+        run: |
+          cat qa-artifacts/design4b/rotation-study.md
+          echo
+          cat qa-artifacts/design4b/static-repair-search.md
       - name: Upload Design 4B evidence
         uses: actions/upload-artifact@v4
         with:
