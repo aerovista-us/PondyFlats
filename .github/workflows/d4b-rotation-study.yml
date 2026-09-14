@@ -10,6 +10,7 @@ on:
       - 'js/lot2-workbench-audit.js'
       - 'scripts/d4b-rotation-study.js'
       - 'scripts/d4b-static-repair-search.js'
+      - 'scripts/d4b-layout-search.js'
       - '.github/workflows/d4b-rotation-study.yml'
   workflow_dispatch:
 
@@ -38,6 +39,7 @@ jobs:
           node --check js/lot2-design-4b.js
           node --check scripts/d4b-rotation-study.js
           node --check scripts/d4b-static-repair-search.js
+          node --check scripts/d4b-layout-search.js
       - name: Validate encoded 35 degree 4B study geometry
         run: |
           node - <<'NODE'
@@ -49,13 +51,17 @@ jobs:
           NODE
       - name: Run Design 4B static rotation study
         run: node scripts/d4b-rotation-study.js
-      - name: Run Design 4B repair search
+      - name: Run Design 4B bounded repair search
         run: node scripts/d4b-static-repair-search.js
+      - name: Run Design 4B whole-boundary joint layout search
+        run: node scripts/d4b-layout-search.js
       - name: Show study summaries
         run: |
           cat qa-artifacts/design4b/rotation-study.md
           echo
           cat qa-artifacts/design4b/static-repair-search.md
+          echo
+          cat qa-artifacts/design4b/layout-search.md
       - name: Upload Design 4B evidence
         uses: actions/upload-artifact@v4
         with:
