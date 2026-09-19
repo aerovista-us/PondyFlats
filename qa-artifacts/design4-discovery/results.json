@@ -1,0 +1,495 @@
+{
+  "generatedAt": "2026-09-11T21:28:01.417Z",
+  "brief": "Design 4 · two locked detached 22×22 rear garages",
+  "survey": [
+    [
+      0,
+      0
+    ],
+    [
+      148,
+      0
+    ],
+    [
+      148,
+      50
+    ],
+    [
+      125.143,
+      43.016
+    ],
+    [
+      84.813,
+      43.016
+    ],
+    [
+      0,
+      57.01
+    ]
+  ],
+  "accessoryGarageTruth": {
+    "exact22": true,
+    "rear5": true,
+    "north5": true,
+    "southApprox5": 5.19,
+    "gap": 2
+  },
+  "vehicle": {
+    "id": "FS-SUV",
+    "label": "Full-size SUV / pickup (F-150 SuperCrew / Tahoe class)",
+    "length": 20.5,
+    "width": 8,
+    "wheelbase": 13.1,
+    "frontOverhang": 3.4,
+    "rearOverhang": 4,
+    "minRearAxleRadius": 25,
+    "outerFrontRadius": 28.2,
+    "doorWidth": 16,
+    "apronDepth": 24
+  },
+  "searched": 24480,
+  "families": [
+    "bar",
+    "north-finger",
+    "stagger",
+    "detached",
+    "twin-bars"
+  ],
+  "top": [
+    {
+      "id": "d4_north_finger_73_96_35p5_72",
+      "family": "north-finger",
+      "status": "PURSUE",
+      "score": 422.5,
+      "params": {
+        "xW": 73,
+        "party": 96,
+        "south": 31,
+        "spineY": 35.5,
+        "turnX": 72,
+        "wingX": 55,
+        "wingSouth": 21,
+        "gap": 6
+      },
+      "firstFloor": [
+        886,
+        832
+      ],
+      "twoStoryCapacity": [
+        1772,
+        1664
+      ],
+      "principalHomesOk": true,
+      "garageHomeSeparationFt": 28,
+      "accessTechnical": "REVIEW",
+      "minSouthClearFt": 1.36,
+      "independent": true,
+      "threePoint": false,
+      "outboundClear": false,
+      "fullPark": {
+        "A": {
+          "ok": true,
+          "headingDeg": 180,
+          "bounds": {
+            "minX": 6,
+            "maxX": 26.5,
+            "minY": 12,
+            "maxY": 20
+          }
+        },
+        "B": {
+          "ok": true,
+          "headingDeg": 180,
+          "bounds": {
+            "minX": 6,
+            "maxX": 26.5,
+            "minY": 36,
+            "maxY": 44
+          }
+        }
+      },
+      "curveEnds": {
+        "A": 32.38,
+        "B": 51.27
+      },
+      "reasons": [
+        "Outbound swept envelope clips: HOME B · NORTH FINGER",
+        "Polygonal swept-path envelope on-lot · no sharp corner shortfall · min south clearance 1.36′"
+      ]
+    },
+    {
+      "id": "d4_stagger_77_96_35p5_72",
+      "family": "stagger",
+      "status": "PURSUE · AREA DEVELOPMENT",
+      "score": 386.3,
+      "params": {
+        "xW": 77,
+        "party": 96,
+        "south": 29,
+        "spineY": 35.5,
+        "turnX": 72,
+        "wingX": 55,
+        "wingSouth": 17,
+        "gap": 6
+      },
+      "firstFloor": [
+        625,
+        704
+      ],
+      "twoStoryCapacity": [
+        1250,
+        1408
+      ],
+      "principalHomesOk": true,
+      "garageHomeSeparationFt": 28,
+      "accessTechnical": "PASS",
+      "minSouthClearFt": 1.36,
+      "independent": true,
+      "threePoint": false,
+      "outboundClear": true,
+      "fullPark": {
+        "A": {
+          "ok": true,
+          "headingDeg": 180,
+          "bounds": {
+            "minX": 6,
+            "maxX": 26.5,
+            "minY": 12,
+            "maxY": 20
+          }
+        },
+        "B": {
+          "ok": true,
+          "headingDeg": 180,
+          "bounds": {
+            "minX": 6,
+            "maxX": 26.5,
+            "minY": 36,
+            "maxY": 44
+          }
+        }
+      },
+      "curveEnds": {
+        "A": 32.38,
+        "B": 51.27
+      },
+      "reasons": [
+        "Polygonal swept-path envelope on-lot · no sharp corner shortfall · min south clearance 1.36′"
+      ]
+    },
+    {
+      "id": "d4_detached_73_96_35p5_72",
+      "family": "detached",
+      "status": "PURSUE · AREA DEVELOPMENT",
+      "score": 377.9,
+      "params": {
+        "xW": 73,
+        "party": 96,
+        "south": 31,
+        "spineY": 35.5,
+        "turnX": 72,
+        "wingX": 55,
+        "wingSouth": 21,
+        "gap": 6
+      },
+      "firstFloor": [
+        886,
+        676
+      ],
+      "twoStoryCapacity": [
+        1772,
+        1352
+      ],
+      "principalHomesOk": true,
+      "garageHomeSeparationFt": 28,
+      "accessTechnical": "REVIEW",
+      "minSouthClearFt": 1.36,
+      "independent": true,
+      "threePoint": false,
+      "outboundClear": false,
+      "fullPark": {
+        "A": {
+          "ok": true,
+          "headingDeg": 180,
+          "bounds": {
+            "minX": 6,
+            "maxX": 26.5,
+            "minY": 12,
+            "maxY": 20
+          }
+        },
+        "B": {
+          "ok": true,
+          "headingDeg": 180,
+          "bounds": {
+            "minX": 6,
+            "maxX": 26.5,
+            "minY": 36,
+            "maxY": 44
+          }
+        }
+      },
+      "curveEnds": {
+        "A": 32.38,
+        "B": 51.27
+      },
+      "reasons": [
+        "Outbound swept envelope clips: HOME B · DETACHED",
+        "Polygonal swept-path envelope on-lot · no sharp corner shortfall · min south clearance 1.36′"
+      ]
+    },
+    {
+      "id": "d4_bar_73_96_35p5_72",
+      "family": "bar",
+      "status": "PURSUE · AREA DEVELOPMENT",
+      "score": 340.2,
+      "params": {
+        "xW": 73,
+        "party": 96,
+        "south": 31,
+        "spineY": 35.5,
+        "turnX": 72,
+        "wingX": 55,
+        "wingSouth": 17,
+        "gap": 6
+      },
+      "firstFloor": [
+        598,
+        832
+      ],
+      "twoStoryCapacity": [
+        1196,
+        1664
+      ],
+      "principalHomesOk": true,
+      "garageHomeSeparationFt": 46,
+      "accessTechnical": "REVIEW",
+      "minSouthClearFt": 1.36,
+      "independent": true,
+      "threePoint": false,
+      "outboundClear": false,
+      "fullPark": {
+        "A": {
+          "ok": true,
+          "headingDeg": 180,
+          "bounds": {
+            "minX": 6,
+            "maxX": 26.5,
+            "minY": 12,
+            "maxY": 20
+          }
+        },
+        "B": {
+          "ok": true,
+          "headingDeg": 180,
+          "bounds": {
+            "minX": 6,
+            "maxX": 26.5,
+            "minY": 36,
+            "maxY": 44
+          }
+        }
+      },
+      "curveEnds": {
+        "A": 32.38,
+        "B": 51.27
+      },
+      "reasons": [
+        "Outbound swept envelope clips: HOME B",
+        "Polygonal swept-path envelope on-lot · no sharp corner shortfall · min south clearance 1.36′"
+      ]
+    },
+    {
+      "id": "d4_twin_bars_75_96_35p5_72",
+      "family": "twin-bars",
+      "status": "PURSUE · AREA DEVELOPMENT",
+      "score": 324,
+      "params": {
+        "xW": 75,
+        "party": 96,
+        "south": 29,
+        "spineY": 35.5,
+        "turnX": 72,
+        "wingX": 55,
+        "wingSouth": 17,
+        "gap": 6
+      },
+      "firstFloor": [
+        742,
+        369
+      ],
+      "twoStoryCapacity": [
+        1484,
+        738
+      ],
+      "principalHomesOk": true,
+      "garageHomeSeparationFt": 48,
+      "accessTechnical": "PASS",
+      "minSouthClearFt": 1.36,
+      "independent": true,
+      "threePoint": false,
+      "outboundClear": true,
+      "fullPark": {
+        "A": {
+          "ok": true,
+          "headingDeg": 180,
+          "bounds": {
+            "minX": 6,
+            "maxX": 26.5,
+            "minY": 12,
+            "maxY": 20
+          }
+        },
+        "B": {
+          "ok": true,
+          "headingDeg": 180,
+          "bounds": {
+            "minX": 6,
+            "maxX": 26.5,
+            "minY": 36,
+            "maxY": 44
+          }
+        }
+      },
+      "curveEnds": {
+        "A": 32.38,
+        "B": 51.27
+      },
+      "reasons": [
+        "Polygonal swept-path envelope on-lot · no sharp corner shortfall · min south clearance 1.36′"
+      ]
+    }
+  ],
+  "overallTop10": [
+    {
+      "id": "d4_north_finger_73_96_35p5_72",
+      "family": "north-finger",
+      "score": 422.5,
+      "status": "PURSUE",
+      "access": "REVIEW",
+      "capacity": [
+        1772,
+        1664
+      ],
+      "minSouthClearFt": 1.36,
+      "sep": 28
+    },
+    {
+      "id": "d4_north_finger_74_96_35p5_72",
+      "family": "north-finger",
+      "score": 419.6,
+      "status": "PURSUE",
+      "access": "REVIEW",
+      "capacity": [
+        1752,
+        1664
+      ],
+      "minSouthClearFt": 1.36,
+      "sep": 28
+    },
+    {
+      "id": "d4_north_finger_75_96_35p5_72",
+      "family": "north-finger",
+      "score": 416.7,
+      "status": "PURSUE",
+      "access": "REVIEW",
+      "capacity": [
+        1732,
+        1664
+      ],
+      "minSouthClearFt": 1.36,
+      "sep": 28
+    },
+    {
+      "id": "d4_north_finger_76_96_35p5_72",
+      "family": "north-finger",
+      "score": 413.9,
+      "status": "PURSUE",
+      "access": "REVIEW",
+      "capacity": [
+        1712,
+        1664
+      ],
+      "minSouthClearFt": 1.36,
+      "sep": 28
+    },
+    {
+      "id": "d4_north_finger_73_96_35p5_72",
+      "family": "north-finger",
+      "score": 412.2,
+      "status": "PURSUE",
+      "access": "REVIEW",
+      "capacity": [
+        1700,
+        1664
+      ],
+      "minSouthClearFt": 1.36,
+      "sep": 28
+    },
+    {
+      "id": "d4_north_finger_73_98_35p5_72",
+      "family": "north-finger",
+      "score": 411,
+      "status": "PURSUE · AREA DEVELOPMENT",
+      "access": "REVIEW",
+      "capacity": [
+        1804,
+        1560
+      ],
+      "minSouthClearFt": 1.36,
+      "sep": 28
+    },
+    {
+      "id": "d4_north_finger_77_96_35p5_72",
+      "family": "north-finger",
+      "score": 411,
+      "status": "PURSUE",
+      "access": "REVIEW",
+      "capacity": [
+        1692,
+        1664
+      ],
+      "minSouthClearFt": 1.36,
+      "sep": 28
+    },
+    {
+      "id": "d4_north_finger_77_98_35p5_72",
+      "family": "north-finger",
+      "score": 411,
+      "status": "PURSUE · AREA DEVELOPMENT",
+      "access": "REVIEW",
+      "capacity": [
+        1796,
+        1560
+      ],
+      "minSouthClearFt": 1.36,
+      "sep": 28
+    },
+    {
+      "id": "d4_north_finger_76_98_35p5_72",
+      "family": "north-finger",
+      "score": 409.3,
+      "status": "PURSUE · AREA DEVELOPMENT",
+      "access": "REVIEW",
+      "capacity": [
+        1816,
+        1560
+      ],
+      "minSouthClearFt": 1.36,
+      "sep": 28
+    },
+    {
+      "id": "d4_north_finger_74_96_35p5_72",
+      "family": "north-finger",
+      "score": 408.7,
+      "status": "PURSUE",
+      "access": "REVIEW",
+      "capacity": [
+        1676,
+        1664
+      ],
+      "minSouthClearFt": 1.36,
+      "sep": 28
+    }
+  ]
+}

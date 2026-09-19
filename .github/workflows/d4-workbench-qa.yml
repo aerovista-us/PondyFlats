@@ -1,0 +1,65 @@
+name: Design 4 Workbench self-audit
+
+on:
+  push:
+    branches: [design4/rear-22-discovery]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  self-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax check Workbench modules
+        run: |
+          node --check js/lot2-workbench-audit.js
+          node --check js/lot2-design-4.js
+          node --check js/lot2-design-4-plan-closure.js
+          node --check js/lot2-design-4-architecture.js
+          node --check scripts/d4-workbench-search-v2.js
+      - name: Plan, parking and architectural truth gates
+        run: |
+          node <<'NODE'
+          const assert=require('assert');
+          const d=require('./js/lot2-design-4.js');
+          const p=require('./js/lot2-design-4-plan-closure.js');
+          const a=require('./js/lot2-design-4-architecture.js');
+          const gm=d.analyze(),pm=p.analyze(),am=a.analyze();
+          assert.equal(gm.checks.parkingFit.ok,true);
+          assert.equal(gm.checks.parkingFit.status,'FOUR_STALL_STATIC_SIMULTANEOUS_FIT');
+          assert.equal(d.STALLS.length,4);
+          assert(d.STALLS.every(s=>s.axleX===22.25));
+          assert.equal(gm.checks.pavement.ok,true);
+          assert(gm.checks.pavement.minLaneWidthFt>=10);
+          assert.equal(pm.verdict,'PASS');
+          assert.equal(pm.checks.circulation.ok,true);
+          assert.equal(pm.units.A.levels.upper.circulation.ok,true);
+          assert.equal(pm.units.B.levels.upper.circulation.ok,true);
+          assert.equal(am.checks.openingContract.ok,true);
+          assert.equal(am.checks.polygonFaces.ok,true);
+          for(const face of ['east','west','north','south']) assert(a.renderElev(face).includes('data-world-face-segment='));
+          for(const svg of [a.renderAxon('massing'),a.renderAxon('clean')]){
+            assert(svg.includes('data-opening="door"'));
+            assert(svg.includes('data-opening="window"'));
+            assert(svg.includes('#b3261e'));
+            assert(svg.includes('#2367b1'));
+          }
+          console.log(JSON.stringify({parking:gm.checks.parkingFit.status,pavement:gm.checks.pavement,plans:pm.checks.circulation.status,openings:am.checks.openingContract,faces:am.checks.polygonFaces},null,2));
+          NODE
+      - name: Workbench exact four-stall autonomous search
+        run: node scripts/d4-workbench-search-v2.js
+      - name: Upload Workbench evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: d4-workbench-${{ github.sha }}
+          path: qa-artifacts/design4-workbench/
+          retention-days: 14

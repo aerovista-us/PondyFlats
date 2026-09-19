@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-09-11T21:34:46.205Z",
+  "searched": 121716,
+  "viable": 43197,
+  "status": "PROMOTED_GEOMETRY_SEED",
+  "frozen": false,
+  "chosen": {
+    "id": "d4_nf_54_72p5_94p5_31p25_35p75_71p5",
+    "family": "north-finger",
+    "params": {
+      "wingX": 54,
+      "xW": 72.5,
+      "party": 94.5,
+      "south": 31.25,
+      "wingSouth": 22,
+      "spine": 35.75,
+      "turn": 71.5
+    },
+    "firstFloorShellSf": [892, 879],
+    "twoStoryShellCapacitySf": [1784, 1759],
+    "averageCapacitySf": 1772,
+    "capacityDeltaSf": 25,
+    "principalHomesOk": true,
+    "garageHomeSeparationFt": 27,
+    "inbound": {
+      "garageA": {"ok": true, "offSurveyCorners": 0, "hits": [], "poses": 64},
+      "garageB": {"ok": true, "offSurveyCorners": 0, "hits": [], "poses": 56}
+    },
+    "outbound": {
+      "proof": "reverse-equivalent",
+      "ok": true,
+      "note": "Same collision-free vehicle-body poses traversed in reverse while backing out; not a forward-exit proof."
+    },
+    "fullEnclosedParking": {
+      "garageA": {"ok": true, "bodyBounds": [6, 26.5, 12, 20]},
+      "garageB": {"ok": true, "bodyBounds": [6, 26.5, 36, 44]}
+    },
+    "legacyAccessSignal": {
+      "technical": "REVIEW",
+      "minSouthClearFt": 1.08,
+      "reason": "Generic analyzer treats reversed centerline as forward-heading travel and reports an outbound-only Home B clip."
+    }
+  },
+  "garageProgram": {
+    "locked": true,
+    "count": 2,
+    "sizeFt": [22, 22],
+    "garageA": {"x": 5, "y": 5, "w": 22, "h": 22},
+    "garageB": {"x": 5, "y": 29, "w": 22, "h": 22},
+    "enclosedStallsTotal": 4,
+    "interGarageGapFt": 2,
+    "interGarageSpacingStatus": "PROFESSIONAL_AHJ_CONFIRMATION_REQUIRED"
+  },
+  "zoning": {
+    "status": "CONDITIONAL",
+    "accessoryRearSetbackFt": 5,
+    "accessorySideSetbackFt": 5,
+    "threeFootExceptionUsed": false,
+    "permitApproved": false
+  }
+}

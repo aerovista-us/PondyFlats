@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+'use strict';
+
+const fs=require('fs');
+const path=require('path');
+const W=require('../js/lot2-workbench-audit.js');
+const D4=require('../js/lot2-design-4.js');
+const STEP=2,R=D4.VEHICLE.minRearAxleRadius,STEERS=[-1/R,0,1/R];
+const START={x:142,y:37,th:Math.PI,gear:1};
+const GARAGES=Object.fromEntries(D4.GARAGES.map(g=>[g.unit,g]));
+const STALLS=Object.groupBy(D4.STALLS,s=>s.unit);
+const HOMES=D4.HOMES.map(h=>({id:h.id,poly:h.poly||W.rectPoly(h)}));
+
+class Heap{constructor(){this.a=[]}push(v){this.a.push(v);let i=this.a.length-1;while(i){const p=(i-1)>>1;if(this.a[p].f<=v.f)break;this.a[i]=this.a[p];i=p}this.a[i]=v}pop(){if(!this.a.length)return null;const root=this.a[0],last=this.a.pop();if(this.a.length){let i=0;while(true){let l=i*2+1,r=l+1;if(l>=this.a.length)break;let c=r<this.a.length&&this.a[r].f<this.a[l].f?r:l;if(this.a[c].f>=last.f)break;this.a[i]=this.a[c];i=c}this.a[i]=last}return root}get size(){return this.a.length}}
+function wrap(a){while(a>Math.PI)a-=2*Math.PI;while(a<-Math.PI)a+=2*Math.PI;return a}
+function key(s){return `${Math.round(s.x*2)}:${Math.round(s.y*2)}:${Math.round((wrap(s.th)+Math.PI)/(Math.PI/36))}:${s.gear}`}
+function body(s){return W.vehiclePoly(s.x,s.y,s.th,D4.VEHICLE)}
+function garageWallsOk(poly,g){const dx=g.x+g.w,xmin=Math.min(...poly.map(p=>p[0])),xmax=Math.max(...poly.map(p=>p[0]));for(const c of poly)if(c[0]<dx-1e-6&&(c[0]<g.x-1e-6||c[1]<g.y-1e-6||c[1]>g.y+g.d+1e-6))return false;if(xmin<dx&&xmax>dx){const ys=W.lineCrossY(poly,dx);if(ys.length&&(Math.min(...ys)<g.door.y1-1e-6||Math.max(...ys)>g.door.y2+1e-6))return false}return true}
+function validPose(s,unit,mate,minClear=1){const poly=body(s);if(s.x<=144){if(!poly.every(p=>W.pointInPoly(p,D4.SURVEY)))return false;if(W.boundaryDistance(poly,D4.SURVEY)<minClear-1e-6)return false}const other=GARAGES[unit==='A'?'B':'A'],obs=[...HOMES,{id:other.id,poly:W.rectPoly(other)}];if(mate)obs.push({id:'mate',poly:mate});for(const o of obs)if(W.polygonsIntersect(poly,o.poly)||W.polygonDistance(poly,o.poly)<minClear-1e-6)return false;return garageWallsOk(poly,GARAGES[unit])}
+function advance(s,gear,k){const d=gear*STEP,mid=s.th+d*k/2;return {x:s.x+d*Math.cos(mid),y:s.y+d*Math.sin(mid),th:wrap(s.th+d*k),gear}}
+function primitiveValid(s,n,unit,mate){for(let i=1;i<=4;i++){const t=i/4,p={x:s.x+(n.x-s.x)*t,y:s.y+(n.y-s.y)*t,th:wrap(s.th+wrap(n.th-s.th)*t),gear:n.gear};if(!validPose(p,unit,mate))return false}return true}
+function heuristic(s,g){return Math.hypot(s.x-g.x,s.y-g.y)+Math.abs(wrap(s.th-g.th))*10}
+function reconstruct(node){const out=[];for(let n=node;n;n=n.parent)out.push({x:+n.s.x.toFixed(3),y:+n.s.y.toFixed(3),th:+n.s.th.toFixed(5),gear:n.s.gear});return out.reverse()}
+function audit(unit,poses,mate){const other=GARAGES[unit==='A'?'B':'A'];return W.auditPosePath({poses,vehicle:D4.VEHICLE,survey:D4.SURVEY,obstacles:[...HOMES,{id:other.id,poly:W.rectPoly(other)}],parkedObstacles:mate?[{id:'mate',poly:mate}]:[],garage:GARAGES[unit],door:GARAGES[unit].door,minClearanceFt:1,practicalClearanceFt:2})}
+function plan(stall,mate){const unit=stall.unit,goal={x:stall.axleX,y:stall.axleY,th:stall.heading,gear:1},open=new Heap(),best=new Map(),start={s:START,g:0,f:heuristic(START,goal),parent:null,changes:0};open.push(start);best.set(key(START),0);let expanded=0;while(open.size&&expanded<120000){const cur=open.pop(),ck=key(cur.s);if(cur.g>(best.get(ck)??Infinity)+1e-6)continue;expanded++;const dist=Math.hypot(cur.s.x-goal.x,cur.s.y-goal.y),ang=Math.abs(wrap(cur.s.th-goal.th));if(dist<2.25&&ang<0.12&&validPose(goal,unit,mate)){const final={s:goal,g:cur.g+dist,parent:cur,changes:cur.changes+(cur.s.gear!==1?1:0)},poses=reconstruct(final),proof=audit(unit,poses,mate);if(proof.ok)return {ok:true,expanded,cost:+final.g.toFixed(1),gearChanges:final.changes,poses,proof}}
+    for(const gear of [1,-1])for(const k of STEERS){const n=advance(cur.s,gear,k);if(n.x<20||n.x>144||n.y<4||n.y>50||!primitiveValid(cur.s,n,unit,mate))continue;const change=gear!==cur.s.gear?1:0,ng=cur.g+STEP*(gear<0?1.18:1)+(k?0.16:0)+change*18,nk=key(n);if(ng>=(best.get(nk)??Infinity)-1e-6)continue;best.set(nk,ng);open.push({s:n,g:ng,f:ng+heuristic(n,goal),parent:cur,changes:cur.changes+change})}}
+  return {ok:false,expanded};
+}
+function staticAudit(unit){return W.auditStalls({garage:GARAGES[unit],vehicle:D4.VEHICLE,stalls:STALLS[unit],minPairFt:1})}
+function run(){const results={schema:'lot2_workbench_vehicle_audit_v1',generatedAt:new Date().toISOString(),rev:D4.REV,vehicle:D4.VEHICLE,program:'four practical enclosed stalls',static:{},paths:{},ok:true};for(const unit of ['B','A']){results.static[unit]=staticAudit(unit);results.ok&&=results.static[unit].ok;for(let i=0;i<STALLS[unit].length;i++){const stall=STALLS[unit][i],mateStall=STALLS[unit][1-i],mate=W.vehiclePoly(mateStall.axleX,mateStall.axleY,mateStall.heading,D4.VEHICLE),r=plan(stall,mate);results.paths[stall.id]={stall,mate:mateStall.id,...r};results.ok&&=r.ok;console.log(`${stall.id} ${r.ok?'PASS':'FAIL'} expanded=${r.expanded} changes=${r.gearChanges??'-'} clear=${r.proof?.minClearanceFt??'-'} boundary=${r.proof?.minBoundaryFt??'-'} obstacle=${r.proof?.minObstacleFt??'-'} door=${r.proof?.doorClearanceFt??'-'}`)}}const out=path.join(process.cwd(),'qa-artifacts','design4-workbench');fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'paths-v2.json'),JSON.stringify(results,null,2));let md=`# Design 4 Workbench exact-stall self-audit\n\nGenerated: ${results.generatedAt}\n\nOverall: **${results.ok?'PASS':'FAIL'}**\n\n`;for(const unit of ['B','A']){md+=`## Garage ${unit}\n\nStatic pair: **${results.static[unit].ok?'PASS':'FAIL'}**, pair clearance ${results.static[unit].pairClearanceFt} ft.\n\n`;for(const stall of STALLS[unit]){const r=results.paths[stall.id];md+=`- ${stall.id} axle (${stall.axleX}, ${stall.axleY}): **${r.ok?'PASS':'FAIL'}**${r.ok?`, minimum clearance ${r.proof.minClearanceFt} ft, gear changes ${r.gearChanges}`:''}.\n`}md+='\n'}md+='Design-development geometry evidence only; not civil certification, code/zoning approval, permit readiness, or construction documentation.\n';fs.writeFileSync(path.join(out,'summary-v2.md'),md);if(!results.ok)process.exitCode=2;return results}
+run();

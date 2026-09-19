@@ -12,6 +12,7 @@
 <div class="brand"><small>Internal · not for clients</small><strong>Package studio</strong></div>
 <nav class="nav" aria-label="Studio">
 <a class="primary" href="workbench.html">Studio</a>
+<a href="workbench-results.html">Assessment result</a>
 <a href="lot.html">Lot sketch</a>
 <a href="https://lotscope.aerovista.us/workbench">LotScope Workbench</a>
 <a href="packages/README.md">Packages</a>
@@ -22,8 +23,8 @@
 <section class="panel">
 <p class="kicker">Package studio · clients never land here · not LotScope Workbench</p>
 <h1>Fit a brief onto a lot. Then export a package they can open.</h1>
-<p class="lede">This is the Lot 2 package studio. The two Pondy Flats designs are drawing-package instances. LotScope Workbench (solver / agent) is a separate app. A client receives a standalone folder from <code>npm run export</code> — not this page, not the archive, not the solver.</p>
-<div class="warn"><strong>Do not send this URL.</strong> Delivery is <code>packages/design-1-client</code> or <code>packages/design-2-client</code>. Presenter kits are sibling folders.</div>
+<p class="lede">This is the Lot 2 package studio. Pondy Flats design packages are instances of the larger LotScope workflow. The solver / agent remains a separate app; this repo now also carries a professional assessment-results presentation layer so Workbench evidence can be read without digging through CI logs.</p>
+<div class="warn"><strong>Do not send this studio URL.</strong> Client delivery remains the standalone export package. Use the assessment result when you need a clear presentation of what Workbench proved, what is tight, and what remains conditional.</div>
 <div class="stage" id="stages"></div>
 </section>
 
@@ -57,6 +58,12 @@
     <p>D3-CFB716-v0.2 · architecture-first PASS · frozen exterior/site geometry · room zoning, elevations, and axon now in development.</p>
     <p><a href="design-3.html">Hub</a> · <a href="d3-site.html">Site</a> · <a href="d3-plans.html">Plans</a> · <a href="d3-elevs.html">Elevs</a> · <a href="d3-axon.html">Axon</a></p>
   </article>
+  <article class="card">
+    <b>Design 4 · Workbench self-audit</b>
+    <h3>Rear 22×22 garage concept</h3>
+    <p>Four exact enclosed stall positions now pass the autonomous full-body geometry audit. Practical maneuverability still carries targeted watch items, so the overall design remains conditional.</p>
+    <p><a href="workbench-results.html"><strong>Assessment result</strong></a> · <a href="design-4.html">Hub</a> · <a href="d4-site.html">Site + vehicle</a> · <a href="docs/lot2-design-4-workbench-evidence.json">Raw evidence</a></p>
+  </article>
 </div>
 </section>
 
@@ -65,15 +72,15 @@
 <div class="cards" id="quality"></div>
 <div class="lock" style="margin-top:14px">
   <strong>Commands.</strong> Prove: <code>npm run d1</code> · <code>npm run d2</code> · <code>npm run gates</code>.
-  Polish is on the hubs. Then <code>npm run export</code> writes standalone client + presenter folders under <code>packages/</code>.
+  Workbench evidence and assessment presentation are additional gates for Design 4+. Then <code>npm run export</code> writes standalone client + presenter folders under <code>packages/</code>.
   Freeze only if someone asks.
 </div>
 </section>
 
 <section class="panel">
 <h2>Keep off the client zip</h2>
-<p>Workbench, lab, archive, parking-reset, study guide, GitHub conflict catalog. The export gate fails if those files leak into a client folder.</p>
-<p class="footer"><a href="guide.html">Study guide</a> · <a href="study-archive.html">Archive</a> · <a href="docs/lot2-design-pipeline.md">Pipeline</a> · <a href="docs/lot2-pipeline-gaps.md">Gaps</a></p>
+<p>Workbench studio, lab, archive, parking-reset, study guide, GitHub conflict catalog. The export gate fails if those internal tools leak into a client folder. The assessment presentation is a separate shareable result surface, not the source-of-truth solver.</p>
+<p class="footer"><a href="workbench-results.html">Workbench result</a> · <a href="guide.html">Study guide</a> · <a href="study-archive.html">Archive</a> · <a href="docs/lot2-design-pipeline.md">Pipeline</a> · <a href="docs/lot2-pipeline-gaps.md">Gaps</a></p>
 </section>
 </main>
 <script src="js/lot2-sot.js"></script>
@@ -103,7 +110,7 @@ document.getElementById('lotfacts').innerHTML = `
   <div class="fact"><small>Convention</small><strong>Penn right / south / front</strong></div>`;
 document.getElementById('quality').innerHTML = C.QUALITY.map((q) =>
   `<article class="card"><b>${q.now ? 'now' : 'Design 3+'}</b><h3>${q.id}</h3><p>${q.prove} · stage ${q.stage}</p></article>`
-).join('') + `<article class="card"><b>now</b><h3>export + present</h3><p>Standalone client folder. Separate presenter guide. No workbench in the zip.</p></article>`;
+).join('') + `<article class="card"><b>Design 4+</b><h3>assess + present</h3><p>Machine-readable evidence drives a professional result page that separates proof, practical warnings, and professional-validation boundaries.</p></article>`;
 </script>
 </body>
 </html>
