@@ -1,0 +1,64 @@
+{
+  "schema": "pondy-d4-full-circulation-closure-v1",
+  "recorded_at": "2026-09-30",
+  "workbench": {
+    "repository": "aerovista-us/lot-assessment",
+    "pull_request": 37,
+    "exact_head": "1e3a4e990e802261e6d9180d545a4d8104575e60",
+    "workflow_run_id": 36708453420,
+    "artifact_id": 11092972977,
+    "artifact_digest": "sha256:273b1a0ac9a58579c29fe11f8cfe6c0f99f251a88637ae4fbc0d1dee5b08bc98"
+  },
+  "assumptions": {
+    "vehicle_ft": {
+      "length": 20.5,
+      "width": 8
+    },
+    "minimum_rear_axle_turn_radius_ft": 25,
+    "companion_vehicle_parked": true,
+    "pennsylvania_access_only": true,
+    "search_state_limit_per_outbound_path": 180000
+  },
+  "result": {
+    "inbound_pass": 4,
+    "outbound_paths_found": 0,
+    "full_circulation_pass": false,
+    "promotion_ready": false
+  },
+  "inbound": {
+    "B-NORTH": {
+      "pass": true,
+      "min_clearance_ft": 1.042,
+      "door_clearance_ft": 0.639,
+      "gear_changes": 4,
+      "pavement_pass": false,
+      "pavement_violation_samples": 22
+    },
+    "B-SOUTH": {
+      "pass": true,
+      "min_clearance_ft": 1.044,
+      "door_clearance_ft": 0.073,
+      "gear_changes": 0,
+      "pavement_pass": false,
+      "pavement_violation_samples": 13
+    },
+    "A-NORTH": {
+      "pass": true,
+      "min_clearance_ft": 1.346,
+      "door_clearance_ft": 1.704,
+      "gear_changes": 0,
+      "pavement_pass": true,
+      "pavement_violation_samples": 0
+    },
+    "A-SOUTH": {
+      "pass": true,
+      "min_clearance_ft": 1.118,
+      "door_clearance_ft": 2.182,
+      "gear_changes": 0,
+      "pavement_pass": false,
+      "pavement_violation_samples": 22
+    }
+  },
+  "interpretation": "All four inbound stall paths remain proven. Independent outbound search was executed for all four stalls and exhausted the configured 180,000-state bound without finding a valid exit. This is evidence that full circulation is not proven for the current geometry; it is not a mathematical proof that no outbound path exists.",
+  "release_boundary": "Design development only. Professional/AHJ review remains required for zoning, building/fire, structure, MEP, civil, grading/drainage, survey/easements, energy and permits."
+}
