@@ -85,10 +85,10 @@ figure.draw figcaption strong{color:var(--navy)}
 .status-item.established{border-top:4px solid var(--ok)}
 .status-item.refining{border-top:4px solid var(--gold)}
 .status-item.professional{border-top:4px solid var(--navy)}
-.elevation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
-.elevation-card{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden;min-width:0}
-.elevation-card figure.draw{border:0;border-radius:0;margin:0;padding:8px}
-.elevation-card .elevation-copy{padding:0 16px 16px}
+.elevation-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:16px}
+.elevation-card{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden;min-width:0;display:grid;grid-template-columns:minmax(0,2.8fr) minmax(235px,.9fr);align-items:center}
+.elevation-card figure.draw{border:0;border-radius:0;margin:0;padding:10px}
+.elevation-card .elevation-copy{padding:20px 22px 20px 8px}
 .elevation-card .elevation-copy h3{font-size:15px;margin-top:2px}
 .elevation-card .elevation-copy p{font-size:13px;margin:4px 0 0}
 .elevation-card .elevation-copy a{display:inline-block;margin-top:8px;color:var(--navy);font-size:12px;font-weight:900;text-decoration:none}
@@ -111,7 +111,7 @@ figure.draw figcaption strong{color:var(--navy)}
 .trade-card strong{display:block;color:var(--navy);font-size:14px;margin-top:4px}
 .trade-card p{font-size:12.5px;margin:5px 0 0}
 .quiet{font-size:12px;color:#7b838b;line-height:1.55}
-@media(max-width:980px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.trade-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.elev-detail{grid-template-columns:1fr}.status-rail{grid-template-columns:1fr}}
+@media(max-width:980px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.trade-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.elev-detail{grid-template-columns:1fr}.status-rail{grid-template-columns:1fr}.elevation-card{grid-template-columns:1fr}.elevation-card .elevation-copy{padding:0 18px 18px}}
 @media(max-width:640px){.grid,.elevation-grid,.value-grid,.trade-strip{grid-template-columns:1fr}.section-head{display:block}.section-head p{margin-top:6px}}
 
 @media print{
