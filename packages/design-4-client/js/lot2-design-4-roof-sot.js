@@ -19,6 +19,12 @@ function roofForOwner(ownerId){
   const key=normalizeOwnerId(ownerId);
   return ROOFS.find(roof=>roof.ownerId===key)||null;
 }
+function finitePoint(value){
+  return Array.isArray(value)
+    && value.length===2
+    && typeof value[0]==='number'&&Number.isFinite(value[0])
+    && typeof value[1]==='number'&&Number.isFinite(value[1]);
+}
 function roofIsAuthoritative(roof){
   return Boolean(
     roof&&
@@ -26,7 +32,7 @@ function roofIsAuthoritative(roof){
     roof.validationStatus==='ROOF_GEOMETRY_LOCKED'&&
     typeof roof.ownerGeometryKey==='string'&&roof.ownerGeometryKey.length>0&&
     Array.isArray(roof.zones)&&roof.zones.length>0&&
-    roof.zones.every(zone=>zone&&zone.status==='LOCKED'&&Array.isArray(zone.ridgeA)&&Array.isArray(zone.ridgeB))
+    roof.zones.every(zone=>zone&&zone.status==='LOCKED'&&finitePoint(zone.ridgeA)&&finitePoint(zone.ridgeB))
   );
 }
 function statusForOwner(ownerId){

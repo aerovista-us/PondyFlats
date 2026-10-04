@@ -13,6 +13,19 @@ assert.equal(state.locked,0);
 assert.equal(state.required,4);
 assert(state.results.every(row=>row.authoritative===false&&row.renderPolicy==='SUPPRESS_ROOF'));
 
+const lockedFixture={
+  id:'fixture-roof',
+  ownerId:'home-a',
+  status:'LOCKED',
+  validationStatus:'ROOF_GEOMETRY_LOCKED',
+  ownerGeometryKey:'fixture-owner-key',
+  zones:[{id:'z1',status:'LOCKED',ridgeA:[0,5],ridgeB:[10,5]}]
+};
+assert.equal(ROOF.roofIsAuthoritative(lockedFixture),true,'finite two-coordinate ridge endpoints may pass the consumer authority guard');
+assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...lockedFixture.zones[0],ridgeA:[]}]}),false,'empty ridge arrays must never be authoritative');
+assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...lockedFixture.zones[0],ridgeA:['0','5']}]}),false,'string ridge coordinates must never be authoritative');
+assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...lockedFixture.zones[0],ridgeB:[10,NaN]}]}),false,'non-finite ridge coordinates must never be authoritative');
+
 for(const face of ['east','west','north','south']){
   const svg=ARCH.renderElev(face);
   assert(svg.includes('data-roof-render-policy="SUPPRESS_ROOF"'),face+' must carry roof suppression policy');
