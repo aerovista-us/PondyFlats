@@ -45,12 +45,16 @@ for(const mode of ['massing','clean']){
   const svg=ARCH.renderAxon(mode);
   assert(svg.includes('data-roof-render-policy="SUPPRESS_ROOF"'),mode+' axon must carry roof suppression policy');
   assert(svg.includes('data-plate-datum="working"'),mode+' axon must label top outline as working datum');
-  assert(svg.includes('Roof surfaces are intentionally suppressed'),mode+' axon must disclose roof suppression');
+  assert(/Roof surfaces[^<]*suppressed/i.test(svg),mode+' axon must disclose roof suppression');
 }
 const analysis=ARCH.analyze();
 assert.equal(analysis.checks.roofContract.ok,true);
 assert.equal(analysis.checks.roofContract.status,'CONCEPT_ONLY_REQUIRED');
 assert.equal(analysis.checks.roofContract.renderPolicy,'SUPPRESS_ROOF');
+assert.equal(ARCH.roofViewPolicy({authoritative:false}),'SUPPRESS_ROOF');
+assert.equal(ARCH.roofViewPolicy({authoritative:true}),'LOCKED_DATA_AWAITING_EXACT_VIEW_PROJECTOR');
+assert.match(ARCH.roofWithheldLabel({authoritative:true}),/GEOMETRY LOCKED.*PROJECTOR PENDING/i);
+assert(!/NOT GEOMETRY LOCKED/i.test(ARCH.roofWithheldLabel({authoritative:true})),'authoritative roofs must not be labeled as unlocked while awaiting exact projection');
 
 for(const file of ['design-4.html','d4-elevs.html','d4-axon.html','d4-sections.html']){
   const html=fs.readFileSync(path.join(root,file),'utf8');
