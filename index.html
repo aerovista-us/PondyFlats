@@ -39,6 +39,24 @@ h3{margin:0 0 6px;color:var(--navy);font-size:18px}
 .footer{text-align:center;margin-top:28px;color:#7b838b;font-size:12px;line-height:1.6}
 .footer a{color:var(--navy);font-weight:700}
 @media(max-width:800px){.grid2{grid-template-columns:1fr}.nav{display:flex;overflow-x:auto;max-width:100%}.nav a{white-space:nowrap}}
+
+/* 2026-10-04 customer-facing visual refresh */
+body{background:radial-gradient(circle at 8% 0%,#c4922e18,transparent 28rem),radial-gradient(circle at 92% 5%,#345b8614,transparent 32rem),linear-gradient(180deg,#f8f6f1,#eeeae3)}
+.top{position:sticky;top:0;z-index:50;background:#0d1b33f2;backdrop-filter:blur(16px);box-shadow:0 10px 30px #0d1b3320;border-bottom:1px solid #ffffff12}
+.topin{max-width:1180px;padding:13px 22px}.nav{display:flex;gap:6px}.nav a{margin-left:0;transition:.18s ease}.nav a:hover{background:#ffffff12;border-color:#ffffff42}
+.wrap{max-width:1180px;padding:30px 22px 92px}.panel{border:1px solid #d9d2c780;border-radius:24px;box-shadow:0 22px 64px #0d1b3313,0 2px 8px #0d1b3308;padding:30px 32px}
+.landing-hero{position:relative;overflow:hidden;background:radial-gradient(circle at 85% 18%,#efb34d32,transparent 25rem),linear-gradient(135deg,#0b1930,#122847 58%,#0d1b33);border-color:#ffffff18;box-shadow:0 28px 72px #0d1b3330}
+.landing-hero:after{content:"";position:absolute;right:-7rem;bottom:-8rem;width:24rem;height:24rem;border-radius:50%;border:1px solid #efb34d24;box-shadow:0 0 0 3.5rem #ffffff05,0 0 0 7rem #ffffff03}
+.landing-hero>*{position:relative;z-index:1}.landing-hero h1{color:#fff;letter-spacing:-.035em}.landing-hero .lede{color:#d9e2ec}.landing-hero p:first-child{color:#f1bd61!important}
+.active{border-left:0;background:linear-gradient(135deg,#fff8e9,#fffdf8);box-shadow:0 18px 50px #805d1e14}.active h2{font-size:clamp(24px,3.4vw,34px)}
+.statusbar{gap:7px}.statusbar span{padding:8px 10px;background:#fff8e9}.statusbar span.ok{background:#eef7ef}
+.grid2{gap:16px}.card{border-color:#ddd6cc;border-radius:18px;padding:20px 21px;background:linear-gradient(145deg,#fbfaf7,#fff);box-shadow:0 8px 24px #0d1b3309;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.card:hover{transform:translateY(-2px);border-color:#cdbfaa;box-shadow:0 14px 30px #0d1b3310}
+.steps li{background:linear-gradient(145deg,#fff,#fbfaf7);border-color:#ddd6cc}.steps li::before{box-shadow:0 5px 14px #0d1b3326}
+.cta{box-shadow:0 7px 16px #0d1b3322}.cta.gold{box-shadow:0 7px 18px #9b6d1930}
+.note,.lock{border-radius:0 14px 14px 0}
+@media(max-width:800px){.wrap{padding:18px 12px 64px}.panel{padding:22px 18px;border-radius:18px}.topin{padding:11px 14px}.landing-hero{border-radius:20px}}
+
 </style>
 </head>
 <body>
@@ -56,14 +74,14 @@ h3{margin:0 0 6px;color:var(--navy);font-size:18px}
 </nav>
 </div></header>
 <main class="wrap">
-<section class="panel">
+<section class="panel landing-hero">
 <p style="font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#956d29;margin:0">Two homes · one lot · Pennsylvania access only</p>
 <h1>Three released concepts, plus Design 4 with four-stall inbound proof.</h1>
-<p class="lede">This is a concept and design-development study, not a permit set. Designs 1–3 remain the released options. Design 4 now has strong evidence that the full-size vehicle can reach all four exact enclosed stall poses, but the repository requires both inbound and outbound maneuvers for a full technical circulation PASS. Outbound travel, package export, and professional zoning/building/civil validation remain open.</p>
+<p class="lede">This is a concept and design-development study, not a permit set. Designs 1–3 remain the released options. Design 4 now has strong evidence that the full-size vehicle can reach all four exact enclosed stall poses, but the repository requires both inbound and outbound maneuvers for a full technical circulation PASS. Outbound travel and professional zoning/building/civil validation remain open. The standalone Design 4 client + presenter export is complete; roof form remains intentionally withheld until Workbench roof geometry is locked.</p>
 </section>
 <section class="panel active">
 <h2>Design 4 · current design-development direction</h2>
-<div class="statusbar"><span class="ok">2 × 22×22 garages preserved</span><span class="ok">4 / 4 inbound stall arrivals supported</span><span>Outbound proof OPEN</span></div>
+<div class="statusbar"><span class="ok">2 × 22×22 garages preserved</span><span class="ok">4 / 4 inbound stall arrivals supported</span><span class="ok">Client handoff package complete</span><span>Outbound proof OPEN</span><span>Roof geometry WITHHELD</span></div>
 <p class="lede" style="font-size:16px">Design 4 is now far enough along to read as a coordinated building-and-site concept rather than just a circulation experiment. The updated report leads with all four architectural elevations, then explains the field-useful site, garage, plan and opening information already established. The remaining technical circulation gate is outbound travel back to Pennsylvania.</p>
 <a class="cta gold" href="design-4.html">Open the Design 4 report →</a>
 <a class="cta" href="d4-elevs.html" style="margin-left:8px">See the elevations →</a>
@@ -75,7 +93,7 @@ h3{margin:0 0 6px;color:var(--navy);font-size:18px}
 <ol class="steps">
 <li><div><b>The lot does not rotate.</b><p>Pennsylvania is the right / front edge of every drawing. The compass points left on purpose.</p></div></li>
 <li><div><b>Parking is the hard problem.</b><p>A full-size SUV / pickup must enter from Pennsylvania, reach each garage independently, and leave again — on Lot 2, not through a neighbor.</p></div></li>
-<li><div><b>There are three released concepts plus an active Design 4 near-pass.</b><p><strong>Design 1</strong> keeps garages in the house plates. <strong>Design 2</strong> uses detached 20×20 rear garages. <strong>Design 3</strong> is the Workbench-selected Compact Front Block. <strong>Design 4</strong> preserves two full detached 22×22 rear garages; its four inbound stall paths pass, while outbound circulation and delivery packaging remain open.</p></div></li>
+<li><div><b>There are three released concepts plus an active Design 4 near-pass.</b><p><strong>Design 1</strong> keeps garages in the house plates. <strong>Design 2</strong> uses detached 20×20 rear garages. <strong>Design 3</strong> is the Workbench-selected Compact Front Block. <strong>Design 4</strong> preserves two full detached 22×22 rear garages; its four inbound stall paths pass, the standalone handoff package is complete, and outbound circulation remains the open technical gate.</p></div></li>
 <li><div><b>Zoning is still a hypothesis until the city says yes.</b><p>Accessory-yard planning uses the city lots-without-alley material as evidence. It is not a permit or parcel-specific approval.</p></div></li>
 </ol>
 </section>
@@ -106,12 +124,12 @@ h3{margin:0 0 6px;color:var(--navy);font-size:18px}
 <article class="card">
 <b>Design 4 · NEAR-PASS / ITERATE</b>
 <h3>Rear 22×22 garages · four exact stalls</h3>
-<p>Two detached 22×22 rear garages with Pennsylvania-only access. All four exact modeled inbound stall paths pass the current full-body evidence. Full outbound travel has not yet been audited; B-South is MARGINAL at the garage opening; standalone export is still open.</p>
+<p>Two detached 22×22 rear garages with Pennsylvania-only access. All four exact modeled inbound stall paths pass the current full-body evidence. Full outbound travel has not yet been audited; B-South is MARGINAL at the garage opening; the standalone client + presenter package is complete.</p>
 <p><strong>Use this</strong> if keeping two real 22×22 detached garages is the priority and you want to follow the current evidence-backed refinement.</p>
 <a class="cta" href="design-4.html">Open Design 4 →</a>
 </article>
 </div>
-<div class="note">Design 1 geometry stays frozen. Design 2 is retained as a historical concept package. Design 3 is the previously selected Workbench package. Design 4 has materially advanced, but the full circulation and export gates remain open.</div>
+<div class="note">Design 1 geometry stays frozen. Design 2 is retained as a historical concept package. Design 3 is the previously selected Workbench package. Design 4 has materially advanced. The standalone export is complete; full outbound circulation and professional/AHJ validation remain open.</div>
 <div class="lock">Not permit / construction drawings. Professional validation pending on zoning, fire, structure, civil, MEP, survey/easements, drainage and permit requirements.</div>
 </section>
 <section class="panel">
