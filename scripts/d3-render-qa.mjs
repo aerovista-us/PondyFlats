@@ -7,7 +7,20 @@ import { extname, join, normalize, relative } from 'node:path';
 const chromeBin = process.env.CHROME_BIN || '/usr/bin/chromium-browser';
 const outDir = process.argv[2] || '/tmp/pondy-d3-qa';
 let base = process.argv[3] || '';
-const port = Number(process.env.CDP_PORT || 9333);
+const requestedPort = Number(process.env.CDP_PORT || 0);
+let port = requestedPort;
+async function reserveCdpPort() {
+  if (requestedPort) return requestedPort;
+  return await new Promise((resolve, reject) => {
+    const server = createServer();
+    server.once('error', reject);
+    server.listen(0, '127.0.0.1', () => {
+      const address = server.address();
+      const selected = typeof address === 'object' && address ? address.port : 0;
+      server.close((err) => err ? reject(err) : resolve(selected));
+    });
+  });
+}
 const profile = `/tmp/pondy-d3-chrome-${process.pid}`;
 const packageMode = process.env.D3_QA_PACKAGE === '1';
 const packageAliases = { 'index.html':'design-3.html', 'site.html':'d3-site.html', 'plans.html':'d3-plan-closure.html', 'elevs.html':'d3-elevs.html', 'axon.html':'d3-axon.html', 'sections.html':'d3-sections.html' };
@@ -432,6 +445,7 @@ await mkdir(outDir, { recursive: true });
 await rm(profile, { recursive: true, force: true });
 const localServer = base ? null : await startStaticServer(process.cwd());
 if (!base) base = localServer.base;
+port = await reserveCdpPort();
 const chrome = spawn(chromeBin, [
   '--headless=new',
   '--disable-gpu',
