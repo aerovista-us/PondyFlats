@@ -6,7 +6,7 @@ const PLAN=(typeof module!=='undefined'&&module.exports)?require('./lot2-design-
 const ROOF=(typeof module!=='undefined'&&module.exports)?require('./lot2-design-4-roof-sot.js'):global.Lot2Design4RoofSOT;
 if(!D4||!PLAN) throw new Error('Design 4 architecture requires geometry and plan-closure models');
 
-const REV='D4-ARCH-v0.7';
+const REV='D4-ARCH-v0.8';
 const COLORS={paper:'#fbfaf7',ink:'#132238',muted:'#68727d',homeA:'#d9b56d',homeB:'#ead495',garage:'#8ca58b',roof:'#394957',glass:'#dceeff',entry:'#f8e2df',ground:'#e6e0d4',line:'#405064',warn:'#a9612b',door:'#b3261e',window:'#2367b1'};
 const HEIGHTS={home:20,garage:11,floor:10};
 
@@ -144,6 +144,18 @@ function elevationOpeningDetail(o,left,top,ow,oh,type){
   else out+=`<circle cx="${left+ow-4}" cy="${top+oh*.55}" r="1.5" fill="#d8b76b"/>`;
   return out+'</g>';
 }
+function elevationContext(left0,wallY,wallH,drawW,kind,unit){
+  const base=wallY+wallH, shadowY=base+5;
+  let out=`<g data-elevation-context="presentation-only"><ellipse cx="${left0+drawW/2}" cy="${shadowY}" rx="${Math.max(32,drawW*.53)}" ry="5" fill="#6c716b" opacity=".10"/><path d="M ${left0-20} ${base+3} Q ${left0+drawW*.22} ${base-1} ${left0+drawW*.5} ${base+2} T ${left0+drawW+20} ${base+2}" fill="none" stroke="#8c927e" stroke-width="1.2" opacity=".62"/>`;
+  const shrubs=kind==='home'?[.08,.19,.78,.9]:[.12,.88];
+  for(const f of shrubs){const cx=left0+drawW*f, cy=base-3, r=kind==='home'?5:4;out+=`<path d="M ${cx-r} ${cy} Q ${cx-r*.7} ${cy-r*1.4} ${cx} ${cy-r*.75} Q ${cx+r*.7} ${cy-r*1.4} ${cx+r} ${cy} Z" fill="#78856e" opacity=".52"/>`;}
+  if(kind==='home')out+=`<path d="M ${left0+drawW*.47} ${base+1} L ${left0+drawW*.53} ${base+1} L ${left0+drawW*.58} ${base+10} L ${left0+drawW*.42} ${base+10} Z" fill="#d8d1c3" opacity=".8"/>`;
+  return out+'</g>';
+}
+function elevationTrim(left0,wallY,wallH,drawW,kind){
+  const base=wallY+wallH, sw=kind==='garage'?2.1:2.4;
+  return `<g data-elevation-trim="concept-character"><line x1="${left0}" y1="${wallY}" x2="${left0}" y2="${base}" stroke="#f4f0e7" stroke-width="${sw}" opacity=".82"/><line x1="${left0+drawW}" y1="${wallY}" x2="${left0+drawW}" y2="${base}" stroke="#f4f0e7" stroke-width="${sw}" opacity=".82"/><line x1="${left0}" y1="${wallY+1.5}" x2="${left0+drawW}" y2="${wallY+1.5}" stroke="#f4f0e7" stroke-width="2" opacity=".72"/></g>`;
+}
 function elevationBand({unit,face,x,y,w,h,title,kind='home'}){
   const obj=kind==='garage'?D4.GARAGES.find(g=>g.unit===unit):D4.HOMES.find(b=>b.unit===unit),poly2=kind==='garage'?rectPoly(obj):homePoly(obj),segs=faceSegments(poly2,face);
   if(!segs.length)return `<g data-elevation-unit="${unit}" data-face="${face}" data-kind="${kind}" data-world-segments="0"><text x="${x}" y="${y+18}" font-size="12" font-weight="900" fill="${COLORS.ink}">${title}</text><text x="${x}" y="${y+48}" font-size="10" fill="${COLORS.muted}">No exterior ${face} face in source polygon.</text></g>`;
@@ -152,15 +164,17 @@ function elevationBand({unit,face,x,y,w,h,title,kind='home'}){
   out+=renderRoofElevation({kind,unit,face,span,left0,wallY,scale});
   for(const s of segs){const ax=segmentAxis(face,s),a0=Math.min(...ax),a1=Math.max(...ax),left=left0+(a0-span[0])*scale,sw=(a1-a0)*scale,plane=(face==='east'||face==='west')?s[0][0]:s[0][1],recess=Math.abs(plane-outerPlane);out+=`<rect x="${left}" y="${wallY}" width="${sw}" height="${wallH}" fill="${fill}" fill-opacity="${recess>.01?'.76':'.94'}" stroke="${COLORS.ink}" stroke-width="2" data-world-face-segment="${face}" data-world-plane="${plane}" data-world-span="${a0}:${a1}" data-recess-ft="${recess.toFixed(2)}"/>`;if(recess>.01)out+=`<text x="${left+6}" y="${wallY+14}" font-size="7.5" font-weight="900" fill="${COLORS.warn}">RECESSED ${recess.toFixed(2)}′</text>`;}
   out+=elevationFinish(kind,unit,face,left0,wallY,wallH,drawW);
+  out+=elevationTrim(left0,wallY,wallH,drawW,kind);
   if(kind==='home')out+=`<line x1="${left0}" y1="${wallY+HEIGHTS.floor*scale}" x2="${left0+drawW}" y2="${wallY+HEIGHTS.floor*scale}" stroke="${COLORS.line}" stroke-width=".8" stroke-dasharray="5 5" opacity=".22" data-floor-datum="working"/>`;
   const openings=faceOpenings(unit,face).filter(o=>(kind==='garage'?o.role==='garage-overhead':o.role!=='garage-overhead')&&openingOnSegments(o,segs,face));
   for(const o of openings){const ax=faceAxis(face,o),left=left0+(Math.min(...ax)-span[0])*scale,ow=Math.max(7,openingLength(o)*scale),zScale=scale,top=wallY+wallH-o.z2*zScale,oh=Math.max(8,(o.z2-o.z1)*zScale),type=openingKind(o.role);out+=`<g data-opening="${type}" data-opening-id="${o.id}" data-opening-role="${o.role}" data-derived="world">${elevationOpeningDetail(o,left,top,ow,oh,type)}</g>`;}
+  out+=elevationContext(left0,wallY,wallH,drawW,kind,unit);
   if(!openings.length)out+=`<rect x="${left0+drawW/2-64}" y="${wallY+wallH/2-10}" width="128" height="20" rx="10" fill="#fff" fill-opacity=".82"/><text x="${left0+drawW/2}" y="${wallY+wallH/2+3.5}" text-anchor="middle" font-size="8" font-weight="900" fill="${COLORS.muted}">NO MODELED OPENINGS</text>`;
   out+=`<text x="${x+w/2}" y="${y+h-20}" text-anchor="middle" font-size="9.5" font-weight="800" fill="${COLORS.ink}">VISIBLE SPAN ${worldW.toFixed(2)}′ · ROOF PLATE ${plateFt}′ · COMMON SCALE ${scale.toFixed(1)} PX/FT</text><text x="${x+w/2}" y="${y+h-7}" text-anchor="middle" font-size="8.5" fill="${COLORS.muted}">${kind==='garage'?(face==='east'?'22×22 detached garage · 20′ modeled east opening · locked 6:12 gable':'22×22 detached garage · locked 6:12 gable'):'roof control surface reaches the wall footprint; overhang / fascia / gutter detailing remains open'}</text></g>`;return out;
 }
 function renderElev(face){
   const labels={east:'A-201 · Pennsylvania / east elevation',west:'A-202 · rear / west elevation',north:'A-203 · north elevation',south:'A-204 · south elevation'},title=labels[face]||labels.east,W=1200,H=760,garageLabel=face==='east'?'20′ OVERHEAD OPENING':'SOLID GARAGE WALL';
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Design 4 ${face} geometry-first elevations" data-arch-rev="${REV}" data-elevation-face="${face}" data-openings-source="shared-world-model" data-roof-source="${ROOF?ROOF.REV:'UNAVAILABLE'}" data-roof-policy="AUTHORITATIVE_ROOF" data-garages-all-faces="true" data-common-scale-px-per-ft="${ELEVATION_SCALE}"><rect width="${W}" height="${H}" fill="${COLORS.paper}"/><text x="62" y="50" font-family="Georgia,serif" font-size="29" font-weight="700" fill="${COLORS.ink}">${title}</text><text x="62" y="78" font-size="13" fill="${COLORS.muted}">Geometry-first · wall faces, openings, roof zones, ridge locations and 6:12 pitch are projected from the shared locked model</text>${elevationBand({unit:'B',face,x:62,y:108,w:510,h:255,title:'HOME B'})}${elevationBand({unit:'A',face,x:628,y:108,w:510,h:255,title:'HOME A'})}${elevationBand({unit:'B',face,x:62,y:410,w:510,h:240,title:`GARAGE B · ${garageLabel}`,kind:'garage'})}${elevationBand({unit:'A',face,x:628,y:410,w:510,h:240,title:`GARAGE A · ${garageLabel}`,kind:'garage'})}<g transform="translate(62,676)"><text font-size="10.2" fill="#507759">Roof control geometry: 4 / 4 owners locked in LotScope · 6:12 pitch · exact ridges and plate datums projected.</text><text y="17" font-size="9.2" fill="${COLORS.muted}">Overhang depth, fascia, gutters, roofing assembly, framing and final exterior detailing remain professional design items.</text></g>${renderViewKey(face,875,672,260,66)}</svg>`;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Design 4 ${face} geometry-first elevations" data-arch-rev="${REV}" data-elevation-face="${face}" data-openings-source="shared-world-model" data-roof-source="${ROOF?ROOF.REV:'UNAVAILABLE'}" data-roof-policy="AUTHORITATIVE_ROOF" data-garages-all-faces="true" data-common-scale-px-per-ft="${ELEVATION_SCALE}"><rect width="${W}" height="${H}" fill="${COLORS.paper}"/><text x="62" y="50" font-family="Georgia,serif" font-size="29" font-weight="700" fill="${COLORS.ink}">${title}</text><text x="62" y="78" font-size="13" fill="${COLORS.muted}">Architectural concept elevation · locked geometry with restrained material, trim and site-context presentation</text>${elevationBand({unit:'B',face,x:62,y:108,w:510,h:255,title:'HOME B'})}${elevationBand({unit:'A',face,x:628,y:108,w:510,h:255,title:'HOME A'})}${elevationBand({unit:'B',face,x:62,y:410,w:510,h:240,title:`GARAGE B · ${garageLabel}`,kind:'garage'})}${elevationBand({unit:'A',face,x:628,y:410,w:510,h:240,title:`GARAGE A · ${garageLabel}`,kind:'garage'})}<g transform="translate(62,676)"><text font-size="10.2" fill="#507759">Roof control geometry: 4 / 4 owners locked in LotScope · 6:12 pitch · exact ridges and plate datums projected.</text><text y="17" font-size="9.2" fill="${COLORS.muted}">Overhang depth, fascia, gutters, roofing assembly, framing and final exterior detailing remain professional design items.</text></g>${renderViewKey(face,875,672,260,66)}</svg>`;
 }
 function P(x,y,z){return [580+(x-70)*5.2-(y-26)*3.2,545-(x-70)*1.55-(y-26)*1.35-z*8.2]}
 function pts3(points){return points.map(p=>{const q=P(...p);return `${q[0].toFixed(1)},${q[1].toFixed(1)}`}).join(' ')}
