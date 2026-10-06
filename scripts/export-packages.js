@@ -37,7 +37,7 @@ function write(dir, name, body) {
 }
 
 function rewriteStaticDesign3(html) {
-  return html
+  return html.replace("<body>", "<body class=\"pondy-report\">")
     .replace(/href="design-3\.html([^"]*)"/g, 'href="index.html$1"')
     .replace(/href="d3-site\.html([^"]*)"/g, 'href="site.html$1"')
     .replace(/href="d3-plan-closure\.html([^"]*)"/g, 'href="plans.html$1"')
