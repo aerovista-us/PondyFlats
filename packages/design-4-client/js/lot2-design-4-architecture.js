@@ -6,7 +6,7 @@ const PLAN=(typeof module!=='undefined'&&module.exports)?require('./lot2-design-
 const ROOF=(typeof module!=='undefined'&&module.exports)?require('./lot2-design-4-roof-sot.js'):global.Lot2Design4RoofSOT;
 if(!D4||!PLAN) throw new Error('Design 4 architecture requires geometry and plan-closure models');
 
-const REV='D4-ARCH-v0.6';
+const REV='D4-ARCH-v0.7';
 const COLORS={paper:'#fbfaf7',ink:'#132238',muted:'#68727d',homeA:'#d9b56d',homeB:'#ead495',garage:'#8ca58b',roof:'#394957',glass:'#dceeff',entry:'#f8e2df',ground:'#e6e0d4',line:'#405064',warn:'#a9612b',door:'#b3261e',window:'#2367b1'};
 const HEIGHTS={home:20,garage:11,floor:10};
 
@@ -125,6 +125,25 @@ function renderViewKey(face,x,y,w=255,h=64){
   return `<g data-view-key="${face}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="#fff" stroke="#d8dde2"/><polygon points="${pts(D4.SURVEY)}" fill="#f3efe4" stroke="#9e9a90" stroke-width="1"/>${masses.map(m=>`<polygon points="${pts(m.poly)}" fill="${m.fill}" fill-opacity=".78" stroke="${COLORS.ink}" stroke-width=".7"/>`).join('')}<line x1="${ax1}" y1="${ay1}" x2="${ax2}" y2="${ay2}" stroke="${COLORS.door}" stroke-width="2"/><polygon points="${head}" fill="${COLORS.door}"/><rect x="${x+4}" y="${y+h-16}" width="${Math.min(w-8,178)}" height="13" rx="6.5" fill="#fff" fill-opacity=".9"/><text x="${x+10}" y="${y+h-6}" font-size="7.8" font-weight="900" fill="${COLORS.ink}">${label}</text><text x="${x+w-10}" y="${y+13}" text-anchor="end" font-size="7.5" font-weight="900" fill="${COLORS.muted}">SITE ORIENTATION KEY</text></g>`;
 }
 const ELEVATION_SCALE=6.2;
+function elevationFinish(kind,unit,face,left0,wallY,wallH,drawW){
+  const wallBase=wallY+wallH, siding=kind==='garage'?'vertical board-and-batten':'horizontal lap siding';
+  let out=`<g data-elevation-finish="${siding}" opacity=".72">`;
+  if(kind==='garage'){
+    for(let px=left0+10;px<left0+drawW;px+=18)out+=`<line x1="${px.toFixed(1)}" y1="${wallY}" x2="${px.toFixed(1)}" y2="${wallBase}" stroke="#ffffff" stroke-width="1" opacity=".34"/>`;
+  }else{
+    for(let py=wallY+12;py<wallBase;py+=10)out+=`<line x1="${left0}" y1="${py.toFixed(1)}" x2="${(left0+drawW).toFixed(1)}" y2="${py.toFixed(1)}" stroke="#ffffff" stroke-width="1" opacity=".38"/>`;
+  }
+  out+=`<rect x="${left0}" y="${wallBase-7}" width="${drawW}" height="7" fill="#c7c1b4" opacity=".8"/><line x1="${left0}" y1="${wallBase}" x2="${left0+drawW}" y2="${wallBase}" stroke="#263746" stroke-width="1.5"/></g>`;
+  return out;
+}
+function elevationOpeningDetail(o,left,top,ow,oh,type){
+  const glass=type==='window', fill=glass?'#d9e8ee':'#5b4032', stroke=glass?'#314d5c':'#3f2d25';
+  let out=`<g data-opening-detail="${type}"><rect x="${left}" y="${top}" width="${ow}" height="${oh}" rx=".8" fill="${fill}" stroke="${stroke}" stroke-width="1.8"/>`;
+  if(glass){out+=`<line x1="${left+ow/2}" y1="${top+2}" x2="${left+ow/2}" y2="${top+oh-2}" stroke="#fff" stroke-width="1" opacity=".78"/><line x1="${left+2}" y1="${top+oh/2}" x2="${left+ow-2}" y2="${top+oh/2}" stroke="#fff" stroke-width="1" opacity=".68"/><polygon points="${left+2},${top+2} ${left+ow*.55},${top+2} ${left+2},${top+oh*.55}" fill="#fff" opacity=".16"/>`;}
+  else if(o.role==='garage-overhead'){for(let py=top+oh/4;py<top+oh;py+=oh/4)out+=`<line x1="${left+2}" y1="${py.toFixed(1)}" x2="${left+ow-2}" y2="${py.toFixed(1)}" stroke="#cdb9a9" stroke-width="1" opacity=".75"/>`;}
+  else out+=`<circle cx="${left+ow-4}" cy="${top+oh*.55}" r="1.5" fill="#d8b76b"/>`;
+  return out+'</g>';
+}
 function elevationBand({unit,face,x,y,w,h,title,kind='home'}){
   const obj=kind==='garage'?D4.GARAGES.find(g=>g.unit===unit):D4.HOMES.find(b=>b.unit===unit),poly2=kind==='garage'?rectPoly(obj):homePoly(obj),segs=faceSegments(poly2,face);
   if(!segs.length)return `<g data-elevation-unit="${unit}" data-face="${face}" data-kind="${kind}" data-world-segments="0"><text x="${x}" y="${y+18}" font-size="12" font-weight="900" fill="${COLORS.ink}">${title}</text><text x="${x}" y="${y+48}" font-size="10" fill="${COLORS.muted}">No exterior ${face} face in source polygon.</text></g>`;
@@ -132,9 +151,10 @@ function elevationBand({unit,face,x,y,w,h,title,kind='home'}){
   let out=`<g data-elevation-unit="${unit}" data-face="${face}" data-kind="${kind}" data-world-segments="${segs.length}" data-common-scale-px-per-ft="${scale}" data-visible-span-ft="${worldW}" data-roof-plate-ft="${plateFt}"><text x="${x}" y="${y+18}" font-size="12" font-weight="900" fill="${COLORS.ink}">${title}</text><text x="${x+w}" y="${y+18}" text-anchor="end" font-size="8.5" font-weight="900" fill="#507759">COORDINATE-DERIVED FACES + LOCKED ROOF</text><text x="${x+w}" y="${y+32}" text-anchor="end" font-size="7.5" font-weight="800" fill="${COLORS.muted}">${roofSummary(roof)}</text><line x1="${x}" y1="${y+h-32}" x2="${x+w}" y2="${y+h-32}" stroke="${COLORS.ground}" stroke-width="3"/>`;
   out+=renderRoofElevation({kind,unit,face,span,left0,wallY,scale});
   for(const s of segs){const ax=segmentAxis(face,s),a0=Math.min(...ax),a1=Math.max(...ax),left=left0+(a0-span[0])*scale,sw=(a1-a0)*scale,plane=(face==='east'||face==='west')?s[0][0]:s[0][1],recess=Math.abs(plane-outerPlane);out+=`<rect x="${left}" y="${wallY}" width="${sw}" height="${wallH}" fill="${fill}" fill-opacity="${recess>.01?'.76':'.94'}" stroke="${COLORS.ink}" stroke-width="2" data-world-face-segment="${face}" data-world-plane="${plane}" data-world-span="${a0}:${a1}" data-recess-ft="${recess.toFixed(2)}"/>`;if(recess>.01)out+=`<text x="${left+6}" y="${wallY+14}" font-size="7.5" font-weight="900" fill="${COLORS.warn}">RECESSED ${recess.toFixed(2)}′</text>`;}
-  if(kind==='home')out+=`<line x1="${left0}" y1="${wallY+HEIGHTS.floor*scale}" x2="${left0+drawW}" y2="${wallY+HEIGHTS.floor*scale}" stroke="${COLORS.line}" stroke-width="1" stroke-dasharray="5 5" opacity=".45" data-floor-datum="working"/>`;
+  out+=elevationFinish(kind,unit,face,left0,wallY,wallH,drawW);
+  if(kind==='home')out+=`<line x1="${left0}" y1="${wallY+HEIGHTS.floor*scale}" x2="${left0+drawW}" y2="${wallY+HEIGHTS.floor*scale}" stroke="${COLORS.line}" stroke-width=".8" stroke-dasharray="5 5" opacity=".22" data-floor-datum="working"/>`;
   const openings=faceOpenings(unit,face).filter(o=>(kind==='garage'?o.role==='garage-overhead':o.role!=='garage-overhead')&&openingOnSegments(o,segs,face));
-  for(const o of openings){const ax=faceAxis(face,o),left=left0+(Math.min(...ax)-span[0])*scale,ow=Math.max(7,openingLength(o)*scale),zScale=scale,top=wallY+wallH-o.z2*zScale,oh=Math.max(8,(o.z2-o.z1)*zScale),type=openingKind(o.role);out+=`<rect x="${left}" y="${top}" width="${ow}" height="${oh}" rx="1.5" fill="${openingFill(o.role)}" stroke="${openingStroke(o.role)}" stroke-width="2.4" data-opening="${type}" data-opening-id="${o.id}" data-opening-role="${o.role}" data-derived="world"/>`;}
+  for(const o of openings){const ax=faceAxis(face,o),left=left0+(Math.min(...ax)-span[0])*scale,ow=Math.max(7,openingLength(o)*scale),zScale=scale,top=wallY+wallH-o.z2*zScale,oh=Math.max(8,(o.z2-o.z1)*zScale),type=openingKind(o.role);out+=`<g data-opening="${type}" data-opening-id="${o.id}" data-opening-role="${o.role}" data-derived="world">${elevationOpeningDetail(o,left,top,ow,oh,type)}</g>`;}
   if(!openings.length)out+=`<rect x="${left0+drawW/2-64}" y="${wallY+wallH/2-10}" width="128" height="20" rx="10" fill="#fff" fill-opacity=".82"/><text x="${left0+drawW/2}" y="${wallY+wallH/2+3.5}" text-anchor="middle" font-size="8" font-weight="900" fill="${COLORS.muted}">NO MODELED OPENINGS</text>`;
   out+=`<text x="${x+w/2}" y="${y+h-20}" text-anchor="middle" font-size="9.5" font-weight="800" fill="${COLORS.ink}">VISIBLE SPAN ${worldW.toFixed(2)}′ · ROOF PLATE ${plateFt}′ · COMMON SCALE ${scale.toFixed(1)} PX/FT</text><text x="${x+w/2}" y="${y+h-7}" text-anchor="middle" font-size="8.5" fill="${COLORS.muted}">${kind==='garage'?(face==='east'?'22×22 detached garage · 20′ modeled east opening · locked 6:12 gable':'22×22 detached garage · locked 6:12 gable'):'roof control surface reaches the wall footprint; overhang / fascia / gutter detailing remains open'}</text></g>`;return out;
 }
