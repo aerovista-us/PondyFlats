@@ -65,10 +65,33 @@ function rectangleIsValid(polygon){
   },0)/2;
   return Math.abs(signedArea)>0.0004;
 }
+function ridgeMatchesRectangleAxis(zone){
+  const p=zone.footprint;
+  const edges=p.map((point,index)=>sub(p[(index+1)%4],point));
+  const mids=p.map((point,index)=>{
+    const next=p[(index+1)%4];
+    return [(point[0]+next[0])/2,(point[1]+next[1])/2];
+  });
+  const ridgeDir=normalize(sub(zone.ridgeB,zone.ridgeA));
+  if(!ridgeDir)return false;
+  const matchesPair=(edgeIndexA,edgeIndexB)=>{
+    const edgeDir=normalize(edges[(edgeIndexA+1)%4]);
+    if(!edgeDir)return false;
+    if(Math.abs(cross(ridgeDir,edgeDir))>0.002)return false;
+    const ma=mids[edgeIndexA],mb=mids[edgeIndexB];
+    const direct=Math.hypot(zone.ridgeA[0]-ma[0],zone.ridgeA[1]-ma[1])<=0.03
+      &&Math.hypot(zone.ridgeB[0]-mb[0],zone.ridgeB[1]-mb[1])<=0.03;
+    const reverse=Math.hypot(zone.ridgeA[0]-mb[0],zone.ridgeA[1]-mb[1])<=0.03
+      &&Math.hypot(zone.ridgeB[0]-ma[0],zone.ridgeB[1]-ma[1])<=0.03;
+    return direct||reverse;
+  };
+  return matchesPair(0,2)||matchesPair(1,3);
+}
 function zoneIsAuthoritative(zone){
   if(!zone||zone.status!=='LOCKED'||zone.type!=='gable')return false;
   if(!rectangleIsValid(zone.footprint))return false;
   if(!finitePoint(zone.ridgeA)||!finitePoint(zone.ridgeB)||!Number.isFinite(zone.plateZFt))return false;
+  if(!ridgeMatchesRectangleAxis(zone))return false;
   if(typeof zone.source!=='string'||!zone.source.trim())return false;
   const ridge=normalize(sub(zone.ridgeB,zone.ridgeA));
   if(!ridge)return false;
