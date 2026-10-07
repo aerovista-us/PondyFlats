@@ -47,9 +47,27 @@ function pointInPolygon(point,polygon){
   }
   return inside;
 }
+function rectangleIsValid(polygon){
+  if(!Array.isArray(polygon)||polygon.length!==4||!polygon.every(finitePoint))return false;
+  const edges=polygon.map((point,index)=>sub(polygon[(index+1)%polygon.length],point));
+  const lengths=edges.map(edge=>Math.hypot(edge[0],edge[1]));
+  if(lengths.some(length=>length<=0.02))return false;
+  for(let i=0;i<4;i++){
+    const next=(i+1)%4;
+    if(Math.abs(dot(edges[i],edges[next])/(lengths[i]*lengths[next]))>0.002)return false;
+  }
+  for(let i=0;i<2;i++){
+    if(Math.abs(cross(edges[i],edges[i+2])/(lengths[i]*lengths[i+2]))>0.002)return false;
+  }
+  const signedArea=polygon.reduce((sum,point,index)=>{
+    const next=polygon[(index+1)%polygon.length];
+    return sum+point[0]*next[1]-next[0]*point[1];
+  },0)/2;
+  return Math.abs(signedArea)>0.0004;
+}
 function zoneIsAuthoritative(zone){
   if(!zone||zone.status!=='LOCKED'||zone.type!=='gable')return false;
-  if(!Array.isArray(zone.footprint)||zone.footprint.length!==4||!zone.footprint.every(finitePoint))return false;
+  if(!rectangleIsValid(zone.footprint))return false;
   if(!finitePoint(zone.ridgeA)||!finitePoint(zone.ridgeB)||!Number.isFinite(zone.plateZFt))return false;
   if(typeof zone.source!=='string'||!zone.source.trim())return false;
   const ridge=normalize(sub(zone.ridgeB,zone.ridgeA));
