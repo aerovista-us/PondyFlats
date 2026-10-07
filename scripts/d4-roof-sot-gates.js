@@ -36,6 +36,7 @@ assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,p
 assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,pitchRise:null}]}),false,'missing pitch authority must never be authoritative');
 assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,ridgeA:[0,4],ridgeB:[10,4]}]}),false,'off-center gable ridge must never be authoritative');
 assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,ridgeA:[0,12],ridgeB:[10,12]}]}),false,'out-of-footprint ridge must never be authoritative');
+assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,ridgeA:[0,0],ridgeB:[10,10]}]}),false,'diagonal ridge across a rectangular footprint must never be authoritative');
 assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,ridgeA:[]}]}),false,'empty ridge arrays must never be authoritative');
 assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,ridgeA:['0','5']}]}),false,'string ridge coordinates must never be authoritative');
 assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,ridgeB:[10,NaN]}]}),false,'non-finite ridge coordinates must never be authoritative');
