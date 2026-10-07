@@ -107,6 +107,9 @@ function zoneIsAuthoritative(zone){
   if(Math.abs(endpoints[0]-Math.min(...axisValues))>0.03||Math.abs(endpoints[1]-Math.max(...axisValues))>0.03)return false;
   if(zone.solveBy==='PITCH'){
     if(!Number.isFinite(zone.pitchRise)||!Number.isFinite(zone.pitchRun)||zone.pitchRise<=0||zone.pitchRun<=0)return false;
+    const pitchRatio=zone.pitchRise/zone.pitchRun;
+    const derivedRidgeZ=zone.plateZFt+((runLow+runHigh)/2)*pitchRatio;
+    if(!Number.isFinite(pitchRatio)||!Number.isFinite(derivedRidgeZ)||derivedRidgeZ<=zone.plateZFt)return false;
   }else if(zone.solveBy==='RIDGE_Z'){
     if(!Number.isFinite(zone.ridgeZFt)||zone.ridgeZFt<=zone.plateZFt)return false;
   }else return false;
