@@ -25,6 +25,96 @@ function finitePoint(value){
     && typeof value[0]==='number'&&Number.isFinite(value[0])
     && typeof value[1]==='number'&&Number.isFinite(value[1]);
 }
+function dot(a,b){return a[0]*b[0]+a[1]*b[1];}
+function sub(a,b){return [a[0]-b[0],a[1]-b[1]];}
+function cross(a,b){return a[0]*b[1]-a[1]*b[0];}
+function normalize(v){
+  const length=Math.hypot(v[0],v[1]);
+  return length>1e-9?[v[0]/length,v[1]/length]:null;
+}
+function pointOnSegment(point,a,b,epsilon=0.02){
+  const ab=sub(b,a),ap=sub(point,a);
+  if(Math.abs(cross(ab,ap))>epsilon*Math.max(1,Math.hypot(ab[0],ab[1])))return false;
+  const projected=dot(ap,ab),lengthSq=dot(ab,ab);
+  return projected>=-epsilon&&projected<=lengthSq+epsilon;
+}
+function pointInPolygon(point,polygon){
+  if(polygon.some((a,index)=>pointOnSegment(point,a,polygon[(index+1)%polygon.length])))return true;
+  let inside=false;
+  for(let i=0,j=polygon.length-1;i<polygon.length;j=i++){
+    const a=polygon[i],b=polygon[j];
+    if(((a[1]>point[1])!==(b[1]>point[1]))&&point[0]<(b[0]-a[0])*(point[1]-a[1])/((b[1]-a[1])||1e-12)+a[0])inside=!inside;
+  }
+  return inside;
+}
+function rectangleIsValid(polygon){
+  if(!Array.isArray(polygon)||polygon.length!==4||!polygon.every(finitePoint))return false;
+  const edges=polygon.map((point,index)=>sub(polygon[(index+1)%polygon.length],point));
+  const lengths=edges.map(edge=>Math.hypot(edge[0],edge[1]));
+  if(lengths.some(length=>length<=0.02))return false;
+  for(let i=0;i<4;i++){
+    const next=(i+1)%4;
+    if(Math.abs(dot(edges[i],edges[next])/(lengths[i]*lengths[next]))>0.002)return false;
+  }
+  for(let i=0;i<2;i++){
+    if(Math.abs(cross(edges[i],edges[i+2])/(lengths[i]*lengths[i+2]))>0.002)return false;
+  }
+  const signedArea=polygon.reduce((sum,point,index)=>{
+    const next=polygon[(index+1)%polygon.length];
+    return sum+point[0]*next[1]-next[0]*point[1];
+  },0)/2;
+  return Math.abs(signedArea)>0.0004;
+}
+function ridgeMatchesRectangleAxis(zone){
+  const p=zone.footprint;
+  const edges=p.map((point,index)=>sub(p[(index+1)%4],point));
+  const mids=p.map((point,index)=>{
+    const next=p[(index+1)%4];
+    return [(point[0]+next[0])/2,(point[1]+next[1])/2];
+  });
+  const ridgeDir=normalize(sub(zone.ridgeB,zone.ridgeA));
+  if(!ridgeDir)return false;
+  const matchesPair=(edgeIndexA,edgeIndexB)=>{
+    const edgeDir=normalize(edges[(edgeIndexA+1)%4]);
+    if(!edgeDir)return false;
+    if(Math.abs(cross(ridgeDir,edgeDir))>0.002)return false;
+    const ma=mids[edgeIndexA],mb=mids[edgeIndexB];
+    const direct=Math.hypot(zone.ridgeA[0]-ma[0],zone.ridgeA[1]-ma[1])<=0.03
+      &&Math.hypot(zone.ridgeB[0]-mb[0],zone.ridgeB[1]-mb[1])<=0.03;
+    const reverse=Math.hypot(zone.ridgeA[0]-mb[0],zone.ridgeA[1]-mb[1])<=0.03
+      &&Math.hypot(zone.ridgeB[0]-ma[0],zone.ridgeB[1]-ma[1])<=0.03;
+    return direct||reverse;
+  };
+  return matchesPair(0,2)||matchesPair(1,3);
+}
+function zoneIsAuthoritative(zone){
+  if(!zone||zone.status!=='LOCKED'||zone.type!=='gable')return false;
+  if(!rectangleIsValid(zone.footprint))return false;
+  if(!finitePoint(zone.ridgeA)||!finitePoint(zone.ridgeB)||!Number.isFinite(zone.plateZFt))return false;
+  if(!ridgeMatchesRectangleAxis(zone))return false;
+  if(typeof zone.source!=='string'||!zone.source.trim())return false;
+  const ridge=normalize(sub(zone.ridgeB,zone.ridgeA));
+  if(!ridge)return false;
+  if(!pointInPolygon(zone.ridgeA,zone.footprint)||!pointInPolygon(zone.ridgeB,zone.footprint))return false;
+  const normal=[-ridge[1],ridge[0]];
+  const ridgeCross=dot(zone.ridgeA,normal);
+  const crossValues=zone.footprint.map(point=>dot(point,normal));
+  const low=Math.min(...crossValues),high=Math.max(...crossValues);
+  const runLow=ridgeCross-low,runHigh=high-ridgeCross;
+  if(runLow<=0.02||runHigh<=0.02||Math.abs(runLow-runHigh)>0.03)return false;
+  const axisValues=zone.footprint.map(point=>dot(point,ridge));
+  const endpoints=[dot(zone.ridgeA,ridge),dot(zone.ridgeB,ridge)].sort((a,b)=>a-b);
+  if(Math.abs(endpoints[0]-Math.min(...axisValues))>0.03||Math.abs(endpoints[1]-Math.max(...axisValues))>0.03)return false;
+  if(zone.solveBy==='PITCH'){
+    if(!Number.isFinite(zone.pitchRise)||!Number.isFinite(zone.pitchRun)||zone.pitchRise<=0||zone.pitchRun<=0)return false;
+    const pitchRatio=zone.pitchRise/zone.pitchRun;
+    const derivedRidgeZ=zone.plateZFt+((runLow+runHigh)/2)*pitchRatio;
+    if(!Number.isFinite(pitchRatio)||!Number.isFinite(derivedRidgeZ)||derivedRidgeZ<=zone.plateZFt)return false;
+  }else if(zone.solveBy==='RIDGE_Z'){
+    if(!Number.isFinite(zone.ridgeZFt)||zone.ridgeZFt<=zone.plateZFt)return false;
+  }else return false;
+  return true;
+}
 function roofIsAuthoritative(roof){
   return Boolean(
     roof&&
@@ -32,7 +122,7 @@ function roofIsAuthoritative(roof){
     roof.validationStatus==='ROOF_GEOMETRY_LOCKED'&&
     typeof roof.ownerGeometryKey==='string'&&roof.ownerGeometryKey.length>0&&
     Array.isArray(roof.zones)&&roof.zones.length>0&&
-    roof.zones.every(zone=>zone&&zone.status==='LOCKED'&&finitePoint(zone.ridgeA)&&finitePoint(zone.ridgeB))
+    roof.zones.every(zoneIsAuthoritative)
   );
 }
 function statusForOwner(ownerId){
