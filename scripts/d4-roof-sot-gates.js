@@ -30,6 +30,8 @@ const lockedFixture={
 assert.equal(ROOF.roofIsAuthoritative(lockedFixture),true,'complete centered gable geometry may pass the consumer authority guard');
 const fixtureZone=lockedFixture.zones[0];
 assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,footprint:null}]}),false,'missing footprint must never be authoritative');
+assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,footprint:[[0,0],[10,10],[10,0],[0,10]]}]}),false,'self-intersecting footprint must never be authoritative');
+assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,footprint:[[0,0],[10,0],[10,0],[0,10]]}]}),false,'duplicate/zero-length footprint edge must never be authoritative');
 assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,plateZFt:null}]}),false,'missing plate elevation must never be authoritative');
 assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,pitchRise:null}]}),false,'missing pitch authority must never be authoritative');
 assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,ridgeA:[0,4],ridgeB:[10,4]}]}),false,'off-center gable ridge must never be authoritative');
