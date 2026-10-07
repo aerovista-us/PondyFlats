@@ -25,6 +25,52 @@ function finitePoint(value){
     && typeof value[0]==='number'&&Number.isFinite(value[0])
     && typeof value[1]==='number'&&Number.isFinite(value[1]);
 }
+function dot(a,b){return a[0]*b[0]+a[1]*b[1];}
+function sub(a,b){return [a[0]-b[0],a[1]-b[1]];}
+function cross(a,b){return a[0]*b[1]-a[1]*b[0];}
+function normalize(v){
+  const length=Math.hypot(v[0],v[1]);
+  return length>1e-9?[v[0]/length,v[1]/length]:null;
+}
+function pointOnSegment(point,a,b,epsilon=0.02){
+  const ab=sub(b,a),ap=sub(point,a);
+  if(Math.abs(cross(ab,ap))>epsilon*Math.max(1,Math.hypot(ab[0],ab[1])))return false;
+  const projected=dot(ap,ab),lengthSq=dot(ab,ab);
+  return projected>=-epsilon&&projected<=lengthSq+epsilon;
+}
+function pointInPolygon(point,polygon){
+  if(polygon.some((a,index)=>pointOnSegment(point,a,polygon[(index+1)%polygon.length])))return true;
+  let inside=false;
+  for(let i=0,j=polygon.length-1;i<polygon.length;j=i++){
+    const a=polygon[i],b=polygon[j];
+    if(((a[1]>point[1])!==(b[1]>point[1]))&&point[0]<(b[0]-a[0])*(point[1]-a[1])/((b[1]-a[1])||1e-12)+a[0])inside=!inside;
+  }
+  return inside;
+}
+function zoneIsAuthoritative(zone){
+  if(!zone||zone.status!=='LOCKED'||zone.type!=='gable')return false;
+  if(!Array.isArray(zone.footprint)||zone.footprint.length!==4||!zone.footprint.every(finitePoint))return false;
+  if(!finitePoint(zone.ridgeA)||!finitePoint(zone.ridgeB)||!Number.isFinite(zone.plateZFt))return false;
+  if(typeof zone.source!=='string'||!zone.source.trim())return false;
+  const ridge=normalize(sub(zone.ridgeB,zone.ridgeA));
+  if(!ridge)return false;
+  if(!pointInPolygon(zone.ridgeA,zone.footprint)||!pointInPolygon(zone.ridgeB,zone.footprint))return false;
+  const normal=[-ridge[1],ridge[0]];
+  const ridgeCross=dot(zone.ridgeA,normal);
+  const crossValues=zone.footprint.map(point=>dot(point,normal));
+  const low=Math.min(...crossValues),high=Math.max(...crossValues);
+  const runLow=ridgeCross-low,runHigh=high-ridgeCross;
+  if(runLow<=0.02||runHigh<=0.02||Math.abs(runLow-runHigh)>0.03)return false;
+  const axisValues=zone.footprint.map(point=>dot(point,ridge));
+  const endpoints=[dot(zone.ridgeA,ridge),dot(zone.ridgeB,ridge)].sort((a,b)=>a-b);
+  if(Math.abs(endpoints[0]-Math.min(...axisValues))>0.03||Math.abs(endpoints[1]-Math.max(...axisValues))>0.03)return false;
+  if(zone.solveBy==='PITCH'){
+    if(!Number.isFinite(zone.pitchRise)||!Number.isFinite(zone.pitchRun)||zone.pitchRise<=0||zone.pitchRun<=0)return false;
+  }else if(zone.solveBy==='RIDGE_Z'){
+    if(!Number.isFinite(zone.ridgeZFt)||zone.ridgeZFt<=zone.plateZFt)return false;
+  }else return false;
+  return true;
+}
 function roofIsAuthoritative(roof){
   return Boolean(
     roof&&
@@ -32,7 +78,7 @@ function roofIsAuthoritative(roof){
     roof.validationStatus==='ROOF_GEOMETRY_LOCKED'&&
     typeof roof.ownerGeometryKey==='string'&&roof.ownerGeometryKey.length>0&&
     Array.isArray(roof.zones)&&roof.zones.length>0&&
-    roof.zones.every(zone=>zone&&zone.status==='LOCKED'&&finitePoint(zone.ridgeA)&&finitePoint(zone.ridgeB))
+    roof.zones.every(zoneIsAuthoritative)
   );
 }
 function statusForOwner(ownerId){
