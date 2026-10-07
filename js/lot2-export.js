@@ -29,7 +29,7 @@ const Lot2Export = (() => {
 <meta name="description" content="${esc(opts.description || '')}">
 <link rel="stylesheet" href="css/lot2-client.css">
 </head>
-<body>
+<body class="pondy-report">
 <header class="top"><div class="topin">
 <div class="brand"><small>${esc(opts.brandSmall)}</small><strong>${esc(opts.brand)}</strong></div>
 <nav class="nav" aria-label="Primary">
@@ -75,19 +75,19 @@ Do not mix Design 1 plates with Design 2 plates.
   }
 
   const D1_NAV = [
-    { id: 'hub', href: 'index.html', label: 'Package' },
-    { id: 'site', href: 'site.html', label: 'Site' },
+    { id: 'hub', href: 'index.html', label: 'Overview' },
+    { id: 'elevs', href: 'elevs.html', label: 'Elevations' },
+    { id: 'site', href: 'site.html', label: 'Site + Access' },
     { id: 'plans', href: 'plans.html', label: 'Plans' },
-    { id: 'elevs', href: 'elevs.html', label: 'Elevs' },
     { id: 'axon', href: 'axon.html', label: 'Axon' },
   ];
 
   const D2_NAV = D1_NAV;
   const D3_NAV = [
-    { id: 'hub', href: 'index.html', label: 'Package' },
-    { id: 'site', href: 'site.html', label: 'Site' },
+    { id: 'hub', href: 'index.html', label: 'Overview' },
+    { id: 'elevs', href: 'elevs.html', label: 'Elevations' },
+    { id: 'site', href: 'site.html', label: 'Site + Access' },
     { id: 'plans', href: 'plans.html', label: 'Plans' },
-    { id: 'elevs', href: 'elevs.html', label: 'Elevs' },
     { id: 'axon', href: 'axon.html', label: 'Axon' },
     { id: 'sections', href: 'sections.html', label: 'Sections' },
   ];
@@ -121,7 +121,7 @@ Do not mix Design 1 plates with Design 2 plates.
       title: 'Pondy Flats · Design 1',
       description: 'Two homes with two enclosed stalls and two covered stalls. Not a permit set.',
       brandSmall: 'Pondy Flats · 1907 E Pennsylvania',
-      brand: 'Design 1',
+      brand: 'Design 1 · Customer Report',
       nav: D1_NAV,
       current: 'hub',
       print: 'Pondy Flats · Design 1 · R5.1e-v1.1 · not a permit set',
@@ -210,7 +210,7 @@ ${figure('imgs/r51e-axon-lock-clean.svg', '<strong>A-402 Axon.</strong>')}
       title: 'Pondy Flats · Design 2',
       description: 'Two homes, four enclosed stalls, detached rear garages. Concept package, not a permit set.',
       brandSmall: 'Pondy Flats · 1907 E Pennsylvania',
-      brand: 'Design 2',
+      brand: 'Design 2 · Customer Report',
       nav: D2_NAV,
       current: 'hub',
       print: 'Pondy Flats · Design 2 · D2-v0.9 · concept package · not a permit set',
@@ -271,7 +271,9 @@ ${figure('imgs/d2-axon-lock-clean.svg', '<strong>A-402.</strong> Same volumes.')
   }
 
   function focusPage(pack, page) {
-    const figures = page.figs.map((f) => figure(f.src, f.cap)).join('\n');
+    const figures = page.id === 'elevs'
+      ? page.figs.map((f, i) => `<article class="elev-presentation">${figure(f.src, f.cap)}<div class="elev-note"><span class="sheet-no">${String(f.cap).replace(/<[^>]+>/g, '').trim() || `Elevation ${i + 1}`}</span><h3>${i < 4 ? ['Pennsylvania / street face', 'Rear / site-facing elevation', 'North elevation', 'South elevation'][i] : 'Building section'}</h3><p>${i < 4 ? 'Orthographic design view presented at customer-report scale. Geometry and technical status remain governed by this design’s source package.' : 'Section retained as technical design-development evidence; professional construction detailing remains separate.'}</p></div></article>`).join('\n')
+      : page.figs.map((f) => figure(f.src, f.cap)).join('\n');
     return shell({
       title: `${pack.title} · ${page.title}`,
       description: page.lede,
@@ -312,7 +314,7 @@ ${figures}
     {
       id: 'design-1',
       title: 'Pondy Flats · Design 1',
-      brand: 'Design 1',
+      brand: 'Design 1 · Customer Report',
       rev: 'R5.1e-v1.1',
       ok: true,
       badge: 'Design complete',
@@ -357,7 +359,7 @@ ${figures}
     {
       id: 'design-2',
       title: 'Pondy Flats · Design 2',
-      brand: 'Design 2',
+      brand: 'Design 2 · Customer Report',
       rev: 'D2-v0.9',
       ok: false,
       badge: 'Concept package',
