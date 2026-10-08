@@ -97,6 +97,10 @@ for(const face of ['east','west','north','south']){
   assert(svg.includes('data-roof-surface-face='),face+' must carry source face ids for auditability');
   assert(!svg.includes('EXACT VIEW PROJECTOR PENDING'),face+' must not claim the projector is pending once surface faces are present');
   assert(!svg.includes('CONCEPT ROOF'),face+' must not draw a generic concept roof');
+  assert(!/roof withheld|roof silhouette withheld/i.test(svg),face+' must not carry stale suppression language once exact surfaces are active');
+  const depths=[...svg.matchAll(/data-roof-depth="(-?\d+(?:\.\d+)?)"/g)].map(match=>Number(match[1]));
+  assert(depths.length>0,face+' must expose roof depth metadata');
+  for(let i=1;i<depths.length;i++)assert(depths[i]>=depths[i-1]-1e-9,face+' roof faces must be emitted far-to-near in monotonic painter order');
 }
 for(const unit of ['A','B']){
   const svg=ARCH.renderSection(unit);
@@ -106,6 +110,20 @@ for(const unit of ['A','B']){
   assert(svg.includes('data-roof-surface-face='),unit+' section must retain source surface-face ids');
   assert(svg.includes('data-plate-datum="working"'),unit+' section must retain plate datum context');
   assert(!svg.includes('PROJECTOR PENDING'),unit+' section must not claim the projector is pending');
+  const homeScale=Number((svg.match(/data-home-section-scale-px-per-ft="([^"]+)"/)||[])[1]);
+  const garageScale=Number((svg.match(/data-garage-section-scale-px-per-ft="([^"]+)"/)||[])[1]);
+  assert(Number.isFinite(homeScale)&&homeScale>0,unit+' home section scale must be finite');
+  assert(Number.isFinite(garageScale)&&garageScale>0,unit+' garage section scale must be finite');
+  const homeTop=520-ARCH.HEIGHTS.home*homeScale;
+  const garageTop=520-ARCH.HEIGHTS.garage*garageScale;
+  assert(svg.includes(`y="${homeTop}"`),unit+' home wall top must use the same vertical scale as the roof plate');
+  assert(svg.includes(`y="${garageTop}"`),unit+' garage wall top must use the same vertical scale as the roof plate');
+  const homeRoof=ROOF.roofForOwner('home-'+unit.toLowerCase());
+  const garageRoof=ROOF.roofForOwner('garage-'+unit.toLowerCase());
+  const homePlate=Math.min(...homeRoof.surfaceFaces.flatMap(face=>face.polygon.map(point=>point[2])));
+  const garagePlate=Math.min(...garageRoof.surfaceFaces.flatMap(face=>face.polygon.map(point=>point[2])));
+  assert(Math.abs(homePlate-ARCH.HEIGHTS.home)<1e-6,unit+' home roof surface plate must match wall datum');
+  assert(Math.abs(garagePlate-ARCH.HEIGHTS.garage)<1e-6,unit+' garage roof surface plate must match wall datum');
 }
 const architectureSource=fs.readFileSync(path.join(root,'js','lot2-design-4-architecture.js'),'utf8');
 assert(!architectureSource.includes('function roofPath('),'generic roof triangle helper must not exist');
