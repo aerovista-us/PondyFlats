@@ -94,9 +94,9 @@ assert(!architectureSource.includes('function roofPath('),'generic roof triangle
 assert(!architectureSource.includes('CONCEPT ROOF'),'generic concept-roof overlay must not exist');
 for(const mode of ['massing','clean']){
   const svg=ARCH.renderAxon(mode);
-  assert(svg.includes('data-roof-render-policy="SUPPRESS_ROOF"'),mode+' axon must carry roof suppression policy');
-  assert(svg.includes('data-plate-datum="working"'),mode+' axon must label top outline as working datum');
-  assert(/Roof surfaces[^<]*suppressed/i.test(svg),mode+' axon must disclose roof suppression');
+  assert(svg.includes('data-roof-render-policy="LOCKED_DATA_AWAITING_EXACT_VIEW_PROJECTOR"'),mode+' axon must expose locked roof data while exact projection is pending');
+  assert(svg.includes('data-plate-datum="working"'),mode+' axon must label top outline as working datum until the exact roof projector lands');
+  assert(/Roof surfaces[^<]*suppressed/i.test(svg),mode+' axon must disclose that exact roof surfaces are not yet projected');
 }
 const analysis=ARCH.analyze();
 assert.equal(analysis.checks.roofContract.ok,true);
