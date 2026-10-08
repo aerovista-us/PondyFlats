@@ -6,7 +6,7 @@ const PLAN=(typeof module!=='undefined'&&module.exports)?require('./lot2-design-
 const ROOF=(typeof module!=='undefined'&&module.exports)?require('./lot2-design-4-roof-sot.js'):global.Lot2Design4RoofSOT;
 if(!D4||!PLAN) throw new Error('Design 4 architecture requires geometry and plan-closure models');
 
-const REV='D4-ARCH-v1.0-SECTION-SHEET';
+const REV='D4-ARCH-v1.1-FASCIA-CONSUMER';
 const COLORS={paper:'#fbfaf7',ink:'#132238',muted:'#68727d',homeA:'#d9b56d',homeB:'#ead495',garage:'#8ca58b',roof:'#394957',glass:'#dceeff',entry:'#f8e2df',ground:'#e6e0d4',line:'#405064',warn:'#a9612b',door:'#b3261e',window:'#2367b1'};
 const HEIGHTS={home:20,garage:11,floor:10};
 
@@ -79,6 +79,35 @@ function elevationDepth(face,p){
   if(face==='north')return -p[1];
   return p[1];
 }
+// Only use explicitly validated world-coordinate fascia segments from the roof SOT.
+// No renderer may synthesize an overhang, fascia location or width.
+function validatedFasciaSegments(roof){
+  if(!roofSurfaceFacesReady(roof)||roof.eaveFascia?.status!=='AUTHORITATIVE')return [];
+  const segments=roof.eaveFascia.segments;
+  if(!Array.isArray(segments)||!segments.length)return [];
+  const edgeMatch=(a,b)=>roof.surfaceFaces.some(face=>face.polygon.some((p,i)=>{
+    const q=face.polygon[(i+1)%face.polygon.length];
+    const same=(u,v)=>u.every((n,j)=>Math.abs(n-v[j])<0.0001);
+    return (same(p,a)&&same(q,b))||(same(p,b)&&same(q,a));
+  }));
+  if(!segments.every(s=>s&&finite3(s.a)&&finite3(s.b)&&finite3(s.bottomA)&&finite3(s.bottomB)&&
+    typeof s.depthFt==='number'&&Number.isFinite(s.depthFt)&&s.depthFt>0&&s.depthFt<=3&&
+    edgeMatch(s.a,s.b)&&Math.abs(s.bottomA[0]-s.a[0])<.0001&&Math.abs(s.bottomA[1]-s.a[1])<.0001&&
+    Math.abs(s.bottomB[0]-s.b[0])<.0001&&Math.abs(s.bottomB[1]-s.b[1])<.0001&&
+    Math.abs(s.bottomA[2]-(s.a[2]-s.depthFt))<.0001&&Math.abs(s.bottomB[2]-(s.b[2]-s.depthFt))<.0001))return [];
+  return segments;
+}
+function fasciaInElevation(roof,face,left,span,scale,groundY){
+  const segments=validatedFasciaSegments(roof);
+  return segments.length?`<g data-fascia-source="AUTHORITATIVE_ROOF_SOT" data-fascia-count="${segments.length}">${segments.map(s=>{
+    const points=[s.a,s.b,s.bottomB,s.bottomA].map(p=>`${(left+(elevationWorldAxis(face,p)-span[0])*scale).toFixed(2)},${(groundY-p[2]*scale).toFixed(2)}`).join(' ');
+    return `<polygon points="${points}" fill="#58626d" fill-opacity=".82" stroke="#344452" stroke-width=".8" data-fascia-depth-ft="${s.depthFt}"/>`;
+  }).join('')}</g>`:'';
+}
+function fasciaInAxon(roof){
+  const segments=validatedFasciaSegments(roof);
+  return segments.length?`<g data-fascia-source="AUTHORITATIVE_ROOF_SOT" data-fascia-count="${segments.length}">${segments.map(s=>`<polygon points="${pts3([s.a,s.b,s.bottomB,s.bottomA])}" fill="#58626d" stroke="#344452" stroke-width="1"/>`).join('')}</g>`:'';
+}
 function projectedRoofFacesForElevation(roof,face,left,span,scale,groundY){
   if(!roofSurfaceFacesReady(roof))return '';
   const projected=roof.surfaceFaces.map(face3=>{
@@ -102,7 +131,7 @@ function projectedRoofFacesForAxon(kind,unit,mode){
   }).sort((a,b)=>a.depth-b.depth);
   return `<g data-roof-owner="${roof.ownerId}" data-roof-projector="EXACT_SURFACE_FACES" data-roof-face-count="${faces.length}">${faces.map(face=>
     `<polygon points="${pts3(face.polygon)}" fill="${COLORS.roof}" fill-opacity="${mode==='massing'?'.38':'.24'}" stroke="${COLORS.roof}" stroke-width="2.05" stroke-linejoin="round" data-roof-surface-face="${face.id}" data-roof-zone="${face.zoneId}"/><polygon points="${pts3(face.polygon)}" fill="url(#d4-roof)" stroke="none" pointer-events="none"/>`
-  ).join('')}</g>`;
+  ).join('')}</g>`+fasciaInAxon(roof);
 }
 function unique3(points){
   const out=[];
@@ -199,6 +228,7 @@ function elevationBand({unit,face,x,y,w,h,title,kind='home'}){
   const roof=roofRecord(kind,unit),groundY=wallY+wallH;
   if(roofSurfaceFacesReady(roof)){
     out+=projectedRoofFacesForElevation(roof,face,left0,span,scale,groundY);
+    out+=fasciaInElevation(roof,face,left0,span,scale,groundY);
     out+=`<g data-roof-owner="${roof.ownerId}" data-roof-status="ROOF_GEOMETRY_LOCKED" data-roof-authoritative="true" data-roof-render-policy="EXACT_SURFACE_FACES"><text x="${left0+drawW/2}" y="${wallY-11}" text-anchor="middle" font-size="8.3" font-weight="900" fill="#507759">ROOF · EXACT SOLVED SURFACE</text></g>`;
   }else out+=roofWithheldBand({kind,unit,left:left0,width:drawW,wallY});
   const openings=faceOpenings(unit,face).filter(o=>(kind==='garage'?o.role==='garage-overhead':o.role!=='garage-overhead')&&openingOnSegments(o,segs,face));
