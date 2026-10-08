@@ -9,7 +9,9 @@
 <style>
 @media(max-width:620px){.topin{display:block}.brand{margin-bottom:8px}.nav{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:6px;padding-bottom:6px;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav a{white-space:nowrap;flex:0 0 auto}}
 </style>
-<link rel="stylesheet" href="css/pondy-premium.css"></head>
+<link rel="stylesheet" href="css/pondy-premium.css"><style>
+.report-first-look{padding:clamp(18px,3vw,34px)}.first-look-top{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap}.first-look-top h1{font-size:clamp(30px,4vw,50px);margin:4px 0 18px}.first-look-verdict{padding:14px 18px;border:1px solid #d2af6e;background:#fff8e9;border-radius:14px;display:flex;flex-direction:column;gap:4px}.first-look-verdict small,.first-look-gates small{font-size:11px;font-weight:800;color:#626d77;text-transform:uppercase;letter-spacing:.06em}.first-look-verdict strong{color:#875b1a;font-size:18px}.first-look-verdict span{font-size:12px;color:#596470}.first-look-image{min-height:290px;padding:12px;border:1px solid #ddd6ca;border-radius:15px;background:#faf9f5;overflow:hidden}.first-look-image svg{max-width:100%;height:auto}.first-look-gates{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}.first-look-gates div{background:#fff;border:1px solid #e1d9cc;border-radius:12px;padding:13px;display:flex;flex-direction:column;gap:6px}.first-look-gates strong{font-size:14px;line-height:1.4;color:#1c3044}@media(max-width:850px){.first-look-gates{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:480px){.first-look-gates{grid-template-columns:1fr}.first-look-image{min-height:180px}}
+</style></head>
 <body class="d4-report">
 <header class="top"><div class="topin">
 <div class="brand"><small>Pondy Flats · Lot 2</small><strong>Design 4 · Customer Report</strong></div>
@@ -17,6 +19,15 @@
 </div></header>
 
 <main class="wrap">
+<section class="panel report-first-look" aria-label="Design 4 visual and gate summary">
+<div class="first-look-top"><div><p class="kicker">Design 4 · visual overview</p><h1>See the design. Know the gate.</h1></div><div class="first-look-verdict"><small>Overall status</small><strong>NEAR-PASS · ITERATE</strong><span>Design development · not permit-ready</span></div></div>
+<figure class="draw first-look-image" id="first-look-east"></figure>
+<p class="quiet">Pennsylvania-side geometry-driven elevation. Roof form is withheld where the report lacks verified roof authority.</p>
+<div class="first-look-gates"><div><small>Inbound vehicle paths</small><strong>4 / 4 modeled arrivals supported</strong></div><div><small>Outbound proof</small><strong>OPEN</strong></div><div><small>Roof geometry</small><strong>WITHHELD</strong></div><div><small>Professional review</small><strong>NOT COMPLETE</strong></div></div>
+<p><strong>Quick decision:</strong> Continue refining Design 4, but do not treat full circulation or permit readiness as passed. Review the picture first, the key results next, and the full technical evidence last.</p>
+<div class="actions"><a class="btn" href="#elevations">Explore the proposal →</a><a class="btn ghost" href="design-4-status.html">Full gate evidence</a></div>
+</section>
+
 <section class="panel report-hero">
 <p class="kicker">Design-development concept · current customer report</p>
 <h1>A coordinated site-and-building concept is taking shape.</h1>
@@ -106,6 +117,7 @@
 for(const face of ['east','west','north','south']){
   const target=document.getElementById('hero-'+face);
   if(target) target.insertAdjacentHTML('afterbegin',Lot2Design4Architecture.renderElev(face));
+  if(face==='east'){const lead=document.getElementById('first-look-east');if(lead) lead.insertAdjacentHTML('afterbegin',Lot2Design4Architecture.renderElev(face));}
 }
 </script>
 </body>
