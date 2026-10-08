@@ -137,6 +137,9 @@ assert(!/NOT GEOMETRY LOCKED/i.test(ARCH.roofWithheldLabel({authoritative:true})
 for(const file of ['design-4.html','design-4-status.html','d4-elevs.html','d4-axon.html','d4-sections.html']){
   const html=fs.readFileSync(path.join(root,file),'utf8');
   assert(!/WITHHELD\s*\/\s*Workbench lock pending|Roof silhouette is intentionally withheld|Roof surfaces are deliberately suppressed/i.test(html),file+' must not publish stale pre-lock roof language');
+}
+for(const file of ['design-4.html','d4-elevs.html','d4-axon.html','d4-sections.html']){
+  const html=fs.readFileSync(path.join(root,file),'utf8');
   assert(html.includes('js/lot2-design-4-roof-sot.js'),file+' must load roof SOT before architecture');
   assert(html.indexOf('lot2-design-4-roof-sot.js') < html.indexOf('lot2-design-4-architecture.js'),file+' must load roof SOT before architecture');
 }
