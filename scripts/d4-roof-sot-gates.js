@@ -149,6 +149,10 @@ assert.equal(ARCH.roofViewPolicy({authoritative:false}),'SUPPRESS_ROOF');
 assert.equal(ARCH.roofViewPolicy({authoritative:true}),'LOCKED_DATA_AWAITING_EXACT_VIEW_PROJECTOR');
 assert.match(ARCH.roofWithheldLabel({authoritative:true}),/GEOMETRY LOCKED.*PROJECTOR PENDING/i);
 assert(!/NOT GEOMETRY LOCKED/i.test(ARCH.roofWithheldLabel({authoritative:true})),'authoritative roofs must not be labeled as unlocked while awaiting exact projection');
+assert.match(ARCH.elevationRoofFooter('home','north',false),/roof silhouette withheld/i,'fail-closed home footer must preserve withheld disclosure');
+assert.match(ARCH.elevationRoofFooter('garage','east',false),/roof withheld/i,'fail-closed garage footer must preserve withheld disclosure');
+assert.match(ARCH.elevationRoofFooter('home','north',true),/solved roof surface/i,'exact home footer must identify solved roof surface');
+assert.match(ARCH.elevationRoofFooter('garage','east',true),/solved roof surface/i,'exact garage footer must identify solved roof surface');
 
 for(const file of ['design-4.html','d4-elevs.html','d4-axon.html','d4-sections.html']){
   const html=fs.readFileSync(path.join(root,file),'utf8');
