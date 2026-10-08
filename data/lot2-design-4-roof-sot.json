@@ -3,7 +3,7 @@
   "roofGeometrySchema": "lotscope-roof-geometry-v1",
   "source": {
     "repository": "aerovista-us/lot-assessment",
-    "commitSha": "b2985780492083ec99212cdd1beb60c47251c124",
+    "commitSha": "669f3deb182001726ce1df7dac5657316e4e9b1d",
     "candidateId": "pondy-d4"
   },
   "renderPolicy": "AUTHORITATIVE_ALLOWED",
@@ -177,7 +177,365 @@
           ]
         }
       ],
-      "errors": []
+      "errors": [],
+      "surfaceFaces": [
+        {
+          "id": "home-b-roof-zone-1-side-neg-1",
+          "zoneId": "home-b-roof-zone-1",
+          "side": -1,
+          "polygon": [
+            [
+              72.5,
+              13.5,
+              24.25
+            ],
+            [
+              72.5,
+              5,
+              20
+            ],
+            [
+              83.5,
+              13.500000000066663,
+              24.25000000003333
+            ]
+          ],
+          "projectedAreaSqFt": 46.75,
+          "plane": {
+            "a": 0,
+            "b": 0.5,
+            "c": 17.5
+          }
+        },
+        {
+          "id": "home-b-roof-zone-1-side-neg-2",
+          "zoneId": "home-b-roof-zone-1",
+          "side": -1,
+          "polygon": [
+            [
+              83.49999999991373,
+              13.5,
+              24.25
+            ],
+            [
+              72.5,
+              5,
+              20
+            ],
+            [
+              83.5,
+              5,
+              20
+            ]
+          ],
+          "projectedAreaSqFt": 46.75,
+          "plane": {
+            "a": 0,
+            "b": 0.5,
+            "c": 17.5
+          }
+        },
+        {
+          "id": "home-b-roof-zone-1-side-neg-3",
+          "zoneId": "home-b-roof-zone-1",
+          "side": -1,
+          "polygon": [
+            [
+              94.5,
+              13.5,
+              24.25
+            ],
+            [
+              83.5,
+              13.5,
+              24.25
+            ],
+            [
+              94.5,
+              5,
+              20
+            ]
+          ],
+          "projectedAreaSqFt": 46.75,
+          "plane": {
+            "a": 0,
+            "b": 0.5,
+            "c": 17.5
+          }
+        },
+        {
+          "id": "home-b-roof-zone-1-side-neg-4",
+          "zoneId": "home-b-roof-zone-1",
+          "side": -1,
+          "polygon": [
+            [
+              83.50000000008627,
+              13.5,
+              24.25
+            ],
+            [
+              83.5,
+              5,
+              20
+            ],
+            [
+              94.5,
+              5,
+              20
+            ]
+          ],
+          "projectedAreaSqFt": 46.75,
+          "plane": {
+            "a": 0,
+            "b": 0.5,
+            "c": 17.5
+          }
+        },
+        {
+          "id": "home-b-roof-zone-1-side-neg-5",
+          "zoneId": "home-b-roof-zone-1",
+          "side": -1,
+          "polygon": [
+            [
+              54,
+              5,
+              20
+            ],
+            [
+              72.5,
+              5,
+              20
+            ],
+            [
+              72.5,
+              13.5,
+              24.25
+            ],
+            [
+              54,
+              13.5,
+              24.25
+            ]
+          ],
+          "projectedAreaSqFt": 157.25,
+          "plane": {
+            "a": 0,
+            "b": 0.5,
+            "c": 17.5
+          }
+        },
+        {
+          "id": "home-b-roof-zone-1-side-pos-6",
+          "zoneId": "home-b-roof-zone-1",
+          "side": 1,
+          "polygon": [
+            [
+              72.5,
+              22,
+              20
+            ],
+            [
+              72.5,
+              13.5,
+              24.25
+            ],
+            [
+              83.5,
+              13.5,
+              24.25
+            ]
+          ],
+          "projectedAreaSqFt": 46.75,
+          "plane": {
+            "a": 0,
+            "b": -0.5,
+            "c": 31
+          }
+        },
+        {
+          "id": "home-b-roof-zone-1-side-pos-7",
+          "zoneId": "home-b-roof-zone-1",
+          "side": 1,
+          "polygon": [
+            [
+              94.5,
+              22,
+              20
+            ],
+            [
+              83.5,
+              13.499999999933337,
+              24.25000000003333
+            ],
+            [
+              94.5,
+              13.5,
+              24.25
+            ]
+          ],
+          "projectedAreaSqFt": 46.75,
+          "plane": {
+            "a": 0,
+            "b": -0.5,
+            "c": 31
+          }
+        },
+        {
+          "id": "home-b-roof-zone-1-side-pos-8",
+          "zoneId": "home-b-roof-zone-1",
+          "side": 1,
+          "polygon": [
+            [
+              54,
+              13.5,
+              24.25
+            ],
+            [
+              72.5,
+              13.5,
+              24.25
+            ],
+            [
+              72.5,
+              22,
+              20
+            ],
+            [
+              54,
+              22,
+              20
+            ]
+          ],
+          "projectedAreaSqFt": 157.25,
+          "plane": {
+            "a": 0,
+            "b": -0.5,
+            "c": 31
+          }
+        },
+        {
+          "id": "home-b-roof-zone-2-side-neg-9",
+          "zoneId": "home-b-roof-zone-2",
+          "side": -1,
+          "polygon": [
+            [
+              83.5,
+              22,
+              24.25000000003333
+            ],
+            [
+              83.5,
+              13.5,
+              24.25000000003333
+            ],
+            [
+              94.5,
+              22,
+              20
+            ]
+          ],
+          "projectedAreaSqFt": 46.75,
+          "plane": {
+            "a": -0.38636363636666665,
+            "b": 0,
+            "c": 56.511363636649996
+          }
+        },
+        {
+          "id": "home-b-roof-zone-2-side-neg-10",
+          "zoneId": "home-b-roof-zone-2",
+          "side": -1,
+          "polygon": [
+            [
+              83.5,
+              31.25,
+              24.25000000003333
+            ],
+            [
+              83.5,
+              22,
+              24.25000000003333
+            ],
+            [
+              94.5,
+              22,
+              20
+            ],
+            [
+              94.5,
+              31.25,
+              20
+            ]
+          ],
+          "projectedAreaSqFt": 101.75,
+          "plane": {
+            "a": -0.38636363636666665,
+            "b": 0,
+            "c": 56.511363636649996
+          }
+        },
+        {
+          "id": "home-b-roof-zone-2-side-pos-11",
+          "zoneId": "home-b-roof-zone-2",
+          "side": 1,
+          "polygon": [
+            [
+              72.5,
+              22,
+              20
+            ],
+            [
+              83.49999999991373,
+              13.5,
+              24.25
+            ],
+            [
+              83.5,
+              22,
+              24.25000000003333
+            ]
+          ],
+          "projectedAreaSqFt": 46.75,
+          "plane": {
+            "a": 0.38636363636666665,
+            "b": 0,
+            "c": -8.011363636583333
+          }
+        },
+        {
+          "id": "home-b-roof-zone-2-side-pos-12",
+          "zoneId": "home-b-roof-zone-2",
+          "side": 1,
+          "polygon": [
+            [
+              72.5,
+              22,
+              20
+            ],
+            [
+              83.5,
+              22,
+              24.25000000003333
+            ],
+            [
+              83.5,
+              31.25,
+              24.25000000003333
+            ],
+            [
+              72.5,
+              31.25,
+              20
+            ]
+          ],
+          "projectedAreaSqFt": 101.75,
+          "plane": {
+            "a": 0.38636363636666665,
+            "b": 0,
+            "c": -8.011363636583333
+          }
+        }
+      ]
     },
     {
       "id": "roof-home-a",
@@ -232,7 +590,75 @@
         }
       ],
       "junctions": [],
-      "errors": []
+      "errors": [],
+      "surfaceFaces": [
+        {
+          "id": "home-a-roof-zone-1-side-neg-1",
+          "zoneId": "home-a-roof-zone-1",
+          "side": -1,
+          "polygon": [
+            [
+              128,
+              5,
+              20
+            ],
+            [
+              128,
+              18.125,
+              26.5625
+            ],
+            [
+              94.5,
+              18.125,
+              26.5625
+            ],
+            [
+              94.5,
+              5,
+              20
+            ]
+          ],
+          "projectedAreaSqFt": 439.6875,
+          "plane": {
+            "a": 0,
+            "b": 0.5,
+            "c": 17.5
+          }
+        },
+        {
+          "id": "home-a-roof-zone-1-side-pos-2",
+          "zoneId": "home-a-roof-zone-1",
+          "side": 1,
+          "polygon": [
+            [
+              128,
+              18.125,
+              26.5625
+            ],
+            [
+              128,
+              31.25,
+              20
+            ],
+            [
+              94.5,
+              31.25,
+              20
+            ],
+            [
+              94.5,
+              18.125,
+              26.5625
+            ]
+          ],
+          "projectedAreaSqFt": 439.6875,
+          "plane": {
+            "a": 0,
+            "b": -0.5,
+            "c": 35.625
+          }
+        }
+      ]
     },
     {
       "id": "roof-garage-b",
@@ -287,7 +713,75 @@
         }
       ],
       "junctions": [],
-      "errors": []
+      "errors": [],
+      "surfaceFaces": [
+        {
+          "id": "garage-b-roof-zone-1-side-neg-1",
+          "zoneId": "garage-b-roof-zone-1",
+          "side": -1,
+          "polygon": [
+            [
+              27,
+              5,
+              11
+            ],
+            [
+              27,
+              16,
+              16.5
+            ],
+            [
+              5,
+              16,
+              16.5
+            ],
+            [
+              5,
+              5,
+              11
+            ]
+          ],
+          "projectedAreaSqFt": 242,
+          "plane": {
+            "a": 0,
+            "b": 0.5,
+            "c": 8.5
+          }
+        },
+        {
+          "id": "garage-b-roof-zone-1-side-pos-2",
+          "zoneId": "garage-b-roof-zone-1",
+          "side": 1,
+          "polygon": [
+            [
+              27,
+              16,
+              16.5
+            ],
+            [
+              27,
+              27,
+              11
+            ],
+            [
+              5,
+              27,
+              11
+            ],
+            [
+              5,
+              16,
+              16.5
+            ]
+          ],
+          "projectedAreaSqFt": 242,
+          "plane": {
+            "a": 0,
+            "b": -0.5,
+            "c": 24.5
+          }
+        }
+      ]
     },
     {
       "id": "roof-garage-a",
@@ -342,7 +836,75 @@
         }
       ],
       "junctions": [],
-      "errors": []
+      "errors": [],
+      "surfaceFaces": [
+        {
+          "id": "garage-a-roof-zone-1-side-neg-1",
+          "zoneId": "garage-a-roof-zone-1",
+          "side": -1,
+          "polygon": [
+            [
+              27,
+              29,
+              11
+            ],
+            [
+              27,
+              40,
+              16.5
+            ],
+            [
+              5,
+              40,
+              16.5
+            ],
+            [
+              5,
+              29,
+              11
+            ]
+          ],
+          "projectedAreaSqFt": 242,
+          "plane": {
+            "a": 0,
+            "b": 0.5,
+            "c": -3.5
+          }
+        },
+        {
+          "id": "garage-a-roof-zone-1-side-pos-2",
+          "zoneId": "garage-a-roof-zone-1",
+          "side": 1,
+          "polygon": [
+            [
+              27,
+              40,
+              16.5
+            ],
+            [
+              27,
+              51,
+              11
+            ],
+            [
+              5,
+              51,
+              11
+            ],
+            [
+              5,
+              40,
+              16.5
+            ]
+          ],
+          "projectedAreaSqFt": 242,
+          "plane": {
+            "a": 0,
+            "b": -0.5,
+            "c": 36.5
+          }
+        }
+      ]
     }
   ]
 }
