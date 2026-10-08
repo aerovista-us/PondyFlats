@@ -3,6 +3,17 @@ name: Design 4 final package QA
 on:
   push:
     branches: [design4/rear-22-discovery]
+  pull_request:
+    paths:
+      - 'js/lot2-design-4*.js'
+      - 'scripts/d4-*.js'
+      - 'scripts/d4-*.mjs'
+      - 'scripts/export-design4.js'
+      - 'data/lot2-design-4-roof-sot.json'
+      - 'd4-*.html'
+      - 'design-4*.html'
+      - 'packages/design-4-*/**'
+      - '.github/workflows/d4-final-qa.yml'
   workflow_dispatch:
 
 permissions:
