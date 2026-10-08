@@ -3,6 +3,13 @@ name: Design 4 Workbench self-audit
 on:
   push:
     branches: [design4/rear-22-discovery]
+  pull_request:
+    paths:
+      - 'js/lot2-design-4*.js'
+      - 'scripts/d4-*.js'
+      - 'scripts/d4-*.mjs'
+      - 'data/lot2-design-4-roof-sot.json'
+      - '.github/workflows/d4-workbench-qa.yml'
   workflow_dispatch:
 
 permissions:
