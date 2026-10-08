@@ -94,6 +94,60 @@ function projectedRoofFacesForAxon(kind,unit,mode){
     `<polygon points="${pts3(face.polygon)}" fill="${COLORS.roof}" fill-opacity="${mode==='massing'?'.38':'.24'}" stroke="${COLORS.roof}" stroke-width="1.35" stroke-linejoin="round" data-roof-surface-face="${face.id}" data-roof-zone="${face.zoneId}"/>`
   ).join('')}</g>`;
 }
+function unique3(points){
+  const out=[];
+  for(const p of points)if(!out.some(q=>Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2])<=1e-6))out.push(p);
+  return out;
+}
+function roofSectionSegments(roof,axis,value){
+  if(!roofSurfaceFacesReady(roof))return [];
+  const idx=axis==='x'?0:1;
+  const segments=[];
+  for(const face of roof.surfaceFaces){
+    const hits=[];
+    for(let i=0;i<face.polygon.length;i++){
+      const a=face.polygon[i],b=face.polygon[(i+1)%face.polygon.length];
+      const da=a[idx]-value,db=b[idx]-value;
+      if(Math.abs(da)<=1e-7)hits.push(a);
+      if((da<0&&db>0)||(da>0&&db<0)){
+        const t=da/(da-db);
+        hits.push([
+          a[0]+(b[0]-a[0])*t,
+          a[1]+(b[1]-a[1])*t,
+          a[2]+(b[2]-a[2])*t
+        ]);
+      }
+    }
+    const unique=unique3(hits);
+    if(unique.length>=2){
+      let best=[unique[0],unique[1]],bestLen=0;
+      for(let i=0;i<unique.length;i++)for(let j=i+1;j<unique.length;j++){
+        const l=Math.hypot(unique[i][0]-unique[j][0],unique[i][1]-unique[j][1],unique[i][2]-unique[j][2]);
+        if(l>bestLen){best=[unique[i],unique[j]];bestLen=l;}
+      }
+      if(bestLen>.02)segments.push({faceId:face.id,zoneId:face.zoneId,a:best[0],b:best[1]});
+    }
+  }
+  return segments;
+}
+function roofSectionDefinition(kind,unit){
+  if(kind==='garage')return {axis:'x',value:16};
+  if(unit==='B')return {axis:'x',value:83.5};
+  return {axis:'x',value:111.25};
+}
+function projectedRoofSection(kind,unit,left,width,groundY,scale){
+  const roof=roofRecord(kind,unit),def=roofSectionDefinition(kind,unit);
+  if(!roofSurfaceFacesReady(roof))return '';
+  const segments=roofSectionSegments(roof,def.axis,def.value);
+  if(!segments.length)return '';
+  const coords=segments.flatMap(segment=>[segment.a,segment.b].map(p=>def.axis==='x'?p[1]:p[0]));
+  const lo=Math.min(...coords),hi=Math.max(...coords),span=Math.max(.001,hi-lo);
+  const sx=v=>left+((v-lo)/span)*width;
+  const sy=z=>groundY-z*scale;
+  return `<g data-roof-owner="${roof.ownerId}" data-roof-projector="EXACT_SECTION_INTERSECTION" data-section-axis="${def.axis}" data-section-value-ft="${def.value}" data-section-segment-count="${segments.length}">${segments.map(segment=>
+    `<line x1="${sx(def.axis==='x'?segment.a[1]:segment.a[0]).toFixed(2)}" y1="${sy(segment.a[2]).toFixed(2)}" x2="${sx(def.axis==='x'?segment.b[1]:segment.b[0]).toFixed(2)}" y2="${sy(segment.b[2]).toFixed(2)}" stroke="${COLORS.roof}" stroke-width="3" stroke-linecap="round" data-roof-surface-face="${segment.faceId}" data-roof-zone="${segment.zoneId}"/>`
+  ).join('')}</g>`;
+}
 function roofWithheldBand({kind,unit,left,width,wallY}){
   const status=roofStatus(kind,unit);
   const policy=roofViewPolicy(status);
@@ -137,8 +191,10 @@ function projectOpening(o){return pts3([[o.x1,o.y1,o.z1],[o.x2,o.y2,o.z1],[o.x2,
 function renderAxon(mode='clean'){const W=1200,H=760,massing=mode==='massing';let masses='';for(const h of D4.HOMES)masses+=prism(homePoly(h),HEIGHTS.home,h.unit==='A'?COLORS.homeA:COLORS.homeB,mode,h.id,'home',h.unit);for(const g of D4.GARAGES)masses+=prism(rectPoly(g),HEIGHTS.garage,COLORS.garage,mode,g.id,'garage',g.unit);const openings=OPENINGS.map(o=>{const type=openingKind(o.role);return `<polygon points="${projectOpening(o)}" fill="${massing?'none':openingFill(o.role)}" fill-opacity="${massing?'0':'.72'}" stroke="${openingStroke(o.role)}" stroke-width="${massing?'1.8':'2.2'}" opacity="${massing?'.72':'1'}" data-opening="${type}" data-opening-id="${o.id}" data-opening-role="${o.role}" data-derived="world"/>`}).join(''),lot=pts3(D4.SURVEY.map(([x,y])=>[x,y,0]));return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Design 4 ${massing?'massing':'architectural axon'}" data-arch-rev="${REV}" data-camera="D4-ISO-01" data-axon-mode="${mode}" data-openings-source="shared-world-model"><rect width="${W}" height="${H}" fill="${COLORS.paper}"/><text x="62" y="50" font-family="Georgia,serif" font-size="29" font-weight="700" fill="${COLORS.ink}">${massing?'A-401 · Same-camera architectural massing':'A-402 · Same-camera clean axon'}</text><text x="62" y="78" font-size="13" fill="${COLORS.muted}">Same camera / same wall geometry · red doors · blue windows · exact solved roof faces share the same 3D coordinate model</text><polygon points="${lot}" fill="#f3efe4" stroke="#9e9a90" stroke-width="1.4"/>${masses}${openings}<g transform="translate(72,625)"><rect width="560" height="82" rx="12" fill="#fff" stroke="#d4d0c6"/><text x="18" y="27" font-size="12" font-weight="900" fill="${COLORS.ink}">GEOMETRY TRUTH</text><text x="18" y="49" font-size="10.5" fill="${COLORS.ink}">2 × detached 22×22 garages · promoted north-finger home shells · Pennsylvania access at right/east</text><text x="18" y="68" font-size="9.5" fill="${COLORS.muted}">Openings and exact roof surfaces project from shared world coordinates. Roof faces are shown only when the imported SOT carries validated 3D surface polygons.</text></g></svg>`;}
 
 function renderSection(unit){
-  const shell=PLAN.SHELLS[unit],e=extents(shell.poly),width=e.maxX-e.minX,W=1200,H=650,x0=110,yGround=520,s=Math.min(18,760/Math.max(width,1)),houseW=width*s,floorH=130,gW=22*s*.62,homeRoof=roofStatus('home',unit),garageRoof=roofStatus('garage',unit),homeTop=yGround-floorH*2,garageTop=yGround-100;
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Design 4 Unit ${unit} geometry-first section" data-section-unit="${unit}" data-arch-rev="${REV}" data-roof-contract="${ROOF?ROOF.REV:'UNAVAILABLE'}"><rect width="${W}" height="${H}" fill="${COLORS.paper}"/><text x="62" y="50" font-family="Georgia,serif" font-size="29" font-weight="700" fill="${COLORS.ink}">${unit==='A'?'A-301':'A-302'} · Unit ${unit} geometry-first section</text><text x="62" y="78" font-size="13" fill="${COLORS.muted}">Two-story home + detached 22×22 garage relationship · roof silhouette follows roof SOT; exact projection is required before drawing</text><line x1="70" y1="${yGround}" x2="1130" y2="${yGround}" stroke="${COLORS.ground}" stroke-width="4"/><g transform="translate(${x0},0)" data-roof-owner="${homeRoof.ownerId}" data-roof-status="${homeRoof.status}" data-roof-render-policy="${roofViewPolicy(homeRoof)}"><rect x="0" y="${homeTop}" width="${houseW}" height="${floorH*2}" fill="${unit==='A'?COLORS.homeA:COLORS.homeB}" fill-opacity=".64" stroke="${COLORS.ink}" stroke-width="2"/><line x1="0" y1="${yGround-floorH}" x2="${houseW}" y2="${yGround-floorH}" stroke="${COLORS.ink}" stroke-width="2"/><line x1="0" y1="${homeTop}" x2="${houseW}" y2="${homeTop}" stroke="${COLORS.roof}" stroke-width="2.5" stroke-dasharray="7 6" data-plate-datum="working"/><text x="${houseW/2}" y="${homeTop-12}" text-anchor="middle" font-size="9" font-weight="900" fill="${COLORS.warn}">${roofWithheldLabel(homeRoof)}</text><path d="M ${houseW*.15} ${yGround-18} L ${houseW*.35} ${yGround-floorH+18} L ${houseW*.5} ${yGround-floorH+18}" fill="none" stroke="${COLORS.door}" stroke-width="5"/><text x="${houseW/2}" y="${yGround-floorH-10}" text-anchor="middle" font-size="11" font-weight="900" fill="${COLORS.ink}">UPPER · 3 BEDROOM PROGRAM</text><text x="${houseW/2}" y="${yGround-18}" text-anchor="middle" font-size="11" font-weight="900" fill="${COLORS.ink}">GROUND · LIVING / KITCHEN / FLEX / SERVICE</text></g><g transform="translate(820,0)" data-roof-owner="${garageRoof.ownerId}" data-roof-status="${garageRoof.status}" data-roof-render-policy="${roofViewPolicy(garageRoof)}"><rect x="0" y="${garageTop}" width="${gW}" height="100" fill="${COLORS.garage}" fill-opacity=".72" stroke="${COLORS.ink}" stroke-width="2"/><line x1="0" y1="${garageTop}" x2="${gW}" y2="${garageTop}" stroke="${COLORS.roof}" stroke-width="2.5" stroke-dasharray="7 6" data-plate-datum="working"/><text x="${gW/2}" y="${garageTop-12}" text-anchor="middle" font-size="8.5" font-weight="900" fill="${COLORS.warn}">${garageRoof.authoritative?'ROOF GEOMETRY LOCKED · PROJECTOR PENDING':'ROOF GEOMETRY WITHHELD'}</text><text x="${gW/2}" y="${yGround-44}" text-anchor="middle" font-size="11" font-weight="900">DETACHED GARAGE ${unit}</text><text x="${gW/2}" y="${yGround-25}" text-anchor="middle" font-size="10">22×22 · no living space</text></g><g transform="translate(62,560)"><text font-size="10.5" fill="${COLORS.warn}">Section wall/floor relationships are schematic. Ridge, pitch, eaves and roof framing are intentionally not invented.</text><text y="17" font-size="9.5" fill="${COLORS.muted}">Foundations, structural framing, fire separation, egress, MEP routes and finished grades remain professional/AHJ validation items.</text></g></svg>`;
+  const shell=PLAN.SHELLS[unit],e=extents(shell.poly),sectionDepth=e.maxY-e.minY,W=1200,H=650,x0=110,yGround=520,s=Math.min(18,760/Math.max(sectionDepth,1)),houseW=sectionDepth*s,floorH=130,gW=22*s*.62,homeStatus=roofStatus('home',unit),garageStatus=roofStatus('garage',unit),homeRoof=roofRecord('home',unit),garageRoof=roofRecord('garage',unit),homeExact=roofSurfaceFacesReady(homeRoof),garageExact=roofSurfaceFacesReady(garageRoof),homeTop=yGround-floorH*2,garageTop=yGround-100;
+  const homeRoofSvg=homeExact?projectedRoofSection('home',unit,x0,houseW,yGround,s):'';
+  const garageLeft=820,garageRoofSvg=garageExact?projectedRoofSection('garage',unit,garageLeft,gW,yGround,100/11):'';
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Design 4 Unit ${unit} geometry-first section" data-section-unit="${unit}" data-arch-rev="${REV}" data-roof-contract="${ROOF?ROOF.REV:'UNAVAILABLE'}"><rect width="${W}" height="${H}" fill="${COLORS.paper}"/><text x="62" y="50" font-family="Georgia,serif" font-size="29" font-weight="700" fill="${COLORS.ink}">${unit==='A'?'A-301':'A-302'} · Unit ${unit} geometry-first section</text><text x="62" y="78" font-size="13" fill="${COLORS.muted}">Transverse cut through solved roof surfaces · Unit B cut x=83.5′ · Unit A cut x=111.25′ · garages cut x=16′</text><line x1="70" y1="${yGround}" x2="1130" y2="${yGround}" stroke="${COLORS.ground}" stroke-width="4"/><g data-roof-owner="${homeStatus.ownerId}" data-roof-status="${homeStatus.status}" data-roof-render-policy="${homeExact?'EXACT_SECTION_INTERSECTION':roofViewPolicy(homeStatus)}"><rect x="${x0}" y="${homeTop}" width="${houseW}" height="${floorH*2}" fill="${unit==='A'?COLORS.homeA:COLORS.homeB}" fill-opacity=".64" stroke="${COLORS.ink}" stroke-width="2"/><line x1="${x0}" y1="${yGround-floorH}" x2="${x0+houseW}" y2="${yGround-floorH}" stroke="${COLORS.ink}" stroke-width="2"/><line x1="${x0}" y1="${homeTop}" x2="${x0+houseW}" y2="${homeTop}" stroke="${COLORS.roof}" stroke-width="1" opacity=".25" data-plate-datum="working"/>${homeRoofSvg}<path d="M ${x0+houseW*.15} ${yGround-18} L ${x0+houseW*.35} ${yGround-floorH+18} L ${x0+houseW*.5} ${yGround-floorH+18}" fill="none" stroke="${COLORS.door}" stroke-width="5"/><text x="${x0+houseW/2}" y="${yGround-floorH-10}" text-anchor="middle" font-size="11" font-weight="900" fill="${COLORS.ink}">UPPER · 3 BEDROOM PROGRAM</text><text x="${x0+houseW/2}" y="${yGround-18}" text-anchor="middle" font-size="11" font-weight="900" fill="${COLORS.ink}">GROUND · LIVING / KITCHEN / FLEX / SERVICE</text>${homeExact?'':`<text x="${x0+houseW/2}" y="${homeTop-12}" text-anchor="middle" font-size="9" font-weight="900" fill="${COLORS.warn}">${roofWithheldLabel(homeStatus)}</text>`}</g><g data-roof-owner="${garageStatus.ownerId}" data-roof-status="${garageStatus.status}" data-roof-render-policy="${garageExact?'EXACT_SECTION_INTERSECTION':roofViewPolicy(garageStatus)}"><rect x="${garageLeft}" y="${garageTop}" width="${gW}" height="100" fill="${COLORS.garage}" fill-opacity=".72" stroke="${COLORS.ink}" stroke-width="2"/><line x1="${garageLeft}" y1="${garageTop}" x2="${garageLeft+gW}" y2="${garageTop}" stroke="${COLORS.roof}" stroke-width="1" opacity=".25" data-plate-datum="working"/>${garageRoofSvg}<text x="${garageLeft+gW/2}" y="${yGround-44}" text-anchor="middle" font-size="11" font-weight="900">DETACHED GARAGE ${unit}</text><text x="${garageLeft+gW/2}" y="${yGround-25}" text-anchor="middle" font-size="10">22×22 · no living space</text>${garageExact?'':`<text x="${garageLeft+gW/2}" y="${garageTop-12}" text-anchor="middle" font-size="8.5" font-weight="900" fill="${COLORS.warn}">${roofWithheldLabel(garageStatus)}</text>`}</g><g transform="translate(62,560)"><text font-size="10.5" fill="${COLORS.warn}">Roof section lines are exact intersections of the imported solved 3D roof faces with the stated cut plane.</text><text y="17" font-size="9.5" fill="${COLORS.muted}">Wall/floor program remains design-development; foundations, structure, fire separation, MEP, civil, drainage and permit validation remain professional/AHJ work.</text></g></svg>`;
 }
 
 function analyze(){
@@ -146,7 +202,7 @@ function analyze(){
   return {rev:REV,verdict:'CONDITIONAL',plan:p,geometry:g,roof,checks:{planGeometry:{ok:p.verdict==='PASS',blocking:true},sharedOpenings:{ok:OPENINGS.length>=10,blocking:true},openingContract:{ok:contractOk,doorStroke:COLORS.door,windowStroke:COLORS.window,blocking:true},polygonFaces:{ok:south.length===2&&west.length===2,homeBSouthSegments:south.length,homeBWestSegments:west.length,blocking:true},roofContract:{ok:roofContractOk,status:roof?.status||'UNAVAILABLE',locked:roof?.locked||0,required:roof?.required||4,renderPolicy:roof?.status==='AUTHORITATIVE_ALLOWED'?'EXACT_VIEW_PROJECTOR_REQUIRED':'SUPPRESS_ROOF',blocking:true},sameCamera:{ok:true,blocking:true},professionalValidation:{ok:false,status:'PENDING',blocking:false}},note:'Design-development concept package only; roof silhouette is withheld until the shared Workbench roof contract is geometry-locked and the exact-view projector can consume it. Accessory zoning and inter-garage spacing remain conditional.'};
 }
 
-const api={REV,HEIGHTS,OPENINGS,analyze,renderElev,renderAxon,renderSection,projectOpening,faceSegments,openingKind,roofViewPolicy,roofWithheldLabel,roofSurfaceFacesReady,projectedRoofFacesForElevation,projectedRoofFacesForAxon,P};
+const api={REV,HEIGHTS,OPENINGS,analyze,renderElev,renderAxon,renderSection,projectOpening,faceSegments,openingKind,roofViewPolicy,roofWithheldLabel,roofSurfaceFacesReady,projectedRoofFacesForElevation,projectedRoofFacesForAxon,roofSectionSegments,projectedRoofSection,P};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
 global.Lot2Design4Architecture=api;
 })(typeof window!=='undefined'?window:globalThis);
