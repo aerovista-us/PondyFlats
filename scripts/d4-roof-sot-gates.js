@@ -98,9 +98,13 @@ for(const face of ['east','west','north','south']){
   assert(!svg.includes('EXACT VIEW PROJECTOR PENDING'),face+' must not claim the projector is pending once surface faces are present');
   assert(!svg.includes('CONCEPT ROOF'),face+' must not draw a generic concept roof');
   assert(!/roof withheld|roof silhouette withheld/i.test(svg),face+' must not carry stale suppression language once exact surfaces are active');
-  const depths=[...svg.matchAll(/data-roof-depth="(-?\d+(?:\.\d+)?)"/g)].map(match=>Number(match[1]));
-  assert(depths.length>0,face+' must expose roof depth metadata');
-  for(let i=1;i<depths.length;i++)assert(depths[i]>=depths[i-1]-1e-9,face+' roof faces must be emitted far-to-near in monotonic painter order');
+  const projectorGroups=[...svg.matchAll(/<g data-roof-projector="EXACT_SURFACE_FACES"[^>]*>([\s\S]*?)<\/g>/g)].map(match=>match[1]);
+  assert(projectorGroups.length>=4,face+' must emit one exact roof projector group per Design 4 building');
+  for(const [groupIndex,group] of projectorGroups.entries()){
+    const depths=[...group.matchAll(/data-roof-depth="(-?\d+(?:\.\d+)?)"/g)].map(match=>Number(match[1]));
+    assert(depths.length>0,face+' roof group '+groupIndex+' must expose depth metadata');
+    for(let i=1;i<depths.length;i++)assert(depths[i]>=depths[i-1]-1e-9,face+' roof group '+groupIndex+' must be emitted far-to-near in monotonic painter order');
+  }
 }
 for(const unit of ['A','B']){
   const svg=ARCH.renderSection(unit);
