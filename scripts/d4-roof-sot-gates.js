@@ -6,12 +6,37 @@ const root=path.resolve(__dirname,'..');
 const ROOF=require('../js/lot2-design-4-roof-sot.js');
 const ARCH=require('../js/lot2-design-4-architecture.js');
 
+const imported=JSON.parse(fs.readFileSync(path.join(root,'data','lot2-design-4-roof-sot.json'),'utf8'));
 const state=ROOF.analyze();
 assert.equal(state.schemaVersion,'lotscope-roof-geometry-v1');
-assert.equal(state.status,'CONCEPT_ONLY_REQUIRED');
-assert.equal(state.locked,0);
+assert.equal(state.status,'AUTHORITATIVE_ALLOWED');
+assert.equal(state.locked,4);
 assert.equal(state.required,4);
-assert(state.results.every(row=>row.authoritative===false&&row.renderPolicy==='SUPPRESS_ROOF'));
+assert(state.results.every(row=>row.authoritative===true&&row.renderPolicy==='AUTHORITATIVE_ROOF_ALLOWED'));
+assert.equal(imported.source.commitSha,'b2985780492083ec99212cdd1beb60c47251c124');
+assert.equal(imported.renderPolicy,'AUTHORITATIVE_ALLOWED');
+assert.equal(imported.counts.locked,4);
+assert.deepEqual(
+  ROOF.ROOFS.map(roof=>({
+    id:roof.id,ownerId:roof.ownerId,status:roof.status,validationStatus:roof.validationStatus,
+    ownerGeometryKey:roof.ownerGeometryKey,junctionMode:roof.junctionMode,
+    zones:roof.zones.map(zone=>({
+      id:zone.id,footprint:zone.footprint,plateZFt:zone.plateZFt,ridgeA:zone.ridgeA,ridgeB:zone.ridgeB,
+      ridgeZFt:zone.ridgeZFt,solveBy:zone.solveBy,pitchRise:zone.pitchRise,pitchRun:zone.pitchRun
+    })),
+    junctions:roof.junctions
+  })),
+  imported.roofs.map(roof=>({
+    id:roof.id,ownerId:roof.ownerId,status:roof.status,validationStatus:roof.validationStatus,
+    ownerGeometryKey:roof.ownerGeometryKey,junctionMode:roof.junctionMode,
+    zones:roof.zones.map(zone=>({
+      id:zone.id,footprint:zone.footprint,plateZFt:zone.plateZFt,ridgeA:zone.ridgeA,ridgeB:zone.ridgeB,
+      ridgeZFt:zone.ridgeZFt,solveBy:zone.solveBy,pitchRise:zone.pitchRise,pitchRun:zone.pitchRun
+    })),
+    junctions:roof.junctions
+  })),
+  'browser roof SOT must stay synchronized with the imported LotScope roof artifact'
+);
 
 const lockedFixture={
   id:'fixture-roof',
@@ -28,6 +53,16 @@ const lockedFixture={
   }]
 };
 assert.equal(ROOF.roofIsAuthoritative(lockedFixture),true,'complete centered gable geometry may pass the consumer authority guard');
+const planeFixture={...lockedFixture,junctionMode:'PLANE_ENVELOPE',zones:[
+  {...lockedFixture.zones[0],id:'za'},
+  {...lockedFixture.zones[0],id:'zb'}
+],junctions:[{status:'SOLVED',kind:'VALLEY',overlapPolygon:[[0,0],[10,0],[10,10],[0,10]],overlapAreaSqFt:100,segments:[
+  {id:'v1',kind:'VALLEY',zoneIds:['za','zb'],a:[5,5],b:[0,0],zAFt:12.5,zBFt:10,residualFt:0}
+]}]};
+assert.equal(ROOF.junctionsAreAuthoritative(planeFixture),true,'well-formed solved plane-envelope junction may pass the consumer junction guard');
+assert.equal(ROOF.junctionsAreAuthoritative({...planeFixture,junctions:[{...planeFixture.junctions[0],overlapAreaSqFt:0}]}),false,'plane-envelope overlap must be positive');
+assert.equal(ROOF.junctionsAreAuthoritative({...planeFixture,junctions:[{...planeFixture.junctions[0],segments:[{...planeFixture.junctions[0].segments[0],residualFt:.5}]}]}),false,'junction residual above tolerance must fail closed');
+assert.equal(ROOF.junctionsAreAuthoritative({...planeFixture,junctions:[{...planeFixture.junctions[0],segments:[{...planeFixture.junctions[0].segments[0],zoneIds:['za','missing']}]}]}),false,'junction segments must reference imported roof zones');
 const fixtureZone=lockedFixture.zones[0];
 assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,footprint:null}]}),false,'missing footprint must never be authoritative');
 assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,footprint:[[0,0],[10,10],[10,0],[0,10]]}]}),false,'self-intersecting footprint must never be authoritative');
@@ -44,15 +79,15 @@ assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,r
 
 for(const face of ['east','west','north','south']){
   const svg=ARCH.renderElev(face);
-  assert(svg.includes('data-roof-render-policy="SUPPRESS_ROOF"'),face+' must carry roof suppression policy');
-  assert(svg.includes('ROOF GEOMETRY WITHHELD'),face+' must visibly withhold unverified roof geometry');
+  assert(svg.includes('data-roof-render-policy="LOCKED_DATA_AWAITING_EXACT_VIEW_PROJECTOR"'),face+' must expose locked roof data while exact projection is pending');
+  assert(svg.includes('ROOF GEOMETRY LOCKED · EXACT VIEW PROJECTOR PENDING'),face+' must disclose the exact-view projector boundary');
   assert(!svg.includes('CONCEPT ROOF'),face+' must not draw a generic concept roof');
 }
 for(const unit of ['A','B']){
   const svg=ARCH.renderSection(unit);
-  assert(svg.includes('data-roof-render-policy="SUPPRESS_ROOF"'),unit+' section must carry roof suppression policy');
-  assert(svg.includes('ROOF GEOMETRY WITHHELD'),unit+' section must withhold home roof');
-  assert(svg.includes('data-plate-datum="working"'),unit+' section must expose only a working top datum');
+  assert(svg.includes('data-roof-render-policy="LOCKED_DATA_AWAITING_EXACT_VIEW_PROJECTOR"'),unit+' section must expose locked roof data while exact projection is pending');
+  assert(svg.includes('ROOF GEOMETRY LOCKED · EXACT VIEW PROJECTOR PENDING'),unit+' section must disclose pending exact projection');
+  assert(svg.includes('data-plate-datum="working"'),unit+' section must still expose only the plate datum until the projector lands');
 }
 const architectureSource=fs.readFileSync(path.join(root,'js','lot2-design-4-architecture.js'),'utf8');
 assert(!architectureSource.includes('function roofPath('),'generic roof triangle helper must not exist');
@@ -65,8 +100,8 @@ for(const mode of ['massing','clean']){
 }
 const analysis=ARCH.analyze();
 assert.equal(analysis.checks.roofContract.ok,true);
-assert.equal(analysis.checks.roofContract.status,'CONCEPT_ONLY_REQUIRED');
-assert.equal(analysis.checks.roofContract.renderPolicy,'SUPPRESS_ROOF');
+assert.equal(analysis.checks.roofContract.status,'AUTHORITATIVE_ALLOWED');
+assert.equal(analysis.checks.roofContract.renderPolicy,'EXACT_VIEW_PROJECTOR_REQUIRED');
 assert.equal(ARCH.roofViewPolicy({authoritative:false}),'SUPPRESS_ROOF');
 assert.equal(ARCH.roofViewPolicy({authoritative:true}),'LOCKED_DATA_AWAITING_EXACT_VIEW_PROJECTOR');
 assert.match(ARCH.roofWithheldLabel({authoritative:true}),/GEOMETRY LOCKED.*PROJECTOR PENDING/i);
@@ -91,8 +126,8 @@ console.log(JSON.stringify({
   roofStatus:state.status,
   locked:state.locked,
   required:state.required,
-  elevationsSuppressUnverifiedRoof:true,
-  sectionsSuppressUnverifiedRoof:true,
+  importedRoofAuthority:true,
+  exactViewProjectorPending:true,
   axonSuppressesRoofSurface:true,
   architectureRoofContract:analysis.checks.roofContract
 },null,2));
