@@ -95,6 +95,8 @@ for(const face of ['east','west','north','south']){
   assert(svg.includes('data-roof-projector="EXACT_SURFACE_FACES"'),face+' must identify the exact roof projector');
   assert(svg.includes('ROOF · EXACT SOLVED SURFACE'),face+' must label solved roof output');
   assert(svg.includes('data-roof-surface-face='),face+' must carry source face ids for auditability');
+  assert(!svg.includes('data-roof-edge-kind="INTERNAL"'),face+' must not draw coplanar solver subdivision seams');
+  assert(svg.includes('data-roof-edge-kind="CREASE"'),face+' must retain true roof ridges/valleys as architectural creases');
   assert(!svg.includes('EXACT VIEW PROJECTOR PENDING'),face+' must not claim the projector is pending once surface faces are present');
   assert(!svg.includes('CONCEPT ROOF'),face+' must not draw a generic concept roof');
 }
@@ -104,6 +106,8 @@ for(const unit of ['A','B']){
   assert(svg.includes('data-roof-projector="EXACT_SECTION_INTERSECTION"'),unit+' section must identify exact section projection');
   assert(svg.includes('data-section-axis="x"'),unit+' section must disclose its cut axis');
   assert(svg.includes('data-roof-surface-face='),unit+' section must retain source surface-face ids');
+  assert(/(?:y1|y2)="260\.00"/.test(svg),unit+' home roof eave must land on the 20 ft plate line at y=260');
+  assert(/(?:y1|y2)="420\.00"/.test(svg),unit+' garage roof eave must land on the 11 ft plate line at y=420');
   assert(svg.includes('data-plate-datum="working"'),unit+' section must retain plate datum context');
   assert(!svg.includes('PROJECTOR PENDING'),unit+' section must not claim the projector is pending');
 }
@@ -115,6 +119,8 @@ for(const mode of ['massing','clean']){
   assert(svg.includes('data-roof-render-policy="EXACT_SURFACE_FACES"'),mode+' axon must project exact solved roof surfaces');
   assert(svg.includes('data-roof-projector="EXACT_SURFACE_FACES"'),mode+' axon must identify the exact roof projector');
   assert(svg.includes('data-roof-surface-face='),mode+' axon must retain source surface-face ids');
+  assert(!svg.includes('data-roof-edge-kind="INTERNAL"'),mode+' axon must hide coplanar solver subdivision seams');
+  assert(svg.includes('data-roof-edge-kind="CREASE"'),mode+' axon must retain true ridge/valley creases');
   assert(svg.includes('data-plate-datum="working"'),mode+' axon must retain plate datum context');
   assert(!/Roof surfaces[^<]*suppressed/i.test(svg),mode+' axon must not claim solved roof faces are suppressed');
 }
@@ -128,6 +134,10 @@ assert.equal(ARCH.roofViewPolicy({authoritative:true}),'LOCKED_DATA_AWAITING_EXA
 assert.match(ARCH.roofWithheldLabel({authoritative:true}),/GEOMETRY LOCKED.*PROJECTOR PENDING/i);
 assert(!/NOT GEOMETRY LOCKED/i.test(ARCH.roofWithheldLabel({authoritative:true})),'authoritative roofs must not be labeled as unlocked while awaiting exact projection');
 
+for(const file of ['design-4.html','design-4-status.html','d4-elevs.html','d4-axon.html','d4-sections.html']){
+  const html=fs.readFileSync(path.join(root,file),'utf8');
+  assert(!/WITHHELD\s*\/\s*Workbench lock pending|Roof silhouette is intentionally withheld|Roof surfaces are deliberately suppressed/i.test(html),file+' must not publish stale pre-lock roof language');
+}
 for(const file of ['design-4.html','d4-elevs.html','d4-axon.html','d4-sections.html']){
   const html=fs.readFileSync(path.join(root,file),'utf8');
   assert(html.includes('js/lot2-design-4-roof-sot.js'),file+' must load roof SOT before architecture');

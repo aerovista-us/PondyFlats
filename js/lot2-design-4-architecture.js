@@ -6,7 +6,7 @@ const PLAN=(typeof module!=='undefined'&&module.exports)?require('./lot2-design-
 const ROOF=(typeof module!=='undefined'&&module.exports)?require('./lot2-design-4-roof-sot.js'):global.Lot2Design4RoofSOT;
 if(!D4||!PLAN) throw new Error('Design 4 architecture requires geometry and plan-closure models');
 
-const REV='D4-ARCH-v0.6';
+const REV='D4-ARCH-v0.7';
 const COLORS={paper:'#fbfaf7',ink:'#132238',muted:'#68727d',homeA:'#d9b56d',homeB:'#ead495',garage:'#8ca58b',roof:'#394957',glass:'#dceeff',entry:'#f8e2df',ground:'#e6e0d4',line:'#405064',warn:'#a9612b',door:'#b3261e',window:'#2367b1'};
 const HEIGHTS={home:20,garage:11,floor:10};
 
@@ -62,6 +62,31 @@ function roofSurfaceFacesReady(roof){
     face&&typeof face.id==='string'&&Array.isArray(face.polygon)&&face.polygon.length>=3&&face.polygon.every(finite3)
   ));
 }
+function point3Key(p){return p.map(v=>(Math.round(v*10000)/10000).toFixed(4)).join(',')}
+function surfaceEdgeKey(a,b){
+  const ka=point3Key(a),kb=point3Key(b);
+  return ka<kb?`${ka}|${kb}`:`${kb}|${ka}`;
+}
+function planeEquivalent(a,b){
+  return a&&b&&Math.abs(a.a-b.a)<=1e-7&&Math.abs(a.b-b.b)<=1e-7&&Math.abs(a.c-b.c)<=1e-6;
+}
+function roofSurfaceEdgeClasses(roof){
+  const map=new Map();
+  if(!roofSurfaceFacesReady(roof))return map;
+  for(const face of roof.surfaceFaces){
+    for(let i=0;i<face.polygon.length;i++){
+      const a=face.polygon[i],b=face.polygon[(i+1)%face.polygon.length],key=surfaceEdgeKey(a,b);
+      if(!map.has(key))map.set(key,{a,b,faces:[]});
+      map.get(key).faces.push(face);
+    }
+  }
+  for(const entry of map.values()){
+    if(entry.faces.length===1)entry.kind='EXTERIOR';
+    else if(entry.faces.some((face,index)=>entry.faces.some((other,j)=>index!==j&&!planeEquivalent(face.plane,other.plane))))entry.kind='CREASE';
+    else entry.kind='INTERNAL';
+  }
+  return map;
+}
 function elevationWorldAxis(face,p){return (face==='east'||face==='west')?p[1]:p[0]}
 function elevationDepth(face,p){
   if(face==='east')return p[0];
@@ -71,28 +96,43 @@ function elevationDepth(face,p){
 }
 function projectedRoofFacesForElevation(roof,face,left,span,scale,groundY){
   if(!roofSurfaceFacesReady(roof))return '';
+  const edgeClasses=roofSurfaceEdgeClasses(roof);
+  const projectPoint=p=>[
+    left+(elevationWorldAxis(face,p)-span[0])*scale,
+    groundY-p[2]*scale
+  ];
   const projected=roof.surfaceFaces.map(face3=>{
     const depth=face3.polygon.reduce((sum,p)=>sum+elevationDepth(face,p),0)/face3.polygon.length;
-    const points=face3.polygon.map(p=>[
-      left+(elevationWorldAxis(face,p)-span[0])*scale,
-      groundY-p[2]*scale
-    ]);
+    const points=face3.polygon.map(projectPoint);
     return {...face3,depth,points};
   }).sort((a,b)=>a.depth-b.depth);
-  return `<g data-roof-projector="EXACT_SURFACE_FACES" data-roof-face-count="${projected.length}">${projected.map(item=>
-    `<polygon points="${item.points.map(p=>`${p[0].toFixed(2)},${p[1].toFixed(2)}`).join(' ')}" fill="${COLORS.roof}" fill-opacity=".20" stroke="${COLORS.roof}" stroke-width="1.55" stroke-linejoin="round" data-roof-surface-face="${item.id}" data-roof-zone="${item.zoneId}"/>`
-  ).join('')}</g>`;
+  return `<g data-roof-projector="EXACT_SURFACE_FACES" data-roof-face-count="${projected.length}">${projected.map(item=>{
+    const edgeLines=item.polygon.map((a,index)=>{
+      const b=item.polygon[(index+1)%item.polygon.length],edge=edgeClasses.get(surfaceEdgeKey(a,b));
+      if(!edge||edge.kind==='INTERNAL')return '';
+      const pa=projectPoint(a),pb=projectPoint(b);
+      return `<line x1="${pa[0].toFixed(2)}" y1="${pa[1].toFixed(2)}" x2="${pb[0].toFixed(2)}" y2="${pb[1].toFixed(2)}" stroke="${COLORS.roof}" stroke-width="${edge.kind==='CREASE'?'1.8':'1.35'}" stroke-linecap="round" data-roof-edge-kind="${edge.kind}"/>`;
+    }).join('');
+    return `<g data-roof-surface-face="${item.id}" data-roof-zone="${item.zoneId}"><polygon points="${item.points.map(p=>`${p[0].toFixed(2)},${p[1].toFixed(2)}`).join(' ')}" fill="#d8dde2" stroke="none"/>${edgeLines}</g>`;
+  }).join('')}</g>`;
 }
 function projectedRoofFacesForAxon(kind,unit,mode){
   const roof=roofRecord(kind,unit);
   if(!roofSurfaceFacesReady(roof))return '';
+  const edgeClasses=roofSurfaceEdgeClasses(roof);
   const faces=roof.surfaceFaces.map(face=>{
     const depth=face.polygon.reduce((sum,p)=>sum+(p[0]+p[1]+p[2]*.15),0)/face.polygon.length;
     return {...face,depth};
   }).sort((a,b)=>a.depth-b.depth);
-  return `<g data-roof-owner="${roof.ownerId}" data-roof-projector="EXACT_SURFACE_FACES" data-roof-face-count="${faces.length}">${faces.map(face=>
-    `<polygon points="${pts3(face.polygon)}" fill="${COLORS.roof}" fill-opacity="${mode==='massing'?'.38':'.24'}" stroke="${COLORS.roof}" stroke-width="1.35" stroke-linejoin="round" data-roof-surface-face="${face.id}" data-roof-zone="${face.zoneId}"/>`
-  ).join('')}</g>`;
+  return `<g data-roof-owner="${roof.ownerId}" data-roof-projector="EXACT_SURFACE_FACES" data-roof-face-count="${faces.length}">${faces.map(face=>{
+    const edges=face.polygon.map((a,index)=>{
+      const b=face.polygon[(index+1)%face.polygon.length],edge=edgeClasses.get(surfaceEdgeKey(a,b));
+      if(!edge||edge.kind==='INTERNAL')return '';
+      const pa=P(...a),pb=P(...b);
+      return `<line x1="${pa[0].toFixed(1)}" y1="${pa[1].toFixed(1)}" x2="${pb[0].toFixed(1)}" y2="${pb[1].toFixed(1)}" stroke="${COLORS.roof}" stroke-width="${edge.kind==='CREASE'?'1.7':'1.25'}" stroke-linecap="round" data-roof-edge-kind="${edge.kind}"/>`;
+    }).join('');
+    return `<g data-roof-surface-face="${face.id}" data-roof-zone="${face.zoneId}"><polygon points="${pts3(face.polygon)}" fill="#c9d0d6" fill-opacity="${mode==='massing'?'.96':'.92'}" stroke="none"/>${edges}</g>`;
+  }).join('')}</g>`;
 }
 function unique3(points){
   const out=[];
@@ -179,7 +219,7 @@ function elevationBand({unit,face,x,y,w,h,title,kind='home'}){
   const openings=faceOpenings(unit,face).filter(o=>(kind==='garage'?o.role==='garage-overhead':o.role!=='garage-overhead')&&openingOnSegments(o,segs,face));
   for(const o of openings){const ax=faceAxis(face,o),left=left0+(Math.min(...ax)-span[0])*scale,ow=Math.max(7,openingLength(o)*scale),zScale=scale,top=wallY+wallH-o.z2*zScale,oh=Math.max(8,(o.z2-o.z1)*zScale),type=openingKind(o.role);out+=`<rect x="${left}" y="${top}" width="${ow}" height="${oh}" rx="1.5" fill="${openingFill(o.role)}" stroke="${openingStroke(o.role)}" stroke-width="2.4" data-opening="${type}" data-opening-id="${o.id}" data-opening-role="${o.role}" data-derived="world"/>`;}
   if(!openings.length)out+=`<rect x="${left0+drawW/2-64}" y="${wallY+wallH/2-10}" width="128" height="20" rx="10" fill="#fff" fill-opacity=".82"/><text x="${left0+drawW/2}" y="${wallY+wallH/2+3.5}" text-anchor="middle" font-size="8" font-weight="900" fill="${COLORS.muted}">NO MODELED OPENINGS</text>`;
-  out+=`<text x="${x+w/2}" y="${y+h-20}" text-anchor="middle" font-size="9.5" font-weight="800" fill="${COLORS.ink}">VISIBLE SPAN ${worldW.toFixed(2)}′ · WORKING WALL DATUM ${kind==='garage'?HEIGHTS.garage:HEIGHTS.home}′ · COMMON SCALE ${scale.toFixed(1)} PX/FT</text><text x="${x+w/2}" y="${y+h-7}" text-anchor="middle" font-size="8.8" fill="${COLORS.muted}">${kind==='garage'?(face==='east'?'22×22 detached garage · 20′ modeled east opening · roof withheld':'22×22 detached garage · solid wall on this face · roof withheld'):'wall faces/openings from shared model · roof silhouette withheld until Workbench geometry lock'}</text></g>`;return out;
+  out+=`<text x="${x+w/2}" y="${y+h-20}" text-anchor="middle" font-size="9.5" font-weight="800" fill="${COLORS.ink}">VISIBLE SPAN ${worldW.toFixed(2)}′ · WORKING WALL DATUM ${kind==='garage'?HEIGHTS.garage:HEIGHTS.home}′ · COMMON SCALE ${scale.toFixed(1)} PX/FT</text><text x="${x+w/2}" y="${y+h-7}" text-anchor="middle" font-size="8.8" fill="${COLORS.muted}">${kind==='garage'?(face==='east'?'22×22 detached garage · 20′ modeled east opening · solved roof surface':'22×22 detached garage · solid wall on this face · solved roof surface'):'wall faces/openings + solved roof surface from shared model'}</text></g>`;return out;
 }
 
 function renderElev(face){const labels={east:'A-201 · Pennsylvania / east elevation',west:'A-202 · rear / west elevation',north:'A-203 · north elevation',south:'A-204 · south elevation'},title=labels[face]||labels.east,W=1200,H=760,garageLabel=face==='east'?'20′ OVERHEAD OPENING':'SOLID GARAGE WALL';return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Design 4 ${face} geometry-first elevations" data-arch-rev="${REV}" data-elevation-face="${face}" data-openings-source="shared-world-model" data-garages-all-faces="true" data-common-scale-px-per-ft="8.5"><rect width="${W}" height="${H}" fill="${COLORS.paper}"/><text x="62" y="50" font-family="Georgia,serif" font-size="29" font-weight="700" fill="${COLORS.ink}">${title}</text><text x="62" y="78" font-size="13" fill="${COLORS.muted}">Geometry-first · homes and garages use one common graphic scale · walls/openings + roof surfaces project from the shared solved model</text>${elevationBand({unit:'B',face,x:62,y:108,w:510,h:255,title:'HOME B'})}${elevationBand({unit:'A',face,x:628,y:108,w:510,h:255,title:'HOME A'})}${elevationBand({unit:'B',face,x:62,y:410,w:510,h:240,title:`GARAGE B · ${garageLabel}`,kind:'garage'})}${elevationBand({unit:'A',face,x:628,y:410,w:510,h:240,title:`GARAGE A · ${garageLabel}`,kind:'garage'})}<g transform="translate(62,676)"><text font-size="10.2" fill="${COLORS.warn}">Accuracy boundary: wall faces and openings are coordinate-derived; vertical wall heights are working design datums.</text><text y="17" font-size="9.2" fill="${COLORS.muted}">Solved roof surfaces are projected directly from the LotScope roof SOT when face geometry is present; otherwise the view fails closed.</text></g>${renderViewKey(face,875,672,260,66)}</svg>`;}
@@ -192,8 +232,9 @@ function renderAxon(mode='clean'){const W=1200,H=760,massing=mode==='massing';le
 
 function renderSection(unit){
   const shell=PLAN.SHELLS[unit],e=extents(shell.poly),sectionDepth=e.maxY-e.minY,W=1200,H=650,x0=110,yGround=520,s=Math.min(18,760/Math.max(sectionDepth,1)),houseW=sectionDepth*s,floorH=130,gW=22*s*.62,homeStatus=roofStatus('home',unit),garageStatus=roofStatus('garage',unit),homeRoof=roofRecord('home',unit),garageRoof=roofRecord('garage',unit),homeExact=roofSurfaceFacesReady(homeRoof),garageExact=roofSurfaceFacesReady(garageRoof),homeTop=yGround-floorH*2,garageTop=yGround-100;
-  const homeRoofSvg=homeExact?projectedRoofSection('home',unit,x0,houseW,yGround,s):'';
-  const garageLeft=820,garageRoofSvg=garageExact?projectedRoofSection('garage',unit,garageLeft,gW,yGround,100/11):'';
+  const homeZScale=(floorH*2)/HEIGHTS.home;
+  const homeRoofSvg=homeExact?projectedRoofSection('home',unit,x0,houseW,yGround,homeZScale):'';
+  const garageLeft=820,garageRoofSvg=garageExact?projectedRoofSection('garage',unit,garageLeft,gW,yGround,100/HEIGHTS.garage):'';
   return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Design 4 Unit ${unit} geometry-first section" data-section-unit="${unit}" data-arch-rev="${REV}" data-roof-contract="${ROOF?ROOF.REV:'UNAVAILABLE'}"><rect width="${W}" height="${H}" fill="${COLORS.paper}"/><text x="62" y="50" font-family="Georgia,serif" font-size="29" font-weight="700" fill="${COLORS.ink}">${unit==='A'?'A-301':'A-302'} · Unit ${unit} geometry-first section</text><text x="62" y="78" font-size="13" fill="${COLORS.muted}">Transverse cut through solved roof surfaces · Unit B cut x=83.5′ · Unit A cut x=111.25′ · garages cut x=16′</text><line x1="70" y1="${yGround}" x2="1130" y2="${yGround}" stroke="${COLORS.ground}" stroke-width="4"/><g data-roof-owner="${homeStatus.ownerId}" data-roof-status="${homeStatus.status}" data-roof-render-policy="${homeExact?'EXACT_SECTION_INTERSECTION':roofViewPolicy(homeStatus)}"><rect x="${x0}" y="${homeTop}" width="${houseW}" height="${floorH*2}" fill="${unit==='A'?COLORS.homeA:COLORS.homeB}" fill-opacity=".64" stroke="${COLORS.ink}" stroke-width="2"/><line x1="${x0}" y1="${yGround-floorH}" x2="${x0+houseW}" y2="${yGround-floorH}" stroke="${COLORS.ink}" stroke-width="2"/><line x1="${x0}" y1="${homeTop}" x2="${x0+houseW}" y2="${homeTop}" stroke="${COLORS.roof}" stroke-width="1" opacity=".25" data-plate-datum="working"/>${homeRoofSvg}<path d="M ${x0+houseW*.15} ${yGround-18} L ${x0+houseW*.35} ${yGround-floorH+18} L ${x0+houseW*.5} ${yGround-floorH+18}" fill="none" stroke="${COLORS.door}" stroke-width="5"/><text x="${x0+houseW/2}" y="${yGround-floorH-10}" text-anchor="middle" font-size="11" font-weight="900" fill="${COLORS.ink}">UPPER · 3 BEDROOM PROGRAM</text><text x="${x0+houseW/2}" y="${yGround-18}" text-anchor="middle" font-size="11" font-weight="900" fill="${COLORS.ink}">GROUND · LIVING / KITCHEN / FLEX / SERVICE</text>${homeExact?'':`<text x="${x0+houseW/2}" y="${homeTop-12}" text-anchor="middle" font-size="9" font-weight="900" fill="${COLORS.warn}">${roofWithheldLabel(homeStatus)}</text>`}</g><g data-roof-owner="${garageStatus.ownerId}" data-roof-status="${garageStatus.status}" data-roof-render-policy="${garageExact?'EXACT_SECTION_INTERSECTION':roofViewPolicy(garageStatus)}"><rect x="${garageLeft}" y="${garageTop}" width="${gW}" height="100" fill="${COLORS.garage}" fill-opacity=".72" stroke="${COLORS.ink}" stroke-width="2"/><line x1="${garageLeft}" y1="${garageTop}" x2="${garageLeft+gW}" y2="${garageTop}" stroke="${COLORS.roof}" stroke-width="1" opacity=".25" data-plate-datum="working"/>${garageRoofSvg}<text x="${garageLeft+gW/2}" y="${yGround-44}" text-anchor="middle" font-size="11" font-weight="900">DETACHED GARAGE ${unit}</text><text x="${garageLeft+gW/2}" y="${yGround-25}" text-anchor="middle" font-size="10">22×22 · no living space</text>${garageExact?'':`<text x="${garageLeft+gW/2}" y="${garageTop-12}" text-anchor="middle" font-size="8.5" font-weight="900" fill="${COLORS.warn}">${roofWithheldLabel(garageStatus)}</text>`}</g><g transform="translate(62,560)"><text font-size="10.5" fill="${COLORS.warn}">Roof section lines are exact intersections of the imported solved 3D roof faces with the stated cut plane.</text><text y="17" font-size="9.5" fill="${COLORS.muted}">Wall/floor program remains design-development; foundations, structure, fire separation, MEP, civil, drainage and permit validation remain professional/AHJ work.</text></g></svg>`;
 }
 
@@ -203,7 +244,7 @@ function analyze(){
   return {rev:REV,verdict:'CONDITIONAL',plan:p,geometry:g,roof,checks:{planGeometry:{ok:p.verdict==='PASS',blocking:true},sharedOpenings:{ok:OPENINGS.length>=10,blocking:true},openingContract:{ok:contractOk,doorStroke:COLORS.door,windowStroke:COLORS.window,blocking:true},polygonFaces:{ok:south.length===2&&west.length===2,homeBSouthSegments:south.length,homeBWestSegments:west.length,blocking:true},roofContract:{ok:roofContractOk,status:roof?.status||'UNAVAILABLE',locked:roof?.locked||0,required:roof?.required||4,exactProjection:exactRoofProjection,renderPolicy:roof?.status!=='AUTHORITATIVE_ALLOWED'?'SUPPRESS_ROOF':exactRoofProjection?'EXACT_SURFACE_PROJECTOR_ACTIVE':'EXACT_VIEW_PROJECTOR_REQUIRED',blocking:true},sameCamera:{ok:true,blocking:true},professionalValidation:{ok:false,status:'PENDING',blocking:false}},note:exactRoofProjection?'Design-development concept package with roof geometry projected directly from validated LotScope 3D surface faces. Structural/code/AHJ/permit validation remains separate.':'Design-development concept package only; roof silhouette remains withheld until validated 3D surface faces are available. Accessory zoning and inter-garage spacing remain conditional.'};
 }
 
-const api={REV,HEIGHTS,OPENINGS,analyze,renderElev,renderAxon,renderSection,projectOpening,faceSegments,openingKind,roofViewPolicy,roofWithheldLabel,roofSurfaceFacesReady,projectedRoofFacesForElevation,projectedRoofFacesForAxon,roofSectionSegments,projectedRoofSection,P};
+const api={REV,HEIGHTS,OPENINGS,analyze,renderElev,renderAxon,renderSection,projectOpening,faceSegments,openingKind,roofViewPolicy,roofWithheldLabel,roofSurfaceFacesReady,roofSurfaceEdgeClasses,projectedRoofFacesForElevation,projectedRoofFacesForAxon,roofSectionSegments,projectedRoofSection,P};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
 global.Lot2Design4Architecture=api;
 })(typeof window!=='undefined'?window:globalThis);
