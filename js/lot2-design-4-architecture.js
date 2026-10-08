@@ -53,6 +53,16 @@ function roofStatus(kind,unit){
 }
 function roofViewPolicy(status){return status.authoritative?'LOCKED_DATA_AWAITING_EXACT_VIEW_PROJECTOR':'SUPPRESS_ROOF'}
 function roofWithheldLabel(status){return status.authoritative?'ROOF GEOMETRY LOCKED · EXACT VIEW PROJECTOR PENDING':'ROOF GEOMETRY WITHHELD · NOT GEOMETRY LOCKED'}
+function elevationRoofFooter(kind,face,exact){
+  if(exact){
+    return kind==='garage'
+      ? (face==='east'?'22×22 detached garage · 20′ modeled east opening · solved roof surface':'22×22 detached garage · solid wall on this face · solved roof surface')
+      : 'wall faces/openings + solved roof surface from shared model';
+  }
+  return kind==='garage'
+    ? (face==='east'?'22×22 detached garage · 20′ modeled east opening · roof withheld':'22×22 detached garage · solid wall on this face · roof withheld')
+    : 'wall faces/openings from shared model · roof silhouette withheld until Workbench geometry lock';
+}
 function roofRecord(kind,unit){
   return ROOF&&typeof ROOF.roofForOwner==='function'?ROOF.roofForOwner(roofOwnerId(kind,unit)):null;
 }
@@ -179,9 +189,7 @@ function elevationBand({unit,face,x,y,w,h,title,kind='home'}){
   const openings=faceOpenings(unit,face).filter(o=>(kind==='garage'?o.role==='garage-overhead':o.role!=='garage-overhead')&&openingOnSegments(o,segs,face));
   for(const o of openings){const ax=faceAxis(face,o),left=left0+(Math.min(...ax)-span[0])*scale,ow=Math.max(7,openingLength(o)*scale),zScale=scale,top=wallY+wallH-o.z2*zScale,oh=Math.max(8,(o.z2-o.z1)*zScale),type=openingKind(o.role);out+=`<rect x="${left}" y="${top}" width="${ow}" height="${oh}" rx="1.5" fill="${openingFill(o.role)}" stroke="${openingStroke(o.role)}" stroke-width="2.4" data-opening="${type}" data-opening-id="${o.id}" data-opening-role="${o.role}" data-derived="world"/>`;}
   if(!openings.length)out+=`<rect x="${left0+drawW/2-64}" y="${wallY+wallH/2-10}" width="128" height="20" rx="10" fill="#fff" fill-opacity=".82"/><text x="${left0+drawW/2}" y="${wallY+wallH/2+3.5}" text-anchor="middle" font-size="8" font-weight="900" fill="${COLORS.muted}">NO MODELED OPENINGS</text>`;
-  out+=`<text x="${x+w/2}" y="${y+h-20}" text-anchor="middle" font-size="9.5" font-weight="800" fill="${COLORS.ink}">VISIBLE SPAN ${worldW.toFixed(2)}′ · WORKING WALL DATUM ${kind==='garage'?HEIGHTS.garage:HEIGHTS.home}′ · COMMON SCALE ${scale.toFixed(1)} PX/FT</text><text x="${x+w/2}" y="${y+h-7}" text-anchor="middle" font-size="8.8" fill="${COLORS.muted}">${kind==='garage'
-    ? (face==='east'?'22×22 detached garage · 20′ modeled east opening · solved roof surface':'22×22 detached garage · solid wall on this face · solved roof surface')
-    : 'wall faces/openings + solved roof surface from shared model'}</text></g>`;return out;
+  out+=`<text x="${x+w/2}" y="${y+h-20}" text-anchor="middle" font-size="9.5" font-weight="800" fill="${COLORS.ink}">VISIBLE SPAN ${worldW.toFixed(2)}′ · WORKING WALL DATUM ${kind==='garage'?HEIGHTS.garage:HEIGHTS.home}′ · COMMON SCALE ${scale.toFixed(1)} PX/FT</text><text x="${x+w/2}" y="${y+h-7}" text-anchor="middle" font-size="8.8" fill="${COLORS.muted}">${elevationRoofFooter(kind,face,roofSurfaceFacesReady(roof))}</text></g>`;return out;
 }
 
 function renderElev(face){const labels={east:'A-201 · Pennsylvania / east elevation',west:'A-202 · rear / west elevation',north:'A-203 · north elevation',south:'A-204 · south elevation'},title=labels[face]||labels.east,W=1200,H=760,garageLabel=face==='east'?'20′ OVERHEAD OPENING':'SOLID GARAGE WALL';return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Design 4 ${face} geometry-first elevations" data-arch-rev="${REV}" data-elevation-face="${face}" data-openings-source="shared-world-model" data-garages-all-faces="true" data-common-scale-px-per-ft="8.5"><rect width="${W}" height="${H}" fill="${COLORS.paper}"/><text x="62" y="50" font-family="Georgia,serif" font-size="29" font-weight="700" fill="${COLORS.ink}">${title}</text><text x="62" y="78" font-size="13" fill="${COLORS.muted}">Geometry-first · homes and garages use one common graphic scale · walls/openings + roof surfaces project from the shared solved model</text>${elevationBand({unit:'B',face,x:62,y:108,w:510,h:255,title:'HOME B'})}${elevationBand({unit:'A',face,x:628,y:108,w:510,h:255,title:'HOME A'})}${elevationBand({unit:'B',face,x:62,y:410,w:510,h:240,title:`GARAGE B · ${garageLabel}`,kind:'garage'})}${elevationBand({unit:'A',face,x:628,y:410,w:510,h:240,title:`GARAGE A · ${garageLabel}`,kind:'garage'})}<g transform="translate(62,676)"><text font-size="10.2" fill="${COLORS.warn}">Accuracy boundary: wall faces and openings are coordinate-derived; vertical wall heights are working design datums.</text><text y="17" font-size="9.2" fill="${COLORS.muted}">Solved roof surfaces are projected directly from the LotScope roof SOT when face geometry is present; otherwise the view fails closed.</text></g>${renderViewKey(face,875,672,260,66)}</svg>`;}
@@ -205,7 +213,7 @@ function analyze(){
   return {rev:REV,verdict:'CONDITIONAL',plan:p,geometry:g,roof,checks:{planGeometry:{ok:p.verdict==='PASS',blocking:true},sharedOpenings:{ok:OPENINGS.length>=10,blocking:true},openingContract:{ok:contractOk,doorStroke:COLORS.door,windowStroke:COLORS.window,blocking:true},polygonFaces:{ok:south.length===2&&west.length===2,homeBSouthSegments:south.length,homeBWestSegments:west.length,blocking:true},roofContract:{ok:roofContractOk,status:roof?.status||'UNAVAILABLE',locked:roof?.locked||0,required:roof?.required||4,exactProjection:exactRoofProjection,renderPolicy:roof?.status!=='AUTHORITATIVE_ALLOWED'?'SUPPRESS_ROOF':exactRoofProjection?'EXACT_SURFACE_PROJECTOR_ACTIVE':'EXACT_VIEW_PROJECTOR_REQUIRED',blocking:true},sameCamera:{ok:true,blocking:true},professionalValidation:{ok:false,status:'PENDING',blocking:false}},note:exactRoofProjection?'Design-development concept package with roof geometry projected directly from validated LotScope 3D surface faces. Structural/code/AHJ/permit validation remains separate.':'Design-development concept package only; roof silhouette remains withheld until validated 3D surface faces are available. Accessory zoning and inter-garage spacing remain conditional.'};
 }
 
-const api={REV,HEIGHTS,OPENINGS,analyze,renderElev,renderAxon,renderSection,projectOpening,faceSegments,openingKind,roofViewPolicy,roofWithheldLabel,roofSurfaceFacesReady,projectedRoofFacesForElevation,projectedRoofFacesForAxon,roofSectionSegments,projectedRoofSection,P};
+const api={REV,HEIGHTS,OPENINGS,analyze,renderElev,renderAxon,renderSection,projectOpening,faceSegments,openingKind,roofViewPolicy,roofWithheldLabel,elevationRoofFooter,roofSurfaceFacesReady,projectedRoofFacesForElevation,projectedRoofFacesForAxon,roofSectionSegments,projectedRoofSection,P};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
 global.Lot2Design4Architecture=api;
 })(typeof window!=='undefined'?window:globalThis);
