@@ -97,6 +97,14 @@ for(const face of ['east','west','north','south']){
   assert(svg.includes('data-roof-surface-face='),face+' must carry source face ids for auditability');
   assert(!svg.includes('EXACT VIEW PROJECTOR PENDING'),face+' must not claim the projector is pending once surface faces are present');
   assert(!svg.includes('CONCEPT ROOF'),face+' must not draw a generic concept roof');
+  assert(!/roof withheld|roof silhouette withheld/i.test(svg),face+' must not carry stale suppression language once exact surfaces are active');
+  const projectorGroups=[...svg.matchAll(/<g data-roof-projector="EXACT_SURFACE_FACES"[^>]*>([\s\S]*?)<\/g>/g)].map(match=>match[1]);
+  assert(projectorGroups.length>=4,face+' must emit one exact roof projector group per Design 4 building');
+  for(const [groupIndex,group] of projectorGroups.entries()){
+    const depths=[...group.matchAll(/data-roof-depth="(-?\d+(?:\.\d+)?)"/g)].map(match=>Number(match[1]));
+    assert(depths.length>0,face+' roof group '+groupIndex+' must expose depth metadata');
+    for(let i=1;i<depths.length;i++)assert(depths[i]>=depths[i-1]-1e-9,face+' roof group '+groupIndex+' must be emitted far-to-near in monotonic painter order');
+  }
 }
 for(const unit of ['A','B']){
   const svg=ARCH.renderSection(unit);
@@ -106,6 +114,20 @@ for(const unit of ['A','B']){
   assert(svg.includes('data-roof-surface-face='),unit+' section must retain source surface-face ids');
   assert(svg.includes('data-plate-datum="working"'),unit+' section must retain plate datum context');
   assert(!svg.includes('PROJECTOR PENDING'),unit+' section must not claim the projector is pending');
+  const homeScale=Number((svg.match(/data-home-section-scale-px-per-ft="([^"]+)"/)||[])[1]);
+  const garageScale=Number((svg.match(/data-garage-section-scale-px-per-ft="([^"]+)"/)||[])[1]);
+  assert(Number.isFinite(homeScale)&&homeScale>0,unit+' home section scale must be finite');
+  assert(Number.isFinite(garageScale)&&garageScale>0,unit+' garage section scale must be finite');
+  const homeTop=520-ARCH.HEIGHTS.home*homeScale;
+  const garageTop=520-ARCH.HEIGHTS.garage*garageScale;
+  assert(svg.includes(`y="${homeTop}"`),unit+' home wall top must use the same vertical scale as the roof plate');
+  assert(svg.includes(`y="${garageTop}"`),unit+' garage wall top must use the same vertical scale as the roof plate');
+  const homeRoof=ROOF.roofForOwner('home-'+unit.toLowerCase());
+  const garageRoof=ROOF.roofForOwner('garage-'+unit.toLowerCase());
+  const homePlate=Math.min(...homeRoof.surfaceFaces.flatMap(face=>face.polygon.map(point=>point[2])));
+  const garagePlate=Math.min(...garageRoof.surfaceFaces.flatMap(face=>face.polygon.map(point=>point[2])));
+  assert(Math.abs(homePlate-ARCH.HEIGHTS.home)<1e-6,unit+' home roof surface plate must match wall datum');
+  assert(Math.abs(garagePlate-ARCH.HEIGHTS.garage)<1e-6,unit+' garage roof surface plate must match wall datum');
 }
 const architectureSource=fs.readFileSync(path.join(root,'js','lot2-design-4-architecture.js'),'utf8');
 assert(!architectureSource.includes('function roofPath('),'generic roof triangle helper must not exist');
@@ -127,6 +149,10 @@ assert.equal(ARCH.roofViewPolicy({authoritative:false}),'SUPPRESS_ROOF');
 assert.equal(ARCH.roofViewPolicy({authoritative:true}),'LOCKED_DATA_AWAITING_EXACT_VIEW_PROJECTOR');
 assert.match(ARCH.roofWithheldLabel({authoritative:true}),/GEOMETRY LOCKED.*PROJECTOR PENDING/i);
 assert(!/NOT GEOMETRY LOCKED/i.test(ARCH.roofWithheldLabel({authoritative:true})),'authoritative roofs must not be labeled as unlocked while awaiting exact projection');
+assert.match(ARCH.elevationRoofFooter('home','north',false),/roof silhouette withheld/i,'fail-closed home footer must preserve withheld disclosure');
+assert.match(ARCH.elevationRoofFooter('garage','east',false),/roof withheld/i,'fail-closed garage footer must preserve withheld disclosure');
+assert.match(ARCH.elevationRoofFooter('home','north',true),/solved roof surface/i,'exact home footer must identify solved roof surface');
+assert.match(ARCH.elevationRoofFooter('garage','east',true),/solved roof surface/i,'exact garage footer must identify solved roof surface');
 
 for(const file of ['design-4.html','d4-elevs.html','d4-axon.html','d4-sections.html']){
   const html=fs.readFileSync(path.join(root,file),'utf8');
