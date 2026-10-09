@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aerovista.us/schemas/pondy-sheet-document-v0.1.schema.json",
+  "title": "Pondy architectural sheet document",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "documentId", "title", "units", "orientation", "design", "sources", "geometry", "gates", "sheets"],
+  "properties": {
+    "schemaVersion": { "const": "pondy-sheet-document-v0.1" },
+    "documentId": { "type": "string", "minLength": 1 },
+    "title": { "type": "string", "minLength": 1 },
+    "units": { "const": "ft" },
+    "orientation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["front", "northRear"],
+      "properties": {
+        "front": { "const": "pennsylvania-right" },
+        "northRear": { "const": "left" }
+      }
+    },
+    "design": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "revision", "status"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "revision": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "minLength": 1 }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/source" }
+    },
+    "geometry": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/geometryRef" }
+    },
+    "gates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/gate" }
+    },
+    "sheets": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/sheet" }
+    }
+  },
+  "$defs": {
+    "authority": {
+      "enum": ["FROZEN", "PROMOTED", "PLAN_GATED", "ARCHITECTURE_AUTHORED", "LOCKED_EXTERNAL", "EVIDENCE", "PRESENTATION"]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "path", "revision", "authority", "status"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "minLength": 1 },
+        "revision": { "type": "string", "minLength": 1 },
+        "authority": { "$ref": "#/$defs/authority" },
+        "status": { "type": "string", "minLength": 1 },
+        "note": { "type": "string" }
+      }
+    },
+    "geometryRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "sourceId", "selector", "authority", "status"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "kind": {
+          "enum": ["polygon2", "polyline2", "rect2", "point2", "point3", "collection", "constraint-set", "datum-set", "roof-model", "vehicle-model"]
+        },
+        "sourceId": { "type": "string", "minLength": 1 },
+        "selector": { "type": "string", "minLength": 1 },
+        "authority": { "$ref": "#/$defs/authority" },
+        "status": { "type": "string", "minLength": 1 },
+        "note": { "type": "string" }
+      }
+    },
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "status", "blocking"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "minLength": 1 },
+        "blocking": { "type": "boolean" },
+        "sourceIds": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "note": { "type": "string" }
+      }
+    },
+    "scale": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "label"],
+      "properties": {
+        "kind": { "enum": ["fit", "architectural", "engineering"] },
+        "label": { "type": "string", "minLength": 1 },
+        "paperUnits": { "type": "number" },
+        "modelUnits": { "type": "number" }
+      }
+    },
+    "dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "geometryRefs", "valuePolicy"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["linear", "aligned", "angular", "radius", "area", "elevation"] },
+        "geometryRefs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "valuePolicy": { "enum": ["derive", "literal"] },
+        "value": { "type": "number" },
+        "precision": { "type": "integer", "minimum": 0, "maximum": 6 },
+        "prefix": { "type": "string" },
+        "suffix": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "annotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "text"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["note", "label", "keynote", "status"] },
+        "text": { "type": "string", "minLength": 1 },
+        "geometryRefs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "drawing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "title", "geometryRefs", "scale", "dimensions", "annotations", "gateRefs"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["site-plan", "vehicle-proof", "floor-plan", "relationship-plan", "elevation", "section", "axonometric"] },
+        "title": { "type": "string", "minLength": 1 },
+        "geometryRefs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "scale": { "$ref": "#/$defs/scale" },
+        "dimensions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/dimension" }
+        },
+        "annotations": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/annotation" }
+        },
+        "gateRefs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "sheet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "sequence", "title", "drawings"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "sequence": { "type": "integer", "minimum": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "drawings": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/drawing" }
+        }
+      }
+    }
+  }
+}

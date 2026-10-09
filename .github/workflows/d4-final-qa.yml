@@ -6,6 +6,11 @@ on:
   pull_request:
     paths:
       - 'js/lot2-design-4*.js'
+      - 'js/lot2-sheet-document-schema.js'
+      - 'schemas/**'
+      - 'scripts/sheet-document-gates.js'
+      - 'docs/architectural-sheet-engine-*.md'
+      - 'docs/architectural-sheet-document-schema.md'
       - 'scripts/d4-*.js'
       - 'scripts/d4-*.mjs'
       - 'scripts/export-design4.js'
@@ -43,9 +48,13 @@ jobs:
           node --check js/lot2-design-4.js
           node --check js/lot2-design-4-plan-closure.js
           node --check js/lot2-design-4-architecture.js
+          node --check js/lot2-sheet-document-schema.js
+          node --check js/lot2-design-4-sheet-document.js
+          node --check scripts/sheet-document-gates.js
           node --check scripts/d4-workbench-search-v2.js
           node --check scripts/export-design4.js
           node scripts/d4-roof-sot-gates.js
+          node scripts/sheet-document-gates.js
           node <<'NODE'
           const assert=require('assert');
           const d=require('./js/lot2-design-4.js');

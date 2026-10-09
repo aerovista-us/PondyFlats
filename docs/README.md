@@ -24,6 +24,8 @@ Live: [`../r51e.html`](../r51e.html) · [`lot2-r51e-architectural-massing.md`](l
 
 | Doc | Topic |
 | --- | ----- |
+| [architectural-sheet-engine-s0-geometry-inventory.md](architectural-sheet-engine-s0-geometry-inventory.md) | **S0** · Design 4 geometry ownership, authority classes, duplicate/drift inventory |
+| [architectural-sheet-document-schema.md](architectural-sheet-document-schema.md) | **Sheet engine v0.1** · common source/geometry/gate/sheet/dimension contract |
 | [lot2-shift-handoff-2026-08-23.md](lot2-shift-handoff-2026-08-23.md) | **End of shift** · next-session start here |
 | [lot2-r51e-v11.md](lot2-r51e-v11.md) | **Live** · R5.1e-v1.1 demising correction · program gate PASS |
 | [lot2-status-conflicts.md](lot2-status-conflicts.md) | **FLAGGED** contradictions kept for path review |
