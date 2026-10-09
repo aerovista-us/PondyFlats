@@ -7,6 +7,11 @@ on:
     paths:
       - 'js/lot2-design-4*.js'
       - 'js/lot2-sheet-document-schema.js'
+      - 'js/lot2-sheet-dimensions.js'
+      - 'prototypes/**'
+      - 'scripts/render-d4-dimension-prototype.js'
+      - 'scripts/d4-dimension-prototype-gates.js'
+      - 'docs/architectural-dimension-prototype.md'
       - 'schemas/**'
       - 'scripts/sheet-document-gates.js'
       - 'docs/architectural-sheet-engine-*.md'
@@ -55,6 +60,7 @@ jobs:
           node --check scripts/export-design4.js
           node scripts/d4-roof-sot-gates.js
           node scripts/sheet-document-gates.js
+          node scripts/d4-dimension-prototype-gates.js
           node <<'NODE'
           const assert=require('assert');
           const d=require('./js/lot2-design-4.js');
