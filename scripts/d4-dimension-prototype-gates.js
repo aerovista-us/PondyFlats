@@ -38,7 +38,7 @@ for(const [sheet,specs] of [['A-001',site],['A-101',plan]]){
 }
 // Validate both the responsive and actual 1/8-inch paper viewports.
 for(const [sheet,specs] of [['A-001',site],['A-101',plan]]){
- const viewportPrint={ox:320,oy:400,pxPerFt:12};
+ const viewportPrint=sheet==='A-101'?{ox:-400,oy:650,pxPerFt:24}:{ox:320,oy:400,pxPerFt:12};
  const located=D.layout(specs,viewportPrint);
  for(const d of located){
   assert(d.box.x>=96&&d.box.y>=96&&d.box.x+d.box.w<=3360&&d.box.y+d.box.h<=2208,sheet+' print frame overflow: '+d.id);

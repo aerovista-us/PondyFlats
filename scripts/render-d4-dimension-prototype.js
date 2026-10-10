@@ -56,23 +56,29 @@ fs.writeFileSync(path.join(root,'prototypes','design4-dimensions.html'),html);
 // Fixed-size paper proofs: physical model units are mapped at 96 CSS pixels/inch.
 // These are print-only proofs and remain separate from the responsive customer site.
 for(const row of sections){
- const scale=D.modelScale({paperInches:0.125,modelFeet:1});
- const page=D.paperFrame({widthIn:36,heightIn:24,marginIn:2,modelWidthFt:148,modelHeightFt:58,scale});
+ const scale=D.modelScale({paperInches:row.id==='A-101'?0.25:0.125,modelFeet:1});
+ const page=D.paperFrame({widthIn:36,heightIn:24,marginIn:2,modelWidthFt:row.id==='A-101'?74:148,modelHeightFt:row.id==='A-101'?27:58,scale});
  const px=96*scale.inchPerFoot;
- const printViewport={ox:320,oy:400,pxPerFt:px,obstacles:[]};
+ const printViewport={ox:row.id==='A-101'?-400:320,oy:row.id==='A-101'?650:400,pxPerFt:px,obstacles:[]};
  const specs=AD.specifications(row.id);
+ let roomText='';
  printViewport.obstacles=annotations(row.id,printViewport);
  let printShapes=row.id==='A-001'?shape(SOT.SURVEY,'parcel','',printViewport):'';
  if(row.id==='A-001'){
   printShapes+=D4.HOMES.map(item=>shape(item,'home','',printViewport)).join('');
   printShapes+=D4.GARAGES.map(item=>shape(item,'garage','',printViewport)).join('');
  }else{for(const unit of ['B','A']){printShapes+=shape(PLAN.SHELLS[unit].poly,'home','',printViewport);
-  printShapes+=PLAN.ROOMS.ground[unit].map(item=>shape({x:item.x,y:item.y,w:item.w,d:item.d},'room','',printViewport)).join('');}}
+  printShapes+=PLAN.ROOMS.ground[unit].map(item=>shape({x:item.x,y:item.y,w:item.w,d:item.d},'room','',printViewport)).join('');
+  roomText+=PLAN.ROOMS.ground[unit].map(item=>{const label=item.name.split(' / ')[0].toUpperCase();
+   const x=printViewport.ox+(item.x+item.w/2)*px,y=printViewport.oy+(item.y+item.d/2)*px;
+   const font=Math.min(17,Math.max(8,item.w*px/(label.length*.65+1)));
+   return '<text x="'+x.toFixed(2)+'" y="'+y.toFixed(2)+'" font-family="sans-serif" font-size="'+font.toFixed(1)+'" fill="#1f3045" text-anchor="middle" stroke="none">'+label+'</text>';
+  }).join('');}}
  const paperSvg='<svg xmlns="http://www.w3.org/2000/svg" width="36in" height="24in" viewBox="0 0 3456 2304">'+
  '<rect width="3456" height="2304" fill="white"/><rect x="96" y="96" width="3264" height="2112" fill="none" stroke="#222" stroke-width="2"/>'+
  '<text x="175" y="180" font-family="sans-serif" font-size="38">PONDY FLATS · DESIGN 4 · '+row.id+'</text>'+
- '<text x="175" y="225" font-family="sans-serif" font-size="24">1/8″ = 1′-0″ · 36 × 24 inch proof · NOT FOR CONSTRUCTION</text>'+
- '<g fill="#e9ca91" stroke="#334155" stroke-width="2">'+printShapes+'</g>'+D.renderSvg(specs,printViewport)+
+ '<text x="175" y="225" font-family="sans-serif" font-size="24">'+scale.label+' · 36 × 24 inch proof · NOT FOR CONSTRUCTION</text>'+
+ '<g fill="#e9ca91" stroke="#334155" stroke-width="2">'+printShapes+'</g>'+roomText+D.renderSvg(specs,printViewport)+
  '<text x="175" y="2120" font-family="sans-serif" font-size="21">SOURCE-GEOMETRY STUDY · ZONING / AHJ / PROFESSIONAL REVIEW PENDING</text></svg>';
  fs.writeFileSync(path.join(root,'prototypes',row.id+'-print-proof.svg'),paperSvg);
  if(page.physicalModelWidthIn!==18.5)throw Error('Paper scale calculation drift');

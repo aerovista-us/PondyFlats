@@ -18,3 +18,9 @@ Evidence: actual Chromium full-sheet 3456 × 2304 browser captures of SVG paper 
 5. Mobile now pans horizontally instead of shrinking but still requires an explicit usability acceptance for both sheets.
 
 **Release policy:** do not merge to main as a customer-ready sheet and do not publish S3 dimensions. PR #43/#44 remain work-in-progress until the above gates pass. 
+
+## Follow-up corrections (same day)
+- A-101 print background corrected: parcel no longer rendered as a filled ground-plan backdrop.
+- A-101 physical scale changed to 1/4 inch = 1 foot; the overall two-house floor plan fits within 36×24-inch margins and occupies materially more printable space.
+- A-101 now identifies all 14 ground-level plan room zones with source-derived, bounded short labels. Full-page Chromium rendering inspected after this correction.
+- **Status remains not accepted for publication** pending automated extension-line/tick collision checks, print device calibration, professional sheet metadata and exact-head CI for these changes.
