@@ -8,22 +8,22 @@ const D4=require('../js/lot2-design-4.js');
 const PLAN=require('../js/lot2-design-4-plan-closure.js');
 const root=path.resolve(__dirname,'..');
 const viewport={ox:165,oy:155,pxPerFt:5.1};
-const points=poly=>poly.map(([x,y])=>(viewport.ox+x*viewport.pxPerFt).toFixed(2)+','+(viewport.oy+y*viewport.pxPerFt).toFixed(2)).join(' ');
-function shape(value,cls,label){
+const points=(poly,viewport)=>poly.map(([x,y])=>(viewport.ox+x*viewport.pxPerFt).toFixed(2)+','+(viewport.oy+y*viewport.pxPerFt).toFixed(2)).join(' ');
+function shape(value,cls,label,viewport){
  const poly=D.polygon(value),b=D.bounds(poly);
  const cx=viewport.ox+(b.minX+b.maxX)/2*viewport.pxPerFt,cy=viewport.oy+(b.minY+b.maxY)/2*viewport.pxPerFt;
- return '<polygon points="'+points(poly)+'" class="'+cls+'"/>'+(label?'<text x="'+cx+'" y="'+cy+'" class="shape-label" text-anchor="middle">'+label+'</text>':'');
+ return '<polygon points="'+points(poly,viewport)+'" class="'+cls+'"/>'+(label?'<text x="'+cx+'" y="'+cy+'" class="shape-label" text-anchor="middle">'+label+'</text>':'');
 }
 function sheet(id){
- let shapes=shape(SOT.SURVEY,'parcel');
+ let shapes=shape(SOT.SURVEY,'parcel','',viewport);
  if(id==='A-001'){
-  shapes+=D4.PAVEMENT.map(item=>shape(item.poly,'pavement')).join('');
-  shapes+=D4.HOMES.map(item=>shape(item,'home',item.id)).join('');
-  shapes+=D4.GARAGES.map(item=>shape(item,'garage',item.id)).join('');
+  shapes+=D4.PAVEMENT.map(item=>shape(item.poly,'pavement','',viewport)).join('');
+  shapes+=D4.HOMES.map(item=>shape(item,'home',item.id,viewport)).join('');
+  shapes+=D4.GARAGES.map(item=>shape(item,'garage',item.id,viewport)).join('');
  }else{
   for(const unit of ['B','A']){
-   shapes+=shape(PLAN.SHELLS[unit].poly,'home','');
-   shapes+=PLAN.ROOMS.ground[unit].map(item=>shape({x:item.x,y:item.y,w:item.w,d:item.d},'room',item.name.replace(' / ',' / '))).join('');
+   shapes+=shape(PLAN.SHELLS[unit].poly,'home','',viewport);
+   shapes+=PLAN.ROOMS.ground[unit].map(item=>shape({x:item.x,y:item.y,w:item.w,d:item.d},'room',item.name.replace(' / ',' / '),viewport)).join('');
   }
  }
  return '<svg class="drawing" viewBox="0 0 1180 660" xmlns="http://www.w3.org/2000/svg" aria-label="'+id+' dimension prototype">'+
@@ -41,4 +41,27 @@ const html='<!doctype html><html lang="en"><meta charset="utf-8"><meta name="vie
  '</main></html>';
 fs.mkdirSync(path.join(root,'prototypes'),{recursive:true});
 fs.writeFileSync(path.join(root,'prototypes','design4-dimensions.html'),html);
-console.log('WROTE prototypes/design4-dimensions.html');
+// Fixed-size paper proofs: physical model units are mapped at 96 CSS pixels/inch.
+// These are print-only proofs and remain separate from the responsive customer site.
+for(const row of sections){
+ const scale=D.modelScale({paperInches:0.125,modelFeet:1});
+ const page=D.paperFrame({widthIn:36,heightIn:24,marginIn:2,modelWidthFt:148,modelHeightFt:58,scale});
+ const px=96*scale.inchPerFoot;
+ const printViewport={ox:320,oy:400,pxPerFt:px,obstacles:[]};
+ const specs=AD.specifications(row.id);
+ let printShapes=shape(SOT.SURVEY,'parcel','',printViewport);
+ if(row.id==='A-001'){
+  printShapes+=D4.HOMES.map(item=>shape(item,'home',item.id,printViewport)).join('');
+  printShapes+=D4.GARAGES.map(item=>shape(item,'garage',item.id,printViewport)).join('');
+ }else{for(const unit of ['B','A']){printShapes+=shape(PLAN.SHELLS[unit].poly,'home','',printViewport);
+  printShapes+=PLAN.ROOMS.ground[unit].map(item=>shape({x:item.x,y:item.y,w:item.w,d:item.d},'room','',printViewport)).join('');}}
+ const paperSvg='<svg xmlns="http://www.w3.org/2000/svg" width="36in" height="24in" viewBox="0 0 3456 2304">'+
+ '<rect width="3456" height="2304" fill="white"/><rect x="96" y="96" width="3264" height="2112" fill="none" stroke="#222" stroke-width="2"/>'+
+ '<text x="175" y="180" font-family="sans-serif" font-size="38">PONDY FLATS · DESIGN 4 · '+row.id+'</text>'+
+ '<text x="175" y="225" font-family="sans-serif" font-size="24">1/8″ = 1′-0″ · 36 × 24 inch proof · NOT FOR CONSTRUCTION</text>'+
+ '<g fill="#e9ca91" stroke="#334155" stroke-width="2">'+printShapes+'</g>'+D.renderSvg(specs,printViewport)+
+ '<text x="175" y="2120" font-family="sans-serif" font-size="21">SOURCE-GEOMETRY STUDY · ZONING / AHJ / PROFESSIONAL REVIEW PENDING</text></svg>';
+ fs.writeFileSync(path.join(root,'prototypes',row.id+'-print-proof.svg'),paperSvg);
+ if(page.physicalModelWidthIn!==18.5)throw Error('Paper scale calculation drift');
+}
+console.log('WROTE responsive HTML and two fixed-size SVG print proofs');
