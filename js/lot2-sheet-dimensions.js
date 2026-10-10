@@ -28,8 +28,17 @@ function formatFeet(value,precision=2){if(!Number.isFinite(value))throw Error('N
 function project(p,viewport){return [viewport.ox+p[0]*viewport.pxPerFt,viewport.oy+p[1]*viewport.pxPerFt];}
 function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
 function intersects(a,b,pad=3){return a.x<b.x+b.w+pad&&a.x+a.w+pad>b.x&&a.y<b.y+b.h+pad&&a.y+a.h+pad>b.y;}
+function segmentTouchesBox(a,b,r,pad=2){
+ const box={x:r.x-pad,y:r.y-pad,w:r.w+pad*2,h:r.h+pad*2};
+ const inside=p=>p[0]>=box.x&&p[0]<=box.x+box.w&&p[1]>=box.y&&p[1]<=box.y+box.h;
+ if(inside(a)||inside(b))return true;
+ function cross(c,d,e){return (d[0]-c[0])*(e[1]-c[1])-(d[1]-c[1])*(e[0]-c[0]);}
+ function crossing(c,d,e,f){const ab=cross(c,d,e),ac=cross(c,d,f),cd=cross(e,f,c),ce=cross(e,f,d);return ab*ac<=0&&cd*ce<=0;}
+ const x=box.x,y=box.y,w=box.w,h=box.h;
+ return [[[x,y],[x+w,y]],[[x+w,y],[x+w,y+h]],[[x+w,y+h],[x,y+h]],[[x,y+h],[x,y]]].some(([c,d])=>crossing(a,b,c,d));
+}
 function layout(specs,viewport){
- const boxes=[],placed=[];
+ const boxes=[],placed=[],lines=[];
  for(const spec of specs){
   const m=spec.edgeIndex===undefined?measure(spec.geometry,spec.axis):measureEdge(spec.geometry,spec.edgeIndex);
   if(m.feet<=0)throw Error('Zero-length dimension '+spec.id);
@@ -43,10 +52,12 @@ function layout(specs,viewport){
    const mid=[(a[0]+b[0])/2+normal[0]*offset,(a[1]+b[1])/2+normal[1]*offset];
    const width=Math.max(28,label.length*7.8+12);
    const box={x:mid[0]-width/2,y:mid[1]-9,w:width,h:18};
-   if(![...boxes,...(viewport.obstacles||[])].some(other=>intersects(box,other))){chosen={mid,offset,box,lane};break;}
+   const ea=[a[0]+normal[0]*offset,a[1]+normal[1]*offset],eb=[b[0]+normal[0]*offset,b[1]+normal[1]*offset];
+   const occupied=[...boxes,...(viewport.obstacles||[])];
+   if(!occupied.some(other=>intersects(box,other)||segmentTouchesBox(ea,eb,other))&&!lines.some(([p,q])=>segmentTouchesBox(p,q,box))){chosen={mid,offset,box,lane,ea,eb};break;}
   }
   if(!chosen)throw Error('Dimension label collision '+spec.id);
-  boxes.push(chosen.box);
+  boxes.push(chosen.box);lines.push([chosen.ea,chosen.eb]);
   placed.push({id:spec.id,ref:spec.ref,feet:m.feet,label,a,b,normal,...chosen});
  }
  return placed;
@@ -74,7 +85,7 @@ function paperFrame({widthIn,heightIn,marginIn=0.5,modelWidthFt,modelHeightFt,sc
  return {widthIn,heightIn,marginIn,modelWidthFt,modelHeightFt,scale:scale.label,physicalModelWidthIn:modelWidthFt*scale.inchPerFoot,physicalModelHeightIn:modelHeightFt*scale.inchPerFoot};
 }
 function modelScale({paperInches,modelFeet}){if(!(paperInches>0&&modelFeet>0))throw Error('Invalid paper scale');return {kind:'architectural',paperInches,modelFeet,label:paperInches+'″ = '+modelFeet+'′-0″',inchPerFoot:paperInches/modelFeet};}
-const api=Object.freeze({polygon,bounds,measure,measureEdge,formatFeet,layout,renderSvg,modelScale,paperFrame});
+const api=Object.freeze({polygon,bounds,segmentTouchesBox,measure,measureEdge,formatFeet,layout,renderSvg,modelScale,paperFrame});
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
 root.PondySheetDimensions=api;
 })(typeof window!=='undefined'?window:globalThis);

@@ -28,6 +28,10 @@ for(const [sheet,specs] of [['A-001',site],['A-101',plan]]){
   const a=placed[i].box,b=placed[j].box;
   assert(!(a.x<b.x+b.w+3&&a.x+a.w+3>b.x&&a.y<b.y+b.h+3&&a.y+a.h+3>b.y),sheet+' labels collide');
  }
+ for(let i=0;i<placed.length;i++)for(let j=0;j<placed.length;j++){
+  if(i===j)continue;
+  assert(!D.segmentTouchesBox(placed[i].ea,placed[i].eb,placed[j].box),sheet+' dimension line crosses '+placed[j].id+' label');
+ }
  const svg=D.renderSvg(specs,viewport);
  assert.equal((svg.match(/data-dimension-id=/g)||[]).length,specs.length);
  assert(svg.includes('data-geometry-ref='));
