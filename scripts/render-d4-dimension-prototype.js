@@ -14,6 +14,18 @@ function shape(value,cls,label,viewport){
  const cx=viewport.ox+(b.minX+b.maxX)/2*viewport.pxPerFt,cy=viewport.oy+(b.minY+b.maxY)/2*viewport.pxPerFt;
  return '<polygon points="'+points(poly,viewport)+'" class="'+cls+'"/>'+(label?'<text x="'+cx+'" y="'+cy+'" class="shape-label" text-anchor="middle">'+label+'</text>':'');
 }
+function textObstacle(text,cx,cy){const w=Math.max(35,text.length*6.2+8);return {x:cx-w/2,y:cy-8,w,h:16};}
+function annotations(id,v){
+ const out=[];
+ function add(value,text){const b=D.bounds(D.polygon(value));out.push(textObstacle(text,v.ox+(b.minX+b.maxX)/2*v.pxPerFt,v.oy+(b.minY+b.maxY)/2*v.pxPerFt));}
+ if(id==='A-001'){
+  for(const item of D4.HOMES)add(item,'HOME '+item.unit);
+  for(const item of D4.GARAGES)add(item,'GARAGE '+item.unit);
+ }else{
+  for(const unit of ['A','B'])for(const room of PLAN.ROOMS.ground[unit])add({x:room.x,y:room.y,w:room.w,d:room.d},room.name);
+ }
+ return out;
+}
 function sheet(id){
  let shapes=shape(SOT.SURVEY,'parcel','',viewport);
  if(id==='A-001'){
@@ -28,7 +40,7 @@ function sheet(id){
  }
  return '<svg class="drawing" viewBox="0 0 1180 660" xmlns="http://www.w3.org/2000/svg" aria-label="'+id+' dimension prototype">'+
  '<style>.parcel{fill:#f2eee4;stroke:#303f51;stroke-width:2}.pavement{fill:#bac3c5;stroke:#78858a}.home{fill:#e9ca91;stroke:#695638;stroke-width:1.5}.garage{fill:#a4bdae;stroke:#526e60;stroke-width:1.5}.room{fill:#e9d29d;stroke:#73624a;stroke-width:1}.shape-label{font:10px system-ui;fill:#273442;font-weight:700}</style>'+
- shapes+D.renderSvg(AD.specifications(id),viewport)+'</svg>';
+ shapes+D.renderSvg(AD.specifications(id),{...viewport,obstacles:annotations(id,viewport)})+'</svg>';
 }
 const sections=[
  {id:'A-001',title:'SITE PLAN',detail:'Parcel overall X/Y extents, home widths and garage dimensions. The Y extent is NOT the Pennsylvania frontage.'},
@@ -49,10 +61,11 @@ for(const row of sections){
  const px=96*scale.inchPerFoot;
  const printViewport={ox:320,oy:400,pxPerFt:px,obstacles:[]};
  const specs=AD.specifications(row.id);
+ printViewport.obstacles=annotations(row.id,printViewport);
  let printShapes=shape(SOT.SURVEY,'parcel','',printViewport);
  if(row.id==='A-001'){
-  printShapes+=D4.HOMES.map(item=>shape(item,'home',item.id,printViewport)).join('');
-  printShapes+=D4.GARAGES.map(item=>shape(item,'garage',item.id,printViewport)).join('');
+  printShapes+=D4.HOMES.map(item=>shape(item,'home','',printViewport)).join('');
+  printShapes+=D4.GARAGES.map(item=>shape(item,'garage','',printViewport)).join('');
  }else{for(const unit of ['B','A']){printShapes+=shape(PLAN.SHELLS[unit].poly,'home','',printViewport);
   printShapes+=PLAN.ROOMS.ground[unit].map(item=>shape({x:item.x,y:item.y,w:item.w,d:item.d},'room','',printViewport)).join('');}}
  const paperSvg='<svg xmlns="http://www.w3.org/2000/svg" width="36in" height="24in" viewBox="0 0 3456 2304">'+
