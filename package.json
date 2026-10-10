@@ -10,6 +10,7 @@
     "gates:d4-roof": "node scripts/d4-roof-sot-gates.js",
     "gates:sheet-document": "node scripts/sheet-document-gates.js",
     "gates": "node scripts/r51e-deliverable-gates.js && node scripts/d2-deliverable-gates.js && node scripts/d3-render-qa.mjs /tmp/pondy-d3-gate && node scripts/export-packages.js && cd packages/design-3-client && D3_QA_PACKAGE=1 node ../../scripts/d3-render-qa.mjs /tmp/pondy-d3-package-gate && cd ../.. && node scripts/d4-roof-sot-gates.js && node scripts/sheet-document-gates.js",
-    "export": "node scripts/export-packages.js && node scripts/export-design4.js"
+    "export": "node scripts/export-packages.js && node scripts/export-design4.js",
+    "gates:d4-dimensions": "node scripts/d4-dimension-prototype-gates.js"
   }
 }
