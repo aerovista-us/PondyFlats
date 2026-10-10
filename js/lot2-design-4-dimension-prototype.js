@@ -20,12 +20,12 @@ function resolve(id){
 const defs={
  'A-001':[
   ['parcel.depth','parcel.boundary','x','before',27],
-  ['parcel.overall-y-extent','parcel.boundary','y','after',40],
-  ['parcel.pennsylvania-frontage','parcel.boundary','edge:1','after',64],
-  ['garage-a.width','d4.garage-a.footprint','x','before',22],
-  ['garage-a.depth','d4.garage-a.footprint','y','before',35],
+  ['parcel.overall-y-extent','parcel.boundary','y','after',110],
+  ['parcel.pennsylvania-frontage','parcel.boundary','edge:1','before',35],
+  ['garage-a.width','d4.garage-a.footprint','x','after',135],
+  ['garage-a.depth','d4.garage-a.footprint','y','before',138],
   ['garage-b.width','d4.garage-b.footprint','x','before',48],
-  ['garage-b.depth','d4.garage-b.footprint','y','before',22],
+  ['garage-b.depth','d4.garage-b.footprint','y','before',165],
   ['home-a.width','d4.home-a.footprint','x','before',38],
   ['home-b.width','d4.home-b.footprint','x','before',22]
  ],

@@ -18,8 +18,8 @@ function sheet(id){
  let shapes=shape(SOT.SURVEY,'parcel','',viewport);
  if(id==='A-001'){
   shapes+=D4.PAVEMENT.map(item=>shape(item.poly,'pavement','',viewport)).join('');
-  shapes+=D4.HOMES.map(item=>shape(item,'home',item.id,viewport)).join('');
-  shapes+=D4.GARAGES.map(item=>shape(item,'garage',item.id,viewport)).join('');
+  shapes+=D4.HOMES.map(item=>shape(item,'home','HOME '+item.unit,viewport)).join('');
+  shapes+=D4.GARAGES.map(item=>shape(item,'garage','GARAGE '+item.unit,viewport)).join('');
  }else{
   for(const unit of ['B','A']){
    shapes+=shape(PLAN.SHELLS[unit].poly,'home','',viewport);
