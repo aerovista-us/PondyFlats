@@ -62,7 +62,7 @@ for(const row of sections){
  const printViewport={ox:320,oy:400,pxPerFt:px,obstacles:[]};
  const specs=AD.specifications(row.id);
  printViewport.obstacles=annotations(row.id,printViewport);
- let printShapes=shape(SOT.SURVEY,'parcel','',printViewport);
+ let printShapes=row.id==='A-001'?shape(SOT.SURVEY,'parcel','',printViewport):'';
  if(row.id==='A-001'){
   printShapes+=D4.HOMES.map(item=>shape(item,'home','',printViewport)).join('');
   printShapes+=D4.GARAGES.map(item=>shape(item,'garage','',printViewport)).join('');
