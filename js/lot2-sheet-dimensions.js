@@ -38,7 +38,7 @@ function segmentTouchesBox(a,b,r,pad=2){
  return [[[x,y],[x+w,y]],[[x+w,y],[x+w,y+h]],[[x+w,y+h],[x,y+h]],[[x,y+h],[x,y]]].some(([c,d])=>crossing(a,b,c,d));
 }
 function layout(specs,viewport){
- const boxes=[],placed=[],lines=[];
+ const boxes=[],placed=[],lines=[],witnesses=[];
  for(const spec of specs){
   const m=spec.edgeIndex===undefined?measure(spec.geometry,spec.axis):measureEdge(spec.geometry,spec.edgeIndex);
   if(m.feet<=0)throw Error('Zero-length dimension '+spec.id);
@@ -54,11 +54,11 @@ function layout(specs,viewport){
    const box={x:mid[0]-width/2,y:mid[1]-9,w:width,h:18};
    const ea=[a[0]+normal[0]*offset,a[1]+normal[1]*offset],eb=[b[0]+normal[0]*offset,b[1]+normal[1]*offset];
    const occupied=[...boxes,...(viewport.obstacles||[])];
-   if(!occupied.some(other=>intersects(box,other)||segmentTouchesBox(ea,eb,other))&&!lines.some(([p,q])=>segmentTouchesBox(p,q,box))){chosen={mid,offset,box,lane,ea,eb};break;}
+   if(!occupied.some(other=>intersects(box,other)||segmentTouchesBox(ea,eb,other))&&!lines.some(([p,q])=>segmentTouchesBox(p,q,box))&&!witnesses.some(([p,q])=>segmentTouchesBox(p,q,box))){chosen={mid,offset,box,lane,ea,eb};break;}
   }
   if(!chosen)throw Error('Dimension label collision '+spec.id);
-  boxes.push(chosen.box);lines.push([chosen.ea,chosen.eb]);
-  placed.push({id:spec.id,ref:spec.ref,feet:m.feet,label,a,b,normal,...chosen});
+  boxes.push(chosen.box);lines.push([chosen.ea,chosen.eb]);witnesses.push([a,chosen.ea],[b,chosen.eb]);
+  placed.push({id:spec.id,ref:spec.ref,feet:m.feet,label,a,b,normal,witnessSegments:[[a,chosen.ea],[b,chosen.eb]],...chosen});
  }
  return placed;
 }

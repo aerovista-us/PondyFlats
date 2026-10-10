@@ -31,6 +31,8 @@ for(const [sheet,specs] of [['A-001',site],['A-101',plan]]){
  for(let i=0;i<placed.length;i++)for(let j=0;j<placed.length;j++){
   if(i===j)continue;
   assert(!D.segmentTouchesBox(placed[i].ea,placed[i].eb,placed[j].box),sheet+' dimension line crosses '+placed[j].id+' label');
+  for(const [a,b] of placed[i].witnessSegments)assert(!D.segmentTouchesBox(a,b,placed[j].box),sheet+' witness crosses '+placed[j].id+' label');
+  for(const tick of [placed[i].ea,placed[i].eb])assert(!D.segmentTouchesBox([tick[0]-4,tick[1]+4],[tick[0]+4,tick[1]-4],placed[j].box,0),sheet+' tick crosses '+placed[j].id+' label');
  }
  const svg=D.renderSvg(specs,viewport);
  assert.equal((svg.match(/data-dimension-id=/g)||[]).length,specs.length);
@@ -44,7 +46,10 @@ for(const [sheet,specs] of [['A-001',site],['A-101',plan]]){
   assert(d.box.x>=96&&d.box.y>=96&&d.box.x+d.box.w<=3360&&d.box.y+d.box.h<=2208,sheet+' print frame overflow: '+d.id);
  }
  for(let i=0;i<located.length;i++)for(let j=0;j<located.length;j++){
-  if(i!==j)assert(!D.segmentTouchesBox(located[i].ea,located[i].eb,located[j].box),sheet+' print dimension crosses another label');
+  if(i!==j){
+   assert(!D.segmentTouchesBox(located[i].ea,located[i].eb,located[j].box),sheet+' print dimension crosses another label');
+   for(const [a,b] of located[i].witnessSegments)assert(!D.segmentTouchesBox(a,b,located[j].box),sheet+' print witness crosses label');
+  }
  }
 }
 assert.deepEqual(AD.resolve('parcel.boundary'),SOT.SURVEY);
