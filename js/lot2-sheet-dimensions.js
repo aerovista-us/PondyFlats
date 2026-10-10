@@ -12,6 +12,12 @@ function bounds(poly){
  const xs=poly.map(p=>p[0]),ys=poly.map(p=>p[1]);
  return {minX:Math.min(...xs),maxX:Math.max(...xs),minY:Math.min(...ys),maxY:Math.max(...ys)};
 }
+function measureEdge(source,edgeIndex){
+ const poly=polygon(source);if(!Number.isInteger(edgeIndex)||edgeIndex<0||edgeIndex>=poly.length)throw Error('Invalid edge index');
+ const a=poly[edgeIndex],b=poly[(edgeIndex+1)%poly.length];
+ if(!finite(a)||!finite(b))throw Error('Invalid segment coordinates');
+ return {a,b,feet:Math.hypot(b[0]-a[0],b[1]-a[1])};
+}
 function measure(source,axis){
  const b=bounds(polygon(source));
  if(axis==='x')return {a:[b.minX,b.minY],b:[b.maxX,b.minY],feet:b.maxX-b.minX};
@@ -25,10 +31,11 @@ function intersects(a,b,pad=3){return a.x<b.x+b.w+pad&&a.x+a.w+pad>b.x&&a.y<b.y+
 function layout(specs,viewport){
  const boxes=[],placed=[];
  for(const spec of specs){
-  const m=measure(spec.geometry,spec.axis);
+  const m=spec.edgeIndex===undefined?measure(spec.geometry,spec.axis):measureEdge(spec.geometry,spec.edgeIndex);
   if(m.feet<=0)throw Error('Zero-length dimension '+spec.id);
   const a=project(m.a,viewport),b=project(m.b,viewport),horizontal=spec.axis==='x';
-  const normal=horizontal?[0,spec.side==='before'?-1:1]:[spec.side==='before'?-1:1,0];
+  const direction=[b[0]-a[0],b[1]-a[1]],length=Math.hypot(...direction);
+  const normal=spec.edgeIndex===undefined?(horizontal?[0,spec.side==='before'?-1:1]:[spec.side==='before'?-1:1,0]):[(-direction[1]/length)*(spec.side==='before'?-1:1),(direction[0]/length)*(spec.side==='before'?-1:1)];
   const label=spec.label||formatFeet(m.feet,spec.precision??2);
   let chosen=null;
   for(let lane=0;lane<20;lane++){
@@ -36,7 +43,7 @@ function layout(specs,viewport){
    const mid=[(a[0]+b[0])/2+normal[0]*offset,(a[1]+b[1])/2+normal[1]*offset];
    const width=Math.max(28,label.length*7.8+12);
    const box={x:mid[0]-width/2,y:mid[1]-9,w:width,h:18};
-   if(!boxes.some(other=>intersects(box,other))){chosen={mid,offset,box,lane};break;}
+   if(![...boxes,...(viewport.obstacles||[])].some(other=>intersects(box,other))){chosen={mid,offset,box,lane};break;}
   }
   if(!chosen)throw Error('Dimension label collision '+spec.id);
   boxes.push(chosen.box);
@@ -60,8 +67,14 @@ function renderSvg(specs,viewport,{stroke='#21354a'}={}){
  }).join('');
  return '<g class="dimension-layer" fill="none" stroke="'+stroke+'" stroke-width="1" vector-effect="non-scaling-stroke"><style>.dimension-layer text{font:12px system-ui,sans-serif;fill:'+stroke+';stroke:none}.dimension-layer .witness{opacity:.65}</style>'+svg+'</g>';
 }
+function paperFrame({widthIn,heightIn,marginIn=0.5,modelWidthFt,modelHeightFt,scale}){
+ if(!scale||![widthIn,heightIn,modelWidthFt,modelHeightFt].every(v=>Number.isFinite(v)&&v>0)||!(marginIn>=0))throw Error('Invalid paper frame');
+ const usableW=widthIn-2*marginIn,usableH=heightIn-2*marginIn;
+ if(modelWidthFt*scale.inchPerFoot>usableW+1e-8||modelHeightFt*scale.inchPerFoot>usableH+1e-8)throw Error('Drawing does not fit selected paper scale');
+ return {widthIn,heightIn,marginIn,modelWidthFt,modelHeightFt,scale:scale.label,physicalModelWidthIn:modelWidthFt*scale.inchPerFoot,physicalModelHeightIn:modelHeightFt*scale.inchPerFoot};
+}
 function modelScale({paperInches,modelFeet}){if(!(paperInches>0&&modelFeet>0))throw Error('Invalid paper scale');return {kind:'architectural',paperInches,modelFeet,label:paperInches+'″ = '+modelFeet+'′-0″',inchPerFoot:paperInches/modelFeet};}
-const api=Object.freeze({polygon,bounds,measure,formatFeet,layout,renderSvg,modelScale});
+const api=Object.freeze({polygon,bounds,measure,measureEdge,formatFeet,layout,renderSvg,modelScale,paperFrame});
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
 root.PondySheetDimensions=api;
 })(typeof window!=='undefined'?window:globalThis);
