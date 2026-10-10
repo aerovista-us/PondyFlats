@@ -36,6 +36,17 @@ for(const [sheet,specs] of [['A-001',site],['A-101',plan]]){
  assert.equal((svg.match(/data-dimension-id=/g)||[]).length,specs.length);
  assert(svg.includes('data-geometry-ref='));
 }
+// Validate both the responsive and actual 1/8-inch paper viewports.
+for(const [sheet,specs] of [['A-001',site],['A-101',plan]]){
+ const viewportPrint={ox:320,oy:400,pxPerFt:12};
+ const located=D.layout(specs,viewportPrint);
+ for(const d of located){
+  assert(d.box.x>=96&&d.box.y>=96&&d.box.x+d.box.w<=3360&&d.box.y+d.box.h<=2208,sheet+' print frame overflow: '+d.id);
+ }
+ for(let i=0;i<located.length;i++)for(let j=0;j<located.length;j++){
+  if(i!==j)assert(!D.segmentTouchesBox(located[i].ea,located[i].eb,located[j].box),sheet+' print dimension crosses another label');
+ }
+}
 assert.deepEqual(AD.resolve('parcel.boundary'),SOT.SURVEY);
 assert.deepEqual(AD.resolve('d4.plan.shell-b'),PLAN.SHELLS.B);
 assert.throws(()=>AD.resolve('missing.ref'));
