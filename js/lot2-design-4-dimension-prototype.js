@@ -23,7 +23,7 @@ const defs={
   ['parcel.overall-y-extent','parcel.boundary','y','before',110],
   ['parcel.pennsylvania-frontage','parcel.boundary','edge:1','before',35],
   ['garage-a.width','d4.garage-a.footprint','edge:2','before',90],
-  ['garage-a.depth','d4.garage-a.footprint','y','before',138],
+  ['garage-a.depth','d4.garage-a.footprint','y','after',40],
   ['garage-b.width','d4.garage-b.footprint','x','before',48],
   ['garage-b.depth','d4.garage-b.footprint','y','before',165],
   ['home-a.width','d4.home-a.footprint','x','before',38],
@@ -31,9 +31,9 @@ const defs={
  ],
  'A-101':[
   ['home-a.width','d4.plan.shell-a','x','before',27],
-  ['home-a.depth','d4.plan.shell-a','y','after',75],
+  ['home-a.depth','d4.plan.shell-a','y','after',315],
   ['home-b.width','d4.plan.shell-b','x','before',24],
-  ['home-b.depth','d4.plan.shell-b','y','before',36],
+  ['home-b.depth','d4.plan.shell-b','y','before',38,'min'],
   ['home-b.south-wing','d4.plan.shell-b','edge:2','before',45],
   ['home-b.reentrant','d4.plan.shell-b','edge:3','before',20]
  ]
@@ -43,9 +43,9 @@ function specifications(sheet){
  if(!drawing)throw Error('Unknown drawing '+sheet);
  const definitions=defs[sheet];
  if(!definitions)throw Error('No prototype dimensions for '+sheet);
- return definitions.map(([id,ref,axis,side,offsetPx])=>{
+ return definitions.map(([id,ref,axis,side,offsetPx,anchor])=>{
   if(!drawing.geometryRefs.includes(ref))throw Error('Drawing '+sheet+' does not permit '+ref);
-  return {id,ref,geometry:resolve(ref),axis:axis.startsWith('edge:')?undefined:axis,edgeIndex:axis.startsWith('edge:')?Number(axis.slice(5)):undefined,side,offsetPx};
+  return {id,ref,geometry:resolve(ref),axis:axis.startsWith('edge:')?undefined:axis,edgeIndex:axis.startsWith('edge:')?Number(axis.slice(5)):undefined,side,offsetPx,anchor};
  });
 }
 module.exports=Object.freeze({resolve,specifications});
