@@ -54,7 +54,13 @@ function layout(specs,viewport){
    const box={x:mid[0]-width/2,y:mid[1]-9,w:width,h:18};
    const ea=[a[0]+normal[0]*offset,a[1]+normal[1]*offset],eb=[b[0]+normal[0]*offset,b[1]+normal[1]*offset];
    const occupied=[...boxes,...(viewport.obstacles||[])];
-   if(!occupied.some(other=>intersects(box,other)||segmentTouchesBox(ea,eb,other))&&!lines.some(([p,q])=>segmentTouchesBox(p,q,box))&&!witnesses.some(([p,q])=>segmentTouchesBox(p,q,box))){chosen={mid,offset,box,lane,ea,eb};break;}
+   const candidateWitnesses=[[a,ea],[b,eb]];
+   const candidateTicks=[ea,eb].map(p=>[[p[0]-4,p[1]+4],[p[0]+4,p[1]-4]]);
+   const intersectsExistingLabels=occupied.some(other=>intersects(box,other)
+     ||segmentTouchesBox(ea,eb,other)
+     ||candidateWitnesses.some(([p,q])=>segmentTouchesBox(p,q,other))
+     ||candidateTicks.some(([p,q])=>segmentTouchesBox(p,q,other,0)));
+   if(!intersectsExistingLabels&&!lines.some(([p,q])=>segmentTouchesBox(p,q,box))&&!witnesses.some(([p,q])=>segmentTouchesBox(p,q,box))){chosen={mid,offset,box,lane,ea,eb};break;}
   }
   if(!chosen)throw Error('Dimension label collision '+spec.id);
   boxes.push(chosen.box);lines.push([chosen.ea,chosen.eb]);witnesses.push([a,chosen.ea],[b,chosen.eb]);
