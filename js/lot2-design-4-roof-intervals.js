@@ -3036,7 +3036,7 @@ const manifest={
   ]
 };
 const api={manifest,matchingOwner};
-function matchingOwner(roof,owner){if(!roof||!owner||!roof.surfaceFaces||roof.ownerId!==owner.ownerId||roof.ownerGeometryKey!==owner.ownerGeometryKey)return false;return JSON.stringify(roof.surfaceFaces.map(f=>[f.id,f.polygon]))===owner.surfaceFacesKey;}
+function matchingOwner(roof,owner){if(!roof||!owner||!Array.isArray(roof.surfaceFaces)||roof.surfaceFaces.some(f=>!f||typeof f.id!=="string"||!Array.isArray(f.polygon))||roof.ownerId!==owner.ownerId||roof.ownerGeometryKey!==owner.ownerGeometryKey)return false;return JSON.stringify(roof.surfaceFaces.map(f=>[f.id,f.polygon]))===owner.surfaceFacesKey;}
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
 global.Lot2Design4RoofIntervals=api;
 })(typeof window!=='undefined'?window:globalThis);
