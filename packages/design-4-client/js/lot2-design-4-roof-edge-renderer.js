@@ -27,7 +27,7 @@ function envelope(roof,data,facesSvg,linesSvg){
 function elevation(roof,viewId,left,span,scale,groundY){
  const data=A?.resolve(roof,viewId);
  if(!data||data.status==='WITHHELD')return '';
- const sense=(viewId==='south'||viewId==='east')?-1:1;
+ const sense=(viewId==='north'||viewId==='east')?-1:1;
  const coordinates=p=>[left+(p[0]*sense-span[0])*scale,groundY-p[1]*scale];
  // The surface fill conveys massing only. Individual polygon strokes would
  // fabricate seams that the interval verifier explicitly removes.

@@ -27,7 +27,13 @@ const manifest={
       299.2,
       688.6
     ],
-    "elevationAxes": "CARDINAL_LEFT_RIGHT_REVIEW"
+    "elevationAxes": "PONDY_WORLD_AXES",
+    "cardinalDepthDirections": {
+      "north": "NEGATIVE_Y",
+      "south": "POSITIVE_Y",
+      "east": "POSITIVE_X",
+      "west": "NEGATIVE_X"
+    }
   },
   "owners": [
     {
@@ -53,11 +59,11 @@ const manifest={
               "edgeIndex": 2,
               "visibility": "VISIBLE",
               "start": [
-                83.5,
+                -83.5,
                 24.25
               ],
               "end": [
-                72.5,
+                -72.5,
                 24.25
               ]
             },
@@ -66,11 +72,11 @@ const manifest={
               "edgeIndex": 1,
               "visibility": "VISIBLE",
               "start": [
-                72.5,
+                -72.5,
                 20
               ],
               "end": [
-                83.5,
+                -83.5,
                 20
               ]
             },
@@ -79,24 +85,24 @@ const manifest={
               "edgeIndex": 0,
               "visibility": "VISIBLE",
               "start": [
-                94.5,
+                -94.5,
                 24.25
               ],
               "end": [
-                83.5,
+                -83.5,
                 24.25
               ]
             },
             {
               "faceId": "home-b-roof-zone-1-side-neg-3",
               "edgeIndex": 2,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                94.5,
+                -94.5,
                 20
               ],
               "end": [
-                94.5,
+                -94.5,
                 24.25
               ]
             },
@@ -105,24 +111,24 @@ const manifest={
               "edgeIndex": 1,
               "visibility": "VISIBLE",
               "start": [
-                83.5,
+                -83.5,
                 20
               ],
               "end": [
-                94.5,
+                -94.5,
                 20
               ]
             },
             {
               "faceId": "home-b-roof-zone-1-side-neg-5",
               "edgeIndex": 0,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                54,
+                -54,
                 20
               ],
               "end": [
-                72.5,
+                -72.5,
                 20
               ]
             },
@@ -131,24 +137,24 @@ const manifest={
               "edgeIndex": 2,
               "visibility": "VISIBLE",
               "start": [
-                72.5,
+                -72.5,
                 24.25
               ],
               "end": [
-                54,
+                -54,
                 24.25
               ]
             },
             {
               "faceId": "home-b-roof-zone-1-side-neg-5",
               "edgeIndex": 3,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                54,
+                -54,
                 24.25
               ],
               "end": [
-                54,
+                -54,
                 20
               ]
             },
@@ -157,11 +163,11 @@ const manifest={
               "edgeIndex": 2,
               "visibility": "UNRESOLVED",
               "start": [
-                83.5,
+                -83.5,
                 24.25
               ],
               "end": [
-                72.5,
+                -72.5,
                 20
               ]
             },
@@ -170,50 +176,50 @@ const manifest={
               "edgeIndex": 0,
               "visibility": "UNRESOLVED",
               "start": [
-                94.5,
+                -94.5,
                 20
               ],
               "end": [
-                83.5,
+                -83.5,
                 24.25
               ]
             },
             {
               "faceId": "home-b-roof-zone-1-side-pos-7",
               "edgeIndex": 2,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                94.5,
+                -94.5,
                 24.25
               ],
               "end": [
-                94.5,
+                -94.5,
                 20
               ]
             },
             {
               "faceId": "home-b-roof-zone-1-side-pos-8",
               "edgeIndex": 2,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                72.5,
+                -72.5,
                 20
               ],
               "end": [
-                54,
+                -54,
                 20
               ]
             },
             {
               "faceId": "home-b-roof-zone-1-side-pos-8",
               "edgeIndex": 3,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                54,
+                -54,
                 20
               ],
               "end": [
-                54,
+                -54,
                 24.25
               ]
             },
@@ -222,11 +228,11 @@ const manifest={
               "edgeIndex": 1,
               "visibility": "UNRESOLVED",
               "start": [
-                83.5,
+                -83.5,
                 24.25
               ],
               "end": [
-                94.5,
+                -94.5,
                 20
               ]
             },
@@ -235,11 +241,11 @@ const manifest={
               "edgeIndex": 2,
               "visibility": "UNRESOLVED",
               "start": [
-                94.5,
+                -94.5,
                 20
               ],
               "end": [
-                83.5,
+                -83.5,
                 24.25
               ]
             },
@@ -248,11 +254,11 @@ const manifest={
               "edgeIndex": 1,
               "visibility": "UNRESOLVED",
               "start": [
-                83.5,
+                -83.5,
                 24.25
               ],
               "end": [
-                94.5,
+                -94.5,
                 20
               ]
             },
@@ -261,11 +267,11 @@ const manifest={
               "edgeIndex": 3,
               "visibility": "UNRESOLVED",
               "start": [
-                94.5,
+                -94.5,
                 20
               ],
               "end": [
-                83.5,
+                -83.5,
                 24.25
               ]
             },
@@ -274,11 +280,11 @@ const manifest={
               "edgeIndex": 0,
               "visibility": "UNRESOLVED",
               "start": [
-                72.5,
+                -72.5,
                 20
               ],
               "end": [
-                83.5,
+                -83.5,
                 24.25
               ]
             },
@@ -287,11 +293,11 @@ const manifest={
               "edgeIndex": 2,
               "visibility": "UNRESOLVED",
               "start": [
-                83.5,
+                -83.5,
                 24.25
               ],
               "end": [
-                72.5,
+                -72.5,
                 20
               ]
             },
@@ -300,11 +306,11 @@ const manifest={
               "edgeIndex": 0,
               "visibility": "UNRESOLVED",
               "start": [
-                72.5,
+                -72.5,
                 20
               ],
               "end": [
-                83.5,
+                -83.5,
                 24.25
               ]
             },
@@ -313,11 +319,11 @@ const manifest={
               "edgeIndex": 2,
               "visibility": "UNRESOLVED",
               "start": [
-                83.5,
+                -83.5,
                 24.25
               ],
               "end": [
-                72.5,
+                -72.5,
                 20
               ]
             }
@@ -340,11 +346,11 @@ const manifest={
               "edgeIndex": 2,
               "visibility": "VISIBLE",
               "start": [
-                -83.5,
+                83.5,
                 24.25
               ],
               "end": [
-                -72.5,
+                72.5,
                 24.25
               ]
             },
@@ -353,11 +359,11 @@ const manifest={
               "edgeIndex": 1,
               "visibility": "VISIBLE",
               "start": [
-                -72.5,
+                72.5,
                 20
               ],
               "end": [
-                -83.5,
+                83.5,
                 20
               ]
             },
@@ -366,24 +372,24 @@ const manifest={
               "edgeIndex": 0,
               "visibility": "VISIBLE",
               "start": [
-                -94.5,
+                94.5,
                 24.25
               ],
               "end": [
-                -83.5,
+                83.5,
                 24.25
               ]
             },
             {
               "faceId": "home-b-roof-zone-1-side-neg-3",
               "edgeIndex": 2,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                -94.5,
+                94.5,
                 20
               ],
               "end": [
-                -94.5,
+                94.5,
                 24.25
               ]
             },
@@ -392,24 +398,24 @@ const manifest={
               "edgeIndex": 1,
               "visibility": "VISIBLE",
               "start": [
-                -83.5,
+                83.5,
                 20
               ],
               "end": [
-                -94.5,
+                94.5,
                 20
               ]
             },
             {
               "faceId": "home-b-roof-zone-1-side-neg-5",
               "edgeIndex": 0,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                -54,
+                54,
                 20
               ],
               "end": [
-                -72.5,
+                72.5,
                 20
               ]
             },
@@ -418,24 +424,24 @@ const manifest={
               "edgeIndex": 2,
               "visibility": "VISIBLE",
               "start": [
-                -72.5,
+                72.5,
                 24.25
               ],
               "end": [
-                -54,
+                54,
                 24.25
               ]
             },
             {
               "faceId": "home-b-roof-zone-1-side-neg-5",
               "edgeIndex": 3,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                -54,
+                54,
                 24.25
               ],
               "end": [
-                -54,
+                54,
                 20
               ]
             },
@@ -444,11 +450,11 @@ const manifest={
               "edgeIndex": 2,
               "visibility": "UNRESOLVED",
               "start": [
-                -83.5,
+                83.5,
                 24.25
               ],
               "end": [
-                -72.5,
+                72.5,
                 20
               ]
             },
@@ -457,50 +463,50 @@ const manifest={
               "edgeIndex": 0,
               "visibility": "UNRESOLVED",
               "start": [
-                -94.5,
+                94.5,
                 20
               ],
               "end": [
-                -83.5,
+                83.5,
                 24.25
               ]
             },
             {
               "faceId": "home-b-roof-zone-1-side-pos-7",
               "edgeIndex": 2,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                -94.5,
+                94.5,
                 24.25
               ],
               "end": [
-                -94.5,
+                94.5,
                 20
               ]
             },
             {
               "faceId": "home-b-roof-zone-1-side-pos-8",
               "edgeIndex": 2,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                -72.5,
+                72.5,
                 20
               ],
               "end": [
-                -54,
+                54,
                 20
               ]
             },
             {
               "faceId": "home-b-roof-zone-1-side-pos-8",
               "edgeIndex": 3,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                -54,
+                54,
                 20
               ],
               "end": [
-                -54,
+                54,
                 24.25
               ]
             },
@@ -509,11 +515,11 @@ const manifest={
               "edgeIndex": 1,
               "visibility": "UNRESOLVED",
               "start": [
-                -83.5,
+                83.5,
                 24.25
               ],
               "end": [
-                -94.5,
+                94.5,
                 20
               ]
             },
@@ -522,11 +528,11 @@ const manifest={
               "edgeIndex": 2,
               "visibility": "UNRESOLVED",
               "start": [
-                -94.5,
+                94.5,
                 20
               ],
               "end": [
-                -83.5,
+                83.5,
                 24.25
               ]
             },
@@ -535,11 +541,11 @@ const manifest={
               "edgeIndex": 1,
               "visibility": "UNRESOLVED",
               "start": [
-                -83.5,
+                83.5,
                 24.25
               ],
               "end": [
-                -94.5,
+                94.5,
                 20
               ]
             },
@@ -548,11 +554,11 @@ const manifest={
               "edgeIndex": 3,
               "visibility": "UNRESOLVED",
               "start": [
-                -94.5,
+                94.5,
                 20
               ],
               "end": [
-                -83.5,
+                83.5,
                 24.25
               ]
             },
@@ -561,11 +567,11 @@ const manifest={
               "edgeIndex": 0,
               "visibility": "UNRESOLVED",
               "start": [
-                -72.5,
+                72.5,
                 20
               ],
               "end": [
-                -83.5,
+                83.5,
                 24.25
               ]
             },
@@ -574,11 +580,11 @@ const manifest={
               "edgeIndex": 2,
               "visibility": "UNRESOLVED",
               "start": [
-                -83.5,
+                83.5,
                 24.25
               ],
               "end": [
-                -72.5,
+                72.5,
                 20
               ]
             },
@@ -587,11 +593,11 @@ const manifest={
               "edgeIndex": 0,
               "visibility": "UNRESOLVED",
               "start": [
-                -72.5,
+                72.5,
                 20
               ],
               "end": [
-                -83.5,
+                83.5,
                 24.25
               ]
             },
@@ -600,11 +606,11 @@ const manifest={
               "edgeIndex": 2,
               "visibility": "UNRESOLVED",
               "start": [
-                -83.5,
+                83.5,
                 24.25
               ],
               "end": [
-                -72.5,
+                72.5,
                 20
               ]
             }
@@ -1611,13 +1617,13 @@ const manifest={
             {
               "faceId": "home-a-roof-zone-1-side-neg-1",
               "edgeIndex": 0,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                128,
+                -128,
                 20
               ],
               "end": [
-                128,
+                -128,
                 26.5625
               ]
             },
@@ -1626,76 +1632,76 @@ const manifest={
               "edgeIndex": 1,
               "visibility": "VISIBLE",
               "start": [
-                128,
+                -128,
                 26.5625
               ],
               "end": [
-                94.5,
+                -94.5,
                 26.5625
               ]
             },
             {
               "faceId": "home-a-roof-zone-1-side-neg-1",
               "edgeIndex": 2,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                94.5,
+                -94.5,
                 26.5625
               ],
               "end": [
-                94.5,
+                -94.5,
                 20
               ]
             },
             {
               "faceId": "home-a-roof-zone-1-side-neg-1",
               "edgeIndex": 3,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                94.5,
+                -94.5,
                 20
               ],
               "end": [
-                128,
+                -128,
                 20
               ]
             },
             {
               "faceId": "home-a-roof-zone-1-side-pos-2",
               "edgeIndex": 0,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                128,
+                -128,
                 26.5625
               ],
               "end": [
-                128,
+                -128,
                 20
               ]
             },
             {
               "faceId": "home-a-roof-zone-1-side-pos-2",
               "edgeIndex": 1,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                128,
+                -128,
                 20
               ],
               "end": [
-                94.5,
+                -94.5,
                 20
               ]
             },
             {
               "faceId": "home-a-roof-zone-1-side-pos-2",
               "edgeIndex": 2,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                94.5,
+                -94.5,
                 20
               ],
               "end": [
-                94.5,
+                -94.5,
                 26.5625
               ]
             }
@@ -1716,13 +1722,13 @@ const manifest={
             {
               "faceId": "home-a-roof-zone-1-side-neg-1",
               "edgeIndex": 0,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                -128,
+                128,
                 20
               ],
               "end": [
-                -128,
+                128,
                 26.5625
               ]
             },
@@ -1731,76 +1737,76 @@ const manifest={
               "edgeIndex": 1,
               "visibility": "VISIBLE",
               "start": [
-                -128,
+                128,
                 26.5625
               ],
               "end": [
-                -94.5,
+                94.5,
                 26.5625
               ]
             },
             {
               "faceId": "home-a-roof-zone-1-side-neg-1",
               "edgeIndex": 2,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                -94.5,
+                94.5,
                 26.5625
               ],
               "end": [
-                -94.5,
+                94.5,
                 20
               ]
             },
             {
               "faceId": "home-a-roof-zone-1-side-neg-1",
               "edgeIndex": 3,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                -94.5,
+                94.5,
                 20
               ],
               "end": [
-                -128,
+                128,
                 20
               ]
             },
             {
               "faceId": "home-a-roof-zone-1-side-pos-2",
               "edgeIndex": 0,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                -128,
+                128,
                 26.5625
               ],
               "end": [
-                -128,
+                128,
                 20
               ]
             },
             {
               "faceId": "home-a-roof-zone-1-side-pos-2",
               "edgeIndex": 1,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                -128,
+                128,
                 20
               ],
               "end": [
-                -94.5,
+                94.5,
                 20
               ]
             },
             {
               "faceId": "home-a-roof-zone-1-side-pos-2",
               "edgeIndex": 2,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                -94.5,
+                94.5,
                 20
               ],
               "end": [
-                -94.5,
+                94.5,
                 26.5625
               ]
             }
@@ -2092,13 +2098,13 @@ const manifest={
             {
               "faceId": "garage-b-roof-zone-1-side-neg-1",
               "edgeIndex": 0,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                27,
+                -27,
                 11
               ],
               "end": [
-                27,
+                -27,
                 16.5
               ]
             },
@@ -2107,76 +2113,76 @@ const manifest={
               "edgeIndex": 1,
               "visibility": "VISIBLE",
               "start": [
-                27,
+                -27,
                 16.5
               ],
               "end": [
-                5,
+                -5,
                 16.5
               ]
             },
             {
               "faceId": "garage-b-roof-zone-1-side-neg-1",
               "edgeIndex": 2,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                5,
+                -5,
                 16.5
               ],
               "end": [
-                5,
+                -5,
                 11
               ]
             },
             {
               "faceId": "garage-b-roof-zone-1-side-neg-1",
               "edgeIndex": 3,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                5,
+                -5,
                 11
               ],
               "end": [
-                27,
+                -27,
                 11
               ]
             },
             {
               "faceId": "garage-b-roof-zone-1-side-pos-2",
               "edgeIndex": 0,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                27,
+                -27,
                 16.5
               ],
               "end": [
-                27,
+                -27,
                 11
               ]
             },
             {
               "faceId": "garage-b-roof-zone-1-side-pos-2",
               "edgeIndex": 1,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                27,
+                -27,
                 11
               ],
               "end": [
-                5,
+                -5,
                 11
               ]
             },
             {
               "faceId": "garage-b-roof-zone-1-side-pos-2",
               "edgeIndex": 2,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                5,
+                -5,
                 11
               ],
               "end": [
-                5,
+                -5,
                 16.5
               ]
             }
@@ -2197,13 +2203,13 @@ const manifest={
             {
               "faceId": "garage-b-roof-zone-1-side-neg-1",
               "edgeIndex": 0,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                -27,
+                27,
                 11
               ],
               "end": [
-                -27,
+                27,
                 16.5
               ]
             },
@@ -2212,76 +2218,76 @@ const manifest={
               "edgeIndex": 1,
               "visibility": "VISIBLE",
               "start": [
-                -27,
+                27,
                 16.5
               ],
               "end": [
-                -5,
+                5,
                 16.5
               ]
             },
             {
               "faceId": "garage-b-roof-zone-1-side-neg-1",
               "edgeIndex": 2,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                -5,
+                5,
                 16.5
               ],
               "end": [
-                -5,
+                5,
                 11
               ]
             },
             {
               "faceId": "garage-b-roof-zone-1-side-neg-1",
               "edgeIndex": 3,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                -5,
+                5,
                 11
               ],
               "end": [
-                -27,
+                27,
                 11
               ]
             },
             {
               "faceId": "garage-b-roof-zone-1-side-pos-2",
               "edgeIndex": 0,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                -27,
+                27,
                 16.5
               ],
               "end": [
-                -27,
+                27,
                 11
               ]
             },
             {
               "faceId": "garage-b-roof-zone-1-side-pos-2",
               "edgeIndex": 1,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                -27,
+                27,
                 11
               ],
               "end": [
-                -5,
+                5,
                 11
               ]
             },
             {
               "faceId": "garage-b-roof-zone-1-side-pos-2",
               "edgeIndex": 2,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                -5,
+                5,
                 11
               ],
               "end": [
-                -5,
+                5,
                 16.5
               ]
             }
@@ -2573,13 +2579,13 @@ const manifest={
             {
               "faceId": "garage-a-roof-zone-1-side-neg-1",
               "edgeIndex": 0,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                27,
+                -27,
                 11
               ],
               "end": [
-                27,
+                -27,
                 16.5
               ]
             },
@@ -2588,76 +2594,76 @@ const manifest={
               "edgeIndex": 1,
               "visibility": "VISIBLE",
               "start": [
-                27,
+                -27,
                 16.5
               ],
               "end": [
-                5,
+                -5,
                 16.5
               ]
             },
             {
               "faceId": "garage-a-roof-zone-1-side-neg-1",
               "edgeIndex": 2,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                5,
+                -5,
                 16.5
               ],
               "end": [
-                5,
+                -5,
                 11
               ]
             },
             {
               "faceId": "garage-a-roof-zone-1-side-neg-1",
               "edgeIndex": 3,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                5,
+                -5,
                 11
               ],
               "end": [
-                27,
+                -27,
                 11
               ]
             },
             {
               "faceId": "garage-a-roof-zone-1-side-pos-2",
               "edgeIndex": 0,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                27,
+                -27,
                 16.5
               ],
               "end": [
-                27,
+                -27,
                 11
               ]
             },
             {
               "faceId": "garage-a-roof-zone-1-side-pos-2",
               "edgeIndex": 1,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                27,
+                -27,
                 11
               ],
               "end": [
-                5,
+                -5,
                 11
               ]
             },
             {
               "faceId": "garage-a-roof-zone-1-side-pos-2",
               "edgeIndex": 2,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                5,
+                -5,
                 11
               ],
               "end": [
-                5,
+                -5,
                 16.5
               ]
             }
@@ -2678,13 +2684,13 @@ const manifest={
             {
               "faceId": "garage-a-roof-zone-1-side-neg-1",
               "edgeIndex": 0,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                -27,
+                27,
                 11
               ],
               "end": [
-                -27,
+                27,
                 16.5
               ]
             },
@@ -2693,76 +2699,76 @@ const manifest={
               "edgeIndex": 1,
               "visibility": "VISIBLE",
               "start": [
-                -27,
+                27,
                 16.5
               ],
               "end": [
-                -5,
+                5,
                 16.5
               ]
             },
             {
               "faceId": "garage-a-roof-zone-1-side-neg-1",
               "edgeIndex": 2,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                -5,
+                5,
                 16.5
               ],
               "end": [
-                -5,
+                5,
                 11
               ]
             },
             {
               "faceId": "garage-a-roof-zone-1-side-neg-1",
               "edgeIndex": 3,
-              "visibility": "VISIBLE",
+              "visibility": "HIDDEN",
               "start": [
-                -5,
+                5,
                 11
               ],
               "end": [
-                -27,
+                27,
                 11
               ]
             },
             {
               "faceId": "garage-a-roof-zone-1-side-pos-2",
               "edgeIndex": 0,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                -27,
+                27,
                 16.5
               ],
               "end": [
-                -27,
+                27,
                 11
               ]
             },
             {
               "faceId": "garage-a-roof-zone-1-side-pos-2",
               "edgeIndex": 1,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                -27,
+                27,
                 11
               ],
               "end": [
-                -5,
+                5,
                 11
               ]
             },
             {
               "faceId": "garage-a-roof-zone-1-side-pos-2",
               "edgeIndex": 2,
-              "visibility": "HIDDEN",
+              "visibility": "VISIBLE",
               "start": [
-                -5,
+                5,
                 11
               ],
               "end": [
-                -5,
+                5,
                 16.5
               ]
             }

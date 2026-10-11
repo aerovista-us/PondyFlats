@@ -30,7 +30,12 @@ function resolve(roof,viewId){
  const manifest=M.manifest;
  if(manifest.schemaVersion!==VERSION||manifest.renderScope!=='CONCEPT_ONLY_NOT_FOR_CONSTRUCTION'||
     manifest.sourceRoofSchema!==R.SCHEMA_VERSION||manifest.sourceSnapshot!=='pondy-d4'||
-    manifest.owners?.length!==4)return reject('Imported roof interval contract or source mismatch');
+    manifest.owners?.length!==4||
+    JSON.stringify(manifest.camera?.cardinalDepthDirections)!==JSON.stringify({north:'NEGATIVE_Y',south:'POSITIVE_Y',east:'POSITIVE_X',west:'NEGATIVE_X'})||
+    JSON.stringify(manifest.camera?.screenX)!==JSON.stringify([5.2,-3.2,0])||
+    JSON.stringify(manifest.camera?.screenY)!==JSON.stringify([-1.55,-1.35,-8.2])||
+    JSON.stringify(manifest.camera?.depth)!==JSON.stringify([-26.24,-42.64,11.98])||
+    JSON.stringify(manifest.camera?.screenTranslation)!==JSON.stringify([299.2,688.6]))return reject('Imported roof interval contract or source mismatch');
  if(!roof||!R.roofIsAuthoritative(roof)||!ownerMatchesLiveGeometry(roof))return reject('Roof lock or current owner geometry missing');
  if(!VIEW_IDS.includes(viewId))return reject('Unknown camera / elevation view');
  const imported=manifest.owners.find(x=>x.ownerId===roof.ownerId);
