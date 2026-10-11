@@ -1,0 +1,86 @@
+name: Design 4 architectural sheet visual acceptance
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'js/lot2-design-4*.js'
+      - 'js/lot2-sheet-*.js'
+      - 'prototypes/**'
+      - 'scripts/d4-browser-visual-audit.cjs'
+      - 'scripts/d4-dimension-prototype-gates.js'
+      - 'scripts/d4-customer-dimension-review-gates.js'
+      - 'scripts/render-d4-dimension-prototype.js'
+      - 'scripts/render-d4-customer-dimension-review.js'
+      - '.github/workflows/d4-sheet-visual-qa.yml'
+  pull_request:
+    paths:
+      - 'js/lot2-design-4*.js'
+      - 'js/lot2-sheet-*.js'
+      - 'prototypes/**'
+      - 'scripts/d4-browser-visual-audit.cjs'
+      - 'scripts/d4-dimension-prototype-gates.js'
+      - 'scripts/d4-customer-dimension-review-gates.js'
+      - 'scripts/render-d4-dimension-prototype.js'
+      - 'scripts/render-d4-customer-dimension-review.js'
+      - '.github/workflows/d4-sheet-visual-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sheet-visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser automation runtime (not a product dependency)
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: '1'
+        run: npm install --no-save --no-package-lock --ignore-scripts --no-audit --no-fund puppeteer-core@25.12.0
+      - name: Locate runner Chrome and capture provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$CHROME_BIN"
+          echo "CHROMIUM_PATH=$CHROME_BIN" >> "$GITHUB_ENV"
+          echo "PUPPETEER_MODULE=$GITHUB_WORKSPACE/node_modules/puppeteer-core" >> "$GITHUB_ENV"
+          echo "D4_VISUAL_QA_DIR=$RUNNER_TEMP/d4-architectural-sheet-qa" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/d4-architectural-sheet-qa"
+          printf 'sha=%s\nref=%s\nrunner=%s\n' "$GITHUB_SHA" "$GITHUB_REF" "$RUNNER_OS" > "$RUNNER_TEMP/d4-architectural-sheet-qa/provenance.txt"
+          "$CHROME_BIN" --version >> "$RUNNER_TEMP/d4-architectural-sheet-qa/provenance.txt"
+      - name: Source, roof and dimensions fail-closed gates
+        run: |
+          npm run gates:d4-roof
+          npm run gates:sheet-document
+          npm run gates:d4-dimensions
+          npm run gates:d4-customer-dimensions
+      - name: Regenerate both sheets and enforce exact checked-in artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/render-d4-dimension-prototype.js
+          node scripts/render-d4-customer-dimension-review.js
+          git diff --exit-code -- \
+            prototypes/A-001-print-proof.svg \
+            prototypes/A-101-print-proof.svg \
+            prototypes/design4-customer-sheet-review.html \
+            prototypes/design4-dimensions.html
+      - name: Chromium desktop/mobile/physical-frame geometry review
+        run: node scripts/d4-browser-visual-audit.cjs
+      - name: Upload exact-head visual evidence (including failures)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: d4-architectural-sheet-visual-${{ github.sha }}
+          path: ${{ runner.temp }}/d4-architectural-sheet-qa/
+          retention-days: 21
+          if-no-files-found: warn
