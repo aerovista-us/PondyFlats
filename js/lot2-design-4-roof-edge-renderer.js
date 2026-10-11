@@ -49,7 +49,7 @@ function axon(roof,mode,project){
  const faceFill=roof.surfaceFaces.map(face=>({face,depth:face.polygon.reduce((sum,p)=>sum+(-26.24*p[0]-42.64*p[1]+11.98*p[2]),0)/face.polygon.length})).sort((a,b)=>a.depth-b.depth).map(({face,depth})=>'<polygon points="'+face.polygon.map(p=>{
   const x=project(...p);return safeNum(x[0])+','+safeNum(x[1]);}).join(' ')+'" fill="'+SHADE+
   '" fill-opacity="'+(mode==='massing'?'.38':'.24')+'" stroke="none" data-roof-surface-face="'+face.id+
-  '" data-roof-zone="'+face.zoneId+'"/>').join('');
+  '" data-roof-zone="'+face.zoneId+'" data-roof-depth="'+safeNum(depth)+'"/>').join('');
  return envelope(roof,data,faceFill,lineGroup(data,toPx));
 }
 const api={ready,elevation,axon};
