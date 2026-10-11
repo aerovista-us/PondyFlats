@@ -32,7 +32,7 @@ const defs={
  'A-101':[
   ['home-a.width','d4.plan.shell-a','x','before',27],
   ['home-a.depth','d4.plan.shell-a','y','after',27],
-  ['home-b.width','d4.plan.shell-b','x','before',100],
+  ['home-b.width','d4.plan.shell-b','x','before',110],
   ['home-b.depth','d4.plan.shell-b','y','after',55],
   ['home-b.south-wing','d4.plan.shell-b','edge:2','before',45],
   ['home-b.reentrant','d4.plan.shell-b','edge:3','before',20]
