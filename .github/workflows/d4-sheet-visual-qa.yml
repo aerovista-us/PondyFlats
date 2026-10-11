@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'js/lot2-design-4*.js'
+      - 'js/lot2-sot.js'
       - 'js/lot2-sheet-*.js'
       - 'prototypes/**'
       - 'scripts/d4-browser-visual-audit.cjs'
@@ -16,6 +17,7 @@ on:
   pull_request:
     paths:
       - 'js/lot2-design-4*.js'
+      - 'js/lot2-sot.js'
       - 'js/lot2-sheet-*.js'
       - 'prototypes/**'
       - 'scripts/d4-browser-visual-audit.cjs'
