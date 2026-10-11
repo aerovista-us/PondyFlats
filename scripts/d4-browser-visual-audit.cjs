@@ -35,7 +35,7 @@ const cases=[
    const collisions=[];
    for(let i=0;i<texts.length;i++)for(let j=i+1;j<texts.length;j++){
     if((texts[i].dimension||texts[j].dimension)&&overlap(texts[i],texts[j]))
-     collisions.push({a:texts[i].text,b:texts[j].text,interlayer:texts[i].dimension!==texts[j].dimension});
+     collisions.push({a:texts[i].text,b:texts[j].text,interlayer:texts[i].dimension!==texts[j].dimension,aBox:texts[i],bBox:texts[j]});
    }
    const dimensions=texts.filter(x=>x.dimension).length;
    const rect=svg.getBoundingClientRect();
