@@ -8,7 +8,7 @@ const SITE=require('../js/lot2-design-4');
 const PLAN=require('../js/lot2-design-4-plan-closure');
 const file=path.join(__dirname,'../prototypes/design4-customer-sheet-review.html');
 const html=fs.readFileSync(file,'utf8');
-assert(html.includes('REVIEW ONLY — not linked into public reports'));
+assert(html.includes('PUBLISHED CONCEPT REVIEW — dimensions are preliminary'));
 assert.equal((html.match(/data-dimension-id=/g)||[]).length,15);
 assert(html.includes('PENNSYLVANIA STREET'));
 assert(html.includes('data-plan-verdict="PASS"'));
