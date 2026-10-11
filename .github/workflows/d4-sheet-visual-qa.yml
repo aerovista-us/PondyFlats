@@ -9,6 +9,11 @@ on:
       - 'js/lot2-sheet-*.js'
       - 'prototypes/**'
       - 'scripts/d4-browser-visual-audit.cjs'
+      - 'scripts/d4-roof-interval-browser-qa.cjs'
+      - 'scripts/export-design4.js'
+      - 'd4-*.html'
+      - 'design-4.html'
+      - 'packages/design-4-client/**'
       - 'scripts/d4-dimension-prototype-gates.js'
       - 'scripts/d4-customer-dimension-review-gates.js'
       - 'scripts/render-d4-dimension-prototype.js'
@@ -21,6 +26,11 @@ on:
       - 'js/lot2-sheet-*.js'
       - 'prototypes/**'
       - 'scripts/d4-browser-visual-audit.cjs'
+      - 'scripts/d4-roof-interval-browser-qa.cjs'
+      - 'scripts/export-design4.js'
+      - 'd4-*.html'
+      - 'design-4.html'
+      - 'packages/design-4-client/**'
       - 'scripts/d4-dimension-prototype-gates.js'
       - 'scripts/d4-customer-dimension-review-gates.js'
       - 'scripts/render-d4-dimension-prototype.js'
@@ -78,6 +88,20 @@ jobs:
             prototypes/design4-dimensions.html
       - name: Chromium desktop/mobile/physical-frame geometry review
         run: node scripts/d4-browser-visual-audit.cjs
+      - name: Regenerate customer package and enforce exact committed roof export
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run export
+          git diff --exit-code -- packages/design-4-client
+          test -f packages/design-4-client/js/lot2-design-4-roof-intervals.js
+          test -f packages/design-4-client/js/lot2-design-4-roof-interval-adapter.js
+          test -f packages/design-4-client/js/lot2-design-4-roof-edge-renderer.js
+      - name: Verify real roof drawings and mobile viewport (source + exported package)
+        shell: bash
+        run: |
+          mkdir -p "$D4_VISUAL_QA_DIR/roof"
+          D4_ROOF_QA_DIR="$D4_VISUAL_QA_DIR/roof" node scripts/d4-roof-interval-browser-qa.cjs
       - name: Upload exact-head visual evidence (including failures)
         if: always()
         uses: actions/upload-artifact@v4
