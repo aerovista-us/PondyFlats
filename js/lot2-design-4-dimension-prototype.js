@@ -20,9 +20,9 @@ function resolve(id){
 const defs={
  'A-001':[
   ['parcel.depth','parcel.boundary','x','before',27],
-  ['parcel.overall-y-extent','parcel.boundary','y','after',110],
+  ['parcel.overall-y-extent','parcel.boundary','y','before',110],
   ['parcel.pennsylvania-frontage','parcel.boundary','edge:1','before',35],
-  ['garage-a.width','d4.garage-a.footprint','x','after',135],
+  ['garage-a.width','d4.garage-a.footprint','x','after',185],
   ['garage-a.depth','d4.garage-a.footprint','y','before',138],
   ['garage-b.width','d4.garage-b.footprint','x','before',48],
   ['garage-b.depth','d4.garage-b.footprint','y','before',165],
@@ -32,9 +32,9 @@ const defs={
  'A-101':[
   ['home-a.width','d4.plan.shell-a','x','before',27],
   ['home-a.depth','d4.plan.shell-a','y','after',27],
-  ['home-b.width','d4.plan.shell-b','x','before',48],
-  ['home-b.depth','d4.plan.shell-b','y','before',27],
-  ['home-b.south-wing','d4.plan.shell-b','edge:2','after',45],
+  ['home-b.width','d4.plan.shell-b','x','before',110],
+  ['home-b.depth','d4.plan.shell-b','y','after',55],
+  ['home-b.south-wing','d4.plan.shell-b','edge:2','before',45],
   ['home-b.reentrant','d4.plan.shell-b','edge:3','before',20]
  ]
 };

@@ -59,9 +59,10 @@ for(const row of sections){
  const scale=D.modelScale({paperInches:row.id==='A-101'?0.25:0.125,modelFeet:1});
  const page=D.paperFrame({widthIn:36,heightIn:24,marginIn:2,modelWidthFt:row.id==='A-101'?74:148,modelHeightFt:row.id==='A-101'?27:58,scale});
  const px=96*scale.inchPerFoot;
- const printViewport={ox:row.id==='A-101'?-400:320,oy:row.id==='A-101'?650:400,pxPerFt:px,obstacles:[]};
+ const printViewport={ox:row.id==='A-101'?-400:840,oy:row.id==='A-101'?650:810,pxPerFt:px,obstacles:[]};
  const specs=AD.specifications(row.id);
  let roomText='';
+ const sitePavement=row.id==='A-001'?'<g fill="#dce4e0" stroke="#85958f" stroke-width="1.5">'+D4.PAVEMENT.map(item=>shape(item.poly,'pavement','',printViewport)).join('')+'</g>':'';
  printViewport.obstacles=annotations(row.id,printViewport);
  let printShapes=row.id==='A-001'?shape(SOT.SURVEY,'parcel','',printViewport):'';
  if(row.id==='A-001'){
@@ -75,11 +76,13 @@ for(const row of sections){
    return '<text x="'+x.toFixed(2)+'" y="'+y.toFixed(2)+'" font-family="sans-serif" font-size="'+font.toFixed(1)+'" fill="#1f3045" text-anchor="middle" stroke="none">'+label+'</text>';
   }).join('');}}
  const paperSvg='<svg xmlns="http://www.w3.org/2000/svg" width="36in" height="24in" viewBox="0 0 3456 2304">'+
- '<rect width="3456" height="2304" fill="white"/><rect x="96" y="96" width="3264" height="2112" fill="none" stroke="#222" stroke-width="2"/>'+
- '<text x="175" y="180" font-family="sans-serif" font-size="38">PONDY FLATS · DESIGN 4 · '+row.id+'</text>'+
- '<text x="175" y="225" font-family="sans-serif" font-size="24">'+scale.label+' · 36 × 24 inch proof · NOT FOR CONSTRUCTION</text>'+
- '<g fill="#e9ca91" stroke="#334155" stroke-width="2">'+printShapes+'</g>'+roomText+D.renderSvg(specs,printViewport)+
- '<text x="175" y="2120" font-family="sans-serif" font-size="21">SOURCE-GEOMETRY STUDY · ZONING / AHJ / PROFESSIONAL REVIEW PENDING</text></svg>';
+ '<rect width="3456" height="2304" fill="white"/><rect x="192" y="192" width="3072" height="1920" fill="none" stroke="#222" stroke-width="2"/>'+
+ '<text x="245" y="275" font-family="sans-serif" font-size="38">PONDY FLATS · DESIGN 4 · '+row.id+'</text>'+
+ '<text x="245" y="320" font-family="sans-serif" font-size="24">'+scale.label+' · 36 × 24 inch proof · CONCEPT ONLY · NOT FOR CONSTRUCTION</text>'+
+ sitePavement+'<g fill="#e9ca91" stroke="#334155" stroke-width="2">'+printShapes+'</g>'+roomText+D.renderSvg(specs,printViewport)+
+ (row.id==='A-001'?'<g stroke="#21354a" fill="none" stroke-width="4"><line x1="2980" y1="720" x2="2980" y2="540"/><path d="M2957 576 L2980 520 L3003 576"/></g><text x="2969" y="506" font-family="sans-serif" font-size="28" font-weight="bold">N</text>':'')+
+ '<g><rect x="2550" y="1740" width="680" height="338" fill="white" stroke="#334155" stroke-width="2"/><text x="2580" y="1800" font-family="sans-serif" font-size="29" font-weight="bold">PONDY FLATS · D4</text><text x="2580" y="1850" font-family="sans-serif" font-size="24">'+row.id+' · '+row.title+'</text><text x="2580" y="1895" font-family="sans-serif" font-size="19">'+scale.label+' · 36 × 24 in</text><text x="2580" y="1940" font-family="sans-serif" font-size="19">Source geometry / dimensional study</text><text x="2580" y="1990" font-family="sans-serif" font-size="22" font-weight="bold">CONCEPT ONLY</text><text x="2580" y="2030" font-family="sans-serif" font-size="18">Professional / AHJ review pending</text></g>'+
+ '<text x="245" y="2040" font-family="sans-serif" font-size="21">SOURCE-GEOMETRY STUDY</text><text x="245" y="2073" font-family="sans-serif" font-size="18">NOT FOR CONSTRUCTION · PHYSICAL PRINT CALIBRATION REQUIRED</text></svg>';
  fs.writeFileSync(path.join(root,'prototypes',row.id+'-print-proof.svg'),paperSvg);
  if(page.physicalModelWidthIn!==18.5)throw Error('Paper scale calculation drift');
 }
