@@ -5,6 +5,8 @@ const path=require('path');
 const root=path.resolve(__dirname,'..');
 const ROOF=require('../js/lot2-design-4-roof-sot.js');
 const ARCH=require('../js/lot2-design-4-architecture.js');
+const EDGE=require('../js/lot2-design-4-roof-interval-adapter.js');
+const MANIFEST=require('../js/lot2-design-4-roof-intervals.js');
 
 const imported=JSON.parse(fs.readFileSync(path.join(root,'data','lot2-design-4-roof-sot.json'),'utf8'));
 const state=ROOF.analyze();
@@ -92,19 +94,17 @@ assert.equal(ROOF.roofIsAuthoritative({...lockedFixture,zones:[{...fixtureZone,r
 for(const face of ['east','west','north','south']){
   const svg=ARCH.renderElev(face);
   assert(svg.includes('data-roof-render-policy="EXACT_SURFACE_FACES"'),face+' must project exact solved roof surfaces');
-  assert(svg.includes('data-roof-projector="EXACT_SURFACE_FACES"'),face+' must identify the exact roof projector');
-  assert(svg.includes('ROOF · EXACT SOLVED SURFACE'),face+' must label solved roof output');
+  assert.equal((svg.match(/data-roof-projector="LOCKED_VERIFIED_EDGE_INTERVALS"/g)||[]).length,4,face+' must identify four owner-bound roof interval projectors');
+  assert(svg.includes('ROOF · SOLVED FACES + INTERVAL REVIEW · CONCEPT ONLY'),face+' must preserve review label');
+  assert(svg.includes('data-roof-concept-only="true"'),face+' must keep concept-only interval status');
+  assert(svg.includes('data-roof-interval="UNRESOLVED"'),face+' must show unresolved lines when a view remains review-required');
   assert(svg.includes('data-roof-surface-face='),face+' must carry source face ids for auditability');
   assert(!svg.includes('EXACT VIEW PROJECTOR PENDING'),face+' must not claim the projector is pending once surface faces are present');
   assert(!svg.includes('CONCEPT ROOF'),face+' must not draw a generic concept roof');
   assert(!/roof withheld|roof silhouette withheld/i.test(svg),face+' must not carry stale suppression language once exact surfaces are active');
-  const projectorGroups=[...svg.matchAll(/<g data-roof-projector="EXACT_SURFACE_FACES"[^>]*>([\s\S]*?)<\/g>/g)].map(match=>match[1]);
-  assert(projectorGroups.length>=4,face+' must emit one exact roof projector group per Design 4 building');
-  for(const [groupIndex,group] of projectorGroups.entries()){
-    const depths=[...group.matchAll(/data-roof-depth="(-?\d+(?:\.\d+)?)"/g)].map(match=>Number(match[1]));
-    assert(depths.length>0,face+' roof group '+groupIndex+' must expose depth metadata');
-    for(let i=1;i<depths.length;i++)assert(depths[i]>=depths[i-1]-1e-9,face+' roof group '+groupIndex+' must be emitted far-to-near in monotonic painter order');
-  }
+  assert.equal((svg.match(/data-roof-interval-status="REVIEW_REQUIRED"/g)||[]).length,face==='north'||face==='south'?1:4,face+' must disclose unresolved model-view authority');
+  assert(svg.includes('data-roof-edge-source="LotScope-analytic-intervals"'),face+' must use LotScope intervals');
+  assert(!/stroke-width="2.1" stroke-linejoin="round" data-roof-surface-face=/.test(svg),face+' may not outline imported tessellation triangles');
 }
 for(const unit of ['A','B']){
   const svg=ARCH.renderSection(unit);
@@ -135,7 +135,8 @@ assert(!architectureSource.includes('CONCEPT ROOF'),'generic concept-roof overla
 for(const mode of ['massing','clean']){
   const svg=ARCH.renderAxon(mode);
   assert(svg.includes('data-roof-render-policy="EXACT_SURFACE_FACES"'),mode+' axon must project exact solved roof surfaces');
-  assert(svg.includes('data-roof-projector="EXACT_SURFACE_FACES"'),mode+' axon must identify the exact roof projector');
+  assert.equal((svg.match(/data-roof-projector="LOCKED_VERIFIED_EDGE_INTERVALS"/g)||[]).length,4,mode+' axon must carry four bound roof interval projectors');
+  assert(!svg.includes('data-roof-interval="UNRESOLVED"'),mode+' exact-camera roof edge classifications should be fully resolved');
   assert(svg.includes('data-roof-surface-face='),mode+' axon must retain source surface-face ids');
   assert(svg.includes('data-plate-datum="working"'),mode+' axon must retain plate datum context');
   assert(!/Roof surfaces[^<]*suppressed/i.test(svg),mode+' axon must not claim solved roof faces are suppressed');
@@ -143,7 +144,7 @@ for(const mode of ['massing','clean']){
 const analysis=ARCH.analyze();
 assert.equal(analysis.checks.roofContract.ok,true);
 assert.equal(analysis.checks.roofContract.status,'AUTHORITATIVE_ALLOWED');
-assert.equal(analysis.checks.roofContract.renderPolicy,'EXACT_SURFACE_PROJECTOR_ACTIVE');
+assert.equal(analysis.checks.roofContract.renderPolicy,'BOUND_VERIFIED_INTERVAL_PROJECTOR_ACTIVE');
 assert.equal(analysis.checks.roofContract.exactProjection,true);
 assert.equal(ARCH.roofViewPolicy({authoritative:false}),'SUPPRESS_ROOF');
 assert.equal(ARCH.roofViewPolicy({authoritative:true}),'LOCKED_DATA_AWAITING_EXACT_VIEW_PROJECTOR');
@@ -154,10 +155,18 @@ assert.match(ARCH.elevationRoofFooter('garage','east',false),/roof withheld/i,'f
 assert.match(ARCH.elevationRoofFooter('home','north',true),/solved roof surface/i,'exact home footer must identify solved roof surface');
 assert.match(ARCH.elevationRoofFooter('garage','east',true),/solved roof surface/i,'exact garage footer must identify solved roof surface');
 
+for(const roof of ROOF.ROOFS){
+  assert(EDGE.ownerMatchesLiveGeometry(roof),roof.ownerId+' footprint must match current site placement');
+  assert.equal(EDGE.resolve(roof,'pondy-iso-01').status,'INTERVAL_VERIFIED',roof.ownerId+' must resolve exact-camera interval binding');
+  assert.equal(EDGE.resolve({...roof,ownerGeometryKey:'stale'},'north').status,'WITHHELD','stale owner key must withhold');
+  assert.equal(EDGE.resolve({...roof,surfaceFaces:[{...roof.surfaceFaces[0],polygon:[[1,2,3],[3,4,5],[5,6,7]]},...roof.surfaceFaces.slice(1)]},'north').status,'WITHHELD','changed surface polygons must withhold');
+}
+assert.equal(MANIFEST.manifest.owners.length,4);
 for(const file of ['design-4.html','d4-elevs.html','d4-axon.html','d4-sections.html']){
   const html=fs.readFileSync(path.join(root,file),'utf8');
   assert(html.includes('js/lot2-design-4-roof-sot.js'),file+' must load roof SOT before architecture');
   assert(html.indexOf('lot2-design-4-roof-sot.js') < html.indexOf('lot2-design-4-architecture.js'),file+' must load roof SOT before architecture');
+  for(const dependency of ['lot2-design-4-roof-intervals.js','lot2-design-4-roof-interval-adapter.js','lot2-design-4-roof-edge-renderer.js'])assert(html.includes('js/'+dependency),file+' must load '+dependency);
 }
 const client=path.join(root,'packages','design-4-client');
 if(fs.existsSync(client)){
