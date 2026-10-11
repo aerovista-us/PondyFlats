@@ -2,6 +2,9 @@
 const fs=require('node:fs'),path=require('node:path');
 const puppeteer=require(process.env.PUPPETEER_MODULE||'puppeteer-core');
 const root=path.resolve(__dirname,'..');
+for(const rel of ['prototypes/design4-customer-sheet-review.html','docs/d4-dimension-customer-report.md']){
+ if(!fs.existsSync(path.join(root,'packages/design-4-client',rel)))throw Error('Standalone dimension-study link target missing: '+rel);
+}
 const scenarios=[
  ['source-elev','d4-elevs.html','elevation'],['source-axon','d4-axon.html','axon'],
  ['package-elev','packages/design-4-client/elevs.html','elevation'],
