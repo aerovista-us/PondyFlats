@@ -20,7 +20,7 @@ function resolve(id){
 const defs={
  'A-001':[
   ['parcel.depth','parcel.boundary','x','before',27],
-  ['parcel.overall-y-extent','parcel.boundary','y','after',110],
+  ['parcel.overall-y-extent','parcel.boundary','y','before',110],
   ['parcel.pennsylvania-frontage','parcel.boundary','edge:1','before',35],
   ['garage-a.width','d4.garage-a.footprint','x','after',135],
   ['garage-a.depth','d4.garage-a.footprint','y','before',138],
