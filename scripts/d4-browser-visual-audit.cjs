@@ -70,7 +70,7 @@ function inspectSvg(selector,expectation){
  if(dimensions!==required)failures.push('Dimension count mismatch: '+dimensions+' expected '+required);
  if(textCrossings.length)failures.push('Dimension/text overlaps: '+textCrossings.length);
  if(lineTextCrossings.length)failures.push('Dimension witness/tick/line crosses scene text: '+lineTextCrossings.length);
- const documentText=document.body.textContent||'';
+ const documentText=(document.body||document.documentElement).textContent||'';
  if(!/NOT FOR CONSTRUCTION/i.test(documentText))failures.push('Missing NOT FOR CONSTRUCTION disclosure');
  if(!/CONCEPT/i.test(documentText))failures.push('Missing CONCEPT disclosure');
  let frame=null;
