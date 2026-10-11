@@ -33,6 +33,7 @@ const scenarios=[
      mobileOverflow:document.documentElement.scrollWidth>innerWidth+4,
      navScrollable:(()=>{const nav=document.querySelector('.nav');return !nav||nav.scrollWidth<=nav.clientWidth||getComputedStyle(nav).overflowX==='auto'})(),
      manifestBound:Boolean(window.Lot2Design4RoofIntervals?.manifest?.owners?.length===4),
+     premiumStylesheetLoaded:Boolean(document.querySelector('link[href="css/pondy-premium.css"]')?.sheet),
      svgCount:document.querySelectorAll('svg').length};
    },kind);
    await page.screenshot({path:path.join(output,name+'-'+width+'.png'),fullPage:true});
@@ -43,6 +44,7 @@ const scenarios=[
    if(kind==='axon'&&data.unresolved)fails.push('exact Pondy camera must not claim unresolved');
    if(kind==='elevation'&&data.unresolved<1)fails.push('edge-on roof review diagnostics missing');
    if(!data.conceptOnly||!data.manifestBound)fails.push('concept-only or source-binding disclosure missing');
+   if(!data.premiumStylesheetLoaded)fails.push('Customer presentation stylesheet missing from package');
    if(width===390&&(data.mobileOverflow||!data.navScrollable))fails.push('mobile navigation overflows viewport');
    if(errors.length)fails.push('browser page errors');
    cases.push({name,width,kind,...data,errors,fails});
