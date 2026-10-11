@@ -18,10 +18,14 @@ function measureEdge(source,edgeIndex){
  if(!finite(a)||!finite(b))throw Error('Invalid segment coordinates');
  return {a,b,feet:Math.hypot(b[0]-a[0],b[1]-a[1])};
 }
-function measure(source,axis){
+function measure(source,axis,anchor='max'){
  const b=bounds(polygon(source));
  if(axis==='x')return {a:[b.minX,b.minY],b:[b.maxX,b.minY],feet:b.maxX-b.minX};
- if(axis==='y')return {a:[b.maxX,b.minY],b:[b.maxX,b.maxY],feet:b.maxY-b.minY};
+ if(axis==='y'){
+  if(anchor!=='max'&&anchor!=='min')throw Error('Unsupported dimension anchor');
+  const x=anchor==='min'?b.minX:b.maxX;
+  return {a:[x,b.minY],b:[x,b.maxY],feet:b.maxY-b.minY};
+ }
  throw Error('Unsupported axis');
 }
 function formatFeet(value,precision=2){if(!Number.isFinite(value))throw Error('Nonfinite measurement');return Number(value.toFixed(precision)).toString()+'′';}
@@ -40,7 +44,7 @@ function segmentTouchesBox(a,b,r,pad=2){
 function layout(specs,viewport){
  const boxes=[],placed=[],lines=[],witnesses=[];
  for(const spec of specs){
-  const m=spec.edgeIndex===undefined?measure(spec.geometry,spec.axis):measureEdge(spec.geometry,spec.edgeIndex);
+  const m=spec.edgeIndex===undefined?measure(spec.geometry,spec.axis,spec.anchor):measureEdge(spec.geometry,spec.edgeIndex);
   if(m.feet<=0)throw Error('Zero-length dimension '+spec.id);
   const a=project(m.a,viewport),b=project(m.b,viewport),horizontal=spec.axis==='x';
   const direction=[b[0]-a[0],b[1]-a[1]],length=Math.hypot(...direction);
