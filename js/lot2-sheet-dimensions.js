@@ -56,10 +56,10 @@ function layout(specs,viewport){
    const occupied=[...boxes,...(viewport.obstacles||[])];
    const candidateWitnesses=[[a,ea],[b,eb]];
    const candidateTicks=[ea,eb].map(p=>[[p[0]-4,p[1]+4],[p[0]+4,p[1]-4]]);
-   const intersectsExistingLabels=occupied.some(other=>intersects(box,other)
+   const intersectsExistingLabels=occupied.some((other,index)=>intersects(box,other)
      ||segmentTouchesBox(ea,eb,other)
-     ||candidateWitnesses.some(([p,q])=>segmentTouchesBox(p,q,other))
-     ||candidateTicks.some(([p,q])=>segmentTouchesBox(p,q,other,0)));
+     ||(index<boxes.length&&candidateWitnesses.some(([p,q])=>segmentTouchesBox(p,q,other)))
+     ||(index<boxes.length&&candidateTicks.some(([p,q])=>segmentTouchesBox(p,q,other,0))));
    if(!intersectsExistingLabels&&!lines.some(([p,q])=>segmentTouchesBox(p,q,box))&&!witnesses.some(([p,q])=>segmentTouchesBox(p,q,box))){chosen={mid,offset,box,lane,ea,eb};break;}
   }
   if(!chosen)throw Error('Dimension label collision '+spec.id);
