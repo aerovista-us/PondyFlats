@@ -139,6 +139,13 @@ for(const mode of ['massing','clean']){
   assert(!svg.includes('data-roof-interval="UNRESOLVED"'),mode+' exact-camera roof edge classifications should be fully resolved');
   assert(svg.includes('data-roof-surface-face='),mode+' axon must retain source surface-face ids');
   assert(svg.includes('data-plate-datum="working"'),mode+' axon must retain plate datum context');
+  const roofFillGroups=[...svg.matchAll(/<g data-roof-faces="locked-surface-fill-no-unverified-outline">([\s\S]*?)<\/g>/g)].map(x=>x[1]);
+  assert.equal(roofFillGroups.length,4,mode+' axon must render four owner-specific source fill groups');
+  for(const group of roofFillGroups){
+   const depths=[...group.matchAll(/data-roof-depth="(-?\d+(?:\.\d+)?)"/g)].map(x=>Number(x[1]));
+   assert(depths.length>=2,mode+' each roof must contain source camera-depth metadata');
+   for(let i=1;i<depths.length;i++)assert(depths[i]>=depths[i-1]-1e-4,mode+' roof surface fills must be ordered far-to-near under real same-camera projection');
+  }
   assert(!/Roof surfaces[^<]*suppressed/i.test(svg),mode+' axon must not claim solved roof faces are suppressed');
 }
 const analysis=ARCH.analyze();
