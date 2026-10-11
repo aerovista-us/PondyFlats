@@ -46,7 +46,7 @@ function axon(roof,mode,project){
  const center=M?.manifest?.camera?.screenTranslation;
  if(!Array.isArray(center)||center.length!==2||center.some(n=>!Number.isFinite(n)))return '';
  const toPx=p=>[center[0]+p[0],center[1]+p[1]];
- const faceFill=roof.surfaceFaces.map(face=>'<polygon points="'+face.polygon.map(p=>{
+ const faceFill=roof.surfaceFaces.map(face=>({face,depth:face.polygon.reduce((sum,p)=>sum+(-26.24*p[0]-42.64*p[1]+11.98*p[2]),0)/face.polygon.length})).sort((a,b)=>a.depth-b.depth).map(({face,depth})=>'<polygon points="'+face.polygon.map(p=>{
   const x=project(...p);return safeNum(x[0])+','+safeNum(x[1]);}).join(' ')+'" fill="'+SHADE+
   '" fill-opacity="'+(mode==='massing'?'.38':'.24')+'" stroke="none" data-roof-surface-face="'+face.id+
   '" data-roof-zone="'+face.zoneId+'"/>').join('');
