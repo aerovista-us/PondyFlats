@@ -8,6 +8,9 @@ on:
       - 'js/lot2-sot.js'
       - 'js/lot2-sheet-*.js'
       - 'js/report-orientation-contract.js'
+      - 'js/customer-report-standard.js'
+      - 'scripts/report-standard-gates.js'
+      - 'packages/candidate-reports/**'
       - 'scripts/report-orientation-gates.js'
       - 'prototypes/**'
       - 'scripts/d4-browser-visual-audit.cjs'
@@ -27,6 +30,9 @@ on:
       - 'js/lot2-sot.js'
       - 'js/lot2-sheet-*.js'
       - 'js/report-orientation-contract.js'
+      - 'js/customer-report-standard.js'
+      - 'scripts/report-standard-gates.js'
+      - 'packages/candidate-reports/**'
       - 'scripts/report-orientation-gates.js'
       - 'prototypes/**'
       - 'scripts/d4-browser-visual-audit.cjs'
@@ -75,6 +81,7 @@ jobs:
           "$CHROME_BIN" --version >> "$RUNNER_TEMP/d4-architectural-sheet-qa/provenance.txt"
       - name: Source, roof and dimensions fail-closed gates
         run: |
+          npm run gates:customer-report-standard
           npm run gates:report-orientation
           npm run gates:d4-roof
           npm run gates:sheet-document
