@@ -1,5 +1,10 @@
 # LotScope Workbench audit contract
 
+## October 12 universal candidate extension
+
+Use **one common Workbench validation pipeline for every candidate geometry**. A room polygon must pass source-owner containment, shared-wall intersection, room-overlap and draft/current signature checks; doors need explicit width and same-owner/stair-story geometry, with swings/egress still unproved. Supported gable slopes, long/short ridge axes, two-zone plane-envelope valleys and zero-overhang fascia require actual model inputs and fail closed for nonrectangular/unsupported/moved sources. Two roof-face cuts are model evidence, **not** complete building sections. This extension does not replace existing circulation/swept-vehicle, architectural visualization or print/AHJ gates. See [Consumer contract](LOTSCOPE_SHARED_DESIGN_CONSUMER.md) and [LotScope solver master](https://github.com/aerovista-us/lot-assessment/blob/main/docs/UNIVERSAL_DESIGN_ENGINE_MASTER.md).
+
+
 ## Purpose
 
 Workbench is the primary design-development evaluator. External review can discover missing cases, but a discovered defect is converted into a permanent Workbench gate rather than becoming a one-off manual fix.

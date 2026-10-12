@@ -1,5 +1,10 @@
 # Pondy Architectural Sheet Document Schema v0.1
 
+## Generic candidate-consumer adapter — current boundary (2026-10-12)
+
+The existing v0.1 sheet schema and Design 4 adapter do **not** yet constitute a deployed universal LotScope-candidate-to-A-series compiler. LotScope's current shared `DesignDocument` and `solveUniversalDesign` inputs/results can be mapped into this schema **only after** implementing a source-authenticated adapter that binds exact candidate ID, project, revision, component source signature, design-document revision, model result status, independent locked-roof SOT and per-view visual acceptance. A `MODEL_PREVIEW` polygon must not be upgraded to `PROMOTED`/`FROZEN` sheet authority merely because a drawing was rendered. Proposed adapter and feature matrix: [LOTSCOPE_SHARED_DESIGN_CONSUMER.md](LOTSCOPE_SHARED_DESIGN_CONSUMER.md). Browser-local drafts are **not** automatically synchronized to Pages or printable full architectural drawing sets.
+
+
 Date: 2026-10-08
 Schema: `pondy-sheet-document-v0.1`
 

@@ -1,4 +1,9 @@
 # Unified customer report standard — best of Designs 1–4 (v1)
+
+## Universal-engine interpretation (2026-10-12)
+
+LotScope PR #97/#98 support user-authored rooms/doors/stair zones and some gable ridges, checked cross-gable valleys, zero-overhang fascia and real roof-face **MODEL_PREVIEW** sections. These should fill relevant feature slots **only with their actual evidence status**; they do NOT mean all 22 visual features have a complete architectural geometry source. The authoritative customer roof gallery still requires separately validated source-current locked roof components; a model preview may not be promoted by report formatting alone. **Complete building sections, actual room/door/stair engineering plans, nonzero eave surface extensions, physical print-calibrated PDF and customer publishing** remain unimplemented. See [Pondy consumer contract](LOTSCOPE_SHARED_DESIGN_CONSUMER.md). Every generated report must keep source signature and **CONCEPT ONLY — NOT FOR CONSTRUCTION** status.
+
 Date: 2026-10-12. Applies to **every new candidate-derived customer report**, HTML **and** PDF package. Older published Designs 1–4 remain source references; no retrofit should silently change their approved (or unapproved) evidence.
 
 ## Source review and feature decisions
