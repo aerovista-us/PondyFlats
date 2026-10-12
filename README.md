@@ -1,5 +1,8 @@
 # Pondy Flats · Lot 2
 
+**Current customer-report documentation (October 12, 2026):** [Current documentation index](docs/README.md) · [Unified 22-feature report standard](docs/UNIFIED_CUSTOMER_REPORT_STANDARD.md) · [LotScope universal design consumer contract](docs/LOTSCOPE_SHARED_DESIGN_CONSUMER.md) · [sheet-document schema](docs/architectural-sheet-document-schema.md). **LotScope** now has a source-bound shared room/roof/section **MODEL_PREVIEW** editor and private report generator (PR #97/#98); this **does not mean** those browser-local designs are published to PondyFlats static Pages or available as authoritative construction drawing sets. Existing design-specific frozen records below are preserved as history, not global release status. All concept sheets remain **CONCEPT ONLY — NOT FOR CONSTRUCTION**.
+
+
 **R5.1e-v1.1 — DESIGN COMPLETE / PROGRAM GATE PASS.**  
 **R5.1e-v1.0 — COMPLETE BASELINE / PROGRAM GATE NOT CLEARED** (preserved; not the live design).
 
