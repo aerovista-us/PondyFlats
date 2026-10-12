@@ -1,5 +1,17 @@
 # Docs index — Pondy Flats Lot 2
 
+## Read first: current documentation and design-engine boundary (2026-10-12)
+
+- [Universal LotScope-to-Pondy design consumer contract](LOTSCOPE_SHARED_DESIGN_CONSUMER.md) — one reusable model for any candidate; source identity, geometry/preview vs locked authority, 22-slot report, sheet-document integration **planned** but not automatically connected.
+- [Unified customer report standard](UNIFIED_CUSTOMER_REPORT_STANDARD.md) — required 22 feature slots across Designs 1–4 and all new designs, clearly marked missing/withheld evidence.
+- [Sheet-document schema](architectural-sheet-document-schema.md), [orientation](REPORT_ORIENTATION_CONTRACT.md), [Workbench QA](WORKBENCH_AUDIT_CONTRACT.md) — current common architectural-sheet/validation contracts.
+- [LotScope current release docs](https://github.com/aerovista-us/lot-assessment/blob/main/docs/README.md) and [shared solver master](https://github.com/aerovista-us/lot-assessment/blob/main/docs/UNIVERSAL_DESIGN_ENGINE_MASTER.md) — authoritative up-to-date Workbench runtime capabilities.
+
+**Historical preservation:** The R5.1e/Design 1–3 milestones and dated baselines below describe **those specific past options**, not a new candidate's floor, roof, mobility or professional approval. The Design 4 customer package also retains unresolved physical/professional gates; browser-local candidate-derived HTML does **not** automatically update this Pages repository.
+
+---
+
+
 **Landing:** [`../index.html`](../index.html) · **Design 1:** [`../r51e-deliverable.html`](../r51e-deliverable.html) · **Design 2:** [`../design-2.html`](../design-2.html) · **Repo:** [aerovista-us/PondyFlats](https://github.com/aerovista-us/PondyFlats) · **Conflicts (flagged, not deleted):** [`lot2-status-conflicts.md`](lot2-status-conflicts.md)
 
 **File roles:** [`lot2-file-map.md`](lot2-file-map.md) — **TRUTH · CURRENT · EXPERIMENT · DERIVATIVE · ARCHIVE · TEMP**
