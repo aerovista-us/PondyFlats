@@ -16,6 +16,9 @@ assert.equal(r.circulation.fullPass,false);
 assert.equal(r.circulation.outbound,'OPEN_NOT_PROVEN');
 assert.equal(r.approvedCandidateSignature,null);
 assert.equal(r.approvedForConstruction,false);
+const exporter=fs.readFileSync('scripts/export-design4.js','utf8');
+assert(exporter.includes("'js/d4-customer-release-status.js'"),'The standalone client must include the shared release contract');
+assert(exporter.includes('customer publication authority remains REVIEW REQUIRED'),'Exported client notes must distinguish roof model and customer release');
 const roofSot=fs.readFileSync('js/lot2-design-4-roof-sot.js','utf8');
 for(const owner of ['roof-home-a','roof-home-b','roof-garage-a','roof-garage-b']){
   assert(roofSot.includes("id:'"+owner+"'"),'Missing model owner '+owner);
