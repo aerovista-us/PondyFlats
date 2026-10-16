@@ -1,0 +1,546 @@
+{
+  "schemaVersion": "pondy-d4-source-chain-audit-v1",
+  "sourceSha": "bbfce17473292210b372fbd290beb0a45c860183",
+  "pondyAuditedSha": "a0338a9db7be93a1356a3b8e6fea851030b3c7e4",
+  "candidateId": "pondy-d4",
+  "candidateSnapshotSha256": "c084e6b66d5bbc199658ce208060a4e3fd50db49d1b77d6bbcb0169cff4eabb9",
+  "intervalManifestSha256": "a109b46507752bb199675b9e72e5a9f1277226b005c89328502d65c20dba0b61",
+  "modelBinding": "PASS",
+  "customerPublicationAllowed": false,
+  "approvedForConstruction": false,
+  "owners": [
+    {
+      "ownerId": "home-b",
+      "ownerGeometrySha256": "137aa65f07e8ff001e40564bde082cfda69841a08d0d993b115fd55d53c54224",
+      "surfaceFacesSha256": "8dc9261cbf7944c1f01c8dfc47fef4380ef9e1e5cbeddfb53ee6f6a515e84795",
+      "views": {
+        "north": {
+          "status": "REVIEW_REQUIRED",
+          "counts": {
+            "visible": 8,
+            "hidden": 3,
+            "unresolved": 10,
+            "internalSeams": 10,
+            "duplicateShared": 3,
+            "edgeOnFaces": 4,
+            "collapsedEdges": 6
+          }
+        },
+        "south": {
+          "status": "REVIEW_REQUIRED",
+          "counts": {
+            "visible": 8,
+            "hidden": 3,
+            "unresolved": 10,
+            "internalSeams": 10,
+            "duplicateShared": 3,
+            "edgeOnFaces": 4,
+            "collapsedEdges": 6
+          }
+        },
+        "east": {
+          "status": "REVIEW_REQUIRED",
+          "counts": {
+            "visible": 4,
+            "hidden": 2,
+            "unresolved": 16,
+            "internalSeams": 4,
+            "duplicateShared": 4,
+            "edgeOnFaces": 8,
+            "collapsedEdges": 10
+          }
+        },
+        "west": {
+          "status": "REVIEW_REQUIRED",
+          "counts": {
+            "visible": 4,
+            "hidden": 2,
+            "unresolved": 16,
+            "internalSeams": 4,
+            "duplicateShared": 4,
+            "edgeOnFaces": 8,
+            "collapsedEdges": 10
+          }
+        },
+        "pondy-iso-01": {
+          "status": "INTERVAL_VERIFIED",
+          "counts": {
+            "visible": 21,
+            "hidden": 7,
+            "unresolved": 0,
+            "internalSeams": 20,
+            "duplicateShared": 12,
+            "edgeOnFaces": 0,
+            "collapsedEdges": 0
+          }
+        }
+      }
+    },
+    {
+      "ownerId": "home-a",
+      "ownerGeometrySha256": "24df6e6e1db09ff28452a6bbc98547f84b82b5b6af50691cf2559763250d45ab",
+      "surfaceFacesSha256": "1d04efcfef37fd998e832660fc515ba7887b3272443357225dda98bbe50d0b94",
+      "views": {
+        "north": {
+          "status": "INTERVAL_VERIFIED",
+          "counts": {
+            "visible": 4,
+            "hidden": 3,
+            "unresolved": 0,
+            "internalSeams": 0,
+            "duplicateShared": 1,
+            "edgeOnFaces": 0,
+            "collapsedEdges": 0
+          }
+        },
+        "south": {
+          "status": "INTERVAL_VERIFIED",
+          "counts": {
+            "visible": 4,
+            "hidden": 3,
+            "unresolved": 0,
+            "internalSeams": 0,
+            "duplicateShared": 1,
+            "edgeOnFaces": 0,
+            "collapsedEdges": 0
+          }
+        },
+        "east": {
+          "status": "REVIEW_REQUIRED",
+          "counts": {
+            "visible": 0,
+            "hidden": 0,
+            "unresolved": 4,
+            "internalSeams": 0,
+            "duplicateShared": 0,
+            "edgeOnFaces": 2,
+            "collapsedEdges": 4
+          }
+        },
+        "west": {
+          "status": "REVIEW_REQUIRED",
+          "counts": {
+            "visible": 0,
+            "hidden": 0,
+            "unresolved": 4,
+            "internalSeams": 0,
+            "duplicateShared": 0,
+            "edgeOnFaces": 2,
+            "collapsedEdges": 4
+          }
+        },
+        "pondy-iso-01": {
+          "status": "INTERVAL_VERIFIED",
+          "counts": {
+            "visible": 7,
+            "hidden": 2,
+            "unresolved": 0,
+            "internalSeams": 0,
+            "duplicateShared": 1,
+            "edgeOnFaces": 0,
+            "collapsedEdges": 0
+          }
+        }
+      }
+    },
+    {
+      "ownerId": "garage-b",
+      "ownerGeometrySha256": "cabe7d81a06b38c2c89b0fe28161e1d95d2a772f5d8fa47d8a332034955a19bd",
+      "surfaceFacesSha256": "857b7c578bb0d0dea7ce58d9c623a141c404da58a954d3dca94aef386bfaf981",
+      "views": {
+        "north": {
+          "status": "INTERVAL_VERIFIED",
+          "counts": {
+            "visible": 4,
+            "hidden": 3,
+            "unresolved": 0,
+            "internalSeams": 0,
+            "duplicateShared": 1,
+            "edgeOnFaces": 0,
+            "collapsedEdges": 0
+          }
+        },
+        "south": {
+          "status": "INTERVAL_VERIFIED",
+          "counts": {
+            "visible": 4,
+            "hidden": 3,
+            "unresolved": 0,
+            "internalSeams": 0,
+            "duplicateShared": 1,
+            "edgeOnFaces": 0,
+            "collapsedEdges": 0
+          }
+        },
+        "east": {
+          "status": "REVIEW_REQUIRED",
+          "counts": {
+            "visible": 0,
+            "hidden": 0,
+            "unresolved": 4,
+            "internalSeams": 0,
+            "duplicateShared": 0,
+            "edgeOnFaces": 2,
+            "collapsedEdges": 4
+          }
+        },
+        "west": {
+          "status": "REVIEW_REQUIRED",
+          "counts": {
+            "visible": 0,
+            "hidden": 0,
+            "unresolved": 4,
+            "internalSeams": 0,
+            "duplicateShared": 0,
+            "edgeOnFaces": 2,
+            "collapsedEdges": 4
+          }
+        },
+        "pondy-iso-01": {
+          "status": "INTERVAL_VERIFIED",
+          "counts": {
+            "visible": 7,
+            "hidden": 2,
+            "unresolved": 0,
+            "internalSeams": 0,
+            "duplicateShared": 1,
+            "edgeOnFaces": 0,
+            "collapsedEdges": 0
+          }
+        }
+      }
+    },
+    {
+      "ownerId": "garage-a",
+      "ownerGeometrySha256": "01f4246cd23d073b15d88c736964b5fe0c271798ba8e7198bc8aa232c71a67c9",
+      "surfaceFacesSha256": "468a97f315954f9babd533c4a696e7eb739bedebcd7d40fe6f0a1d3fc36feec9",
+      "views": {
+        "north": {
+          "status": "INTERVAL_VERIFIED",
+          "counts": {
+            "visible": 4,
+            "hidden": 3,
+            "unresolved": 0,
+            "internalSeams": 0,
+            "duplicateShared": 1,
+            "edgeOnFaces": 0,
+            "collapsedEdges": 0
+          }
+        },
+        "south": {
+          "status": "INTERVAL_VERIFIED",
+          "counts": {
+            "visible": 4,
+            "hidden": 3,
+            "unresolved": 0,
+            "internalSeams": 0,
+            "duplicateShared": 1,
+            "edgeOnFaces": 0,
+            "collapsedEdges": 0
+          }
+        },
+        "east": {
+          "status": "REVIEW_REQUIRED",
+          "counts": {
+            "visible": 0,
+            "hidden": 0,
+            "unresolved": 4,
+            "internalSeams": 0,
+            "duplicateShared": 0,
+            "edgeOnFaces": 2,
+            "collapsedEdges": 4
+          }
+        },
+        "west": {
+          "status": "REVIEW_REQUIRED",
+          "counts": {
+            "visible": 0,
+            "hidden": 0,
+            "unresolved": 4,
+            "internalSeams": 0,
+            "duplicateShared": 0,
+            "edgeOnFaces": 2,
+            "collapsedEdges": 4
+          }
+        },
+        "pondy-iso-01": {
+          "status": "INTERVAL_VERIFIED",
+          "counts": {
+            "visible": 7,
+            "hidden": 2,
+            "unresolved": 0,
+            "internalSeams": 0,
+            "duplicateShared": 1,
+            "edgeOnFaces": 0,
+            "collapsedEdges": 0
+          }
+        }
+      }
+    }
+  ],
+  "junctionAliases": [
+    {
+      "sourceId": "home-b-roof-zone-1__home-b-roof-zone-2__valley-1",
+      "pondyId": "home-b-valley-east",
+      "maxDeltaFt": 8.627409897599136e-11
+    },
+    {
+      "sourceId": "home-b-roof-zone-1__home-b-roof-zone-2__valley-2",
+      "pondyId": "home-b-valley-west",
+      "maxDeltaFt": 8.627409897599136e-11
+    }
+  ],
+  "sourceAndStandaloneFiles": [
+    {
+      "path": "js/lot2-design-4.js",
+      "sha256": "8b76ac23b637d1244dc3ef493e9e2f84ec5716fdcebdab650dcb981671aa9f42",
+      "standaloneByteMatch": true
+    },
+    {
+      "path": "js/lot2-design-4-roof-sot.js",
+      "sha256": "d4657b10abaa085d429325202495acf29db2f23588085598047b1ba4176bab85",
+      "standaloneByteMatch": true
+    },
+    {
+      "path": "js/lot2-design-4-roof-intervals.js",
+      "sha256": "419cbf399d869a5d4ebf6320ce7eac56fe978f417bb4d77f80ea042460ad4e46",
+      "standaloneByteMatch": true
+    },
+    {
+      "path": "js/lot2-design-4-roof-interval-adapter.js",
+      "sha256": "4dbcbf7cc489baae953a3c4e795f0ab854930284b4271f819331168d4068864e",
+      "standaloneByteMatch": true
+    },
+    {
+      "path": "js/lot2-design-4-roof-edge-renderer.js",
+      "sha256": "0d0577fe4c3b38c03b87ed74d90eca9c7821c78accdd89c8e8e6406ce4bb87fe",
+      "standaloneByteMatch": true
+    },
+    {
+      "path": "js/lot2-design-4-architecture.js",
+      "sha256": "81334fbe155b7fbc0cfc32f177296c21b46a05a91c8e6013411475df990d5449",
+      "standaloneByteMatch": true
+    },
+    {
+      "path": "js/d4-customer-release-status.js",
+      "sha256": "1517edfa9216b81e28ec75f2e1564c55d3058bb78c15264db3617b55c10af7ca",
+      "standaloneByteMatch": true
+    }
+  ],
+  "valleySections": [
+    {
+      "id": "V1",
+      "label": "Valley 1",
+      "sourceId": "home-b-roof-zone-1__home-b-roof-zone-2__valley-1",
+      "zoneIds": [
+        "home-b-roof-zone-1",
+        "home-b-roof-zone-2"
+      ],
+      "origin": [
+        89.00000000004314,
+        17.75
+      ],
+      "direction": [
+        -0.6114475010787681,
+        0.7912850013898467
+      ],
+      "planTrace": {
+        "a": [
+          94.5,
+          10.63235294128813
+        ],
+        "b": [
+          78.56818181814315,
+          31.25
+        ]
+      },
+      "valleyMidZFt": 22.125,
+      "residualFt": 0,
+      "sourceA": [
+        83.50000000008627,
+        13.5,
+        24.25
+      ],
+      "sourceB": [
+        94.5,
+        22,
+        20
+      ],
+      "segments": [
+        {
+          "a": [
+            -5.371010435601738,
+            24.25
+          ],
+          "b": [
+            -8.995048618652106,
+            22.816176470644066
+          ],
+          "faceId": "home-b-roof-zone-1-side-neg-3"
+        },
+        {
+          "a": [
+            2.811209048267382e-15,
+            22.124999999999996
+          ],
+          "b": [
+            -5.371010435618707,
+            24.250000000006715
+          ],
+          "faceId": "home-b-roof-zone-1-side-pos-7"
+        },
+        {
+          "a": [
+            2.6380896837936333e-11,
+            22.125000000006228
+          ],
+          "b": [
+            5.371010435601738,
+            23.393853305805024
+          ],
+          "faceId": "home-b-roof-zone-2-side-neg-9"
+        },
+        {
+          "a": [
+            8.995048618793229,
+            24.25000000003333
+          ],
+          "b": [
+            5.371010435601738,
+            23.393853305805024
+          ],
+          "faceId": "home-b-roof-zone-2-side-neg-10"
+        },
+        {
+          "a": [
+            8.995048618793227,
+            24.25000000003333
+          ],
+          "b": [
+            17.060856677793744,
+            22.344524793391873
+          ],
+          "faceId": "home-b-roof-zone-2-side-pos-12"
+        }
+      ],
+      "status": "SOURCE_INTERSECTION",
+      "reason": "Two locked face surfaces meet at source valley midpoint; profile is model-derived, not drainage-approved"
+    },
+    {
+      "id": "V2",
+      "label": "Valley 2",
+      "sourceId": "home-b-roof-zone-1__home-b-roof-zone-2__valley-2",
+      "zoneIds": [
+        "home-b-roof-zone-1",
+        "home-b-roof-zone-2"
+      ],
+      "origin": [
+        77.99999999995686,
+        17.75
+      ],
+      "direction": [
+        -0.6114475010787681,
+        -0.7912850013898467
+      ],
+      "planTrace": {
+        "a": [
+          88.43181818185685,
+          31.25
+        ],
+        "b": [
+          68.14772727260686,
+          5
+        ]
+      },
+      "valleyMidZFt": 22.125,
+      "residualFt": 0,
+      "sourceA": [
+        83.49999999991373,
+        13.5,
+        24.25
+      ],
+      "sourceB": [
+        72.5,
+        22,
+        20
+      ],
+      "segments": [
+        {
+          "a": [
+            8.995048618652106,
+            22.816176470644066
+          ],
+          "b": [
+            5.371010435584759,
+            24.250000000006715
+          ],
+          "faceId": "home-b-roof-zone-1-side-neg-1"
+        },
+        {
+          "a": [
+            16.113031306805205,
+            20
+          ],
+          "b": [
+            8.995048618652106,
+            22.816176470644066
+          ],
+          "faceId": "home-b-roof-zone-1-side-neg-5"
+        },
+        {
+          "a": [
+            5.371010435601738,
+            24.25
+          ],
+          "b": [
+            -2.6380896837936333e-11,
+            22.124999999989562
+          ],
+          "faceId": "home-b-roof-zone-1-side-pos-6"
+        },
+        {
+          "a": [
+            -8.995048618793229,
+            24.25000000003333
+          ],
+          "b": [
+            -17.060856677793744,
+            22.344524793391873
+          ],
+          "faceId": "home-b-roof-zone-2-side-neg-10"
+        },
+        {
+          "a": [
+            -2.811209048267382e-15,
+            22.125
+          ],
+          "b": [
+            -5.371010435601738,
+            23.393853305805024
+          ],
+          "faceId": "home-b-roof-zone-2-side-pos-11"
+        },
+        {
+          "a": [
+            -5.371010435601738,
+            23.393853305805024
+          ],
+          "b": [
+            -8.995048618793227,
+            24.25000000003333
+          ],
+          "faceId": "home-b-roof-zone-2-side-pos-12"
+        }
+      ],
+      "status": "SOURCE_INTERSECTION",
+      "reason": "Two locked face surfaces meet at source valley midpoint; profile is model-derived, not drainage-approved"
+    }
+  ],
+  "remainingGates": [
+    "Exact served LotScope revision and authenticated inspector visual acceptance",
+    "Home B cardinal ambiguity retained as REVIEW_REQUIRED",
+    "Physical print calibration",
+    "Professional valley/drainage/structure review",
+    "AHJ approval"
+  ]
+}
