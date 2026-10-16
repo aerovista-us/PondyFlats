@@ -33,7 +33,7 @@ for(const [name,keys] of Object.entries(pages)){
  const html=fs.readFileSync(name,'utf8');
  assert(html.includes('src="js/d4-customer-release-status.js"'),name+' must load shared contract');
  for(const key of keys)assert(html.includes('data-d4-release="'+key+'"'),name+' missing '+key);
- for(const obsolete of ['WITHHELD / Workbench lock pending.','Roof geometry status: WITHHELD — Workbench lock pending.','Roof silhouette is not drawn because ridge']){
+ for(const obsolete of ['WITHHELD / Workbench lock pending.','Roof geometry status: WITHHELD — Workbench lock pending.','Roof silhouette is not drawn because ridge','replace the currently withheld roof silhouette only after Workbench roof geometry is explicitly locked','roof geometry lock; parcel-specific accessory zoning']){
   assert(!html.includes(obsolete),name+' contains obsolete roof model claim');
  }
 }
@@ -53,3 +53,8 @@ vm.runInNewContext(source,windowContext);
 assert.equal(rendered['roof-status'][0].textContent,'Roof release: REVIEW REQUIRED');
 assert(rendered['roof-detail'][0].textContent.includes('not yet been reconciled'));
 console.log('Design 4 shared release status and three customer surfaces: PASS');
+
+const clientStatus=fs.readFileSync('packages/design-4-client/status.html','utf8');
+assert(!clientStatus.includes('roof geometry lock; parcel-specific accessory zoning'));
+assert(clientStatus.includes('physical-print calibration'));
+assert(clientStatus.includes('roof/view customer-release acceptance'));
