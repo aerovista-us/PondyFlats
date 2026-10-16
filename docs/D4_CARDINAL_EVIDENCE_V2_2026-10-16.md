@@ -2,7 +2,7 @@
 
 Roof publication remains disabled. No physical-print, actual-phone, professional or AHJ acceptance is recorded here. The earlier status-only correction in #55 remains separate from roof approval.
 
-Reviewed LotScope source: `429b4b0eef19f2581675bf5f3968b0f06a03ec00` on [PR #112](https://github.com/aerovista-us/lot-assessment/pull/112). This integration is staged in branches, not proof of a new public deployment. The last recorded deployed-source evidence in the earlier handoff remains historical; it does not establish this candidate is served.
+Reviewed LotScope source: `3ff591720f217c485e70aa17c83812849929d092` on [PR #112](https://github.com/aerovista-us/lot-assessment/pull/112). This integration is staged in branches, not proof of a new public deployment. The last recorded deployed-source evidence in the earlier handoff remains historical; it does not establish this candidate is served.
 
 Algorithm review found a concave self-occlusion gap: an edge-on face's own projected boundary must partition source-edge coverage. The reproducer failed before the fix and now splits the source edge at t=.75. The independent oracle ear-clips concave polygons before 3D ray/triangle tests and passes 3,174 comparisons including reversed/cyclic vertex orders, rotations, translations and malformed/stale/tied cases. No candidate geometry, owner key, roof face or valley geometry was edited.
 
