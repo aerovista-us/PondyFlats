@@ -24,3 +24,12 @@ The source-chain baseline pins the exact reviewed source SHA, unchanged candidat
 Evidence closure still requires confirmed actual deployment SHA; review of all cardinal cameras, axon, both valleys and standalone exports; actual-phone/native picker review; measured 36×24 physical sheets with professional-set tolerances; and the responsible professional/AHJ dispositions. The existing [physical calibration procedure](D4_PHYSICAL_PRINT_CALIBRATION.md) remains open. Fifteen computed dimensions passing software gates do not establish print accuracy or acceptance.
 
 Keep `customerPublicationAllowed=false`, `approvedCandidateSignature=null`, `approvedForConstruction=false` and every professional-acceptance flag false. Designs 3 → 2 → 1 follow D4 acceptance using the one shared engine.
+
+## Recorded verification
+
+- Clean LotScope source: `d9260a50c3134453bd25779faf443fda7aeba9dc`.
+- Audited/rendered Pondy application checkpoint: `8f9b7fc62e199f1a22ac5a1be68cd19fc51b928a`; the following evidence commit adds records without changing the application modules.
+- [Source-chain record](evidence/d4-source-chain-cardinal-v2-2026-10-16.json): candidate/owner/face hashes, complete camera digest, seven byte-matched source/standalone modules, junction aliases and both actual valleys. Candidate snapshot remains `c084e6b66d5bbc199658ce208060a4e3fd50db49d1b77d6bbcb0169cff4eabb9`.
+- [Verification record](evidence/d4-cardinal-integration-verification-2026-10-16.json): eight source/standalone browser cases pass at 1440/390px; inspector passes 390/768px touch emulation plus desktop.
+
+Model N/S/E/W, axon and V1/V2 source cuts were inspected in staged screenshots. These file renders and component fixtures do not close actual served-revision or real-phone acceptance. Phone drawings still require zoom and native-device review. Physical sheets and professional/AHJ dispositions remain unrecorded. Both linked PRs stay draft and publication remains disabled.
