@@ -99,6 +99,19 @@ for(const face of ['east','west','north','south']){
   assert(svg.includes('data-roof-concept-only="true"'),face+' must keep concept-only interval status');
   assert(!svg.includes('data-roof-interval="UNRESOLVED"'),face+' source model intervals should be resolved');
   assert(svg.includes('data-roof-surface-face='),face+' must carry source face ids for auditability');
+  const fills=[...svg.matchAll(/<g data-roof-faces="locked-surface-fill-no-unverified-outline">([\s\S]*?)<\/g>/g)];
+  assert.equal(fills.length,4);
+  for(const [,fill] of fills){
+   const tags=[...fill.matchAll(/data-roof-surface-face="([^"]+)"[^>]*data-roof-depth="([^"]+)"/g)];
+   assert(tags.length>=2,'Cardinal fills retain source camera-depth metadata');
+   for(let i=0;i<tags.length;i++){
+    const sourceFace=ROOF.ROOFS.flatMap(r=>r.surfaceFaces).find(f=>f.id===tags[i][1]);assert(sourceFace);
+    const expected=sourceFace.polygon.reduce((sum,p)=>sum+(face==='east'?p[0]:face==='west'?-p[0]:face==='north'?-p[1]:p[1]),0)/sourceFace.polygon.length;
+    assert(Math.abs(Number(tags[i][2])-expected)<=.0051,face+' fill depth must match the imported camera direction');
+    if(i)assert(Number(tags[i][2])>=Number(tags[i-1][2])-.0001,face+' fills must be drawn far-to-near');
+   }
+  }
+
   assert(!svg.includes('EXACT VIEW PROJECTOR PENDING'),face+' must not claim the projector is pending once surface faces are present');
   assert(!svg.includes('CONCEPT ROOF'),face+' must not draw a generic concept roof');
   assert(!/roof withheld|roof silhouette withheld/i.test(svg),face+' must not carry stale suppression language once exact surfaces are active');

@@ -8,6 +8,15 @@ Algorithm review found a concave self-occlusion gap: an edge-on face's own proje
 
 The v2 export includes every interval's source face/edge and t0/t1, suppressed seam/shared-edge intervals, and collapsed projected-point records with original 3D endpoints. The strict consumer adapter verifies source binding, camera coordinates, complete edge coverage, counts and collapsed records. Older v1 or incomplete evidence is withheld. Visibility remains solved by the single shared LotScope engine.
 
+The renderer's north/south surface-fill sort was also corrected to use the same declared depth directions as the interval camera; regression checks bind every fill's depth to its source polygon and require far-to-near order.
+
+| Pondy view | LotScope source view | Near-depth direction |
+|---|---|---|
+| North | SOUTH | −Y |
+| South | NORTH | +Y |
+| East | EAST | +X |
+| West | WEST | −X |
+
 All four owners' N/S/E/W and exact Pondy axon cameras are model-interval verified. This says nothing about professional drawing quality or release. Generic building sections in `d4-sections.html` remain their declared x-plane cuts, not dedicated V1/V2 valley sections. Both real valley cuts are retained in the source-chain evidence and protected LotScope inspector: midpoint Z 22.125 ft, 5/6 source segments, residual 0. Fascia remains withheld.
 
 The source-chain baseline pins the exact reviewed source SHA, unchanged candidate snapshot hash and regenerated interval-manifest hash. Source and standalone interval modules/adapters are regenerated together. The audit records exact owner/face hashes, camera results, junction aliases, source/standalone module hashes and both valley sections. A later geometry edit or rotation requires new validation and regenerated evidence.
