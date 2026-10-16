@@ -1,0 +1,52 @@
+name: Design 4 source and export provenance
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit-d4-*.cjs'
+      - 'data/d4-source-chain-baseline.json'
+      - 'js/lot2-design-4*.js'
+      - 'js/d4-customer-release-status.js'
+      - 'packages/design-4-client/**'
+      - '.github/workflows/d4-provenance-qa.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/audit-d4-*.cjs'
+      - 'data/d4-source-chain-baseline.json'
+      - 'js/lot2-design-4*.js'
+      - 'js/d4-customer-release-status.js'
+      - 'packages/design-4-client/**'
+      - '.github/workflows/d4-provenance-qa.yml'
+permissions:
+  contents: read
+jobs:
+  source-chain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - name: Read reviewed source revision
+        id: source
+        run: |
+          node -e 'const fs=require("fs"); const s=require("./data/d4-source-chain-baseline.json").sourceSha; if(!/^[0-9a-f]{40}$/.test(s))process.exit(1); fs.appendFileSync(process.env.GITHUB_OUTPUT,"sha="+s+"\n");'
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: aerovista-us/lot-assessment
+          ref: ${{ steps.source.outputs.sha }}
+          path: .qa-lotscope-source
+          persist-credentials: false
+      - name: Verify exact owner, face, junction, camera and standalone binding
+        env:
+          EXPECTED_SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        run: node scripts/audit-d4-source-chain.cjs .qa-lotscope-source "$EXPECTED_SOURCE_SHA" "$RUNNER_TEMP/d4-source-chain.json"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: d4-source-chain-${{ github.sha }}
+          path: ${{ runner.temp }}/d4-source-chain.json
+          retention-days: 21

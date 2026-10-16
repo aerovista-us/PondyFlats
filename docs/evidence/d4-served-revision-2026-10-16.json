@@ -1,0 +1,184 @@
+{
+  "schemaVersion": "pondy-d4-served-revision-v1",
+  "baseUrl": "https://aerovista-us.github.io/PondyFlats/",
+  "expectedSha": "a0338a9db7be93a1356a3b8e6fea851030b3c7e4",
+  "status": "PASS",
+  "files": [
+    {
+      "path": "index.html",
+      "httpStatus": 200,
+      "expectedSha256": "3ed7bb75789a622186c2bc8338705e034aba40316d18284deba7bb3405578d49",
+      "servedSha256": "3ed7bb75789a622186c2bc8338705e034aba40316d18284deba7bb3405578d49",
+      "byteMatch": true
+    },
+    {
+      "path": "design-4.html",
+      "httpStatus": 200,
+      "expectedSha256": "2a5acd1fb3d16ae001ba44f2b43d33459b093d624bd7f2f6eb8495466b9f6b67",
+      "servedSha256": "2a5acd1fb3d16ae001ba44f2b43d33459b093d624bd7f2f6eb8495466b9f6b67",
+      "byteMatch": true
+    },
+    {
+      "path": "design-4-status.html",
+      "httpStatus": 200,
+      "expectedSha256": "b713df63a3b0c1cf25b31d15847f9ac5b10fd5680ea1231edd25c2b76afe14b9",
+      "servedSha256": "b713df63a3b0c1cf25b31d15847f9ac5b10fd5680ea1231edd25c2b76afe14b9",
+      "byteMatch": true
+    },
+    {
+      "path": "d4-elevs.html",
+      "httpStatus": 200,
+      "expectedSha256": "019a71780a68c4a341aeabacba90f1bb9e190cfee649c267410c2572529756c2",
+      "servedSha256": "019a71780a68c4a341aeabacba90f1bb9e190cfee649c267410c2572529756c2",
+      "byteMatch": true
+    },
+    {
+      "path": "d4-axon.html",
+      "httpStatus": 200,
+      "expectedSha256": "7b223391a13eb35693afc0994d0065c12c289da46c0b08edb17c59d12eab850f",
+      "servedSha256": "7b223391a13eb35693afc0994d0065c12c289da46c0b08edb17c59d12eab850f",
+      "byteMatch": true
+    },
+    {
+      "path": "d4-sections.html",
+      "httpStatus": 200,
+      "expectedSha256": "08cfde3ccfda4768589270b021b20ffc2c22dc002d5a7d40ebd7813bedaf036d",
+      "servedSha256": "08cfde3ccfda4768589270b021b20ffc2c22dc002d5a7d40ebd7813bedaf036d",
+      "byteMatch": true
+    },
+    {
+      "path": "packages/design-4-client/index.html",
+      "httpStatus": 200,
+      "expectedSha256": "0d51f60bf7b884083e702dab0b7424249a3447d8472d288b9df872f19b811c9a",
+      "servedSha256": "0d51f60bf7b884083e702dab0b7424249a3447d8472d288b9df872f19b811c9a",
+      "byteMatch": true
+    },
+    {
+      "path": "packages/design-4-client/status.html",
+      "httpStatus": 200,
+      "expectedSha256": "5ddb958c66bdea10959f301c0e8f9ae1175345080e28e4b160071cb03dcdadc3",
+      "servedSha256": "5ddb958c66bdea10959f301c0e8f9ae1175345080e28e4b160071cb03dcdadc3",
+      "byteMatch": true
+    },
+    {
+      "path": "packages/design-4-client/elevs.html",
+      "httpStatus": 200,
+      "expectedSha256": "40e826a18e5f3a94edd22248d66ccfd413ba7eb95a6942eb6d7cb05cdc61a630",
+      "servedSha256": "40e826a18e5f3a94edd22248d66ccfd413ba7eb95a6942eb6d7cb05cdc61a630",
+      "byteMatch": true
+    },
+    {
+      "path": "packages/design-4-client/axon.html",
+      "httpStatus": 200,
+      "expectedSha256": "29b46ff1f4be3fad02d83ad50e76286ea091b518262f1023cc4eafb49d7fb8c9",
+      "servedSha256": "29b46ff1f4be3fad02d83ad50e76286ea091b518262f1023cc4eafb49d7fb8c9",
+      "byteMatch": true
+    },
+    {
+      "path": "packages/design-4-client/sections.html",
+      "httpStatus": 200,
+      "expectedSha256": "576047c8667d21e67a5a3d93332c3f1876fed96bba8af3297f8bb413befd594c",
+      "servedSha256": "576047c8667d21e67a5a3d93332c3f1876fed96bba8af3297f8bb413befd594c",
+      "byteMatch": true
+    },
+    {
+      "path": "js/lot2-design-4.js",
+      "httpStatus": 200,
+      "expectedSha256": "8b76ac23b637d1244dc3ef493e9e2f84ec5716fdcebdab650dcb981671aa9f42",
+      "servedSha256": "8b76ac23b637d1244dc3ef493e9e2f84ec5716fdcebdab650dcb981671aa9f42",
+      "byteMatch": true
+    },
+    {
+      "path": "packages/design-4-client/js/lot2-design-4.js",
+      "httpStatus": 200,
+      "expectedSha256": "8b76ac23b637d1244dc3ef493e9e2f84ec5716fdcebdab650dcb981671aa9f42",
+      "servedSha256": "8b76ac23b637d1244dc3ef493e9e2f84ec5716fdcebdab650dcb981671aa9f42",
+      "byteMatch": true
+    },
+    {
+      "path": "js/lot2-design-4-roof-sot.js",
+      "httpStatus": 200,
+      "expectedSha256": "d4657b10abaa085d429325202495acf29db2f23588085598047b1ba4176bab85",
+      "servedSha256": "d4657b10abaa085d429325202495acf29db2f23588085598047b1ba4176bab85",
+      "byteMatch": true
+    },
+    {
+      "path": "packages/design-4-client/js/lot2-design-4-roof-sot.js",
+      "httpStatus": 200,
+      "expectedSha256": "d4657b10abaa085d429325202495acf29db2f23588085598047b1ba4176bab85",
+      "servedSha256": "d4657b10abaa085d429325202495acf29db2f23588085598047b1ba4176bab85",
+      "byteMatch": true
+    },
+    {
+      "path": "js/lot2-design-4-roof-intervals.js",
+      "httpStatus": 200,
+      "expectedSha256": "419cbf399d869a5d4ebf6320ce7eac56fe978f417bb4d77f80ea042460ad4e46",
+      "servedSha256": "419cbf399d869a5d4ebf6320ce7eac56fe978f417bb4d77f80ea042460ad4e46",
+      "byteMatch": true
+    },
+    {
+      "path": "packages/design-4-client/js/lot2-design-4-roof-intervals.js",
+      "httpStatus": 200,
+      "expectedSha256": "419cbf399d869a5d4ebf6320ce7eac56fe978f417bb4d77f80ea042460ad4e46",
+      "servedSha256": "419cbf399d869a5d4ebf6320ce7eac56fe978f417bb4d77f80ea042460ad4e46",
+      "byteMatch": true
+    },
+    {
+      "path": "js/lot2-design-4-roof-interval-adapter.js",
+      "httpStatus": 200,
+      "expectedSha256": "4dbcbf7cc489baae953a3c4e795f0ab854930284b4271f819331168d4068864e",
+      "servedSha256": "4dbcbf7cc489baae953a3c4e795f0ab854930284b4271f819331168d4068864e",
+      "byteMatch": true
+    },
+    {
+      "path": "packages/design-4-client/js/lot2-design-4-roof-interval-adapter.js",
+      "httpStatus": 200,
+      "expectedSha256": "4dbcbf7cc489baae953a3c4e795f0ab854930284b4271f819331168d4068864e",
+      "servedSha256": "4dbcbf7cc489baae953a3c4e795f0ab854930284b4271f819331168d4068864e",
+      "byteMatch": true
+    },
+    {
+      "path": "js/lot2-design-4-roof-edge-renderer.js",
+      "httpStatus": 200,
+      "expectedSha256": "0d0577fe4c3b38c03b87ed74d90eca9c7821c78accdd89c8e8e6406ce4bb87fe",
+      "servedSha256": "0d0577fe4c3b38c03b87ed74d90eca9c7821c78accdd89c8e8e6406ce4bb87fe",
+      "byteMatch": true
+    },
+    {
+      "path": "packages/design-4-client/js/lot2-design-4-roof-edge-renderer.js",
+      "httpStatus": 200,
+      "expectedSha256": "0d0577fe4c3b38c03b87ed74d90eca9c7821c78accdd89c8e8e6406ce4bb87fe",
+      "servedSha256": "0d0577fe4c3b38c03b87ed74d90eca9c7821c78accdd89c8e8e6406ce4bb87fe",
+      "byteMatch": true
+    },
+    {
+      "path": "js/lot2-design-4-architecture.js",
+      "httpStatus": 200,
+      "expectedSha256": "81334fbe155b7fbc0cfc32f177296c21b46a05a91c8e6013411475df990d5449",
+      "servedSha256": "81334fbe155b7fbc0cfc32f177296c21b46a05a91c8e6013411475df990d5449",
+      "byteMatch": true
+    },
+    {
+      "path": "packages/design-4-client/js/lot2-design-4-architecture.js",
+      "httpStatus": 200,
+      "expectedSha256": "81334fbe155b7fbc0cfc32f177296c21b46a05a91c8e6013411475df990d5449",
+      "servedSha256": "81334fbe155b7fbc0cfc32f177296c21b46a05a91c8e6013411475df990d5449",
+      "byteMatch": true
+    },
+    {
+      "path": "js/d4-customer-release-status.js",
+      "httpStatus": 200,
+      "expectedSha256": "1517edfa9216b81e28ec75f2e1564c55d3058bb78c15264db3617b55c10af7ca",
+      "servedSha256": "1517edfa9216b81e28ec75f2e1564c55d3058bb78c15264db3617b55c10af7ca",
+      "byteMatch": true
+    },
+    {
+      "path": "packages/design-4-client/js/d4-customer-release-status.js",
+      "httpStatus": 200,
+      "expectedSha256": "1517edfa9216b81e28ec75f2e1564c55d3058bb78c15264db3617b55c10af7ca",
+      "servedSha256": "1517edfa9216b81e28ec75f2e1564c55d3058bb78c15264db3617b55c10af7ca",
+      "byteMatch": true
+    }
+  ],
+  "scope": "Public bytes only; not physical-device, authenticated LotScope or professional acceptance"
+}
