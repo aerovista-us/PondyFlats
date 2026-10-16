@@ -17,6 +17,7 @@ assert.equal(sourceSha,expectedSourceSha,'Source checkout changed; reaccept exac
 const baseline=JSON.parse(fs.readFileSync(path.join(root,'data/d4-source-chain-baseline.json'),'utf8'));
 assert.equal(sourceSha,baseline.sourceSha,'Unreviewed source revision');
 assert.equal(git(['status','--porcelain','--untracked-files=no'],source),'','Source tracked files must be clean');
+assert.equal(git(['status','--porcelain','--untracked-files=no'],root),'','Consumer tracked files must be clean');
 const roofExport=JSON.parse(run(['--experimental-loader','./scripts/alias-loader.mjs','scripts/export-roof-sot.mjs']));
 const intervalExport=run(['--experimental-loader','./scripts/alias-loader.mjs','scripts/export-d4-roof-intervals.mjs']);
 const context={};vm.runInNewContext(intervalExport,context);
