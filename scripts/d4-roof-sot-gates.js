@@ -97,12 +97,12 @@ for(const face of ['east','west','north','south']){
   assert.equal((svg.match(/data-roof-projector="LOCKED_VERIFIED_EDGE_INTERVALS"/g)||[]).length,4,face+' must identify four owner-bound roof interval projectors');
   assert(svg.includes('ROOF · SOLVED FACES + INTERVAL REVIEW · CONCEPT ONLY'),face+' must preserve review label');
   assert(svg.includes('data-roof-concept-only="true"'),face+' must keep concept-only interval status');
-  assert(svg.includes('data-roof-interval="UNRESOLVED"'),face+' must show unresolved lines when a view remains review-required');
+  assert(!svg.includes('data-roof-interval="UNRESOLVED"'),face+' source model intervals should be resolved');
   assert(svg.includes('data-roof-surface-face='),face+' must carry source face ids for auditability');
   assert(!svg.includes('EXACT VIEW PROJECTOR PENDING'),face+' must not claim the projector is pending once surface faces are present');
   assert(!svg.includes('CONCEPT ROOF'),face+' must not draw a generic concept roof');
   assert(!/roof withheld|roof silhouette withheld/i.test(svg),face+' must not carry stale suppression language once exact surfaces are active');
-  assert.equal((svg.match(/data-roof-interval-status="REVIEW_REQUIRED"/g)||[]).length,face==='north'||face==='south'?1:4,face+' must disclose unresolved model-view authority');
+  assert.equal((svg.match(/data-roof-interval-status="INTERVAL_VERIFIED"/g)||[]).length,4,face+' must identify model interval verification without granting publication');
   assert(svg.includes('data-roof-edge-source="LotScope-analytic-intervals"'),face+' must use LotScope intervals');
   assert(!/stroke-width="2.1" stroke-linejoin="round" data-roof-surface-face=/.test(svg),face+' may not outline imported tessellation triangles');
 }
@@ -195,3 +195,5 @@ console.log(JSON.stringify({
   axonProjectsSolvedRoofSurface:true,
   architectureRoofContract:analysis.checks.roofContract
 },null,2));
+
+require('./d4-roof-interval-proof-gates.js');

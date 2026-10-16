@@ -36,6 +36,7 @@ const scenarios=[
      mobileOverflow:document.documentElement.scrollWidth>innerWidth+4,
      navScrollable:(()=>{const nav=document.querySelector('.nav');return !nav||nav.scrollWidth<=nav.clientWidth||getComputedStyle(nav).overflowX==='auto'})(),
      manifestBound:Boolean(window.Lot2Design4RoofIntervals?.manifest?.owners?.length===4),
+     publicationDisabled:window.PondyD4Release?.roof?.customerPublicationAllowed===false&&window.PondyD4Release?.approvedForConstruction===false,
      premiumStylesheetLoaded:Boolean(document.querySelector('link[href="css/pondy-premium.css"]')?.sheet),
      svgCount:document.querySelectorAll('svg').length};
    },kind);
@@ -45,7 +46,8 @@ const scenarios=[
    if(data.faceOutlineCount)fails.push('unverified mesh face outline drawn');
    if(!data.visible||!data.hidden)fails.push('missing analytic edge types');
    if(kind==='axon'&&data.unresolved)fails.push('exact Pondy camera must not claim unresolved');
-   if(kind==='elevation'&&data.unresolved<1)fails.push('edge-on roof review diagnostics missing');
+   if(kind==='elevation'&&(data.unresolved||data.statuses.some(s=>s!=='INTERVAL_VERIFIED')))fails.push('source cardinal model proof missing');
+   if(!data.publicationDisabled)fails.push('release boundary changed');
    if(!data.conceptOnly||!data.manifestBound)fails.push('concept-only or source-binding disclosure missing');
    if(!data.premiumStylesheetLoaded)fails.push('Customer presentation stylesheet missing from package');
    if(width===390&&(data.mobileOverflow||!data.navScrollable))fails.push('mobile navigation overflows viewport');
