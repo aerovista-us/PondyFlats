@@ -48,20 +48,20 @@ Real live desktop browser inspection (1363 × 936 viewport) confirms the four ca
 
 The accepted-head final-package workflow covers source and standalone desktop/tablet/phone viewport families (1440, 1024, 768, 390). The post-merge sheet workflow covers sheet desktop/mobile/print frame and source/export roof semantics. Served bytes match the tested content. This does not claim physical touch/phone testing or a new live phone-sized browser session.
 
-The public Pondy sections are x=111.25 (Home A), x=83.5 (Home B), x=16 (garages). **They do not include the dedicated V1/V2 valley sections.** Live LotScope `/workbench/roof-drawings` redirects to AeroVista sign-in; no authenticated session was available. Therefore exact-served authenticated V1/V2 visual acceptance remains OPEN. Fresh source cuts are:
+The public Pondy sections are x=111.25 (Home A), x=83.5 (Home B), x=16 (garages). **They do not include the dedicated V1/V2 valley sections.** The initial audit stopped at sign-in. After the user completed verification, the authenticated production inspector was reviewed at the pinned source revision; both V1/V2 rendered and their highlight controls worked. This closes the desktop access/observation gap, while cardinal ambiguity, phone/touch and professional acceptance remain open. Source and live cuts are:
 
 | Cut | Midpoint XY, ft (rounded for this table) | Z, ft | Source face segments | Software state |
 |---|---|---:|---:|---|
 | V1 / east valley | (89, 17.75) | 22.125 | 5 | SOURCE_INTERSECTION |
 | V2 / west valley | (78, 17.75) | 22.125 | 6 | SOURCE_INTERSECTION |
 
-Vercel GitHub status for LotScope `bbfce174` is successful and points to deployment `DGFTpTD7BD6SMBHu3DsR8Dx2svTA`, but Vercel team inspection returned 403; no local authenticated Vercel CLI was available. **Do not infer that the current production alias serves that exact SHA.** NXCore is offline. These block exact-served LotScope provenance/authenticated acceptance, not the now verified Pondy Pages status release.
+Initial Vercel connector inspection returned 403. After NXCore returned online, its existing authorized Vercel CLI 64.0.2 independently confirmed deployment `dpl_DGFTpTD7BD6SMBHu3DsR8Dx2svTA` is READY, target production, Git source `aerovista-us/lot-assessment` main `bbfce17473292210b372fbd290beb0a45c860183`, and carries the `lotscope.aerovista.us` alias. This matches the pinned source-chain audit. **The prior provenance/access blockers are resolved for this desktop review.** No credential, cookie or raw auth payload is recorded.
 
 ## Remaining promotion gates
 
 | Gate | State | Required next evidence |
 |---|---|---|
-| Home B drawing / #86 | OPEN | Authenticated exact-deployment inspection of N/S/E/W, axon, V1/V2; preserve REVIEW_REQUIRED/WITHHELD where ambiguous. Professional valley detail remains separate. |
+| Home B drawing / #86 | PARTIAL / OPEN | Authenticated production desktop N/S/E/W, axon, V1/V2 inspection completed. Cardinal ambiguity, phone/touch and professional valley-detail acceptance remain open; preserve REVIEW_REQUIRED/WITHHELD. |
 | Rotated/replacement garages | FAIL-CLOSED REGRESSION PASS | A new roof must be authored/validated for any replacement owner; no inherited baseline authority. |
 | A-001/A-101 software | PASS, review-only | Preserve 15 geometry-derived dimensions, exact frontage, collision/export/scale-frame checks. |
 | Physical print / Pondy #48 | NOT PERFORMED | Complete [physical calibration record](D4_PHYSICAL_PRINT_CALIBRATION.md) using real 36×24 proofs and responsible professional acceptance. |
@@ -70,3 +70,11 @@ Vercel GitHub status for LotScope `bbfce174` is successful and points to deploym
 | Designs 3 → 2 → 1 | DEFERRED | Reuse the same engine after D4 acceptance; do not copy D4 measurements or create separate engines. |
 
 The automated source chain, green CI and model axon establish bounded software evidence. They do not close the remaining drawing, physical-print, professional or AHJ gates.
+
+## Authenticated continuation after phone verification
+
+See [sanitized live observation record](evidence/d4-authenticated-live-2026-10-16.json). Real authenticated desktop at 1363 × 936: five camera tabs, both valley highlights, source edge selection, edge IDs and unresolved emphasis work. No horizontal document overflow observed. North/South show 8 visible / 3 hidden / 10 unresolved; East/West 4 / 2 / 16. The inspector axon has 19 visible / 0 hidden / 0 unresolved. V1/V2 render 5/6 source face segments at Z 22.125 ft, zero residual, with explicit concept-only and unapproved drainage/structural labels. The selected E9 remains UNRESOLVED and reports source face `home-b-roof-zone-1-side-pos-6`, polygon edge 2, parameter interval 0–1, reason `Projected face is edge-on`.
+
+NXCore exact-source roof, canonical, intervention and workspace regressions passed at `bbfce174` in isolated checkout `/home/glyph/d4-live-acceptance-20261016`. The existing canonical main checkout was clean but older; it was not replaced by this acceptance run.
+
+Scope limit: this is a software/disclosure/interaction acceptance observation. Cardinal drawing ambiguity is retained; overlapping edge IDs on collapsed projections are not accepted drafting typography. No authenticated phone-sized or physical-touch test, physical print reading, professional approval or AHJ decision was supplied. The public Pondy report still has its main building sections rather than V1/V2. Roof publication remains disabled; #86 and #48 stay open.
