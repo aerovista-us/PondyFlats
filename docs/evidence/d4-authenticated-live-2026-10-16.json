@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "d4-authenticated-live-review-v1",
+  "date": "2026-10-16",
+  "scope": "Authenticated desktop software disclosure and interaction review; not professional drawing acceptance",
+  "surface": "https://lotscope.aerovista.us/workbench/roof-drawings",
+  "authentication": {
+    "actualWorkbenchPageLoaded": true,
+    "credentialsOrSessionDataRecorded": false
+  },
+  "deployment": {
+    "provider": "Vercel",
+    "inspectionMethod": "Authorized existing NXCore Vercel CLI 64.0.2; scoped read only",
+    "id": "dpl_DGFTpTD7BD6SMBHu3DsR8Dx2svTA",
+    "target": "production",
+    "state": "READY",
+    "gitSha": "bbfce17473292210b372fbd290beb0a45c860183",
+    "gitRef": "main",
+    "repo": "aerovista-us/lot-assessment",
+    "productionAlias": "lotscope.aerovista.us",
+    "matchesPinnedPondyBaseline": true
+  },
+  "viewport": {
+    "width": 1363,
+    "height": 936,
+    "horizontalOverflow": false
+  },
+  "homeB": {
+    "sourceFaces": 12,
+    "derivedValleys": 2,
+    "fascia": "WITHHELD",
+    "reviewViews": 4,
+    "totalViews": 5
+  },
+  "cameraObservations": [
+    {
+      "view": "NORTH",
+      "status": "REVIEW_REQUIRED",
+      "visible": 8,
+      "hidden": 3,
+      "unresolved": 10,
+      "edgeOnFaces": 4,
+      "collapsedEdges": 6,
+      "suppressedSeams": 10
+    },
+    {
+      "view": "SOUTH",
+      "status": "REVIEW_REQUIRED",
+      "visible": 8,
+      "hidden": 3,
+      "unresolved": 10,
+      "edgeOnFaces": 4,
+      "collapsedEdges": 6,
+      "suppressedSeams": 10
+    },
+    {
+      "view": "EAST",
+      "status": "REVIEW_REQUIRED",
+      "visible": 4,
+      "hidden": 2,
+      "unresolved": 16,
+      "edgeOnFaces": 8,
+      "collapsedEdges": 10,
+      "suppressedSeams": 4
+    },
+    {
+      "view": "WEST",
+      "status": "REVIEW_REQUIRED",
+      "visible": 4,
+      "hidden": 2,
+      "unresolved": 16,
+      "edgeOnFaces": 8,
+      "collapsedEdges": 10,
+      "suppressedSeams": 4
+    },
+    {
+      "view": "AXON",
+      "status": "INTERVAL_VERIFIED",
+      "visible": 19,
+      "hidden": 0,
+      "unresolved": 0,
+      "edgeOnFaces": 0,
+      "collapsedEdges": 0,
+      "suppressedSeams": 14
+    }
+  ],
+  "valleySections": [
+    {
+      "id": "V1",
+      "sourceId": "home-b-roof-zone-1__home-b-roof-zone-2__valley-1",
+      "midpointXYFt": [
+        89,
+        17.75
+      ],
+      "zFt": 22.125,
+      "faceSegments": 5,
+      "residualFt": 0,
+      "status": "SOURCE_INTERSECTION",
+      "highlightControlWorked": true
+    },
+    {
+      "id": "V2",
+      "sourceId": "home-b-roof-zone-1__home-b-roof-zone-2__valley-2",
+      "midpointXYFt": [
+        78,
+        17.75
+      ],
+      "zFt": 22.125,
+      "faceSegments": 6,
+      "residualFt": 0,
+      "status": "SOURCE_INTERSECTION",
+      "highlightControlWorked": true
+    }
+  ],
+  "edgeInspector": {
+    "selected": "E9",
+    "classification": "UNRESOLVED",
+    "sourceFace": "home-b-roof-zone-1-side-pos-6",
+    "polygonEdge": 2,
+    "parameterInterval": [
+      0,
+      1
+    ],
+    "reason": "Projected face is edge-on",
+    "identifyEnabled": true,
+    "unresolvedEmphasisEnabled": true
+  },
+  "nxcore": {
+    "connection": "ONLINE",
+    "sourceCheckout": "/home/glyph/d4-live-acceptance-20261016",
+    "sourceSha": "bbfce17473292210b372fbd290beb0a45c860183",
+    "roofRegression": "PASS",
+    "canonicalRegression": "PASS",
+    "interventionRegression": "PASS",
+    "workspaceRegression": "PASS"
+  },
+  "remainingGates": [
+    "Home B cardinal drawing ambiguity remains REVIEW_REQUIRED",
+    "Authenticated live phone/touch inspection not performed",
+    "Physical 36x24 print calibration not performed",
+    "Professional valley, flashing, drainage, structural and snow review",
+    "AHJ approval",
+    "Outbound circulation proof"
+  ],
+  "roofPublicationAllowed": false,
+  "professionalAcceptance": false,
+  "ahjAcceptance": false
+}
