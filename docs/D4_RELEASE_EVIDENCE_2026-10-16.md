@@ -1,5 +1,7 @@
 # Design 4 roof and sheet release evidence — 2026-10-16
 
+> Later software release verified: [live deployment handoff](D4_LIVE_SOFTWARE_RELEASE_2026-10-17.md). The staged/earlier deployment statements below are historical; roof and professional approval remain disabled.
+
 ## Status-only release completed
 
 Pondy [PR #55](https://github.com/aerovista-us/PondyFlats/pull/55) merged as `a0338a9db7be93a1356a3b8e6fea851030b3c7e4`. The outstanding review found an old release-boundary paragraph that still called the model unlocked. Corrected source and standalone status pages and expanded the regression at accepted PR head `546bfaaf9c8057b4cdb16be8dac5c5e44958a9de`; all three hosted workflows passed. The merged content is identical to that accepted head.
