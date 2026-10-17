@@ -1,8 +1,9 @@
 {
   "schemaVersion": "pondy-d4-source-chain-baseline-v1",
-  "sourceSha": "bbfce17473292210b372fbd290beb0a45c860183",
+  "sourceSha": "d9260a50c3134453bd25779faf443fda7aeba9dc",
   "candidateId": "pondy-d4",
   "candidateSnapshotSha256": "c084e6b66d5bbc199658ce208060a4e3fd50db49d1b77d6bbcb0169cff4eabb9",
-  "intervalManifestSha256": "a109b46507752bb199675b9e72e5a9f1277226b005c89328502d65c20dba0b61",
-  "roofPublicationAllowed": false
+  "intervalManifestSha256": "f52f162cfd493e4b84031a77944033f974f3e3bb25d4e56d860d5b246bb32b69",
+  "roofPublicationAllowed": false,
+  "intervalSchemaVersion": "lotscope-verified-roof-intervals-v2"
 }

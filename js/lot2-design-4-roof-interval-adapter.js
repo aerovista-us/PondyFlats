@@ -5,7 +5,7 @@
 const M=(typeof module!=='undefined'&&module.exports)?require('./lot2-design-4-roof-intervals.js'):global.Lot2Design4RoofIntervals;
 const R=(typeof module!=='undefined'&&module.exports)?require('./lot2-design-4-roof-sot.js'):global.Lot2Design4RoofSOT;
 const D=(typeof module!=='undefined'&&module.exports)?require('./lot2-design-4.js'):global.Lot2Design4;
-const VERSION='lotscope-verified-roof-intervals-v1';
+const VERSION='lotscope-verified-roof-intervals-v2';
 const VIEW_IDS=Object.freeze(['north','south','east','west','pondy-iso-01']);
 function reject(reason){return {status:'WITHHELD',segments:[],counts:null,reason};}
 function currentOwnerPolygon(ownerId){
@@ -25,7 +25,68 @@ function ownerMatchesLiveGeometry(roof){
     &&JSON.stringify(key.polygon)===JSON.stringify(live);
  }catch{return false;}
 }
+// Validate provenance/coverage of the source-generated classification. This is
+// not a second visibility solver: LotScope remains the single geometry engine.
+function validEvidence(roof,entry,viewId){
+ const finite=(p,n)=>Array.isArray(p)&&p.length===n&&p.every(Number.isFinite);
+ const near=(a,b)=>finite(a,b.length)&&a.every((v,i)=>Math.abs(v-b[i])<=1e-7);
+ const cardinal=viewId!=='pondy-iso-01';
+ const project=p=>viewId==='north'?[-p[0],p[2]]:viewId==='south'?[p[0],p[2]]:
+  viewId==='east'?[-p[1],p[2]]:viewId==='west'?[p[1],p[2]]:
+  [5.2*p[0]-3.2*p[1],-1.55*p[0]-1.35*p[1]-8.2*p[2]];
+ const faces=new Map(roof.surfaceFaces.map(f=>[f.id,f.polygon]));
+ const edgeOn=[...faces.values()].filter(poly=>{
+  const a=project(poly[0]);
+  return !poly.slice(1,-1).some((p,i)=>{const b=project(p),c=project(poly[i+2]);
+   return Math.abs((b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]))>1e-7;});
+ }).length;
+ const c=entry.counts;
+ if(!c||Object.values(c).some(n=>!Number.isSafeInteger(n)||n<0)||
+  !Array.isArray(entry.segments)||!Array.isArray(entry.suppressedSegments))return false;
+ const types=['VISIBLE','HIDDEN','UNRESOLVED','INTERNAL_SEAM','DUPLICATE_SHARED'];
+ const runs=[...entry.segments,...entry.suppressedSegments];
+ const countKeys=['visible','hidden','unresolved','internalSeams','duplicateShared'];
+ for(let i=0;i<types.length;i++)if(c[countKeys[i]]!==runs.filter(s=>s?.visibility===types[i]).length)return false;
+ if(entry.segments.some(s=>!types.slice(0,3).includes(s?.visibility))||
+  entry.suppressedSegments.some(s=>!types.slice(3).includes(s?.visibility)))return false;
+ const proof=entry.projectionProof;
+ if(cardinal&&(!proof||proof.method!=='CARDINAL_RAY_DEPTH_V1'||!Array.isArray(proof.collapsedProjection)))return false;
+ if(!cardinal&&proof)return false;
+ const collapsed=cardinal?proof.collapsedProjection:[];
+ if(collapsed.length!==c.collapsedEdges||c.edgeOnFaces!==edgeOn)return false;
+ const grouped=new Map();
+ for(const run of runs){
+  const poly=faces.get(run.faceId);
+  if(!poly||!Number.isInteger(run.edgeIndex)||run.edgeIndex<0||run.edgeIndex>=poly.length||
+   !Number.isFinite(run.t0)||!Number.isFinite(run.t1)||run.t0<0||run.t1>1||run.t1<=run.t0)return false;
+  const a=poly[run.edgeIndex],b=poly[(run.edgeIndex+1)%poly.length];
+  const at=t=>project(a.map((v,i)=>v+t*(b[i]-v)));
+  if(!near(run.start,at(run.t0))||!near(run.end,at(run.t1)))return false;
+  const key=run.faceId+'/'+run.edgeIndex;
+  if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(run);
+ }
+ const points=new Map();
+ for(const item of collapsed){
+  const poly=faces.get(item.faceId);
+  if(!poly||!Number.isInteger(item.edgeIndex)||item.edgeIndex<0||item.edgeIndex>=poly.length)return false;
+  const a=poly[item.edgeIndex],b=poly[(item.edgeIndex+1)%poly.length];
+  if(!near(item.sourceA,a)||!near(item.sourceB,b)||!near(item.point,project(a))||
+   Math.hypot(...project(a).map((v,i)=>v-project(b)[i]))>1e-7)return false;
+  const key=item.faceId+'/'+item.edgeIndex;if(points.has(key))return false;points.set(key,item);
+ }
+ for(const [id,poly] of faces)for(let edge=0;edge<poly.length;edge++){
+  const key=id+'/'+edge,a=project(poly[edge]),b=project(poly[(edge+1)%poly.length]);
+  const list=(grouped.get(key)||[]).sort((x,y)=>x.t0-y.t0);
+  const zero=Math.hypot(a[0]-b[0],a[1]-b[1])<=1e-7;
+  if(zero){if(!points.has(key)||list.length)return false;continue;}
+  if(points.has(key)||!list.length||Math.abs(list[0].t0)>1e-7||Math.abs(list.at(-1).t1-1)>1e-7)return false;
+  if(list.some((r,i)=>i&&Math.abs(list[i-1].t1-r.t0)>1e-7))return false;
+ }
+ if(entry.status==='INTERVAL_VERIFIED'&&(c.unresolved||(!cardinal&&(c.edgeOnFaces||c.collapsedEdges))))return false;
+ return true;
+}
 function resolve(roof,viewId){
+ try{
  if(!R||!D||!M||!M.manifest)return reject('Interval model unavailable');
  const manifest=M.manifest;
  if(manifest.schemaVersion!==VERSION||manifest.renderScope!=='CONCEPT_ONLY_NOT_FOR_CONSTRUCTION'||
@@ -43,14 +104,9 @@ function resolve(roof,viewId){
  const entry=imported.views?.[viewId];
  if(!entry||!['INTERVAL_VERIFIED','REVIEW_REQUIRED'].includes(entry.status)||!entry.counts||
    !Array.isArray(entry.segments)||entry.segments.length<1)return reject('Visibility interval data missing');
- if(entry.counts.unresolved>0||entry.counts.edgeOnFaces>0||entry.counts.collapsedEdges>0){
-  if(entry.status!=='REVIEW_REQUIRED')return reject('A review-needed view was marked verified');
- }
- if(entry.segments.some(s=>!s||!['VISIBLE','HIDDEN','UNRESOLVED'].includes(s.visibility)||
-    !Array.isArray(s.start)||!Array.isArray(s.end)||s.start.length!==2||s.end.length!==2||
-    [...s.start,...s.end].some(n=>typeof n!=='number'||!Number.isFinite(n))))return reject('Malformed imported edge');
- if(entry.status==='INTERVAL_VERIFIED'&&entry.segments.some(s=>s.visibility==='UNRESOLVED'))return reject('Visibility claimed for unresolved intervals');
+ if(!validEvidence(roof,entry,viewId))return reject('Incomplete or inconsistent source-edge interval evidence');
  return entry;
+ }catch{return reject('Malformed imported interval evidence');}
 }
 const api={VERSION,resolve,currentOwnerPolygon,ownerMatchesLiveGeometry};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;

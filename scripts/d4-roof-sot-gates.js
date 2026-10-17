@@ -97,12 +97,25 @@ for(const face of ['east','west','north','south']){
   assert.equal((svg.match(/data-roof-projector="LOCKED_VERIFIED_EDGE_INTERVALS"/g)||[]).length,4,face+' must identify four owner-bound roof interval projectors');
   assert(svg.includes('ROOF · SOLVED FACES + INTERVAL REVIEW · CONCEPT ONLY'),face+' must preserve review label');
   assert(svg.includes('data-roof-concept-only="true"'),face+' must keep concept-only interval status');
-  assert(svg.includes('data-roof-interval="UNRESOLVED"'),face+' must show unresolved lines when a view remains review-required');
+  assert(!svg.includes('data-roof-interval="UNRESOLVED"'),face+' source model intervals should be resolved');
   assert(svg.includes('data-roof-surface-face='),face+' must carry source face ids for auditability');
+  const fills=[...svg.matchAll(/<g data-roof-faces="locked-surface-fill-no-unverified-outline">([\s\S]*?)<\/g>/g)];
+  assert.equal(fills.length,4);
+  for(const [,fill] of fills){
+   const tags=[...fill.matchAll(/data-roof-surface-face="([^"]+)"[^>]*data-roof-depth="([^"]+)"/g)];
+   assert(tags.length>=2,'Cardinal fills retain source camera-depth metadata');
+   for(let i=0;i<tags.length;i++){
+    const sourceFace=ROOF.ROOFS.flatMap(r=>r.surfaceFaces).find(f=>f.id===tags[i][1]);assert(sourceFace);
+    const expected=sourceFace.polygon.reduce((sum,p)=>sum+(face==='east'?p[0]:face==='west'?-p[0]:face==='north'?-p[1]:p[1]),0)/sourceFace.polygon.length;
+    assert(Math.abs(Number(tags[i][2])-expected)<=.0051,face+' fill depth must match the imported camera direction');
+    if(i)assert(Number(tags[i][2])>=Number(tags[i-1][2])-.0001,face+' fills must be drawn far-to-near');
+   }
+  }
+
   assert(!svg.includes('EXACT VIEW PROJECTOR PENDING'),face+' must not claim the projector is pending once surface faces are present');
   assert(!svg.includes('CONCEPT ROOF'),face+' must not draw a generic concept roof');
   assert(!/roof withheld|roof silhouette withheld/i.test(svg),face+' must not carry stale suppression language once exact surfaces are active');
-  assert.equal((svg.match(/data-roof-interval-status="REVIEW_REQUIRED"/g)||[]).length,face==='north'||face==='south'?1:4,face+' must disclose unresolved model-view authority');
+  assert.equal((svg.match(/data-roof-interval-status="INTERVAL_VERIFIED"/g)||[]).length,4,face+' must identify model interval verification without granting publication');
   assert(svg.includes('data-roof-edge-source="LotScope-analytic-intervals"'),face+' must use LotScope intervals');
   assert(!/stroke-width="2.1" stroke-linejoin="round" data-roof-surface-face=/.test(svg),face+' may not outline imported tessellation triangles');
 }
@@ -195,3 +208,5 @@ console.log(JSON.stringify({
   axonProjectsSolvedRoofSurface:true,
   architectureRoofContract:analysis.checks.roofContract
 },null,2));
+
+require('./d4-roof-interval-proof-gates.js');

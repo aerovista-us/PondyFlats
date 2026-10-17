@@ -32,11 +32,11 @@ function elevation(roof,viewId,left,span,scale,groundY){
  // The surface fill conveys massing only. Individual polygon strokes would
  // fabricate seams that the interval verifier explicitly removes.
  const ordered=roof.surfaceFaces.map(face=>({face,depth:face.polygon.reduce((sum,p)=>sum+
-  (viewId==='east'?p[0]:viewId==='west'?-p[0]:viewId==='north'?p[1]:-p[1]),0)/face.polygon.length})).sort((a,b)=>a.depth-b.depth);
- const faceFill=ordered.map(({face})=>{
+  (viewId==='east'?p[0]:viewId==='west'?-p[0]:viewId==='north'?-p[1]:p[1]),0)/face.polygon.length})).sort((a,b)=>a.depth-b.depth);
+ const faceFill=ordered.map(({face,depth})=>{
   const points=face.polygon.map(p=>[left+((viewId==='east'||viewId==='west'?p[1]:p[0])-span[0])*scale,groundY-p[2]*scale]);
   return '<polygon points="'+points.map(p=>safeNum(p[0])+','+safeNum(p[1])).join(' ')+'" fill="'+SHADE+
-   '" fill-opacity=".32" stroke="none" data-roof-surface-face="'+face.id+'" data-roof-zone="'+face.zoneId+'"/>';
+   '" fill-opacity=".32" stroke="none" data-roof-surface-face="'+face.id+'" data-roof-zone="'+face.zoneId+'" data-roof-depth="'+safeNum(depth)+'"/>';
  }).join('');
  return envelope(roof,data,faceFill,lineGroup(data,coordinates));
 }

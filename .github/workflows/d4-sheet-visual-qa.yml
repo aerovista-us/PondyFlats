@@ -13,8 +13,11 @@ on:
       - 'packages/candidate-reports/**'
       - 'scripts/report-orientation-gates.js'
       - 'prototypes/**'
+      - 'docs/evidence/d4-*'
+      - 'docs/D4_CARDINAL_*'
       - 'scripts/d4-browser-visual-audit.cjs'
       - 'scripts/d4-roof-interval-browser-qa.cjs'
+      - 'scripts/d4-roof-interval-proof-gates.js'
       - 'scripts/export-design4.js'
       - 'd4-*.html'
       - 'design-4.html'
@@ -35,8 +38,11 @@ on:
       - 'packages/candidate-reports/**'
       - 'scripts/report-orientation-gates.js'
       - 'prototypes/**'
+      - 'docs/evidence/d4-*'
+      - 'docs/D4_CARDINAL_*'
       - 'scripts/d4-browser-visual-audit.cjs'
       - 'scripts/d4-roof-interval-browser-qa.cjs'
+      - 'scripts/d4-roof-interval-proof-gates.js'
       - 'scripts/export-design4.js'
       - 'd4-*.html'
       - 'design-4.html'
@@ -58,7 +64,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.sha }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:

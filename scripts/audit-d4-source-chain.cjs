@@ -17,6 +17,7 @@ assert.equal(sourceSha,expectedSourceSha,'Source checkout changed; reaccept exac
 const baseline=JSON.parse(fs.readFileSync(path.join(root,'data/d4-source-chain-baseline.json'),'utf8'));
 assert.equal(sourceSha,baseline.sourceSha,'Unreviewed source revision');
 assert.equal(git(['status','--porcelain','--untracked-files=no'],source),'','Source tracked files must be clean');
+assert.equal(git(['status','--porcelain','--untracked-files=no'],root),'','Consumer tracked files must be clean');
 const roofExport=JSON.parse(run(['--experimental-loader','./scripts/alias-loader.mjs','scripts/export-roof-sot.mjs']));
 const intervalExport=run(['--experimental-loader','./scripts/alias-loader.mjs','scripts/export-d4-roof-intervals.mjs']);
 const context={};vm.runInNewContext(intervalExport,context);
@@ -27,6 +28,9 @@ const adapter=require(path.join(root,'js/lot2-design-4-roof-interval-adapter.js'
 const release={};vm.runInNewContext(fs.readFileSync(path.join(root,'js/d4-customer-release-status.js'),'utf8'),release);
 assert.equal(release.PondyD4Release.roof.customerPublicationAllowed,false);
 assert.equal(release.PondyD4Release.approvedCandidateSignature,null);
+assert.equal(release.PondyD4Release.approvedForConstruction,false);
+assert(Object.values(release.PondyD4Release.professionalAcceptance).every(v=>v===false));
+assert.equal(regenerated.schemaVersion,baseline.intervalSchemaVersion);
 assert.deepEqual(regenerated,stored.manifest,'Regenerate intervals from reviewed source; stale payload withheld');
 assert.equal(sha256(regenerated),baseline.intervalManifestSha256,'Reaccept changed camera interval baseline');
 assert.equal(roofExport.safe,true);assert.equal(roofExport.counts.locked,4);
@@ -81,14 +85,15 @@ const sectionData=JSON.parse(run(['--experimental-loader','./scripts/alias-loade
 assert.equal(sha256(sectionData.candidate),baseline.candidateSnapshotSha256,'Reaccept changed candidate snapshot');
 assert.equal(sectionData.cuts.length,2);
 for(const cut of sectionData.cuts){assert.equal(cut.status,'SOURCE_INTERSECTION');assert.equal(cut.valleyMidZFt,22.125);assert(cut.segments.length>=2);}
-const record={schemaVersion:'pondy-d4-source-chain-audit-v1',sourceSha,
+const record={schemaVersion:'pondy-d4-source-chain-audit-v2',sourceSha,
  pondyAuditedSha:git(['rev-parse','HEAD'],root),candidateId:roofExport.candidateId,
  candidateSnapshotSha256:sha256(sectionData.candidate),intervalManifestSha256:sha256(regenerated),
  modelBinding:'PASS',customerPublicationAllowed:false,approvedForConstruction:false,
  owners,junctionAliases:aliases,sourceAndStandaloneFiles:files,
  valleySections:sectionData.cuts,
  remainingGates:['Exact served LotScope revision and authenticated inspector visual acceptance',
- 'Home B cardinal ambiguity retained as REVIEW_REQUIRED','Physical print calibration',
+ 'Home B cardinal drawing acceptance (model verification is not architectural approval)',
+ 'Actual-phone review and native picker on confirmed deployed revision','Physical print calibration',
  'Professional valley/drainage/structure review','AHJ approval']};
 fs.writeFileSync(path.resolve(output),JSON.stringify(record,null,2)+'\n');
 console.log(JSON.stringify({status:'PASS',sourceSha,owners:owners.length,standaloneModules:files.length,
