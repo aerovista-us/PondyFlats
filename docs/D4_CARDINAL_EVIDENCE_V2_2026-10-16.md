@@ -1,5 +1,7 @@
 # D4 cardinal model evidence v2 — staged integration
 
+> Later software release verified: [live deployment handoff](D4_LIVE_SOFTWARE_RELEASE_2026-10-17.md). The staged/earlier deployment statements below are historical; roof and professional approval remain disabled.
+
 Roof publication remains disabled. No physical-print, actual-phone, professional or AHJ acceptance is recorded here. The earlier status-only correction in #55 remains separate from roof approval.
 
 Reviewed LotScope source: `d9260a50c3134453bd25779faf443fda7aeba9dc` on [PR #112](https://github.com/aerovista-us/lot-assessment/pull/112). This integration is staged in branches, not proof of a new public deployment. The last recorded deployed-source evidence in the earlier handoff remains historical; it does not establish this candidate is served.
