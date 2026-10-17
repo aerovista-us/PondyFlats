@@ -1,5 +1,6 @@
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),crypto=require('node:crypto');
+const {execFileSync}=require('node:child_process');
 const puppeteer=require(process.env.PUPPETEER_MODULE||'puppeteer-core');
 const root=path.resolve(__dirname,'..');
 const liveBase=process.env.D4_ROOF_QA_BASE_URL;
@@ -18,9 +19,18 @@ const scenarios=[
  ['package-axon','packages/design-4-client/axon.html','axon']
 ];
 (async()=>{
- const browser=await puppeteer.launch({headless:true,executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox','--disable-dev-shm-usage']});
  const output=process.env.D4_ROOF_QA_DIR||'/tmp/pondy-d4-roof-interval-qa';
  fs.mkdirSync(output,{recursive:true});
+ let publicRevisionAudit=null;
+ if(liveBase){
+  const expected=process.env.D4_PUBLIC_EXPECTED_SHA;
+  if(!/^[0-9a-f]{40}$/.test(expected||''))throw Error('Live QA requires D4_PUBLIC_EXPECTED_SHA');
+  const auditPath=path.join(output,'public-revision-audit.json');
+  execFileSync(process.execPath,[path.join(__dirname,'audit-d4-served-revision.cjs'),expected,auditPath],{cwd:root,env:{...process.env,D4_SERVED_BASE_URL:liveBase},stdio:'pipe'});
+  publicRevisionAudit=JSON.parse(fs.readFileSync(auditPath,'utf8'));
+  if(publicRevisionAudit.status!=='PASS')throw Error('Public revision evidence did not pass');
+ }
+ const browser=await puppeteer.launch({headless:true,executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox','--disable-dev-shm-usage']});
  const cases=[];
  try{
   for(const [name,file,kind] of scenarios)for(const width of [1440,768,390]){
@@ -55,13 +65,13 @@ const scenarios=[
    if(kind==='elevation'&&(data.unresolved||data.statuses.some(s=>s!=='INTERVAL_VERIFIED')))fails.push('source cardinal model proof missing');
    if(!data.conceptOnly||!data.manifestBound)fails.push('concept-only or source-binding disclosure missing');
    if(!data.premiumStylesheetLoaded)fails.push('Customer presentation stylesheet missing from package');
-   if(width===390&&(data.mobileOverflow||!data.navScrollable))fails.push('mobile navigation overflows viewport');
+   if(data.mobileOverflow||!data.navScrollable)fails.push('document/navigation overflows viewport');
    if(errors.length)fails.push('browser page errors');
    cases.push({name,width,kind,url:page.url(),...data,errors,fails});
    await page.close();
   }
  }finally{await browser.close();}
- const report={sha:process.env.GITHUB_SHA||null,baseUrl:liveBase||null,expectedPublicSha:process.env.D4_PUBLIC_EXPECTED_SHA||null,testDriverSha256:crypto.createHash('sha256').update(fs.readFileSync(__filename)).digest('hex'),sourceAndStandaloneReleaseContractsClosed:true,cases:cases.length,passed:cases.filter(c=>!c.fails.length).length,details:cases};
+ const report={sha:process.env.GITHUB_SHA||null,baseUrl:liveBase||null,expectedPublicSha:process.env.D4_PUBLIC_EXPECTED_SHA||null,publicRevisionAudit,testDriverSha256:crypto.createHash('sha256').update(fs.readFileSync(__filename)).digest('hex'),sourceAndStandaloneReleaseContractsClosed:true,cases:cases.length,passed:cases.filter(c=>!c.fails.length).length,details:cases};
  fs.writeFileSync(path.join(output,'report.json'),JSON.stringify(report,null,2));
  for(const c of cases)console.log(JSON.stringify({name:c.name,width:c.width,owners:c.ownerGroups,visible:c.visible,hidden:c.hidden,unresolved:c.unresolved,failed:c.fails}));
  if(cases.some(c=>c.fails.length))process.exitCode=1;

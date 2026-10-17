@@ -4,7 +4,9 @@ const fs=require('node:fs'),path=require('node:path'),assert=require('node:asser
 const {execFileSync}=require('node:child_process'),{createHash}=require('node:crypto');
 const root=path.resolve(__dirname,'..'),[sha,output]=process.argv.slice(2);
 if(!/^[0-9a-f]{40}$/.test(sha||'')||!output)throw Error('Usage: node scripts/audit-d4-served-revision.cjs EXPECTED_PONDY_SHA OUTPUT_JSON');
-const base='https://aerovista-us.github.io/PondyFlats/';
+const base=process.env.D4_SERVED_BASE_URL||'https://aerovista-us.github.io/PondyFlats/';
+const baseUrl=new URL(base);
+if(baseUrl.protocol!=='https:'||baseUrl.username||baseUrl.password||baseUrl.search||baseUrl.hash||!baseUrl.pathname.endsWith('/'))throw Error('Served audit requires a clean HTTPS base URL ending in /');
 const modules=['lot2-design-4.js','lot2-design-4-roof-sot.js','lot2-design-4-roof-intervals.js',
  'lot2-design-4-roof-interval-adapter.js','lot2-design-4-roof-edge-renderer.js','lot2-design-4-architecture.js','d4-customer-release-status.js'];
 const paths=['index.html','design-4.html','design-4-status.html','d4-elevs.html','d4-axon.html','d4-sections.html',
