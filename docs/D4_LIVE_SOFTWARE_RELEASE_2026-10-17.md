@@ -38,3 +38,9 @@ Any later geometry edit or rotation requires source validation, lock revalidatio
 Run `scripts/audit-d4-served-revision.cjs` with the exact release SHA and an output JSON path. Run `scripts/d4-roof-interval-browser-qa.cjs` with `D4_ROOF_QA_BASE_URL=https://aerovista-us.github.io/PondyFlats/`, `D4_PUBLIC_EXPECTED_SHA` set to that SHA, and the configured Chromium/Puppeteer paths. The driver records its own checksum separately from the expected public application revision. This follow-up changes test tooling and records, not application geometry/rendering modules.
 
 Previous production references are retained for recovery: LotScope `bbfce17473292210b372fbd290beb0a45c860183` / Vercel `dpl_DGFTpTD7BD6SMBHu3DsR8Dx2svTA`, and Pondy `41e1858e08f4aa4bbf480bdb3b03a6224af380ad`. No rollback was necessary for the observed checks.
+
+## QA review correction
+
+Two review findings on the verification follow-up were fixed without changing application rendering: enforce document/navigation overflow at every viewport (including 768px), and make the live command require a valid expected SHA plus a successful exact served-byte preflight before launching the renderer. The prior release observation already had a separate 25-file byte audit; this correction makes that binding mandatory inside the reproduction command too.
+
+[Correction evidence](evidence/d4-live-qa-review-2026-10-17.json) records 12/12 live cases passing, rejection of the deliberately stale `41e1858…` revision, and rejection of four deliberately broken 768px navigation cases in an isolated test worktree while the other eight cases pass. No live application data, geometry, approval flags or rendering modules were changed for these negative tests.
