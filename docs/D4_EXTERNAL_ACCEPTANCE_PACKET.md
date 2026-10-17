@@ -1,5 +1,7 @@
 # D4 external acceptance packet
 
+> Owner disposition, October 17: physical print and professional/AHJ acceptance are deferred and acknowledged, not verified or approved. Roof publication remains disabled. See [the current disposition](D4_DEFERRED_EXTERNAL_ACCEPTANCE_2026-10-17.md).
+
 Status: **AWAITING REAL OBSERVATIONS AND DISPOSITIONS**. Roof publication remains disabled. This packet prepares the remaining reviews; it records no phone, physical-print, professional or AHJ acceptance.
 
 ## Revision to review
