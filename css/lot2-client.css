@@ -346,3 +346,6 @@ figure.draw figcaption strong{color:var(--navy)}
   .d4-report .nav{flex-wrap:wrap;overflow:visible;padding-bottom:0}
   .d4-report .nav a{flex:0 0 auto}
 }
+
+/* D4 owner acknowledgement is separate from drawing approval. */
+.d4-acceptance-tag{font:12px/1.5 system-ui,sans-serif;color:#795020;margin:8px 0 12px;max-width:100%;overflow-wrap:anywhere}.d4-acceptance-tag summary{cursor:pointer;min-height:44px;width:fit-content;max-width:100%;box-sizing:border-box;border:1px solid #b98843;border-radius:16px;padding:10px 11px;background:#fff4dd;color:#654215}.d4-acceptance-tag summary:focus-visible{outline:2px solid currentColor;outline-offset:3px}.d4-acceptance-tag p{font:inherit;max-width:75ch;margin:8px 0}@media print{.d4-acceptance-tag{color:#49331a}.d4-acceptance-tag summary{border-color:currentColor}}
