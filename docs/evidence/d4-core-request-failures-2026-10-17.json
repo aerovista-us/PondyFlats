@@ -1,0 +1,305 @@
+{
+  "observedAt": "2026-10-17T06:40:34.380929+00:00",
+  "review": {
+    "pullRequest": 62,
+    "fixesThread": "PRRT_kwDOT9-I4s6tb_9w"
+  },
+  "driverCommit": "b946f33ebad9d5051517709474d17396e21f7d25",
+  "expectedPublicSha": "59561a64d3b08d48333fa298694d9a1c1460bd96",
+  "baseUrl": "https://aerovista-us.github.io/PondyFlats/",
+  "scope": "Failed document, stylesheet or script requests from any origin must reject a live case, even if no response body exists.",
+  "approvalBoundary": "Roof publication, construction and professional/AHJ acceptance remain disabled; actual phone and physical print evidence remain external.",
+  "positive": {
+    "rawReportPath": "/tmp/d4-failed-request-positive-20261017/report.json",
+    "rawReportSha256": "05a333a1963f55e004ba2d233ae36e23dff1f062699331bc7609ea16a0adc670",
+    "testDriverSha256": "3d1c73aa740897a869b0747cb720086fbf4e3ea98b9157380dd7e646ab581ea2",
+    "preflightStatus": "PASS",
+    "cases": 12,
+    "passed": 12,
+    "responseCount": 120,
+    "responseMismatches": 0,
+    "failedCoreRequests": 0,
+    "details": [
+      {
+        "name": "source-elev",
+        "width": 1440,
+        "fails": [],
+        "coreRequestFailures": [],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "source-elev",
+        "width": 768,
+        "fails": [],
+        "coreRequestFailures": [],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "source-elev",
+        "width": 390,
+        "fails": [],
+        "coreRequestFailures": [],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "source-axon",
+        "width": 1440,
+        "fails": [],
+        "coreRequestFailures": [],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "source-axon",
+        "width": 768,
+        "fails": [],
+        "coreRequestFailures": [],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "source-axon",
+        "width": 390,
+        "fails": [],
+        "coreRequestFailures": [],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "package-elev",
+        "width": 1440,
+        "fails": [],
+        "coreRequestFailures": [],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "package-elev",
+        "width": 768,
+        "fails": [],
+        "coreRequestFailures": [],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "package-elev",
+        "width": 390,
+        "fails": [],
+        "coreRequestFailures": [],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "package-axon",
+        "width": 1440,
+        "fails": [],
+        "coreRequestFailures": [],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "package-axon",
+        "width": 768,
+        "fails": [],
+        "coreRequestFailures": [],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "package-axon",
+        "width": 390,
+        "fails": [],
+        "coreRequestFailures": [],
+        "premiumStylesheetLoaded": true
+      }
+    ],
+    "description": "Unmodified release driver on the actual public source and standalone pages."
+  },
+  "negative": {
+    "rawReportPath": "/tmp/d4-failed-request-negative-20261017/report.json",
+    "rawReportSha256": "a717507a1efa6910aad17ee9ec3a416e264969353a27e8a489ddc6a6e8a13c0d",
+    "testDriverSha256": "102d5e891d0051fceab1f346800aeae5738bc9d1b6af1148a8f08e72feace8cd",
+    "preflightStatus": "PASS",
+    "cases": 12,
+    "passed": 0,
+    "responseCount": 108,
+    "responseMismatches": 0,
+    "failedCoreRequests": 12,
+    "details": [
+      {
+        "name": "source-elev",
+        "width": 1440,
+        "fails": [
+          "core document/style/script request failed"
+        ],
+        "coreRequestFailures": [
+          {
+            "url": "https://aerovista-us.github.io/PondyFlats/css/lot2-client.css",
+            "type": "stylesheet",
+            "error": "net::ERR_FAILED"
+          }
+        ],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "source-elev",
+        "width": 768,
+        "fails": [
+          "core document/style/script request failed"
+        ],
+        "coreRequestFailures": [
+          {
+            "url": "https://aerovista-us.github.io/PondyFlats/css/lot2-client.css",
+            "type": "stylesheet",
+            "error": "net::ERR_FAILED"
+          }
+        ],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "source-elev",
+        "width": 390,
+        "fails": [
+          "core document/style/script request failed"
+        ],
+        "coreRequestFailures": [
+          {
+            "url": "https://aerovista-us.github.io/PondyFlats/css/lot2-client.css",
+            "type": "stylesheet",
+            "error": "net::ERR_FAILED"
+          }
+        ],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "source-axon",
+        "width": 1440,
+        "fails": [
+          "core document/style/script request failed"
+        ],
+        "coreRequestFailures": [
+          {
+            "url": "https://aerovista-us.github.io/PondyFlats/css/lot2-client.css",
+            "type": "stylesheet",
+            "error": "net::ERR_FAILED"
+          }
+        ],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "source-axon",
+        "width": 768,
+        "fails": [
+          "core document/style/script request failed"
+        ],
+        "coreRequestFailures": [
+          {
+            "url": "https://aerovista-us.github.io/PondyFlats/css/lot2-client.css",
+            "type": "stylesheet",
+            "error": "net::ERR_FAILED"
+          }
+        ],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "source-axon",
+        "width": 390,
+        "fails": [
+          "core document/style/script request failed"
+        ],
+        "coreRequestFailures": [
+          {
+            "url": "https://aerovista-us.github.io/PondyFlats/css/lot2-client.css",
+            "type": "stylesheet",
+            "error": "net::ERR_FAILED"
+          }
+        ],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "package-elev",
+        "width": 1440,
+        "fails": [
+          "core document/style/script request failed"
+        ],
+        "coreRequestFailures": [
+          {
+            "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/css/lot2-client.css",
+            "type": "stylesheet",
+            "error": "net::ERR_FAILED"
+          }
+        ],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "package-elev",
+        "width": 768,
+        "fails": [
+          "core document/style/script request failed"
+        ],
+        "coreRequestFailures": [
+          {
+            "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/css/lot2-client.css",
+            "type": "stylesheet",
+            "error": "net::ERR_FAILED"
+          }
+        ],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "package-elev",
+        "width": 390,
+        "fails": [
+          "core document/style/script request failed"
+        ],
+        "coreRequestFailures": [
+          {
+            "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/css/lot2-client.css",
+            "type": "stylesheet",
+            "error": "net::ERR_FAILED"
+          }
+        ],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "package-axon",
+        "width": 1440,
+        "fails": [
+          "core document/style/script request failed"
+        ],
+        "coreRequestFailures": [
+          {
+            "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/css/lot2-client.css",
+            "type": "stylesheet",
+            "error": "net::ERR_FAILED"
+          }
+        ],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "package-axon",
+        "width": 768,
+        "fails": [
+          "core document/style/script request failed"
+        ],
+        "coreRequestFailures": [
+          {
+            "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/css/lot2-client.css",
+            "type": "stylesheet",
+            "error": "net::ERR_FAILED"
+          }
+        ],
+        "premiumStylesheetLoaded": true
+      },
+      {
+        "name": "package-axon",
+        "width": 390,
+        "fails": [
+          "core document/style/script request failed"
+        ],
+        "coreRequestFailures": [
+          {
+            "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/css/lot2-client.css",
+            "type": "stylesheet",
+            "error": "net::ERR_FAILED"
+          }
+        ],
+        "premiumStylesheetLoaded": true
+      }
+    ],
+    "description": "Only the disposable driver is modified: request interception aborts css/lot2-client.css. Preflight, primary stylesheet, remaining byte comparisons and roof DOM checks still pass; the failed-request guard must reject every case. No public asset changes."
+  }
+}
+

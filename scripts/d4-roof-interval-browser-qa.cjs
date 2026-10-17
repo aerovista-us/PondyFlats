@@ -35,9 +35,12 @@ const scenarios=[
  try{
   for(const [name,file,kind] of scenarios)for(const width of [1440,768,390]){
    const page=await browser.newPage(),errors=[];
-   const responseChecks=[];
+   const responseChecks=[],coreRequestFailures=[];
    if(liveBase){
     await page.setCacheEnabled(false);
+    page.on('requestfailed',request=>{
+     if(['document','stylesheet','script'].includes(request.resourceType()))coreRequestFailures.push({url:request.url(),type:request.resourceType(),error:request.failure()?.errorText||'unknown request failure'});
+    });
     page.on('response',response=>{
      if(!['document','stylesheet','script'].includes(response.request().resourceType()))return;
      const url=new URL(response.url()),base=new URL(liveBase);
@@ -82,6 +85,7 @@ const scenarios=[
     if(page.url()!==expectedUrl)fails.push('unexpected live document URL');
     if(!loadedResponses.some(r=>r.path===file)||!loadedResponses.some(r=>r.path.endsWith('.css'))||!loadedResponses.some(r=>r.path.endsWith('.js')))fails.push('loaded document/style/script evidence missing');
     if(loadedResponses.some(r=>!r.byteMatch))fails.push('browser-loaded resource bytes differ from expected revision');
+    if(coreRequestFailures.length)fails.push('core document/style/script request failed');
    }
    if(data.ownerGroups!==(kind==='elevation'?16:8))fails.push('not all four owner projectors');
    if(data.faceOutlineCount)fails.push('unverified mesh face outline drawn');
@@ -92,7 +96,7 @@ const scenarios=[
    if(!data.premiumStylesheetLoaded)fails.push('Customer presentation stylesheet missing from package');
    if(data.mobileOverflow||!data.navScrollable)fails.push('document/navigation overflows viewport');
    if(errors.length)fails.push('browser page errors');
-   cases.push({name,width,kind,url:page.url(),loadedResponses,...data,errors,fails});
+   cases.push({name,width,kind,url:page.url(),loadedResponses,coreRequestFailures,...data,errors,fails});
    await page.close();
   }
  }finally{await browser.close();}
