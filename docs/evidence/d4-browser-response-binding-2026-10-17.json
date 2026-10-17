@@ -1,0 +1,539 @@
+{
+  "observedAt": "2026-10-17T02:37:07.142081+00:00",
+  "review": {
+    "pullRequest": 61,
+    "fixesThread": "PRRT_kwDOT9-I4s6tb88D"
+  },
+  "driverCommit": "ddf733fa9641253495c74d2a0ffc1cb43fbb5d39",
+  "expectedPublicSha": "ca8bead9df781dcac5932b5a049efc5d3d5a0e93",
+  "baseUrl": "https://aerovista-us.github.io/PondyFlats/",
+  "method": "Audit ordinary URLs, disable browser cache, bind actual same-origin document/stylesheet/script response bodies to expected Git blobs.",
+  "approvalBoundary": "CONDITIONAL CONCEPT; roof publication, construction, professional and AHJ approval remain disabled. Actual phone and physical print are external inputs.",
+  "positive": {
+    "rawReportPath": "/tmp/d4-browser-bound-positive-20261017/report.json",
+    "rawReportSha256": "f9333421abd836f8bb3a69e9b204b74d4d031a728eaf93a2cdc1b0324139d038",
+    "testDriverSha256": "9a2909b70e96db701b151b68547ae310bdee0c10f3e5a470f08fa4a3c798b8b8",
+    "preflightStatus": "PASS",
+    "cases": 12,
+    "passed": 12,
+    "responseCount": 120,
+    "mismatchCount": 0,
+    "details": [
+      {
+        "name": "source-elev",
+        "width": 1440,
+        "fails": []
+      },
+      {
+        "name": "source-elev",
+        "width": 768,
+        "fails": []
+      },
+      {
+        "name": "source-elev",
+        "width": 390,
+        "fails": []
+      },
+      {
+        "name": "source-axon",
+        "width": 1440,
+        "fails": []
+      },
+      {
+        "name": "source-axon",
+        "width": 768,
+        "fails": []
+      },
+      {
+        "name": "source-axon",
+        "width": 390,
+        "fails": []
+      },
+      {
+        "name": "package-elev",
+        "width": 1440,
+        "fails": []
+      },
+      {
+        "name": "package-elev",
+        "width": 768,
+        "fails": []
+      },
+      {
+        "name": "package-elev",
+        "width": 390,
+        "fails": []
+      },
+      {
+        "name": "package-axon",
+        "width": 1440,
+        "fails": []
+      },
+      {
+        "name": "package-axon",
+        "width": 768,
+        "fails": []
+      },
+      {
+        "name": "package-axon",
+        "width": 390,
+        "fails": []
+      }
+    ],
+    "resources": [
+      {
+        "path": "d4-elevs.html",
+        "url": "https://aerovista-us.github.io/PondyFlats/d4-elevs.html",
+        "httpStatus": 200,
+        "expectedSha256": "9d816341ef3e5fc61050c720de686e8ca83cf548b55fba43c84cee369031beea",
+        "loadedSha256": "9d816341ef3e5fc61050c720de686e8ca83cf548b55fba43c84cee369031beea",
+        "byteMatch": true
+      },
+      {
+        "path": "js/lot2-design-4-architecture.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/js/lot2-design-4-architecture.js",
+        "httpStatus": 200,
+        "expectedSha256": "81334fbe155b7fbc0cfc32f177296c21b46a05a91c8e6013411475df990d5449",
+        "loadedSha256": "81334fbe155b7fbc0cfc32f177296c21b46a05a91c8e6013411475df990d5449",
+        "byteMatch": true
+      },
+      {
+        "path": "js/lot2-design-4-roof-interval-adapter.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/js/lot2-design-4-roof-interval-adapter.js",
+        "httpStatus": 200,
+        "expectedSha256": "91f802e80fe9598d04e303e7ae1a8ae5a8b000fe61b8f09956423de929ec7cb1",
+        "loadedSha256": "91f802e80fe9598d04e303e7ae1a8ae5a8b000fe61b8f09956423de929ec7cb1",
+        "byteMatch": true
+      },
+      {
+        "path": "js/lot2-design-4-roof-edge-renderer.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/js/lot2-design-4-roof-edge-renderer.js",
+        "httpStatus": 200,
+        "expectedSha256": "ddc8a470460305328ac68d81b214b320cf9c0d04b0fb92bbda0190b2074677be",
+        "loadedSha256": "ddc8a470460305328ac68d81b214b320cf9c0d04b0fb92bbda0190b2074677be",
+        "byteMatch": true
+      },
+      {
+        "path": "js/lot2-design-4-roof-sot.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/js/lot2-design-4-roof-sot.js",
+        "httpStatus": 200,
+        "expectedSha256": "d4657b10abaa085d429325202495acf29db2f23588085598047b1ba4176bab85",
+        "loadedSha256": "d4657b10abaa085d429325202495acf29db2f23588085598047b1ba4176bab85",
+        "byteMatch": true
+      },
+      {
+        "path": "js/lot2-design-4-roof-intervals.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/js/lot2-design-4-roof-intervals.js",
+        "httpStatus": 200,
+        "expectedSha256": "2d18b55d15e981816089874ff96b94d2381cd6a910526147d6bf78a829ad02e0",
+        "loadedSha256": "2d18b55d15e981816089874ff96b94d2381cd6a910526147d6bf78a829ad02e0",
+        "byteMatch": true
+      },
+      {
+        "path": "js/lot2-design-4.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/js/lot2-design-4.js",
+        "httpStatus": 200,
+        "expectedSha256": "8b76ac23b637d1244dc3ef493e9e2f84ec5716fdcebdab650dcb981671aa9f42",
+        "loadedSha256": "8b76ac23b637d1244dc3ef493e9e2f84ec5716fdcebdab650dcb981671aa9f42",
+        "byteMatch": true
+      },
+      {
+        "path": "css/lot2-client.css",
+        "url": "https://aerovista-us.github.io/PondyFlats/css/lot2-client.css",
+        "httpStatus": 200,
+        "expectedSha256": "4833c6cf50f1c8ca719c1d3c9aad7c486f706b08a0b99d083665b13aa2908f01",
+        "loadedSha256": "4833c6cf50f1c8ca719c1d3c9aad7c486f706b08a0b99d083665b13aa2908f01",
+        "byteMatch": true
+      },
+      {
+        "path": "css/pondy-premium.css",
+        "url": "https://aerovista-us.github.io/PondyFlats/css/pondy-premium.css",
+        "httpStatus": 200,
+        "expectedSha256": "38f5c5b229df3d4e948d034117b9b49b083047a2e1d8e6d18bf91671df1386ff",
+        "loadedSha256": "38f5c5b229df3d4e948d034117b9b49b083047a2e1d8e6d18bf91671df1386ff",
+        "byteMatch": true
+      },
+      {
+        "path": "js/lot2-design-4-plan-closure.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/js/lot2-design-4-plan-closure.js",
+        "httpStatus": 200,
+        "expectedSha256": "9d86afd65a0c77270b32536567f7a08a53c81dce0684bc5018885ab9e2515828",
+        "loadedSha256": "9d86afd65a0c77270b32536567f7a08a53c81dce0684bc5018885ab9e2515828",
+        "byteMatch": true
+      },
+      {
+        "path": "d4-axon.html",
+        "url": "https://aerovista-us.github.io/PondyFlats/d4-axon.html",
+        "httpStatus": 200,
+        "expectedSha256": "7b223391a13eb35693afc0994d0065c12c289da46c0b08edb17c59d12eab850f",
+        "loadedSha256": "7b223391a13eb35693afc0994d0065c12c289da46c0b08edb17c59d12eab850f",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/elevs.html",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/elevs.html",
+        "httpStatus": 200,
+        "expectedSha256": "8a47434fbf03036434db155286056bf1b080e76ced053c2fea99a2bdb6119e3e",
+        "loadedSha256": "8a47434fbf03036434db155286056bf1b080e76ced053c2fea99a2bdb6119e3e",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/js/lot2-design-4-roof-sot.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/js/lot2-design-4-roof-sot.js",
+        "httpStatus": 200,
+        "expectedSha256": "d4657b10abaa085d429325202495acf29db2f23588085598047b1ba4176bab85",
+        "loadedSha256": "d4657b10abaa085d429325202495acf29db2f23588085598047b1ba4176bab85",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/js/lot2-design-4.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/js/lot2-design-4.js",
+        "httpStatus": 200,
+        "expectedSha256": "8b76ac23b637d1244dc3ef493e9e2f84ec5716fdcebdab650dcb981671aa9f42",
+        "loadedSha256": "8b76ac23b637d1244dc3ef493e9e2f84ec5716fdcebdab650dcb981671aa9f42",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/js/lot2-design-4-roof-edge-renderer.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/js/lot2-design-4-roof-edge-renderer.js",
+        "httpStatus": 200,
+        "expectedSha256": "ddc8a470460305328ac68d81b214b320cf9c0d04b0fb92bbda0190b2074677be",
+        "loadedSha256": "ddc8a470460305328ac68d81b214b320cf9c0d04b0fb92bbda0190b2074677be",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/js/lot2-design-4-roof-interval-adapter.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/js/lot2-design-4-roof-interval-adapter.js",
+        "httpStatus": 200,
+        "expectedSha256": "91f802e80fe9598d04e303e7ae1a8ae5a8b000fe61b8f09956423de929ec7cb1",
+        "loadedSha256": "91f802e80fe9598d04e303e7ae1a8ae5a8b000fe61b8f09956423de929ec7cb1",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/js/lot2-design-4-roof-intervals.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/js/lot2-design-4-roof-intervals.js",
+        "httpStatus": 200,
+        "expectedSha256": "2d18b55d15e981816089874ff96b94d2381cd6a910526147d6bf78a829ad02e0",
+        "loadedSha256": "2d18b55d15e981816089874ff96b94d2381cd6a910526147d6bf78a829ad02e0",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/js/lot2-design-4-architecture.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/js/lot2-design-4-architecture.js",
+        "httpStatus": 200,
+        "expectedSha256": "81334fbe155b7fbc0cfc32f177296c21b46a05a91c8e6013411475df990d5449",
+        "loadedSha256": "81334fbe155b7fbc0cfc32f177296c21b46a05a91c8e6013411475df990d5449",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/css/lot2-client.css",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/css/lot2-client.css",
+        "httpStatus": 200,
+        "expectedSha256": "4833c6cf50f1c8ca719c1d3c9aad7c486f706b08a0b99d083665b13aa2908f01",
+        "loadedSha256": "4833c6cf50f1c8ca719c1d3c9aad7c486f706b08a0b99d083665b13aa2908f01",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/js/lot2-design-4-plan-closure.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/js/lot2-design-4-plan-closure.js",
+        "httpStatus": 200,
+        "expectedSha256": "9d86afd65a0c77270b32536567f7a08a53c81dce0684bc5018885ab9e2515828",
+        "loadedSha256": "9d86afd65a0c77270b32536567f7a08a53c81dce0684bc5018885ab9e2515828",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/css/pondy-premium.css",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/css/pondy-premium.css",
+        "httpStatus": 200,
+        "expectedSha256": "38f5c5b229df3d4e948d034117b9b49b083047a2e1d8e6d18bf91671df1386ff",
+        "loadedSha256": "38f5c5b229df3d4e948d034117b9b49b083047a2e1d8e6d18bf91671df1386ff",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/axon.html",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/axon.html",
+        "httpStatus": 200,
+        "expectedSha256": "29b46ff1f4be3fad02d83ad50e76286ea091b518262f1023cc4eafb49d7fb8c9",
+        "loadedSha256": "29b46ff1f4be3fad02d83ad50e76286ea091b518262f1023cc4eafb49d7fb8c9",
+        "byteMatch": true
+      }
+    ],
+    "description": "Unmodified release driver on real public source and standalone elevation/axon pages."
+  },
+  "negative": {
+    "rawReportPath": "/tmp/d4-browser-bound-negative-20261017/report.json",
+    "rawReportSha256": "217a4c52c555ad02f11e5428a5a04be31793733594bb7de406de10ef96236714",
+    "testDriverSha256": "c711c305d1e6c7b496f4eeee2430dc98337335b5012610c489ebc22713bfd6fb",
+    "preflightStatus": "PASS",
+    "cases": 12,
+    "passed": 0,
+    "responseCount": 120,
+    "mismatchCount": 12,
+    "details": [
+      {
+        "name": "source-elev",
+        "width": 1440,
+        "fails": [
+          "browser-loaded resource bytes differ from expected revision"
+        ]
+      },
+      {
+        "name": "source-elev",
+        "width": 768,
+        "fails": [
+          "browser-loaded resource bytes differ from expected revision"
+        ]
+      },
+      {
+        "name": "source-elev",
+        "width": 390,
+        "fails": [
+          "browser-loaded resource bytes differ from expected revision"
+        ]
+      },
+      {
+        "name": "source-axon",
+        "width": 1440,
+        "fails": [
+          "browser-loaded resource bytes differ from expected revision"
+        ]
+      },
+      {
+        "name": "source-axon",
+        "width": 768,
+        "fails": [
+          "browser-loaded resource bytes differ from expected revision"
+        ]
+      },
+      {
+        "name": "source-axon",
+        "width": 390,
+        "fails": [
+          "browser-loaded resource bytes differ from expected revision"
+        ]
+      },
+      {
+        "name": "package-elev",
+        "width": 1440,
+        "fails": [
+          "browser-loaded resource bytes differ from expected revision"
+        ]
+      },
+      {
+        "name": "package-elev",
+        "width": 768,
+        "fails": [
+          "browser-loaded resource bytes differ from expected revision"
+        ]
+      },
+      {
+        "name": "package-elev",
+        "width": 390,
+        "fails": [
+          "browser-loaded resource bytes differ from expected revision"
+        ]
+      },
+      {
+        "name": "package-axon",
+        "width": 1440,
+        "fails": [
+          "browser-loaded resource bytes differ from expected revision"
+        ]
+      },
+      {
+        "name": "package-axon",
+        "width": 768,
+        "fails": [
+          "browser-loaded resource bytes differ from expected revision"
+        ]
+      },
+      {
+        "name": "package-axon",
+        "width": 390,
+        "fails": [
+          "browser-loaded resource bytes differ from expected revision"
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "path": "d4-elevs.html",
+        "url": "https://aerovista-us.github.io/PondyFlats/d4-elevs.html",
+        "httpStatus": 200,
+        "expectedSha256": "9d816341ef3e5fc61050c720de686e8ca83cf548b55fba43c84cee369031beea",
+        "loadedSha256": "9d816341ef3e5fc61050c720de686e8ca83cf548b55fba43c84cee369031beea",
+        "byteMatch": true
+      },
+      {
+        "path": "css/pondy-premium.css",
+        "url": "https://aerovista-us.github.io/PondyFlats/css/pondy-premium.css",
+        "httpStatus": 200,
+        "expectedSha256": "38f5c5b229df3d4e948d034117b9b49b083047a2e1d8e6d18bf91671df1386ff",
+        "loadedSha256": "3bd84074d51c6c05b176bdc0921d137ed262fc21bb0c97e77bfd313d747f2c6c",
+        "byteMatch": false
+      },
+      {
+        "path": "css/lot2-client.css",
+        "url": "https://aerovista-us.github.io/PondyFlats/css/lot2-client.css",
+        "httpStatus": 200,
+        "expectedSha256": "4833c6cf50f1c8ca719c1d3c9aad7c486f706b08a0b99d083665b13aa2908f01",
+        "loadedSha256": "4833c6cf50f1c8ca719c1d3c9aad7c486f706b08a0b99d083665b13aa2908f01",
+        "byteMatch": true
+      },
+      {
+        "path": "js/lot2-design-4.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/js/lot2-design-4.js",
+        "httpStatus": 200,
+        "expectedSha256": "8b76ac23b637d1244dc3ef493e9e2f84ec5716fdcebdab650dcb981671aa9f42",
+        "loadedSha256": "8b76ac23b637d1244dc3ef493e9e2f84ec5716fdcebdab650dcb981671aa9f42",
+        "byteMatch": true
+      },
+      {
+        "path": "js/lot2-design-4-roof-sot.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/js/lot2-design-4-roof-sot.js",
+        "httpStatus": 200,
+        "expectedSha256": "d4657b10abaa085d429325202495acf29db2f23588085598047b1ba4176bab85",
+        "loadedSha256": "d4657b10abaa085d429325202495acf29db2f23588085598047b1ba4176bab85",
+        "byteMatch": true
+      },
+      {
+        "path": "js/lot2-design-4-plan-closure.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/js/lot2-design-4-plan-closure.js",
+        "httpStatus": 200,
+        "expectedSha256": "9d86afd65a0c77270b32536567f7a08a53c81dce0684bc5018885ab9e2515828",
+        "loadedSha256": "9d86afd65a0c77270b32536567f7a08a53c81dce0684bc5018885ab9e2515828",
+        "byteMatch": true
+      },
+      {
+        "path": "js/lot2-design-4-roof-interval-adapter.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/js/lot2-design-4-roof-interval-adapter.js",
+        "httpStatus": 200,
+        "expectedSha256": "91f802e80fe9598d04e303e7ae1a8ae5a8b000fe61b8f09956423de929ec7cb1",
+        "loadedSha256": "91f802e80fe9598d04e303e7ae1a8ae5a8b000fe61b8f09956423de929ec7cb1",
+        "byteMatch": true
+      },
+      {
+        "path": "js/lot2-design-4-architecture.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/js/lot2-design-4-architecture.js",
+        "httpStatus": 200,
+        "expectedSha256": "81334fbe155b7fbc0cfc32f177296c21b46a05a91c8e6013411475df990d5449",
+        "loadedSha256": "81334fbe155b7fbc0cfc32f177296c21b46a05a91c8e6013411475df990d5449",
+        "byteMatch": true
+      },
+      {
+        "path": "js/lot2-design-4-roof-edge-renderer.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/js/lot2-design-4-roof-edge-renderer.js",
+        "httpStatus": 200,
+        "expectedSha256": "ddc8a470460305328ac68d81b214b320cf9c0d04b0fb92bbda0190b2074677be",
+        "loadedSha256": "ddc8a470460305328ac68d81b214b320cf9c0d04b0fb92bbda0190b2074677be",
+        "byteMatch": true
+      },
+      {
+        "path": "js/lot2-design-4-roof-intervals.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/js/lot2-design-4-roof-intervals.js",
+        "httpStatus": 200,
+        "expectedSha256": "2d18b55d15e981816089874ff96b94d2381cd6a910526147d6bf78a829ad02e0",
+        "loadedSha256": "2d18b55d15e981816089874ff96b94d2381cd6a910526147d6bf78a829ad02e0",
+        "byteMatch": true
+      },
+      {
+        "path": "d4-axon.html",
+        "url": "https://aerovista-us.github.io/PondyFlats/d4-axon.html",
+        "httpStatus": 200,
+        "expectedSha256": "7b223391a13eb35693afc0994d0065c12c289da46c0b08edb17c59d12eab850f",
+        "loadedSha256": "7b223391a13eb35693afc0994d0065c12c289da46c0b08edb17c59d12eab850f",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/elevs.html",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/elevs.html",
+        "httpStatus": 200,
+        "expectedSha256": "8a47434fbf03036434db155286056bf1b080e76ced053c2fea99a2bdb6119e3e",
+        "loadedSha256": "8a47434fbf03036434db155286056bf1b080e76ced053c2fea99a2bdb6119e3e",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/css/pondy-premium.css",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/css/pondy-premium.css",
+        "httpStatus": 200,
+        "expectedSha256": "38f5c5b229df3d4e948d034117b9b49b083047a2e1d8e6d18bf91671df1386ff",
+        "loadedSha256": "3bd84074d51c6c05b176bdc0921d137ed262fc21bb0c97e77bfd313d747f2c6c",
+        "byteMatch": false
+      },
+      {
+        "path": "packages/design-4-client/js/lot2-design-4.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/js/lot2-design-4.js",
+        "httpStatus": 200,
+        "expectedSha256": "8b76ac23b637d1244dc3ef493e9e2f84ec5716fdcebdab650dcb981671aa9f42",
+        "loadedSha256": "8b76ac23b637d1244dc3ef493e9e2f84ec5716fdcebdab650dcb981671aa9f42",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/css/lot2-client.css",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/css/lot2-client.css",
+        "httpStatus": 200,
+        "expectedSha256": "4833c6cf50f1c8ca719c1d3c9aad7c486f706b08a0b99d083665b13aa2908f01",
+        "loadedSha256": "4833c6cf50f1c8ca719c1d3c9aad7c486f706b08a0b99d083665b13aa2908f01",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/js/lot2-design-4-roof-edge-renderer.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/js/lot2-design-4-roof-edge-renderer.js",
+        "httpStatus": 200,
+        "expectedSha256": "ddc8a470460305328ac68d81b214b320cf9c0d04b0fb92bbda0190b2074677be",
+        "loadedSha256": "ddc8a470460305328ac68d81b214b320cf9c0d04b0fb92bbda0190b2074677be",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/js/lot2-design-4-architecture.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/js/lot2-design-4-architecture.js",
+        "httpStatus": 200,
+        "expectedSha256": "81334fbe155b7fbc0cfc32f177296c21b46a05a91c8e6013411475df990d5449",
+        "loadedSha256": "81334fbe155b7fbc0cfc32f177296c21b46a05a91c8e6013411475df990d5449",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/js/lot2-design-4-roof-intervals.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/js/lot2-design-4-roof-intervals.js",
+        "httpStatus": 200,
+        "expectedSha256": "2d18b55d15e981816089874ff96b94d2381cd6a910526147d6bf78a829ad02e0",
+        "loadedSha256": "2d18b55d15e981816089874ff96b94d2381cd6a910526147d6bf78a829ad02e0",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/js/lot2-design-4-roof-sot.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/js/lot2-design-4-roof-sot.js",
+        "httpStatus": 200,
+        "expectedSha256": "d4657b10abaa085d429325202495acf29db2f23588085598047b1ba4176bab85",
+        "loadedSha256": "d4657b10abaa085d429325202495acf29db2f23588085598047b1ba4176bab85",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/js/lot2-design-4-plan-closure.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/js/lot2-design-4-plan-closure.js",
+        "httpStatus": 200,
+        "expectedSha256": "9d86afd65a0c77270b32536567f7a08a53c81dce0684bc5018885ab9e2515828",
+        "loadedSha256": "9d86afd65a0c77270b32536567f7a08a53c81dce0684bc5018885ab9e2515828",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/js/lot2-design-4-roof-interval-adapter.js",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/js/lot2-design-4-roof-interval-adapter.js",
+        "httpStatus": 200,
+        "expectedSha256": "91f802e80fe9598d04e303e7ae1a8ae5a8b000fe61b8f09956423de929ec7cb1",
+        "loadedSha256": "91f802e80fe9598d04e303e7ae1a8ae5a8b000fe61b8f09956423de929ec7cb1",
+        "byteMatch": true
+      },
+      {
+        "path": "packages/design-4-client/axon.html",
+        "url": "https://aerovista-us.github.io/PondyFlats/packages/design-4-client/axon.html",
+        "httpStatus": 200,
+        "expectedSha256": "29b46ff1f4be3fad02d83ad50e76286ea091b518262f1023cc4eafb49d7fb8c9",
+        "loadedSha256": "29b46ff1f4be3fad02d83ad50e76286ea091b518262f1023cc4eafb49d7fb8c9",
+        "byteMatch": true
+      }
+    ],
+    "description": "Disposable worktree driver intercepts only Chrome CSS requests, adding a harmless comment; ordinary-URL preflight still passes. Every case must reject the altered browser response. No live asset or application file changed."
+  }
+}
+

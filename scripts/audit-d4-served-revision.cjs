@@ -19,7 +19,7 @@ const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
  for(let i=0;i<paths.length;i+=5){
   const batch=await Promise.all(paths.slice(i,i+5).map(async file=>{
    const expected=execFileSync('git',['show',sha+':'+file],{cwd:root});
-   const url=new URL(file,base);url.searchParams.set('revision-audit',sha);
+   const url=new URL(file,base);// Audit the same ordinary resource URL used by the renderer; do not mask stale cache keys with a query variant.
    const response=await fetch(url,{headers:{'Cache-Control':'no-cache'},signal:AbortSignal.timeout(30000)});
    const actual=Buffer.from(await response.arrayBuffer());
    return {path:file,httpStatus:response.status,expectedSha256:hash(expected),servedSha256:hash(actual),

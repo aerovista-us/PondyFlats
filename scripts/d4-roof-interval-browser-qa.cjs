@@ -35,9 +35,27 @@ const scenarios=[
  try{
   for(const [name,file,kind] of scenarios)for(const width of [1440,768,390]){
    const page=await browser.newPage(),errors=[];
+   const responseChecks=[];
+   if(liveBase){
+    await page.setCacheEnabled(false);
+    page.on('response',response=>{
+     if(!['document','stylesheet','script'].includes(response.request().resourceType()))return;
+     const url=new URL(response.url()),base=new URL(liveBase);
+     if(url.origin!==base.origin||!url.pathname.startsWith(base.pathname)||response.status()>=300&&response.status()<400)return;
+     responseChecks.push((async()=>{
+      const file=decodeURIComponent(url.pathname.slice(base.pathname.length))||'index.html';
+      const hash=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
+      try{
+       const expected=execFileSync('git',['show',process.env.D4_PUBLIC_EXPECTED_SHA+':'+file],{cwd:root,stdio:['ignore','pipe','pipe']});
+       const actual=await response.buffer();
+       return {path:file,url:response.url(),httpStatus:response.status(),expectedSha256:hash(expected),loadedSha256:hash(actual),byteMatch:response.ok()&&expected.equals(actual)};
+      }catch(error){return {path:file,url:response.url(),httpStatus:response.status(),byteMatch:false,error:String(error)};}
+     })());
+    });
+   }
    page.on('pageerror',e=>errors.push(String(e)));
    await page.setViewport({width,height:940,deviceScaleFactor:1,isMobile:width<1000,hasTouch:width<1000});
-   await page.goto(liveBase?new URL(file,liveBase).href:'file://'+path.join(root,file),{waitUntil:'load'});
+   await page.goto(liveBase?new URL(file,liveBase).href:'file://'+path.join(root,file),{waitUntil:liveBase?'networkidle0':'load'});
    const data=await page.evaluate(kind=>{
     const ownerGroups=[...document.querySelectorAll('g[data-roof-projector="LOCKED_VERIFIED_EDGE_INTERVALS"]')];
     const intervalLines=[...document.querySelectorAll('line[data-roof-interval]')];
@@ -57,7 +75,14 @@ const scenarios=[
      svgCount:document.querySelectorAll('svg').length};
    },kind);
    await page.screenshot({path:path.join(output,name+'-'+width+'.png'),fullPage:true});
+   const loadedResponses=await Promise.all(responseChecks);
    const fails=[];
+   if(liveBase){
+    const expectedUrl=new URL(file,liveBase).href;
+    if(page.url()!==expectedUrl)fails.push('unexpected live document URL');
+    if(!loadedResponses.some(r=>r.path===file)||!loadedResponses.some(r=>r.path.endsWith('.css'))||!loadedResponses.some(r=>r.path.endsWith('.js')))fails.push('loaded document/style/script evidence missing');
+    if(loadedResponses.some(r=>!r.byteMatch))fails.push('browser-loaded resource bytes differ from expected revision');
+   }
    if(data.ownerGroups!==(kind==='elevation'?16:8))fails.push('not all four owner projectors');
    if(data.faceOutlineCount)fails.push('unverified mesh face outline drawn');
    if(!data.visible||!data.hidden)fails.push('missing analytic edge types');
@@ -67,11 +92,11 @@ const scenarios=[
    if(!data.premiumStylesheetLoaded)fails.push('Customer presentation stylesheet missing from package');
    if(data.mobileOverflow||!data.navScrollable)fails.push('document/navigation overflows viewport');
    if(errors.length)fails.push('browser page errors');
-   cases.push({name,width,kind,url:page.url(),...data,errors,fails});
+   cases.push({name,width,kind,url:page.url(),loadedResponses,...data,errors,fails});
    await page.close();
   }
  }finally{await browser.close();}
- const report={sha:process.env.GITHUB_SHA||null,baseUrl:liveBase||null,expectedPublicSha:process.env.D4_PUBLIC_EXPECTED_SHA||null,publicRevisionAudit,testDriverSha256:crypto.createHash('sha256').update(fs.readFileSync(__filename)).digest('hex'),sourceAndStandaloneReleaseContractsClosed:true,cases:cases.length,passed:cases.filter(c=>!c.fails.length).length,details:cases};
+ const report={sha:process.env.GITHUB_SHA||null,baseUrl:liveBase||null,expectedPublicSha:process.env.D4_PUBLIC_EXPECTED_SHA||null,publicRevisionAudit,loadedResourceScope:'same-origin document/stylesheet/script responses',testDriverSha256:crypto.createHash('sha256').update(fs.readFileSync(__filename)).digest('hex'),sourceAndStandaloneReleaseContractsClosed:true,cases:cases.length,passed:cases.filter(c=>!c.fails.length).length,details:cases};
  fs.writeFileSync(path.join(output,'report.json'),JSON.stringify(report,null,2));
  for(const c of cases)console.log(JSON.stringify({name:c.name,width:c.width,owners:c.ownerGroups,visible:c.visible,hidden:c.hidden,unresolved:c.unresolved,failed:c.fails}));
  if(cases.some(c=>c.fails.length))process.exitCode=1;
